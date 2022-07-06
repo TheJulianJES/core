@@ -189,6 +189,10 @@ class BaseLight(LogMixin, light.LightEntity):
         value = max(0, min(254, value))
         self._brightness = value
         if self._transitioning:
+            self.debug(
+                "received level %s while transitioning - skipping writing HA state",
+                value,
+            )
             return
         self.async_write_ha_state()
 
@@ -419,11 +423,11 @@ class BaseLight(LogMixin, light.LightEntity):
     @callback
     def async_transition_complete(self, _) -> None:
         """Set _transitioning to False and write HA state."""
+        self.debug("transition complete - future attribute reports will write HA state")
         self._transitioning = False
         if self._transition_listener:
             self._transition_listener()
             self._transition_listener = None
-        self.async_write_ha_state()
 
 
 @STRICT_MATCH(channel_names=CHANNEL_ON_OFF, aux_channels={CHANNEL_COLOR, CHANNEL_LEVEL})
@@ -507,6 +511,10 @@ class Light(BaseLight, ZhaEntity):
         if value:
             self._off_brightness = None
         if self._transitioning:
+            self.debug(
+                "received onoff %s while transitioning - skipping writing HA state",
+                value,
+            )
             return
         self.async_write_ha_state()
 
