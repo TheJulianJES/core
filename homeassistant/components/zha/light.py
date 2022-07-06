@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Callable
 from datetime import timedelta
 import functools
 import itertools
@@ -42,7 +43,7 @@ from homeassistant.helpers.dispatcher import (
     async_dispatcher_send,
 )
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.event import async_track_time_interval
+from homeassistant.helpers.event import async_call_later, async_track_time_interval
 import homeassistant.util.color as color_util
 
 from .core import discovery, helpers
@@ -142,6 +143,9 @@ class BaseLight(LogMixin, light.LightEntity):
         self._identify_channel = None
         self._default_transition = None
         self._attr_color_mode = ColorMode.UNKNOWN  # Set by sub classes
+        self._transitioning: bool = False
+        self._transition_listener: Callable[[], None] | None = None
+        self._zha_device: ZHADevice = None
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
@@ -184,6 +188,8 @@ class BaseLight(LogMixin, light.LightEntity):
         """
         value = max(0, min(254, value))
         self._brightness = value
+        if self._transitioning:
+            return
         self.async_write_ha_state()
 
     @property
@@ -221,6 +227,15 @@ class BaseLight(LogMixin, light.LightEntity):
             if self._default_transition
             else DEFAULT_TRANSITION
         )
+
+        if duration is not None and duration > 0:
+            self._transitioning = True
+            if self._transition_listener is not None:
+                self._transition_listener()
+            self._transition_listener = async_call_later(
+                self._zha_device.hass, (duration / 10), self.async_transition_complete
+            )
+
         brightness = kwargs.get(light.ATTR_BRIGHTNESS)
         effect = kwargs.get(light.ATTR_EFFECT)
         flash = kwargs.get(light.ATTR_FLASH)
@@ -372,6 +387,15 @@ class BaseLight(LogMixin, light.LightEntity):
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
         duration = kwargs.get(light.ATTR_TRANSITION)
+
+        if duration is not None and duration > 0:
+            self._transitioning = True
+            if self._transition_listener is not None:
+                self._transition_listener()
+            self._transition_listener = async_call_later(
+                self._zha_device.hass, duration, self.async_transition_complete
+            )
+
         supports_level = brightness_supported(self._attr_supported_color_modes)
 
         if duration and supports_level:
@@ -390,6 +414,15 @@ class BaseLight(LogMixin, light.LightEntity):
             self._off_with_transition = bool(duration)
             self._off_brightness = self._brightness
 
+        self.async_write_ha_state()
+
+    @callback
+    def async_transition_complete(self, _) -> None:
+        """Set _transitioning to False and write HA state."""
+        self._transitioning = False
+        if self._transition_listener:
+            self._transition_listener()
+            self._transition_listener = None
         self.async_write_ha_state()
 
 
@@ -473,6 +506,8 @@ class Light(BaseLight, ZhaEntity):
         self._state = bool(value)
         if value:
             self._off_brightness = None
+        if self._transitioning:
+            return
         self.async_write_ha_state()
 
     async def async_added_to_hass(self):
