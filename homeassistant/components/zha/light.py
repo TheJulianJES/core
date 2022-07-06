@@ -36,7 +36,7 @@ from homeassistant.const import (
     STATE_UNAVAILABLE,
     Platform,
 )
-from homeassistant.core import HomeAssistant, State, callback
+from homeassistant.core import Event, HomeAssistant, State, callback
 from homeassistant.helpers.debounce import Debouncer
 from homeassistant.helpers.dispatcher import (
     async_dispatcher_connect,
@@ -237,7 +237,9 @@ class BaseLight(LogMixin, light.LightEntity):
             if self._transition_listener is not None:
                 self._transition_listener()
             self._transition_listener = async_call_later(
-                self._zha_device.hass, (duration / 10), self.async_transition_complete
+                self._zha_device.hass,
+                (duration / 10) + 0.5,
+                self.async_transition_complete,
             )
 
         brightness = kwargs.get(light.ATTR_BRIGHTNESS)
@@ -390,22 +392,27 @@ class BaseLight(LogMixin, light.LightEntity):
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
-        duration = kwargs.get(light.ATTR_TRANSITION)
+        transition = kwargs.get(light.ATTR_TRANSITION)
+        duration = (
+            transition * 10
+            if transition
+            else self._default_transition * 10
+            if self._default_transition
+            else DEFAULT_TRANSITION
+        )
 
         if duration is not None and duration > 0:
             self._transitioning = True
             if self._transition_listener is not None:
                 self._transition_listener()
             self._transition_listener = async_call_later(
-                self._zha_device.hass, duration, self.async_transition_complete
+                self._zha_device.hass, duration + 0.5, self.async_transition_complete
             )
 
         supports_level = brightness_supported(self._attr_supported_color_modes)
 
         if duration and supports_level:
-            result = await self._level_channel.move_to_level_with_on_off(
-                0, duration * 10
-            )
+            result = await self._level_channel.move_to_level_with_on_off(0, duration)
         else:
             result = await self._on_off_channel.off()
         self.debug("turned off: %s", result)
@@ -417,6 +424,7 @@ class BaseLight(LogMixin, light.LightEntity):
             # store current brightness so that the next turn_on uses it.
             self._off_with_transition = bool(duration)
             self._off_brightness = self._brightness
+            self._brightness = 0
 
         self.async_write_ha_state()
 
@@ -712,6 +720,21 @@ class LightGroup(BaseLight, ZhaGroupEntity):
         """Turn the entity off."""
         await super().async_turn_off(**kwargs)
         await self._debounced_member_refresh.async_call()
+
+    @callback
+    def async_state_changed_listener(self, event: Event):
+        """Handle child updates."""
+        if self._transitioning:
+            self.debug("skipping group entity state update during transition")
+            return
+        super().async_state_changed_listener(event)
+
+    async def async_update_ha_state(self, force_refresh: bool = False) -> None:
+        """Update Home Assistant with current state of entity."""
+        if self._transitioning:
+            self.debug("skipping group entity state update during transition")
+            return
+        await super().async_update_ha_state(force_refresh)
 
     async def async_update(self) -> None:
         """Query all members and determine the light group state."""
