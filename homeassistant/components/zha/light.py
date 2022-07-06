@@ -124,6 +124,7 @@ class BaseLight(LogMixin, light.LightEntity):
 
     def __init__(self, *args, **kwargs):
         """Initialize the light."""
+        self._zha_device: ZHADevice = None
         super().__init__(*args, **kwargs)
         self._available: bool = False
         self._brightness: int | None = None
@@ -145,7 +146,6 @@ class BaseLight(LogMixin, light.LightEntity):
         self._attr_color_mode = ColorMode.UNKNOWN  # Set by sub classes
         self._transitioning: bool = False
         self._transition_listener: Callable[[], None] | None = None
-        self._zha_device: ZHADevice = None
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
