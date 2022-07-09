@@ -131,7 +131,7 @@ class ProbeEndpoint:
 
             self.probe_single_cluster(component, channel, channel_pool)
 
-        # until we can get rid off registries
+        # until we can get rid of registries
         self.handle_on_off_output_cluster_exception(channel_pool)
 
     @staticmethod
@@ -274,10 +274,10 @@ class GroupProbe:
     @callback
     def discover_group_entities(self, group: ZHAGroup) -> None:
         """Process a group and create any entities that are needed."""
-        # only create a group entity if there are 2 or more members in a group
-        if len(group.members) < 2:
+        # only create a group entity if there is at least 1 member in a group
+        if len(group.members) == 0:
             _LOGGER.debug(
-                "Group: %s:0x%04x has less than 2 members - skipping entity discovery",
+                "Group: %s:0x%04x has no members - skipping entity discovery",
                 group.name,
                 group.group_id,
             )
@@ -333,9 +333,9 @@ class GroupProbe:
             )
         if not all_domain_occurrences:
             return entity_domains
-        # get all domains we care about if there are more than 2 entities of this domain
+        # get all domains we care about if there is more than 1 entity of this domain
         counts = Counter(all_domain_occurrences)
-        entity_domains = [domain[0] for domain in counts.items() if domain[1] >= 2]
+        entity_domains = [domain[0] for domain in counts.items() if domain[1] >= 1]
         _LOGGER.debug(
             "The entity domains are: %s for group: %s:0x%04x",
             entity_domains,
