@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Callable
 from datetime import timedelta
 import functools
 import itertools
@@ -42,7 +43,7 @@ from homeassistant.helpers.dispatcher import (
     async_dispatcher_send,
 )
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.event import async_track_time_interval
+from homeassistant.helpers.event import async_call_later, async_track_time_interval
 import homeassistant.util.color as color_util
 
 from .core import discovery, helpers
@@ -73,7 +74,9 @@ CAPABILITIES_COLOR_LOOP = 0x4
 CAPABILITIES_COLOR_XY = 0x08
 CAPABILITIES_COLOR_TEMP = 0x10
 
-DEFAULT_TRANSITION = 1
+DEFAULT_TRANSITION = 1  # default transition to use for color/brightness changes
+DEFAULT_ON_OFF_TRANSITION = 1  # default on/off transition of Zigbee lights
+MAX_IGNORE_TRANSITION_TIME = 10  # allow attribute reports for longer transitions
 DEFAULT_MIN_BRIGHTNESS = 2
 
 UPDATE_COLORLOOP_ACTION = 0x1
@@ -123,9 +126,11 @@ class BaseLight(LogMixin, light.LightEntity):
 
     def __init__(self, *args, **kwargs):
         """Initialize the light."""
+        self._zha_device: ZHADevice = None
         super().__init__(*args, **kwargs)
         self._available: bool = False
         self._brightness: int | None = None
+        self._transition_target_brightness: int | None = None
         self._off_with_transition: bool = False
         self._off_brightness: int | None = None
         self._hs_color: tuple[float, float] | None = None
@@ -142,6 +147,8 @@ class BaseLight(LogMixin, light.LightEntity):
         self._identify_channel = None
         self._default_transition = None
         self._attr_color_mode = ColorMode.UNKNOWN  # Set by sub classes
+        self._transitioning: bool = False
+        self._transition_listener: Callable[[], None] | None = None
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
@@ -162,6 +169,9 @@ class BaseLight(LogMixin, light.LightEntity):
     @property
     def brightness(self):
         """Return the brightness of this light."""
+        # If state is written during transitions, we want to report the target brightness
+        if self._transitioning:
+            return self._transition_target_brightness
         return self._brightness
 
     @property
@@ -184,6 +194,12 @@ class BaseLight(LogMixin, light.LightEntity):
         """
         value = max(0, min(254, value))
         self._brightness = value
+        if self._transitioning:
+            self.debug(
+                "received level %s while transitioning - skipping writing HA state",
+                value,
+            )
+            return
         self.async_write_ha_state()
 
     @property
@@ -221,6 +237,13 @@ class BaseLight(LogMixin, light.LightEntity):
             if self._default_transition
             else DEFAULT_TRANSITION
         )
+
+        # Ignore brightness attribute reports during transitions if necessary
+        transition_wait_duration = (
+            duration / 10 if duration is not None else DEFAULT_ON_OFF_TRANSITION
+        )
+        self.async_transition_start(transition_wait_duration)
+
         brightness = kwargs.get(light.ATTR_BRIGHTNESS)
         effect = kwargs.get(light.ATTR_EFFECT)
         flash = kwargs.get(light.ATTR_FLASH)
@@ -282,6 +305,10 @@ class BaseLight(LogMixin, light.LightEntity):
             self._state = bool(level)
             if level:
                 self._brightness = level
+                self._transition_target_brightness = level
+            # Since the above brightness move commands might take a bit to execute,
+            # we restart the timeframe for ignoring attribute reports
+            self.async_transition_start(transition_wait_duration)
 
         if (
             brightness is None
@@ -332,6 +359,7 @@ class BaseLight(LogMixin, light.LightEntity):
             self._state = bool(level)
             if level:
                 self._brightness = level
+                self._transition_target_brightness = level
 
         if effect == light.EFFECT_COLORLOOP:
             result = await self._color_channel.color_loop_set(
@@ -372,6 +400,12 @@ class BaseLight(LogMixin, light.LightEntity):
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
         duration = kwargs.get(light.ATTR_TRANSITION)
+
+        # Ignore brightness attribute reports during transitions if necessary
+        self.async_transition_start(
+            duration if duration is not None else DEFAULT_ON_OFF_TRANSITION
+        )
+
         supports_level = brightness_supported(self._attr_supported_color_modes)
 
         if duration and supports_level:
@@ -391,6 +425,35 @@ class BaseLight(LogMixin, light.LightEntity):
             self._off_brightness = self._brightness
 
         self.async_write_ha_state()
+
+    @callback
+    def async_transition_start(self, duration) -> None:
+        """Start ignoring attribute reports during transition time frame."""
+        if not duration or duration > MAX_IGNORE_TRANSITION_TIME:
+            return
+
+        # If we restart the transition timeframe during a transition,
+        # we don't want to reset the target brightness to one possibly mid-transition
+        if not self._transitioning:
+            # Set the target brightness for when just turning on the light
+            self._transition_target_brightness = self._brightness
+        self._transitioning = True
+        if self._transition_listener is not None:
+            self._transition_listener()
+        self._transition_listener = async_call_later(
+            self._zha_device.hass,
+            max(duration + 0.5, DEFAULT_ON_OFF_TRANSITION + 0.5),
+            self.async_transition_complete,
+        )
+
+    @callback
+    def async_transition_complete(self, _) -> None:
+        """Set _transitioning to False and have future attribute reports write state again."""
+        self.debug("transition complete - future attribute reports will write HA state")
+        self._transitioning = False
+        if self._transition_listener:
+            self._transition_listener()
+            self._transition_listener = None
 
 
 @STRICT_MATCH(channel_names=CHANNEL_ON_OFF, aux_channels={CHANNEL_COLOR, CHANNEL_LEVEL})
@@ -472,7 +535,14 @@ class Light(BaseLight, ZhaEntity):
         """Set the state."""
         self._state = bool(value)
         if value:
+            self._off_with_transition = False
             self._off_brightness = None
+        if self._transitioning:
+            self.debug(
+                "received level %s while transitioning - skipping writing HA state",
+                value,
+            )
+            return
         self.async_write_ha_state()
 
     async def async_added_to_hass(self):
@@ -523,7 +593,7 @@ class Light(BaseLight, ZhaEntity):
 
     async def async_get_state(self):
         """Attempt to retrieve the state from the light."""
-        if not self.available:
+        if not self.available or self._transitioning:
             return
         self.debug("polling current state")
         if self._on_off_channel:
@@ -669,6 +739,13 @@ class LightGroup(BaseLight, ZhaGroupEntity):
         """Turn the entity off."""
         await super().async_turn_off(**kwargs)
         await self._debounced_member_refresh.async_call()
+
+    async def async_update_ha_state(self, force_refresh: bool = False) -> None:
+        """Update Home Assistant with current state of entity."""
+        if self._transitioning:
+            self.debug("skipping group entity state update during transition")
+            return
+        await super().async_update_ha_state(force_refresh)
 
     async def async_update(self) -> None:
         """Query all members and determine the light group state."""
