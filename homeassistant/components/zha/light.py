@@ -1,6 +1,7 @@
 """Lights on Zigbee Home Automation networks."""
 from __future__ import annotations
 
+import asyncio
 from collections import Counter
 from collections.abc import Callable
 from datetime import timedelta
@@ -436,6 +437,10 @@ class BaseLight(LogMixin, light.LightEntity):
         if self._transition_listener:
             self._transition_listener()
             self._transition_listener = None
+        self.async_write_ha_state()
+        if isinstance(self, LightGroup):
+            if self._debounced_member_refresh is not None:
+                asyncio.create_task(self._debounced_member_refresh.async_call())
 
 
 @STRICT_MATCH(channel_names=CHANNEL_ON_OFF, aux_channels={CHANNEL_COLOR, CHANNEL_LEVEL})
@@ -628,16 +633,25 @@ class Light(BaseLight, ZhaEntity):
 
     async def async_update(self):
         """Update to the latest state."""
+        if self._transitioning:
+            _LOGGER.debug("skipping async_update while transitioning")
+            return
         await self.async_get_state()
 
     async def _refresh(self, time):
         """Call async_get_state at an interval."""
+        if self._transitioning:
+            _LOGGER.debug("skipping _refresh while transitioning")
+            return
         await self.async_get_state()
         self.async_write_ha_state()
 
     async def _maybe_force_refresh(self, signal):
         """Force update the state if the signal contains the entity id for this entity."""
         if self.entity_id in signal["entity_ids"]:
+            if self._transitioning:
+                _LOGGER.debug("skipping _maybe_force_refresh while transitioning")
+                return
             await self.async_get_state()
             self.async_write_ha_state()
 
@@ -714,11 +728,15 @@ class LightGroup(BaseLight, ZhaGroupEntity):
     async def async_turn_on(self, **kwargs):
         """Turn the entity on."""
         await super().async_turn_on(**kwargs)
+        if self._transitioning:
+            return
         await self._debounced_member_refresh.async_call()
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
         await super().async_turn_off(**kwargs)
+        if self._transitioning:
+            return
         await self._debounced_member_refresh.async_call()
 
     @callback
