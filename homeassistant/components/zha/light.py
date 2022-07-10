@@ -74,9 +74,9 @@ CAPABILITIES_COLOR_LOOP = 0x4
 CAPABILITIES_COLOR_XY = 0x08
 CAPABILITIES_COLOR_TEMP = 0x10
 
-DEFAULT_TRANSITION = 1  # default transition to use for color/brightness changes
-DEFAULT_ON_OFF_TRANSITION = 1  # default on/off transition of Zigbee lights
-MAX_IGNORE_TRANSITION_TIME = 10  # allow attribute reports for longer transitions
+DEFAULT_TRANSITION = 1  # default transition for color/brightness changes (1/10th of s)
+DEFAULT_ON_OFF_TRANSITION = 1  # default on/off transition of Zigbee lights (in s)
+MAX_IGNORE_TRANSITION_TIME = 10  # allow attribute reports for longer transitions (in s)
 DEFAULT_MIN_BRIGHTNESS = 2
 
 UPDATE_COLORLOOP_ACTION = 0x1
@@ -240,15 +240,22 @@ class BaseLight(LogMixin, light.LightEntity):
             else DEFAULT_TRANSITION
         )
 
-        # Ignore brightness attribute reports during transitions if necessary
-        transition_wait_duration = (
-            duration / 10 if duration is not None else DEFAULT_ON_OFF_TRANSITION
-        )
-        await self.async_transition_start(transition_wait_duration)
-
         brightness = kwargs.get(light.ATTR_BRIGHTNESS)
         effect = kwargs.get(light.ATTR_EFFECT)
         flash = kwargs.get(light.ATTR_FLASH)
+
+        # Ignore brightness attribute reports during transitions if necessary
+        transition_wait_duration = (
+            duration / 10
+            if (
+                (brightness is not None or transition)
+                and brightness_supported(self._attr_supported_color_modes)
+                or light.ATTR_COLOR_TEMP in kwargs
+                or light.ATTR_HS_COLOR in kwargs
+            )
+            else DEFAULT_ON_OFF_TRANSITION
+        )
+        await self.async_transition_start(transition_wait_duration)
 
         # If the light is currently off but a turn_on call with a color/temperature is sent,
         # the light needs to be turned on first at a low brightness level where the light is immediately transitioned
@@ -405,7 +412,7 @@ class BaseLight(LogMixin, light.LightEntity):
 
         # Ignore brightness attribute reports during transitions if necessary
         await self.async_transition_start(
-            duration if duration is not None else DEFAULT_ON_OFF_TRANSITION
+            duration if duration else DEFAULT_ON_OFF_TRANSITION
         )
 
         supports_level = brightness_supported(self._attr_supported_color_modes)
@@ -434,9 +441,14 @@ class BaseLight(LogMixin, light.LightEntity):
         if not duration or duration > MAX_IGNORE_TRANSITION_TIME:
             return
 
+        # Multiple attribute reports are only really sent for transitions longer than 0.2 seconds,
+        # so we can use less of a delay for 0.1 here
+        final_duration = duration + 0.5 if duration > 0.1 else 0.2
+
         self.debug(
-            "starting transitioning mode - ignoring attribute reports for %s + 0.5 seconds",
+            "starting transitioning mode - ignoring attribute reports for %s + %s seconds",
             duration,
+            final_duration - duration,
         )
 
         # If we restart the transition timeframe during a transition,
@@ -450,7 +462,7 @@ class BaseLight(LogMixin, light.LightEntity):
             self._transition_listener()
         self._transition_listener = async_call_later(
             self._zha_device.hass,
-            max(duration + 0.5, DEFAULT_ON_OFF_TRANSITION + 0.5),
+            final_duration,
             self.async_transition_complete,
         )
 
@@ -752,21 +764,6 @@ class LightGroup(BaseLight, ZhaGroupEntity):
             )
             self._debounced_member_refresh = force_refresh_debouncer
 
-    async def async_turn_on(self, **kwargs):
-        """Turn the entity on."""
-        await super().async_turn_on(**kwargs)
-        # TODO: Decide if we already want to poll here (possible transition call)
-        #  If not, we can remove _group_transitioning stuff, as we'll never want to poll during a transition then
-        # TODO: Check this behavior on stable HA: seems to be broken for non-attribute reporting lights and transitions?
-        # await self._debounced_member_refresh.async_call()
-        # We will also poll a minimum of 1.6 seconds after having executed the turn on command
-
-    async def async_turn_off(self, **kwargs):
-        """Turn the entity off."""
-        await super().async_turn_off(**kwargs)
-        # await self._debounced_member_refresh.async_call()  # TODO: See comment above
-        # We will poll a minimum of 1.6 seconds after having executed the turn on command
-
     async def async_update(self) -> None:
         """Query all members and determine the light group state."""
         all_states = [self.hass.states.get(x) for x in self._entity_ids]
@@ -839,15 +836,17 @@ class LightGroup(BaseLight, ZhaGroupEntity):
     async def async_transition_start(self, duration, group: bool = False) -> None:
         """Start ignoring attribute reports during transition time frame."""
         await self._start_member_transition(duration)
-        # Adding 0.1 to the duration, so async_transition_complete() is always called to force refresh members
+        # Have at least 0.1 as the duration, so async_transition_complete() is always called to force refresh members
         # and so this runs a bit later
-        await super().async_transition_start(duration + 0.1, group)
+        await super().async_transition_start(max(duration, 0.1), group)
 
     @callback
     async def async_transition_complete(self, _) -> None:
         """Set _transitioning to False and have future attribute reports write state again."""
         await super().async_transition_complete(_)
-        await self._debounced_member_refresh.async_call()
+        # TODO: Can this even be None at this point?
+        if self._debounced_member_refresh is not None:
+            await self._debounced_member_refresh.async_call()
 
     async def _force_member_updates(self):
         """Force the update of member entities to ensure the states are correct for bulbs that don't report their state."""
