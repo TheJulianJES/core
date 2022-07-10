@@ -332,7 +332,9 @@ class BaseLight(LogMixin, light.LightEntity):
 
         if light.ATTR_COLOR_TEMP in kwargs:
             temperature = kwargs[light.ATTR_COLOR_TEMP]
-            result = await self._color_channel.move_to_color_temp(temperature, duration)
+            result = await self._color_channel.move_to_color_temp(
+                temperature, duration or self._DEFAULT_COLOR_FROM_OFF_TRANSITION
+            )
             t_log["move_to_color_temp"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
                 self.debug("turned on: %s", t_log)
@@ -345,7 +347,9 @@ class BaseLight(LogMixin, light.LightEntity):
             hs_color = kwargs[light.ATTR_HS_COLOR]
             xy_color = color_util.color_hs_to_xy(*hs_color)
             result = await self._color_channel.move_to_color(
-                int(xy_color[0] * 65535), int(xy_color[1] * 65535), duration
+                int(xy_color[0] * 65535),
+                int(xy_color[1] * 65535),
+                duration or self._DEFAULT_COLOR_FROM_OFF_TRANSITION,
             )
             t_log["move_to_color"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
@@ -742,6 +746,8 @@ class SengledLight(Light):
 @GROUP_MATCH()
 class LightGroup(BaseLight, ZhaGroupEntity):
     """Representation of a light group."""
+
+    _DEFAULT_COLOR_FROM_OFF_TRANSITION = 1
 
     def __init__(
         self, entity_ids: list[str], unique_id: str, group_id: int, zha_device, **kwargs
