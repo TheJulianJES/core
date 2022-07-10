@@ -440,6 +440,7 @@ class BaseLight(LogMixin, light.LightEntity):
         self.async_write_ha_state()
         if isinstance(self, LightGroup):
             if self._debounced_member_refresh is not None:
+                self.debug("transition complete - regreshing group member states")
                 asyncio.create_task(self._debounced_member_refresh.async_call())
 
 
