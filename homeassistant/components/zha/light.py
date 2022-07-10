@@ -90,6 +90,8 @@ STRICT_MATCH = functools.partial(ZHA_ENTITIES.strict_match, Platform.LIGHT)
 GROUP_MATCH = functools.partial(ZHA_ENTITIES.group_match, Platform.LIGHT)
 PARALLEL_UPDATES = 0
 SIGNAL_LIGHT_GROUP_STATE_CHANGED = "zha_light_group_state_changed"
+SIGNAL_LIGHT_GROUP_TRANSITION_START = "zha_light_group_transition_start"
+SIGNAL_LIGHT_GROUP_TRANSITION_FINISHED = "zha_light_group_transition_finished"
 
 COLOR_MODES_GROUP_LIGHT = {ColorMode.COLOR_TEMP, ColorMode.HS}
 SUPPORT_GROUP_LIGHT = (
@@ -229,17 +231,26 @@ class BaseLight(LogMixin, light.LightEntity):
             transition * 10
             if transition
             else self._default_transition * 10
-            if self._default_transition
+            if self._default_transition is not None
             else DEFAULT_TRANSITION
         )
+        transition_time = (
+            transition or self._default_transition or DEFAULT_TRANSITION / 10
+        ) + 0.5
 
         if duration is not None and duration > 0:
             self._transitioning = True
+            if isinstance(self, LightGroup):
+                async_dispatcher_send(
+                    self.hass,
+                    SIGNAL_LIGHT_GROUP_TRANSITION_START,
+                    {"entity_ids": self._entity_ids},
+                )
             if self._transition_listener is not None:
                 self._transition_listener()
             self._transition_listener = async_call_later(
                 self._zha_device.hass,
-                (duration / 10) + 0.5,
+                transition_time,
                 self.async_transition_complete,
             )
 
@@ -398,16 +409,27 @@ class BaseLight(LogMixin, light.LightEntity):
             transition * 10
             if transition
             else self._default_transition * 10
-            if self._default_transition
+            if self._default_transition is not None
             else DEFAULT_TRANSITION
         )
+        transition_time = (
+            transition or self._default_transition or DEFAULT_TRANSITION / 10
+        ) + 0.5
 
         if duration is not None and duration > 0:
             self._transitioning = True
+            if isinstance(self, LightGroup):
+                async_dispatcher_send(
+                    self.hass,
+                    SIGNAL_LIGHT_GROUP_TRANSITION_START,
+                    {"entity_ids": self._entity_ids},
+                )
             if self._transition_listener is not None:
                 self._transition_listener()
             self._transition_listener = async_call_later(
-                self._zha_device.hass, duration + 0.5, self.async_transition_complete
+                self._zha_device.hass,
+                transition_time,
+                self.async_transition_complete,
             )
 
         supports_level = brightness_supported(self._attr_supported_color_modes)
@@ -439,6 +461,11 @@ class BaseLight(LogMixin, light.LightEntity):
             self._transition_listener = None
         self.async_write_ha_state()
         if isinstance(self, LightGroup):
+            async_dispatcher_send(
+                self.hass,
+                SIGNAL_LIGHT_GROUP_TRANSITION_FINISHED,
+                {"entity_ids": self._entity_ids},
+            )
             if self._debounced_member_refresh is not None:
                 self.debug("transition complete - refreshing group member states")
                 asyncio.create_task(self._debounced_member_refresh.async_call())
@@ -550,6 +577,38 @@ class Light(BaseLight, ZhaEntity):
             None,
             SIGNAL_LIGHT_GROUP_STATE_CHANGED,
             self._maybe_force_refresh,
+            signal_override=True,
+        )
+
+        @callback
+        def transition_on(signal):
+            """Handle a transition start event from a group."""
+            if self.entity_id in signal["entity_ids"]:
+                self.debug(
+                    "group transition started - setting member transitioning flag"
+                )
+                self._transitioning = True
+
+        self.async_accept_signal(
+            None,
+            SIGNAL_LIGHT_GROUP_TRANSITION_START,
+            transition_on,
+            signal_override=True,
+        )
+
+        @callback
+        def transition_off(signal):
+            """Handle a transition finished event from a group."""
+            if self.entity_id in signal["entity_ids"]:
+                self.debug(
+                    "group transition completed - unsetting member transitioning flag"
+                )
+                self._transitioning = False
+
+        self.async_accept_signal(
+            None,
+            SIGNAL_LIGHT_GROUP_TRANSITION_FINISHED,
+            transition_off,
             signal_override=True,
         )
 
