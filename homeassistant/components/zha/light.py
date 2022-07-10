@@ -429,7 +429,9 @@ class BaseLight(LogMixin, light.LightEntity):
         supports_level = brightness_supported(self._attr_supported_color_modes)
 
         if transition and supports_level:
-            result = await self._level_channel.move_to_level_with_on_off(0, transition)
+            result = await self._level_channel.move_to_level_with_on_off(
+                0, transition * 10
+            )
         else:
             result = await self._on_off_channel.off()
         self.debug("turned off: %s", result)
