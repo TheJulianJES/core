@@ -123,7 +123,7 @@ class BaseLight(LogMixin, light.LightEntity):
     """Operations common to all light entities."""
 
     _FORCE_ON = False
-    _DEFAULT_COLOR_FROM_OFF_TRANSITION = 0
+    _DEFAULT_COLOR_TRANSITION = 0
 
     def __init__(self, *args, **kwargs):
         """Initialize the light."""
@@ -291,7 +291,7 @@ class BaseLight(LogMixin, light.LightEntity):
             # If the light is currently off, we first need to turn it on at a low brightness level with no transition.
             # After that, we set it to the desired color/temperature with no transition.
             result = await self._level_channel.move_to_level_with_on_off(
-                DEFAULT_MIN_BRIGHTNESS, self._DEFAULT_COLOR_FROM_OFF_TRANSITION
+                DEFAULT_MIN_BRIGHTNESS, 0
             )
             t_log["move_to_level_with_on_off"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
@@ -333,7 +333,7 @@ class BaseLight(LogMixin, light.LightEntity):
         if light.ATTR_COLOR_TEMP in kwargs:
             temperature = kwargs[light.ATTR_COLOR_TEMP]
             result = await self._color_channel.move_to_color_temp(
-                temperature, duration or self._DEFAULT_COLOR_FROM_OFF_TRANSITION
+                temperature, duration or self._DEFAULT_COLOR_TRANSITION
             )
             t_log["move_to_color_temp"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
@@ -349,7 +349,7 @@ class BaseLight(LogMixin, light.LightEntity):
             result = await self._color_channel.move_to_color(
                 int(xy_color[0] * 65535),
                 int(xy_color[1] * 65535),
-                duration or self._DEFAULT_COLOR_FROM_OFF_TRANSITION,
+                duration or self._DEFAULT_COLOR_TRANSITION,
             )
             t_log["move_to_color"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
@@ -742,14 +742,14 @@ class ForceOnLight(Light):
 class SengledLight(Light):
     """Representation of a Sengled light which does not react to move_to_color_temp with 0 as a transition."""
 
-    _DEFAULT_COLOR_FROM_OFF_TRANSITION = 1
+    _DEFAULT_COLOR_TRANSITION = 1
 
 
 @GROUP_MATCH()
 class LightGroup(BaseLight, ZhaGroupEntity):
     """Representation of a light group."""
 
-    _DEFAULT_COLOR_FROM_OFF_TRANSITION = 1
+    _DEFAULT_COLOR_TRANSITION = 1
 
     def __init__(
         self, entity_ids: list[str], unique_id: str, group_id: int, zha_device, **kwargs
