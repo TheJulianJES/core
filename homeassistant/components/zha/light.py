@@ -91,6 +91,7 @@ STRICT_MATCH = functools.partial(ZHA_ENTITIES.strict_match, Platform.LIGHT)
 GROUP_MATCH = functools.partial(ZHA_ENTITIES.group_match, Platform.LIGHT)
 PARALLEL_UPDATES = 0
 SIGNAL_LIGHT_GROUP_STATE_CHANGED = "zha_light_group_state_changed"
+SIGNAL_LIGHT_GROUP_TRANSITION_START = "zha_light_group_transition_start"
 
 COLOR_MODES_GROUP_LIGHT = {ColorMode.COLOR_TEMP, ColorMode.HS}
 SUPPORT_GROUP_LIGHT = (
@@ -148,6 +149,7 @@ class BaseLight(LogMixin, light.LightEntity):
         self._default_transition = None
         self._attr_color_mode = ColorMode.UNKNOWN  # Set by sub classes
         self._transitioning: bool = False
+        self._group_transitioning: bool = False
         self._transition_listener: Callable[[], None] | None = None
 
     @property
@@ -242,7 +244,7 @@ class BaseLight(LogMixin, light.LightEntity):
         transition_wait_duration = (
             duration / 10 if duration is not None else DEFAULT_ON_OFF_TRANSITION
         )
-        self.async_transition_start(transition_wait_duration)
+        await self.async_transition_start(transition_wait_duration)
 
         brightness = kwargs.get(light.ATTR_BRIGHTNESS)
         effect = kwargs.get(light.ATTR_EFFECT)
@@ -308,7 +310,7 @@ class BaseLight(LogMixin, light.LightEntity):
                 self._transition_target_brightness = level
             # Since the above brightness move commands might take a bit to execute,
             # we restart the timeframe for ignoring attribute reports
-            self.async_transition_start(transition_wait_duration)
+            await self.async_transition_start(transition_wait_duration)
 
         if (
             brightness is None
@@ -402,7 +404,7 @@ class BaseLight(LogMixin, light.LightEntity):
         duration = kwargs.get(light.ATTR_TRANSITION)
 
         # Ignore brightness attribute reports during transitions if necessary
-        self.async_transition_start(
+        await self.async_transition_start(
             duration if duration is not None else DEFAULT_ON_OFF_TRANSITION
         )
 
@@ -427,17 +429,23 @@ class BaseLight(LogMixin, light.LightEntity):
         self.async_write_ha_state()
 
     @callback
-    def async_transition_start(self, duration) -> None:
+    async def async_transition_start(self, duration, group: bool = False) -> None:
         """Start ignoring attribute reports during transition time frame."""
         if not duration or duration > MAX_IGNORE_TRANSITION_TIME:
             return
 
+        self.debug(
+            "starting transitioning mode - ignoring attribute reports for %s + 0.5 seconds",
+            duration,
+        )
+
         # If we restart the transition timeframe during a transition,
         # we don't want to reset the target brightness to one possibly mid-transition
-        if not self._transitioning:
+        if not self._transitioning and self._brightness is not None:
             # Set the target brightness for when just turning on the light
             self._transition_target_brightness = self._brightness
         self._transitioning = True
+        self._group_transitioning = group
         if self._transition_listener is not None:
             self._transition_listener()
         self._transition_listener = async_call_later(
@@ -447,10 +455,11 @@ class BaseLight(LogMixin, light.LightEntity):
         )
 
     @callback
-    def async_transition_complete(self, _) -> None:
+    async def async_transition_complete(self, _) -> None:
         """Set _transitioning to False and have future attribute reports write state again."""
         self.debug("transition complete - future attribute reports will write HA state")
         self._transitioning = False
+        self._group_transitioning = False
         if self._transition_listener:
             self._transition_listener()
             self._transition_listener = None
@@ -565,6 +574,12 @@ class Light(BaseLight, ZhaEntity):
             self._maybe_force_refresh,
             signal_override=True,
         )
+        self.async_accept_signal(
+            None,
+            SIGNAL_LIGHT_GROUP_TRANSITION_START,
+            self._maybe_start_transitioning_mode,
+            signal_override=True,
+        )
 
     async def async_will_remove_from_hass(self) -> None:
         """Disconnect entity object when removed."""
@@ -593,7 +608,9 @@ class Light(BaseLight, ZhaEntity):
 
     async def async_get_state(self):
         """Attempt to retrieve the state from the light."""
-        if not self.available or self._transitioning:
+        if not self.available or (
+            self._transitioning and not self._group_transitioning
+        ):
             return
         self.debug("polling current state")
         if self._on_off_channel:
@@ -659,6 +676,11 @@ class Light(BaseLight, ZhaEntity):
         if self.entity_id in signal["entity_ids"]:
             await self.async_get_state()
             self.async_write_ha_state()
+
+    async def _maybe_start_transitioning_mode(self, signal):
+        """Start transitioning mode if the signal contains the entity id for this entity."""
+        if self.entity_id in signal["entity_ids"]:
+            await self.async_transition_start(signal["duration"], True)
 
 
 @STRICT_MATCH(
@@ -733,19 +755,17 @@ class LightGroup(BaseLight, ZhaGroupEntity):
     async def async_turn_on(self, **kwargs):
         """Turn the entity on."""
         await super().async_turn_on(**kwargs)
-        await self._debounced_member_refresh.async_call()
+        # TODO: Decide if we already want to poll here (possible transition call)
+        #  If not, we can remove _group_transitioning stuff, as we'll never want to poll during a transition then
+        # TODO: Check this behavior on stable HA: seems to be broken for non-attribute reporting lights and transitions?
+        # await self._debounced_member_refresh.async_call()
+        # We will also poll a minimum of 1.6 seconds after having executed the turn on command
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
         await super().async_turn_off(**kwargs)
-        await self._debounced_member_refresh.async_call()
-
-    async def async_update_ha_state(self, force_refresh: bool = False) -> None:
-        """Update Home Assistant with current state of entity."""
-        if self._transitioning:
-            self.debug("skipping group entity state update during transition")
-            return
-        await super().async_update_ha_state(force_refresh)
+        # await self._debounced_member_refresh.async_call()  # TODO: See comment above
+        # We will poll a minimum of 1.6 seconds after having executed the turn on command
 
     async def async_update(self) -> None:
         """Query all members and determine the light group state."""
@@ -815,10 +835,32 @@ class LightGroup(BaseLight, ZhaGroupEntity):
         # so that we don't break in the future when a new feature is added.
         self._supported_features &= SUPPORT_GROUP_LIGHT
 
+    @callback
+    async def async_transition_start(self, duration, group: bool = False) -> None:
+        """Start ignoring attribute reports during transition time frame."""
+        await self._start_member_transition(duration)
+        # Adding 0.1 to the duration, so async_transition_complete() is always called to force refresh members
+        # and so this runs a bit later
+        await super().async_transition_start(duration + 0.1, group)
+
+    @callback
+    async def async_transition_complete(self, _) -> None:
+        """Set _transitioning to False and have future attribute reports write state again."""
+        await super().async_transition_complete(_)
+        await self._debounced_member_refresh.async_call()
+
     async def _force_member_updates(self):
         """Force the update of member entities to ensure the states are correct for bulbs that don't report their state."""
         async_dispatcher_send(
             self.hass,
             SIGNAL_LIGHT_GROUP_STATE_CHANGED,
             {"entity_ids": self._entity_ids},
+        )
+
+    async def _start_member_transition(self, duration):
+        """Start enabling transitioning on member entities."""
+        async_dispatcher_send(
+            self.hass,
+            SIGNAL_LIGHT_GROUP_TRANSITION_START,
+            {"entity_ids": self._entity_ids, "duration": duration},
         )
