@@ -238,7 +238,7 @@ class BaseLight(LogMixin, light.LightEntity):
             transition or self._default_transition or DEFAULT_TRANSITION / 10
         ) + 0.5
 
-        if duration is not None and duration > 0:
+        if duration is not None:
             self._transitioning = True
             if isinstance(self, LightGroup):
                 async_dispatcher_send(
@@ -416,7 +416,7 @@ class BaseLight(LogMixin, light.LightEntity):
             transition or self._default_transition or DEFAULT_TRANSITION / 10
         ) + 0.5
 
-        if duration is not None and duration > 0:
+        if duration is not None:
             self._transitioning = True
             if isinstance(self, LightGroup):
                 async_dispatcher_send(
