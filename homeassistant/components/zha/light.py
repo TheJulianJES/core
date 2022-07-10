@@ -189,14 +189,14 @@ class BaseLight(LogMixin, light.LightEntity):
         on at `on_level` Zigbee attribute value, regardless of the last set
         level
         """
-        value = max(0, min(254, value))
-        self._brightness = value
         if self._transitioning:
             self.debug(
-                "received level %s while transitioning - skipping writing HA state",
+                "received level %s while transitioning - skipping update",
                 value,
             )
             return
+        value = max(0, min(254, value))
+        self._brightness = value
         self.async_write_ha_state()
 
     @property
@@ -544,15 +544,15 @@ class Light(BaseLight, ZhaEntity):
     @callback
     def async_set_state(self, attr_id, attr_name, value):
         """Set the state."""
-        self._state = bool(value)
-        if value:
-            self._off_brightness = None
         if self._transitioning:
             self.debug(
-                "received onoff %s while transitioning - skipping writing HA state",
+                "received onoff %s while transitioning - skipping update",
                 value,
             )
             return
+        self._state = bool(value)
+        if value:
+            self._off_brightness = None
         self.async_write_ha_state()
 
     async def async_added_to_hass(self):
