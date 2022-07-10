@@ -440,7 +440,7 @@ class BaseLight(LogMixin, light.LightEntity):
         self.async_write_ha_state()
         if isinstance(self, LightGroup):
             if self._debounced_member_refresh is not None:
-                self.debug("transition complete - regreshing group member states")
+                self.debug("transition complete - refreshing group member states")
                 asyncio.create_task(self._debounced_member_refresh.async_call())
 
 
@@ -635,14 +635,14 @@ class Light(BaseLight, ZhaEntity):
     async def async_update(self):
         """Update to the latest state."""
         if self._transitioning:
-            _LOGGER.debug("skipping async_update while transitioning")
+            self.debug("skipping async_update while transitioning")
             return
         await self.async_get_state()
 
     async def _refresh(self, time):
         """Call async_get_state at an interval."""
         if self._transitioning:
-            _LOGGER.debug("skipping _refresh while transitioning")
+            self.debug("skipping _refresh while transitioning")
             return
         await self.async_get_state()
         self.async_write_ha_state()
@@ -651,7 +651,7 @@ class Light(BaseLight, ZhaEntity):
         """Force update the state if the signal contains the entity id for this entity."""
         if self.entity_id in signal["entity_ids"]:
             if self._transitioning:
-                _LOGGER.debug("skipping _maybe_force_refresh while transitioning")
+                self.debug("skipping _maybe_force_refresh while transitioning")
                 return
             await self.async_get_state()
             self.async_write_ha_state()
