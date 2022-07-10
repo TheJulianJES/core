@@ -236,7 +236,7 @@ class BaseLight(LogMixin, light.LightEntity):
         )
         transition_time = (
             transition or self._default_transition or DEFAULT_TRANSITION / 10
-        ) + 0.5
+        ) + 0.25
 
         if duration is not None:
             self._transitioning = True
@@ -405,18 +405,8 @@ class BaseLight(LogMixin, light.LightEntity):
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
         transition = kwargs.get(light.ATTR_TRANSITION)
-        duration = (
-            transition * 10
-            if transition
-            else self._default_transition * 10
-            if self._default_transition is not None
-            else DEFAULT_TRANSITION
-        )
-        transition_time = (
-            transition or self._default_transition or DEFAULT_TRANSITION / 10
-        ) + 0.5
-
-        if duration is not None:
+        if transition is not None:
+            transition_time = transition + 0.25
             self._transitioning = True
             if isinstance(self, LightGroup):
                 async_dispatcher_send(
@@ -434,8 +424,8 @@ class BaseLight(LogMixin, light.LightEntity):
 
         supports_level = brightness_supported(self._attr_supported_color_modes)
 
-        if duration and supports_level:
-            result = await self._level_channel.move_to_level_with_on_off(0, duration)
+        if transition and supports_level:
+            result = await self._level_channel.move_to_level_with_on_off(0, transition)
         else:
             result = await self._on_off_channel.off()
         self.debug("turned off: %s", result)
@@ -445,7 +435,7 @@ class BaseLight(LogMixin, light.LightEntity):
 
         if supports_level:
             # store current brightness so that the next turn_on uses it.
-            self._off_with_transition = bool(duration)
+            self._off_with_transition = bool(transition)
             self._off_brightness = self._brightness
             self._brightness = 0
 
