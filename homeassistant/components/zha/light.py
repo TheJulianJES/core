@@ -257,21 +257,7 @@ class BaseLight(LogMixin, light.LightEntity):
                 )
                 else DEFAULT_ON_OFF_TRANSITION + DEFAULT_EXTRA_TRANSITION_DELAY
             )
-            self._transitioning = True
-            if isinstance(self, LightGroup):
-                async_dispatcher_send(
-                    self.hass,
-                    SIGNAL_LIGHT_GROUP_TRANSITION_START,
-                    {"entity_ids": self._entity_ids},
-                )
-            if self._transition_listener is not None:
-                self._transition_listener()
-            self.debug("setting transitioning flag for %s", transition_time)
-            self._transition_listener = async_call_later(
-                self._zha_device.hass,
-                transition_time,
-                self.async_transition_complete,
-            )
+            self.async_transition_start(transition_time)
 
         # If the light is currently off but a turn_on call with a color/temperature is sent,
         # the light needs to be turned on first at a low brightness level where the light is immediately transitioned
@@ -433,21 +419,7 @@ class BaseLight(LogMixin, light.LightEntity):
                 if transition is not None
                 else DEFAULT_ON_OFF_TRANSITION + DEFAULT_EXTRA_TRANSITION_DELAY
             )
-            self._transitioning = True
-            if isinstance(self, LightGroup):
-                async_dispatcher_send(
-                    self.hass,
-                    SIGNAL_LIGHT_GROUP_TRANSITION_START,
-                    {"entity_ids": self._entity_ids},
-                )
-            if self._transition_listener is not None:
-                self._transition_listener()
-            self.debug("setting transitioning flag for %s", transition_time)
-            self._transition_listener = async_call_later(
-                self._zha_device.hass,
-                transition_time,
-                self.async_transition_complete,
-            )
+            self.async_transition_start(transition_time)
 
         if transition is not None and supports_level:
             result = await self._level_channel.move_to_level_with_on_off(
@@ -466,6 +438,25 @@ class BaseLight(LogMixin, light.LightEntity):
             self._off_brightness = self._brightness
 
         self.async_write_ha_state()
+
+    @callback
+    def async_transition_start(self, transition_time) -> None:
+        """Set _transitioning to True."""
+        self._transitioning = True
+        if isinstance(self, LightGroup):
+            async_dispatcher_send(
+                self.hass,
+                SIGNAL_LIGHT_GROUP_TRANSITION_START,
+                {"entity_ids": self._entity_ids},
+            )
+        if self._transition_listener is not None:
+            self._transition_listener()
+        self.debug("setting transitioning flag for %s", transition_time)
+        self._transition_listener = async_call_later(
+            self._zha_device.hass,
+            transition_time,
+            self.async_transition_complete,
+        )
 
     @callback
     def async_transition_complete(self, _) -> None:
