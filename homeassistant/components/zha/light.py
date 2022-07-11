@@ -245,7 +245,9 @@ class BaseLight(LogMixin, light.LightEntity):
             or light.ATTR_HS_COLOR in kwargs
         ):
             transition_time = (
-                transition or self._default_transition or DEFAULT_TRANSITION
+                transition or self._default_transition
+                if self._default_transition is not None
+                else DEFAULT_TRANSITION
             ) + 0.25
             self._transitioning = True
             if isinstance(self, LightGroup):
