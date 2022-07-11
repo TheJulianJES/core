@@ -227,6 +227,10 @@ class BaseLight(LogMixin, light.LightEntity):
     async def async_turn_on(self, **kwargs):
         """Turn the entity on."""
         transition = kwargs.get(light.ATTR_TRANSITION)
+        brightness = kwargs.get(light.ATTR_BRIGHTNESS)
+        effect = kwargs.get(light.ATTR_EFFECT)
+        flash = kwargs.get(light.ATTR_FLASH)
+
         duration = (
             transition * 10
             if transition
@@ -234,11 +238,16 @@ class BaseLight(LogMixin, light.LightEntity):
             if self._default_transition is not None
             else DEFAULT_TRANSITION
         )
+
         transition_time = (
-            transition or self._default_transition or DEFAULT_TRANSITION / 10
+            transition or self._default_transition or DEFAULT_TRANSITION
         ) + 0.25
 
-        if duration is not None:
+        if (
+            brightness_supported(self._attr_supported_color_modes)
+            or light.ATTR_COLOR_TEMP in kwargs
+            or light.ATTR_HS_COLOR in kwargs
+        ):
             self._transitioning = True
             if isinstance(self, LightGroup):
                 async_dispatcher_send(
@@ -253,10 +262,6 @@ class BaseLight(LogMixin, light.LightEntity):
                 transition_time,
                 self.async_transition_complete,
             )
-
-        brightness = kwargs.get(light.ATTR_BRIGHTNESS)
-        effect = kwargs.get(light.ATTR_EFFECT)
-        flash = kwargs.get(light.ATTR_FLASH)
 
         # If the light is currently off but a turn_on call with a color/temperature is sent,
         # the light needs to be turned on first at a low brightness level where the light is immediately transitioned
@@ -408,9 +413,13 @@ class BaseLight(LogMixin, light.LightEntity):
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
+        supports_level = brightness_supported(self._attr_supported_color_modes)
         transition = kwargs.get(light.ATTR_TRANSITION)
-        if transition is not None:
-            transition_time = transition + 0.25
+        transition_time = (
+            transition + 0.25 if transition is not None else 1.25
+        )  # most bulbs default to a 1 second transition time
+
+        if supports_level:
             self._transitioning = True
             if isinstance(self, LightGroup):
                 async_dispatcher_send(
@@ -425,8 +434,6 @@ class BaseLight(LogMixin, light.LightEntity):
                 transition_time,
                 self.async_transition_complete,
             )
-
-        supports_level = brightness_supported(self._attr_supported_color_modes)
 
         if transition and supports_level:
             result = await self._level_channel.move_to_level_with_on_off(
