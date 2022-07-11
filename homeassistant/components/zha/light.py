@@ -239,15 +239,14 @@ class BaseLight(LogMixin, light.LightEntity):
             else DEFAULT_TRANSITION
         )
 
-        transition_time = (
-            transition or self._default_transition or DEFAULT_TRANSITION
-        ) + 0.25
-
         if (
             brightness_supported(self._attr_supported_color_modes)
             or light.ATTR_COLOR_TEMP in kwargs
             or light.ATTR_HS_COLOR in kwargs
         ):
+            transition_time = (
+                transition or self._default_transition or DEFAULT_TRANSITION
+            ) + 0.25
             self._transitioning = True
             if isinstance(self, LightGroup):
                 async_dispatcher_send(
@@ -415,11 +414,10 @@ class BaseLight(LogMixin, light.LightEntity):
         """Turn the entity off."""
         supports_level = brightness_supported(self._attr_supported_color_modes)
         transition = kwargs.get(light.ATTR_TRANSITION)
-        transition_time = (
-            transition + 0.25 if transition is not None else 1.25
-        )  # most bulbs default to a 1 second transition time
-
         if supports_level:
+            transition_time = (
+                transition + 0.25 if transition is not None else 1.25
+            )  # most bulbs default to a 1 second transition time
             self._transitioning = True
             if isinstance(self, LightGroup):
                 async_dispatcher_send(
@@ -435,7 +433,7 @@ class BaseLight(LogMixin, light.LightEntity):
                 self.async_transition_complete,
             )
 
-        if transition and supports_level:
+        if transition is not None and supports_level:
             result = await self._level_channel.move_to_level_with_on_off(
                 0, transition * 10
             )
@@ -450,7 +448,6 @@ class BaseLight(LogMixin, light.LightEntity):
             # store current brightness so that the next turn_on uses it.
             self._off_with_transition = bool(transition)
             self._off_brightness = self._brightness
-            self._brightness = 0
 
         self.async_write_ha_state()
 
