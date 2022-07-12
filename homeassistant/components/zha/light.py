@@ -749,10 +749,10 @@ class ForceOnLight(Light):
 @STRICT_MATCH(
     channel_names=CHANNEL_ON_OFF,
     aux_channels={CHANNEL_COLOR, CHANNEL_LEVEL},
-    manufacturers={"Sengled"},
+    manufacturers=DEFAULT_MIN_TRANSITION_MANUFACTURERS,
 )
-class SengledLight(Light):
-    """Representation of a Sengled light which does not react to move_to_color_temp with 0 as a transition."""
+class MinTransitionLight(Light):
+    """Representation of a light which does not react to any "move to" calls with 0 as a transition."""
 
     _DEFAULT_MIN_TRANSITION = 1
 
