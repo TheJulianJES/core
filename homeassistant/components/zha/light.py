@@ -248,19 +248,27 @@ class BaseLight(LogMixin, light.LightEntity):
             or light.ATTR_HS_COLOR in kwargs
         )
         transition_time = (
-            duration / 10 + DEFAULT_EXTRA_TRANSITION_DELAY
-            if (
-                (brightness is not None or transition is not None)
-                and brightness_supported(self._attr_supported_color_modes)
-                or (self._off_with_transition and self._off_brightness is not None)
-                or light.ATTR_COLOR_TEMP in kwargs
-                or light.ATTR_HS_COLOR in kwargs
+            (
+                duration / 10 + DEFAULT_EXTRA_TRANSITION_DELAY
+                if (
+                    (brightness is not None or transition is not None)
+                    and brightness_supported(self._attr_supported_color_modes)
+                    or (self._off_with_transition and self._off_brightness is not None)
+                    or light.ATTR_COLOR_TEMP in kwargs
+                    or light.ATTR_HS_COLOR in kwargs
+                )
+                else DEFAULT_ON_OFF_TRANSITION + DEFAULT_EXTRA_TRANSITION_DELAY
             )
-            else DEFAULT_ON_OFF_TRANSITION + DEFAULT_EXTRA_TRANSITION_DELAY
+            if set_transition_flag
+            else 0
         )
 
+        # If we need to pause attribute report parsing, do so.
+        # We later set a timer after successful calls to unset the flag after transition_time.
+        # On an error on the first move to level call, we unset the flag immediately if no previous delay has started.
+        # On an error on another calls, we start the transition timer, as a brightness call might have come through
         if set_transition_flag:
-            self.async_transition_start(transition_time)
+            self.async_transition_set_flag()
 
         # If the light is currently off but a turn_on call with a color/temperature is sent,
         # the light needs to be turned on first at a low brightness level where the light is immediately transitioned
@@ -300,6 +308,8 @@ class BaseLight(LogMixin, light.LightEntity):
             t_log["move_to_level_with_on_off"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
                 self.debug("turned on: %s", t_log)
+                if set_transition_flag and not self._transition_listener:
+                    self.async_transition_complete(None)
                 return
             # Currently only setting it to "on", as the correct level state will be set at the second move_to_level call
             self._state = True
@@ -315,6 +325,8 @@ class BaseLight(LogMixin, light.LightEntity):
             t_log["move_to_level_with_on_off"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
                 self.debug("turned on: %s", t_log)
+                if set_transition_flag and not self._transition_listener:
+                    self.async_transition_complete(None)
                 return
             self._state = bool(level)
             if level:
@@ -331,6 +343,7 @@ class BaseLight(LogMixin, light.LightEntity):
             t_log["on_off"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
                 self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
                 return
             self._state = True
 
@@ -342,6 +355,7 @@ class BaseLight(LogMixin, light.LightEntity):
             t_log["move_to_color_temp"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
                 self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
                 return
             self._attr_color_mode = ColorMode.COLOR_TEMP
             self._color_temp = temperature
@@ -358,17 +372,13 @@ class BaseLight(LogMixin, light.LightEntity):
             t_log["move_to_color"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
                 self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
                 return
             self._attr_color_mode = ColorMode.HS
             self._hs_color = hs_color
             self._color_temp = None
 
         if color_provided_from_off:
-            # For larger scene calls, the above commands can take a bit to execute
-            # which would cause the brightness slider to jump. Restarting the delay here
-            if set_transition_flag:
-                self.async_transition_start(transition_time)
-
             # The light is has the correct color, so we can now transition it to the correct brightness level.
             result = await self._level_channel.move_to_level_with_on_off(
                 level, final_duration
@@ -376,10 +386,15 @@ class BaseLight(LogMixin, light.LightEntity):
             t_log["move_to_level_with_on_off_if_color"] = result
             if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
                 self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
                 return
             self._state = bool(level)
             if level:
                 self._brightness = level
+
+        # Our light is guaranteed to have just started the transitioning process if necessary,
+        # so we start the delay for the transition (to stop parsing attribute reports).
+        self.async_transition_start(transition_time)
 
         if effect == light.EFFECT_COLORLOOP:
             result = await self._color_channel.color_loop_set(
@@ -448,8 +463,9 @@ class BaseLight(LogMixin, light.LightEntity):
         self.async_write_ha_state()
 
     @callback
-    def async_transition_start(self, transition_time) -> None:
+    def async_transition_set_flag(self) -> None:
         """Set _transitioning to True."""
+        self.debug("setting transitioning flag to True")
         self._transitioning = True
         if isinstance(self, LightGroup):
             async_dispatcher_send(
@@ -459,7 +475,14 @@ class BaseLight(LogMixin, light.LightEntity):
             )
         if self._transition_listener is not None:
             self._transition_listener()
-        self.debug("setting transitioning flag for %s", transition_time)
+
+    @callback
+    def async_transition_start(self, transition_time) -> None:
+        """Set _transitioning to True and start a timer to unset after transition_time if necessary."""
+        if not transition_time:
+            return
+        self.async_transition_set_flag()
+        self.debug("starting transitioning timer for %s", transition_time)
         self._transition_listener = async_call_later(
             self._zha_device.hass,
             transition_time,
