@@ -242,22 +242,24 @@ class BaseLight(LogMixin, light.LightEntity):
             else DEFAULT_TRANSITION
         )
 
-        if (
+        set_transition_flag = (
             brightness_supported(self._attr_supported_color_modes)
             or light.ATTR_COLOR_TEMP in kwargs
             or light.ATTR_HS_COLOR in kwargs
-        ):
-            transition_time = (
-                duration / 10 + DEFAULT_EXTRA_TRANSITION_DELAY
-                if (
-                    (brightness is not None or transition is not None)
-                    and brightness_supported(self._attr_supported_color_modes)
-                    or (self._off_with_transition and self._off_brightness is not None)
-                    or light.ATTR_COLOR_TEMP in kwargs
-                    or light.ATTR_HS_COLOR in kwargs
-                )
-                else DEFAULT_ON_OFF_TRANSITION + DEFAULT_EXTRA_TRANSITION_DELAY
+        )
+        transition_time = (
+            duration / 10 + DEFAULT_EXTRA_TRANSITION_DELAY
+            if (
+                (brightness is not None or transition is not None)
+                and brightness_supported(self._attr_supported_color_modes)
+                or (self._off_with_transition and self._off_brightness is not None)
+                or light.ATTR_COLOR_TEMP in kwargs
+                or light.ATTR_HS_COLOR in kwargs
             )
+            else DEFAULT_ON_OFF_TRANSITION + DEFAULT_EXTRA_TRANSITION_DELAY
+        )
+
+        if set_transition_flag:
             self.async_transition_start(transition_time)
 
         # If the light is currently off but a turn_on call with a color/temperature is sent,
@@ -362,6 +364,11 @@ class BaseLight(LogMixin, light.LightEntity):
             self._color_temp = None
 
         if color_provided_from_off:
+            # For larger scene calls, the above commands can take a bit to execute
+            # which would cause the brightness slider to jump. Restarting the delay here
+            if set_transition_flag:
+                self.async_transition_start(transition_time)
+
             # The light is has the correct color, so we can now transition it to the correct brightness level.
             result = await self._level_channel.move_to_level_with_on_off(
                 level, final_duration
