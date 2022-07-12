@@ -94,6 +94,7 @@ PARALLEL_UPDATES = 0
 SIGNAL_LIGHT_GROUP_STATE_CHANGED = "zha_light_group_state_changed"
 SIGNAL_LIGHT_GROUP_TRANSITION_START = "zha_light_group_transition_start"
 SIGNAL_LIGHT_GROUP_TRANSITION_FINISHED = "zha_light_group_transition_finished"
+DEFAULT_MIN_TRANSITION_MANUFACTURERS = {"Sengled"}
 
 COLOR_MODES_GROUP_LIGHT = {ColorMode.COLOR_TEMP, ColorMode.HS}
 SUPPORT_GROUP_LIGHT = (
@@ -760,14 +761,16 @@ class SengledLight(Light):
 class LightGroup(BaseLight, ZhaGroupEntity):
     """Representation of a light group."""
 
-    _DEFAULT_MIN_TRANSITION = 1
-
     def __init__(
         self, entity_ids: list[str], unique_id: str, group_id: int, zha_device, **kwargs
     ) -> None:
         """Initialize a light group."""
         super().__init__(entity_ids, unique_id, group_id, zha_device, **kwargs)
         group = self.zha_device.gateway.get_group(self._group_id)
+        self._DEFAULT_MIN_TRANSITION = any(  # pylint: disable=invalid-name
+            member.device.manufacturer in DEFAULT_MIN_TRANSITION_MANUFACTURERS
+            for member in group.members
+        )
         self._on_off_channel = group.endpoint[OnOff.cluster_id]
         self._level_channel = group.endpoint[LevelControl.cluster_id]
         self._color_channel = group.endpoint[Color.cluster_id]
