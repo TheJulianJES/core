@@ -333,6 +333,99 @@ class BaseLight(LogMixin, light.LightEntity):
             if level:
                 self._brightness = level
 
+        t_log["on_off"] = self.async_do_on(
+            brightness, color_provided_from_off, transition_time
+        )
+
+        t_log["move_to_color_temp"] = self.async_do_temperature(
+            temperature, duration, transition_time
+        )
+        t_log["move_to_color"] = self.async_do_color(
+            hs_color, duration, transition_time
+        )
+        t_log["move_to_level_with_on_off_if_color"] = self.async_do_final_brightness(
+            color_provided_from_off, level, final_duration, transition_time
+        )
+
+        # Transition Delay Timer start here
+
+        t_log["color_loop_set"] = self.async_do_effect(effect, transition)
+        t_log["trigger_effect"] = self.async_do_flash(flash)
+
+        self._off_with_transition = False
+        self._off_brightness = None
+        self.debug("turned on: %s", t_log)
+        self.async_write_ha_state()
+
+    async def async_do_on(self, brightness, color_provided_from_off, transition_time):
+        if (
+            brightness is None
+            and not color_provided_from_off
+            or (self._FORCE_ON and brightness)
+        ):
+            # since some lights don't always turn on with move_to_level_with_on_off,
+            # we should call the on command on the on_off cluster if brightness is not 0.
+            result = await self._on_off_channel.on()
+            # t_log["on_off"] = result
+            if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
+                # self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
+                return result
+            self._state = True
+            return result
+
+    async def async_do_temperature(self, temperature, duration, transition_time):
+        if temperature is not None:
+            result = await self._color_channel.move_to_color_temp(
+                temperature, duration or self._DEFAULT_MIN_TRANSITION
+            )
+            # t_log["move_to_color_temp"] = result
+            if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
+                # self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
+                return result
+            self._attr_color_mode = ColorMode.COLOR_TEMP
+            self._color_temp = temperature
+            self._hs_color = None
+            return result
+
+    async def async_do_color(self, hs_color, duration, transition_time):
+        if hs_color is not None:
+            xy_color = color_util.color_hs_to_xy(*hs_color)
+            result = await self._color_channel.move_to_color(
+                int(xy_color[0] * 65535),
+                int(xy_color[1] * 65535),
+                duration or self._DEFAULT_MIN_TRANSITION,
+            )
+            # t_log["move_to_color"] = result
+            if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
+                # self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
+                return result
+            self._attr_color_mode = ColorMode.HS
+            self._hs_color = hs_color
+            self._color_temp = None
+            return result
+
+    async def async_do_final_brightness(
+        self, color_provided_from_off, level, final_duration, transition_time
+    ):
+        if color_provided_from_off:
+            # The light is has the correct color, so we can now transition it to the correct brightness level.
+            result = await self._level_channel.move_to_level_with_on_off(
+                level, final_duration
+            )
+            # t_log["move_to_level_with_on_off_if_color"] = result
+            if isinstance(result, Exception) or result[1] is not Status.SUCCESS:
+                # self.debug("turned on: %s", t_log)
+                self.async_transition_start(transition_time)
+                return result
+            self._state = bool(level)
+            if level:
+                self._brightness = level
+            return result
+
+    async def async_do_effect(self, effect, transition):
         if effect == light.EFFECT_COLORLOOP:
             result = await self._color_channel.color_loop_set(
                 UPDATE_COLORLOOP_ACTION
@@ -343,8 +436,8 @@ class BaseLight(LogMixin, light.LightEntity):
                 transition if transition else 7,  # transition
                 0,  # no hue
             )
-            t_log["color_loop_set"] = result
             self._effect = light.EFFECT_COLORLOOP
+            return result
         elif (
             self._effect == light.EFFECT_COLORLOOP and effect != light.EFFECT_COLORLOOP
         ):
@@ -355,19 +448,15 @@ class BaseLight(LogMixin, light.LightEntity):
                 0x0,
                 0x0,  # update action only, action off, no dir, time, hue
             )
-            t_log["color_loop_set"] = result
             self._effect = None
+            return result
 
+    async def async_do_flash(self, flash):
         if flash is not None:
             result = await self._identify_channel.trigger_effect(
                 FLASH_EFFECTS[flash], EFFECT_DEFAULT_VARIANT
             )
-            t_log["trigger_effect"] = result
-
-        self._off_with_transition = False
-        self._off_brightness = None
-        self.debug("turned on: %s", t_log)
-        self.async_write_ha_state()
+            return result
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
