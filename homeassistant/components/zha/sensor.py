@@ -491,7 +491,13 @@ class SmartEnergySummation(SmartEnergyMetering, id_suffix="summation_delivered")
 
 @MULTI_MATCH(
     channel_names=CHANNEL_SMARTENERGY_METERING,
-    models={"TS011F"},
+    models={
+        "TS011F",
+        "lumi.plug.maeu01",
+        "lumi.plug.maus01",
+        "lumi.plug.mmeu01",
+        "lumi.relay.c2acn01",
+    },
     stop_on_match_group=CHANNEL_SMARTENERGY_METERING,
 )
 class PolledSmartEnergySummation(SmartEnergySummation):
