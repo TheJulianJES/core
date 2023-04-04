@@ -4,8 +4,6 @@ from __future__ import annotations
 import functools
 from typing import Any
 
-import zigpy.types as t
-from zigpy.zcl.clusters.general import OnOff
 from zigpy.zcl.clusters.security import IasZone
 
 from homeassistant.components.binary_sensor import (
@@ -126,15 +124,28 @@ class Opening(BinarySensor):
     SENSOR_ATTR = "on_off"
     _attr_device_class: BinarySensorDeviceClass = BinarySensorDeviceClass.OPENING
 
-    # Client/out cluster attributes aren't stored in the zigpy database, but are properly stored in the runtime cache.
-    # We need to manually restore the last state from the sensor state to the runtime cache for now.
+    # client/out cluster attributes aren't stored in the zigpy database,
+    # so we always restore the last state from the sensor
     @callback
     def async_restore_last_state(self, last_state):
-        """Restore previous state to zigpy cache."""
-        self._channel.cluster.update_attribute(
-            OnOff.attributes_by_name[self.SENSOR_ATTR].id,
-            t.Bool.true if last_state.state == STATE_ON else t.Bool.false,
-        )
+        """Restore previous binary state."""
+        super().async_restore_last_state(last_state)
+        self._state = last_state.state == STATE_ON
+
+    @property
+    def is_on(self) -> bool:
+        """Return True if the sensor is on based on the state machine."""
+        if self._state is None:
+            return False
+        return self._state
+
+    @callback
+    def async_set_state(self, attr_id, attr_name, value):
+        """Set the state from an attribute report signal."""
+        if attr_name != self.SENSOR_ATTR:
+            return
+        self._state = bool(value)
+        self.async_write_ha_state()
 
 
 @MULTI_MATCH(channel_names=CHANNEL_BINARY_INPUT)
