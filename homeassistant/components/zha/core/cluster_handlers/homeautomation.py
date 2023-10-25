@@ -8,7 +8,6 @@ from zigpy.zcl.clusters import homeautomation
 from .. import registries
 from ..const import (
     CLUSTER_HANDLER_ELECTRICAL_MEASUREMENT,
-    REPORT_CONFIG_DEFAULT,
     REPORT_CONFIG_OP,
     SIGNAL_ATTR_UPDATED,
 )
@@ -66,14 +65,10 @@ class ElectricalMeasurementClusterHandler(ClusterHandler):
 
     REPORT_CONFIG = (
         AttrReportConfig(attr="active_power", config=REPORT_CONFIG_OP),
-        AttrReportConfig(attr="active_power_max", config=REPORT_CONFIG_DEFAULT),
         AttrReportConfig(attr="apparent_power", config=REPORT_CONFIG_OP),
         AttrReportConfig(attr="rms_current", config=REPORT_CONFIG_OP),
-        AttrReportConfig(attr="rms_current_max", config=REPORT_CONFIG_DEFAULT),
         AttrReportConfig(attr="rms_voltage", config=REPORT_CONFIG_OP),
-        AttrReportConfig(attr="rms_voltage_max", config=REPORT_CONFIG_DEFAULT),
         AttrReportConfig(attr="ac_frequency", config=REPORT_CONFIG_OP),
-        AttrReportConfig(attr="ac_frequency_max", config=REPORT_CONFIG_DEFAULT),
     )
     ZCL_INIT_ATTRS = {
         "ac_current_divisor": True,
