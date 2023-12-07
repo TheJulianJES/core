@@ -247,7 +247,7 @@ class ProbeEndpoint:
                 )
         for platform, ent_n_handler_list in matches.items():
             for entity_and_handler in ent_n_handler_list:
-                if platform == cmpt_by_dev_type:
+                if platform == cmpt_by_dev_type and not config_diagnostic_entities:
                     # for well known device types, like thermostats we'll take only 1st class
                     endpoint.async_new_entity(
                         platform,
