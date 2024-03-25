@@ -535,9 +535,6 @@ class ZhaConfigFlowHandler(BaseZhaFlow, ConfigFlow, domain=DOMAIN):
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
         """Handle a ZHA config flow start."""
-        if self._async_current_entries():
-            return self.async_abort(reason="single_instance_allowed")
-
         return await self.async_step_choose_serial_port(user_input)
 
     async def async_step_confirm(
@@ -545,10 +542,6 @@ class ZhaConfigFlowHandler(BaseZhaFlow, ConfigFlow, domain=DOMAIN):
     ) -> ConfigFlowResult:
         """Confirm a discovery."""
         self._set_confirm_only()
-
-        # Don't permit discovery if ZHA is already set up
-        if self._async_current_entries():
-            return self.async_abort(reason="single_instance_allowed")
 
         # Without confirmation, discovery can automatically progress into parts of the
         # config flow logic that interacts with hardware.

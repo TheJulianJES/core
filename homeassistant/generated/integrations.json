@@ -6998,7 +6998,8 @@
       "name": "Zigbee Home Automation",
       "integration_type": "hub",
       "config_flow": true,
-      "iot_class": "local_polling"
+      "iot_class": "local_polling",
+      "single_config_entry": true
     },
     "zhong_hong": {
       "name": "ZhongHong",
