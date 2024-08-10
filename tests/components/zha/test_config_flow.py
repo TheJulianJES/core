@@ -1935,3 +1935,24 @@ async def test_migration_ti_cc_to_znp(
 
     assert config_entry.version > 2
     assert config_entry.data[CONF_RADIO_TYPE] == new_type
+
+
+async def test_migration_missing_flow_control(
+    hass: HomeAssistant, config_entry: MockConfigEntry
+) -> None:
+    """Test missing flow control option migration."""
+    config_entry.data[CONF_DEVICE].pop(CONF_FLOW_CONTROL)
+    config_entry.add_to_hass(hass)
+    hass.config_entries.async_update_entry(
+        config_entry, data={**config_entry.data}, version=4, minor_version=1
+    )
+
+    with patch("homeassistant.components.zha.async_setup_entry", return_value=True):
+        await hass.config_entries.async_setup(config_entry.entry_id)
+        await hass.async_block_till_done()
+
+    assert config_entry.version > 3
+    assert config_entry.minor_version > 1
+
+    assert CONF_FLOW_CONTROL in config_entry.data[CONF_DEVICE]
+    assert config_entry.data[CONF_DEVICE][CONF_FLOW_CONTROL] is None
