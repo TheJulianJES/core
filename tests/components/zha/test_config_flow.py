@@ -28,8 +28,10 @@ from homeassistant.components.zha.const import (
     CONF_BAUDRATE,
     CONF_FLOW_CONTROL,
     CONF_RADIO_TYPE,
+    CUSTOM_CONFIGURATION,
     DOMAIN,
     EZSP_OVERWRITE_EUI64,
+    ZHA_OPTIONS,
 )
 from homeassistant.components.zha.radio_manager import ProbeResult
 from homeassistant.config_entries import (
@@ -1961,3 +1963,29 @@ async def test_migration_ti_cc_to_znp(
 
     assert config_entry.version > 2
     assert config_entry.data[CONF_RADIO_TYPE] == new_type
+
+
+async def test_migration_xy_config_option_removed(
+    hass: HomeAssistant, config_entry: MockConfigEntry
+) -> None:
+    """Test XY color config option removal."""
+    config_entry.options[CUSTOM_CONFIGURATION][ZHA_OPTIONS][
+        "always_prefer_xy_color_model"  # re-add as const?
+    ] = False
+
+    config_entry.add_to_hass(hass)
+    hass.config_entries.async_update_entry(
+        config_entry, data={**config_entry.data}, version=4, minor_version=1
+    )
+
+    with patch("homeassistant.components.zha.async_setup_entry", return_value=True):
+        await hass.config_entries.async_setup(config_entry.entry_id)
+        await hass.async_block_till_done()
+
+    assert config_entry.version > 3
+    assert config_entry.minor_version > 1
+
+    assert (
+        "always_prefer_xy_color_model"
+        not in config_entry.options[CUSTOM_CONFIGURATION][ZHA_OPTIONS]
+    )
