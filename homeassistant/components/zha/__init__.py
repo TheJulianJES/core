@@ -36,8 +36,10 @@ from .const import (
     CONF_RADIO_TYPE,
     CONF_USB_PATH,
     CONF_ZIGPY,
+    CUSTOM_CONFIGURATION,
     DATA_ZHA,
     DOMAIN,
+    ZHA_OPTIONS,
 )
 from .helpers import (
     SIGNAL_ADD_ENTITIES,
@@ -249,7 +251,11 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Migrate old entry."""
-    _LOGGER.debug("Migrating from version %s", config_entry.version)
+    _LOGGER.debug(
+        "Migrating from version %s.%s",
+        config_entry.version,
+        config_entry.minor_version,
+    )
 
     if config_entry.version == 1:
         data = {
@@ -288,5 +294,28 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
         hass.config_entries.async_update_entry(config_entry, data=data, version=4)
 
-    _LOGGER.info("Migration to version %s successful", config_entry.version)
+    if config_entry.version == 4 and config_entry.minor_version < 2:
+        old_options = config_entry.options
+        options = {**old_options}
+
+        if (custom_config := options.get(CUSTOM_CONFIGURATION)) and (
+            zha_config := custom_config.get(ZHA_OPTIONS)
+        ):
+            zha_config.pop("always_prefer_xy_color_model", None)  # use const for this?
+
+        _LOGGER.info(
+            "Migrating ZHA custom configuration options from %s to %s",
+            old_options,
+            options,
+        )
+
+        hass.config_entries.async_update_entry(
+            config_entry, options=options, version=4, minor_version=2
+        )
+
+    _LOGGER.debug(
+        "Migration to version %s.%s successful",
+        config_entry.version,
+        config_entry.minor_version,
+    )
     return True
