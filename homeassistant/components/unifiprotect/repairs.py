@@ -6,7 +6,6 @@ from typing import cast
 
 from uiprotect import ProtectApiClient
 from uiprotect.data import Bootstrap, Camera, ModelType
-from uiprotect.data.types import FirmwareReleaseChannel
 import voluptuous as vol
 
 from homeassistant import data_entry_flow
@@ -53,25 +52,7 @@ class EAConfirmRepair(ProtectRepair):
     ) -> data_entry_flow.FlowResult:
         """Handle the first step of a fix flow."""
 
-        return await self.async_step_start()
-
-    async def async_step_start(
-        self, user_input: dict[str, str] | None = None
-    ) -> data_entry_flow.FlowResult:
-        """Handle the confirm step of a fix flow."""
-        if user_input is None:
-            placeholders = self._async_get_placeholders()
-            return self.async_show_form(
-                step_id="start",
-                data_schema=vol.Schema({}),
-                description_placeholders=placeholders,
-            )
-
-        nvr = await self._api.get_nvr()
-        if nvr.release_channel != FirmwareReleaseChannel.RELEASE:
-            return await self.async_step_confirm()
-        await self.hass.config_entries.async_reload(self._entry.entry_id)
-        return self.async_create_entry(data={})
+        return await self.async_step_confirm()
 
     async def async_step_confirm(
         self, user_input: dict[str, str] | None = None
