@@ -30,7 +30,7 @@ async def test_ea_warning_ignore(
     hass_client: ClientSessionGenerator,
     hass_ws_client: WebSocketGenerator,
 ) -> None:
-    """Test EA warning is created if using prerelease version of Protect."""
+    """Test EA warning is created and ignorable on EA Protect versions."""
 
     ufp.api.bootstrap.nvr.release_channel = "beta"
     ufp.api.bootstrap.nvr.version = Version("1.21.0-beta.2")
@@ -56,18 +56,6 @@ async def test_ea_warning_ignore(
     resp = await client.post(
         url, json={"handler": DOMAIN, "issue_id": "ea_channel_warning"}
     )
-    assert resp.status == HTTPStatus.OK
-    data = await resp.json()
-
-    flow_id = data["flow_id"]
-    assert data["description_placeholders"] == {
-        "learn_more": "https://www.home-assistant.io/integrations/unifiprotect#software-support",
-        "version": str(version),
-    }
-    assert data["step_id"] == "start"
-
-    url = RepairsFlowResourceView.url.format(flow_id=flow_id)
-    resp = await client.post(url)
     assert resp.status == HTTPStatus.OK
     data = await resp.json()
 
@@ -92,7 +80,7 @@ async def test_ea_warning_fix(
     hass_client: ClientSessionGenerator,
     hass_ws_client: WebSocketGenerator,
 ) -> None:
-    """Test EA warning is created if using prerelease version of Protect."""
+    """Test EA warning is created and fixable on EA Protect versions."""
 
     ufp.api.bootstrap.nvr.release_channel = "beta"
     ufp.api.bootstrap.nvr.version = Version("1.21.0-beta.2")
@@ -126,7 +114,7 @@ async def test_ea_warning_fix(
         "learn_more": "https://www.home-assistant.io/integrations/unifiprotect#software-support",
         "version": str(version),
     }
-    assert data["step_id"] == "start"
+    assert data["step_id"] == "confirm"
 
     new_nvr = copy(ufp.api.bootstrap.nvr)
     new_nvr.release_channel = "release"
