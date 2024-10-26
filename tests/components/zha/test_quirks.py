@@ -31,7 +31,9 @@ def test_v2_quirks() -> None:
     # }
 
     with open("homeassistant/components/zha/strings.json", "w") as f:
-        f.write(orjson.dumps(translations_new, option=orjson.OPT_INDENT_2).decode())
+        f.write(
+            orjson.dumps(translations_new, option=orjson.OPT_INDENT_2).decode() + "\n"
+        )
 
 
 def validate_translation_keys(
