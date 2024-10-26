@@ -4,11 +4,7 @@ import itertools
 
 import orjson
 import zigpy.quirks
-from zigpy.quirks.v2 import (
-    EntityMetadata,
-    QuirksV2RegistryEntry,
-    ZCLCommandButtonMetadata,
-)
+from zigpy.quirks.v2 import EntityMetadata, QuirksV2RegistryEntry
 
 from homeassistant.const import Platform
 from homeassistant.util.json import load_json
@@ -46,11 +42,7 @@ def validate_translation_keys(
     translations_new: dict,
 ) -> None:
     """Ensure translation keys exist for all v2 quirks."""
-    if isinstance(entity_metadata, ZCLCommandButtonMetadata):
-        default_translation_key = entity_metadata.command_name
-    else:
-        default_translation_key = entity_metadata.attribute_name
-    translation_key = entity_metadata.translation_key or default_translation_key
+    translation_key = entity_metadata.translation_key
 
     if (
         translation_key is not None
