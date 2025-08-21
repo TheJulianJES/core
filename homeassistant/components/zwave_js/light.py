@@ -656,11 +656,11 @@ class ZwaveColorOnOffLight(ZwaveLight):
             blue = self._current_color.value.get(COLOR_SWITCH_COMBINED_BLUE)
 
             last_color: dict[ColorComponent, int] = {}
-            if red:
+            if red is not None:
                 last_color[ColorComponent.RED] = red
-            if green:
+            if green is not None:
                 last_color[ColorComponent.GREEN] = green
-            if blue:
+            if blue is not None:
                 last_color[ColorComponent.BLUE] = blue
 
             if last_color:
