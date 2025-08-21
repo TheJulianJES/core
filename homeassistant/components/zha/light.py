@@ -29,8 +29,10 @@ from homeassistant.const import STATE_ON, Platform
 from homeassistant.core import HomeAssistant, State, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+import homeassistant.helpers.entity_registry as er
 from homeassistant.util import color as color_util
 
+from .const import DOMAIN
 from .entity import ZHAEntity
 from .helpers import (
     SIGNAL_ADD_ENTITIES,
@@ -113,10 +115,27 @@ class Light(LightEntity, ZHAEntity):
     def extra_state_attributes(self) -> Mapping[str, Any] | None:
         """Return entity specific state attributes."""
         state = self.entity_data.entity.state
-        return {
+        attributes: dict[str, Any] = {
             "off_with_transition": state.get("off_with_transition"),
             "off_brightness": state.get("off_brightness"),
         }
+
+        if self.entity_data.is_group_entity:
+            registry = er.async_get(self.hass)
+            attributes["entity_id"] = [
+                entity_id
+                for member in self.entity_data.entity.group.members
+                for entity in member.associated_entities
+                if (
+                    entity_id := registry.async_get_entity_id(
+                        Platform.LIGHT,  # TODO: what about switches in light group?
+                        DOMAIN,
+                        entity.unique_id,
+                    )
+                )
+            ]
+
+        return attributes
 
     @property
     def is_on(self) -> bool:
