@@ -1073,6 +1073,15 @@ async def test_light_color_only(
     )
     await update_color(0, 0, 0)
 
+    # Turn off again to make sure last color/brightness is preserved
+    await hass.services.async_call(
+        LIGHT_DOMAIN,
+        SERVICE_TURN_OFF,
+        {ATTR_ENTITY_ID: HSM200_V1_ENTITY},
+        blocking=True,
+    )
+    await update_color(0, 0, 0)
+
     client.async_send_command.reset_mock()
 
     # Assert that the brightness is preserved when turning on with color
