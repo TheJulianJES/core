@@ -59,6 +59,7 @@ async def test_default_name_sensor(hass: HomeAssistant) -> None:
 
     assert str(float(MIN_VALUE)) == state.state
     assert entity_ids[2] == state.attributes.get("min_entity_id")
+    assert state.attributes.get("entity_id") == entity_ids
 
 
 async def test_min_sensor(
