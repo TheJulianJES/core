@@ -8,6 +8,10 @@
           "menu_options": {
             "pick_firmware_zigbee": "Zigbee",
             "pick_firmware_thread": "Thread"
+          },
+          "menu_option_descriptions": {
+            "pick_firmware_zigbee": "Most common protocol",
+            "pick_firmware_thread": "Often used for Matter over Thread devices"
           }
         },
         "confirm_zigbee": {
