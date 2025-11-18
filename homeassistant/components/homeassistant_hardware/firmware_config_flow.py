@@ -235,6 +235,8 @@ class BaseFirmwareInstallFlow(ConfigEntryBaseFlow, ABC):
         # Keep track of the firmware we're working with, for error messages
         self.installing_firmware_name = firmware_name
 
+        _LOGGER.debug("Probing existing firmware on device %s", self._device)
+
         # Installing new firmware is only truly required if the wrong type is
         # installed: upgrading to the latest release of the current firmware type
         # isn't strictly necessary for functionality.
@@ -244,9 +246,14 @@ class BaseFirmwareInstallFlow(ConfigEntryBaseFlow, ABC):
             application_probe_methods=self.APPLICATION_PROBE_METHODS,
         )
 
+        _LOGGER.debug("Probed firmware info: %s", self._probed_firmware_info)
+
         firmware_install_required = self._probed_firmware_info is None or (
             self._probed_firmware_info.firmware_type != expected_installed_firmware_type
         )
+
+        _LOGGER.debug("Expected firmware type: %s", expected_installed_firmware_type)
+        _LOGGER.debug("Firmware install required: %s", firmware_install_required)
 
         session = async_get_clientsession(self.hass)
         client = FirmwareUpdateClient(fw_update_url, session)
@@ -301,6 +308,8 @@ class BaseFirmwareInstallFlow(ConfigEntryBaseFlow, ABC):
                 description_placeholders=self._get_translation_placeholders(),
             ) from err
 
+        _LOGGER.debug("Flashing firmware to device %s", self._device)
+
         self._probed_firmware_info = await async_flash_silabs_firmware(
             hass=self.hass,
             device=self._device,
@@ -312,6 +321,8 @@ class BaseFirmwareInstallFlow(ConfigEntryBaseFlow, ABC):
                 offset / total
             ),
         )
+
+        _LOGGER.debug("Flashed firmware info: %s", self._probed_firmware_info)
 
     async def _configure_and_start_otbr_addon(self) -> None:
         """Configure and start the OTBR addon."""

@@ -378,6 +378,8 @@ async def async_flash_silabs_firmware(
     domain: str = DOMAIN,
 ) -> FirmwareInfo:
     """Flash firmware to the SiLabs device."""
+    _LOGGER.debug("Preparing to flash firmware to device %r", device)
+
     if not any(
         method == expected_installed_firmware_type
         for method, _ in application_probe_methods
@@ -386,6 +388,8 @@ async def async_flash_silabs_firmware(
             f"Expected installed firmware type {expected_installed_firmware_type!r}"
             f" not in application probe methods {application_probe_methods!r}"
         )
+
+    _LOGGER.debug("Flashing firmware to device %r", device)
 
     async with async_firmware_update_context(hass, device, domain):
         firmware_info = await guess_firmware_info(hass, device)
@@ -411,14 +415,21 @@ async def async_flash_silabs_firmware(
 
             try:
                 # Enter the bootloader with indeterminate progress
+                _LOGGER.debug("Entering bootloader on device %r", device)
                 await flasher.enter_bootloader()
+
+                _LOGGER.debug("Flashing firmware to device %r", device)
 
                 # Flash the firmware, with progress
                 await flasher.flash_firmware(
                     fw_image, progress_callback=progress_callback
                 )
+                _LOGGER.debug("Flashed firmware to device %r", device)
+
             except Exception as err:
                 raise HomeAssistantError("Failed to flash firmware") from err
+
+            _LOGGER.debug("Probing firmware on device %r after flashing", device)
 
             probed_firmware_info = await probe_silabs_firmware_info(
                 device,
