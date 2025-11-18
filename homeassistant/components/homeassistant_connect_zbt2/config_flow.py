@@ -81,7 +81,7 @@ class ZBT2FirmwareMixin(ConfigEntryBaseFlow, FirmwareInstallFlowProtocol):
 
     # Early ZBT-2 samples used RTS/DTR to trigger the bootloader, later ones use the
     # baudrate method. Since the two are mutually exclusive we just use both.
-    BOOTLOADER_RESET_METHODS = [ResetTarget.RTS_DTR, ResetTarget.BAUDRATE]
+    BOOTLOADER_RESET_METHODS: list[ResetTarget] = []
     APPLICATION_PROBE_METHODS = [
         (ApplicationType.GECKO_BOOTLOADER, 115200),
         (ApplicationType.EZSP, ZIGBEE_BAUDRATE),
