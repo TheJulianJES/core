@@ -402,6 +402,7 @@ async def async_flash_silabs_firmware(
             bootloader_reset=tuple(
                 m.as_flasher_reset_target() for m in bootloader_reset_methods
             ),
+            bootloader_baudrate=115200,
         )
 
         async with AsyncExitStack() as stack:
