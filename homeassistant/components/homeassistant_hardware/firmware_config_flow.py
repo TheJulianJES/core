@@ -210,6 +210,13 @@ class BaseFirmwareInstallFlow(ConfigEntryBaseFlow, ABC):
                 description_placeholders=self._get_translation_placeholders(),
             )
             return self.async_show_progress_done(next_step_id="progress_failed")
+        except Exception:
+            _LOGGER.exception("Unexpected error during firmware installation")
+            self._progress_error = AbortFlow(
+                reason="fw_install_failed",
+                description_placeholders=self._get_translation_placeholders(),
+            )
+            return self.async_show_progress_done(next_step_id="progress_failed")
         finally:
             self.firmware_install_task = None
 
