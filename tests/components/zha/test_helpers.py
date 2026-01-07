@@ -218,3 +218,55 @@ async def test_create_zha_config_remove_unused(
 
     # Does not error out
     create_zha_config(hass, ha_zha_data)
+
+
+async def test_create_zha_config_ota_beta_channel(
+    hass: HomeAssistant,
+    config_entry: MockConfigEntry,
+    mock_zigpy_connect: ControllerApplication,
+) -> None:
+    """Test OTA beta channel configuration is passed correctly."""
+    config_entry.add_to_hass(hass)
+
+    # Enable OTA beta channel
+    options = config_entry.options.copy()
+    options["custom_configuration"]["zha_options"][
+        zha_const.CONF_OTA_USE_BETA_CHANNEL
+    ] = True
+
+    hass.config_entries.async_update_entry(config_entry, options=options)
+
+    status = await async_setup_component(
+        hass,
+        zha_const.DOMAIN,
+        {zha_const.DOMAIN: {zha_const.CONF_ENABLE_QUIRKS: False}},
+    )
+    assert status is True
+    await hass.async_block_till_done()
+
+    ha_zha_data = get_zha_data(hass)
+    zha_data = create_zha_config(hass, ha_zha_data)
+
+    assert zha_data.config.ota_configuration.use_beta_channel is True
+
+
+async def test_create_zha_config_ota_beta_channel_default(
+    hass: HomeAssistant,
+    config_entry: MockConfigEntry,
+    mock_zigpy_connect: ControllerApplication,
+) -> None:
+    """Test OTA beta channel defaults to False."""
+    config_entry.add_to_hass(hass)
+
+    status = await async_setup_component(
+        hass,
+        zha_const.DOMAIN,
+        {zha_const.DOMAIN: {zha_const.CONF_ENABLE_QUIRKS: False}},
+    )
+    assert status is True
+    await hass.async_block_till_done()
+
+    ha_zha_data = get_zha_data(hass)
+    zha_data = create_zha_config(hass, ha_zha_data)
+
+    assert zha_data.config.ota_configuration.use_beta_channel is False

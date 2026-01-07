@@ -58,6 +58,12 @@ BASE_CUSTOM_CONFIGURATION = {
                 "required": True,
                 "type": "boolean",
             },
+            {
+                "default": False,
+                "name": "ota_use_beta_channel",
+                "required": True,
+                "type": "boolean",
+            },
         ]
     },
     "data": {
@@ -70,6 +76,7 @@ BASE_CUSTOM_CONFIGURATION = {
             "enable_mains_startup_polling": True,
             "consider_unavailable_mains": 7200,
             "consider_unavailable_battery": 21600,
+            "ota_use_beta_channel": False,
         }
     },
 }
@@ -132,6 +139,12 @@ CONFIG_WITH_ALARM_OPTIONS = {
                 "required": True,
                 "type": "boolean",
             },
+            {
+                "default": False,
+                "name": "ota_use_beta_channel",
+                "required": True,
+                "type": "boolean",
+            },
         ],
         "zha_alarm_options": [
             {
@@ -165,6 +178,7 @@ CONFIG_WITH_ALARM_OPTIONS = {
             "enable_mains_startup_polling": True,
             "consider_unavailable_mains": 7200,
             "consider_unavailable_battery": 21600,
+            "ota_use_beta_channel": False,
         },
         "zha_alarm_options": {
             "alarm_arm_requires_code": False,
