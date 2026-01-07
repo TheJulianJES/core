@@ -65,6 +65,7 @@ from zha.application.helpers import (
     DeviceOptions,
     DeviceOverridesConfiguration,
     LightOptions,
+    OTAConfiguration,
     QuirksConfiguration,
     ZHAConfiguration,
     ZHAData,
@@ -161,6 +162,7 @@ from .const import (
     CONF_ENABLE_QUIRKS,
     CONF_FLOW_CONTROL,
     CONF_GROUP_MEMBERS_ASSUME_STATE,
+    CONF_OTA_USE_BETA_CHANNEL,
     CONF_RADIO_TYPE,
     CONF_ZIGPY,
     CUSTOM_CONFIGURATION,
@@ -1261,6 +1263,7 @@ CONF_ZHA_OPTIONS_SCHEMA = vol.Schema(
             default=CONF_DEFAULT_CONSIDER_UNAVAILABLE_BATTERY,
         ): cv.positive_int,
         vol.Required(CONF_ENABLE_MAINS_STARTUP_POLLING, default=True): cv.boolean,
+        vol.Required(CONF_OTA_USE_BETA_CHANNEL, default=False): cv.boolean,
     },
     extra=vol.REMOVE_EXTRA,
 )
@@ -1349,6 +1352,9 @@ def create_zha_config(hass: HomeAssistant, ha_zha_data: HAZHAData) -> ZHAData:
         enabled=ha_zha_data.yaml_config.get(CONF_ENABLE_QUIRKS, True),
         custom_quirks_path=ha_zha_data.yaml_config.get(CONF_CUSTOM_QUIRKS_PATH),
     )
+    ota_config: OTAConfiguration = OTAConfiguration(
+        use_beta_channel=zha_options.get(CONF_OTA_USE_BETA_CHANNEL, False),
+    )
     overrides_config: dict[str, DeviceOverridesConfiguration] = {}
     overrides: dict[str, dict[str, Any]] = cast(
         dict[str, dict[str, Any]], ha_zha_data.yaml_config.get(CONF_DEVICE_CONFIG)
@@ -1368,6 +1374,7 @@ def create_zha_config(hass: HomeAssistant, ha_zha_data: HAZHAData) -> ZHAData:
             coordinator_configuration=coord_config,
             quirks_configuration=quirks_config,
             device_overrides=overrides_config,
+            ota_configuration=ota_config,
         ),
         local_timezone=ZoneInfo(hass.config.time_zone),
         country_code=hass.config.country,

@@ -39,6 +39,7 @@ CONF_FLOW_CONTROL = "flow_control"
 
 CONF_ENABLE_QUIRKS = "enable_quirks"
 CONF_CUSTOM_QUIRKS_PATH = "custom_quirks_path"
+CONF_OTA_USE_BETA_CHANNEL = "ota_use_beta_channel"
 
 CONF_DEFAULT_LIGHT_TRANSITION = "default_light_transition"
 CONF_ENABLE_ENHANCED_LIGHT_TRANSITION = "enhanced_light_transition"

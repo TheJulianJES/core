@@ -164,6 +164,7 @@
       "enhanced_light_transition": "Enable enhanced light color/temperature transition from an off-state",
       "group_members_assume_state": "Group members assume state of group",
       "light_transitioning_flag": "Enable enhanced brightness slider during light transition",
+      "ota_use_beta_channel": "Use beta firmware channel for OTA updates",
       "title": "Global options"
     }
   },
