@@ -101,5 +101,5 @@ def test_translation_key_and_name(
             entity._attr_name = None
 
     # Assert expected translation_key and name
-    assert entity.translation_key == expected_key
-    assert entity.name == expected_name
+    assert entity._attr_translation_key == expected_key
+    assert entity._attr_name == expected_name
