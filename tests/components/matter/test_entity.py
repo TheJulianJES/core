@@ -50,6 +50,21 @@ class DummyEntityInfo:
         self.discovery_schema.featuremap_contains = None
 
 
+class TestMatterEntity(MatterEntity):
+    """Test implementation of MatterEntity with configurable translation key."""
+
+    def __init__(
+        self,
+        matter_client,
+        endpoint,
+        entity_info,
+        platform_translation_key: str | None = None,
+    ) -> None:
+        """Initialize test entity with optional platform translation key."""
+        self._platform_translation_key = platform_translation_key
+        super().__init__(matter_client, endpoint, entity_info)
+
+
 @pytest.mark.parametrize(
     (
         "platform_translation_key",
@@ -87,19 +102,15 @@ def test_translation_key_and_name(
     # Create a dummy entity info
     entity_info = DummyEntityInfo()
 
-    # Instantiate the MatterEntity
-    entity = MatterEntity(matter_client, endpoint, entity_info)
-    # Set test parameters
-    entity._platform_translation_key = platform_translation_key
+    # Instantiate the test entity with platform translation key
+    entity = TestMatterEntity(
+        matter_client, endpoint, entity_info, platform_translation_key
+    )
+    # Manually set name_postfix to simulate the discovery logic
     entity._name_postfix = name_postfix
-    entity._attr_name = "Dummy"
+    if not name_postfix:
+        entity._attr_name = "Dummy"
 
-    # Simulate the logic for translation_key and name assignment
-    if entity._platform_translation_key and not entity.translation_key:
-        entity._attr_translation_key = entity._platform_translation_key
-        if not entity._name_postfix:
-            entity._attr_name = None
-
-    # Assert expected translation_key and name
+    # Assert the state matches expected values
     assert entity._attr_translation_key == expected_key
     assert entity._attr_name == expected_name
