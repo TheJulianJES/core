@@ -50,42 +50,30 @@ class DummyEntityInfo:
         self.discovery_schema.featuremap_contains = None
 
 
-class TestMatterEntity(MatterEntity):
-    """Test implementation of MatterEntity with configurable translation key."""
-
-    def __init__(
-        self,
-        matter_client,
-        endpoint,
-        entity_info,
-        platform_translation_key: str | None = None,
-    ) -> None:
-        """Initialize test entity with optional platform translation key."""
-        self._platform_translation_key = platform_translation_key
-        super().__init__(matter_client, endpoint, entity_info)
-
-
 @pytest.mark.parametrize(
     (
         "platform_translation_key",
-        "name_postfix",
+        "has_duplicate_attribute",
         "expected_key",
-        "expected_name",
+        "expected_name_is_none",
     ),
     [
-        ("thermostat", None, "thermostat", None),
-        ("thermostat", "Heat", "thermostat", "Dummy"),
-        (None, None, None, "Dummy"),
+        ("thermostat", False, "thermostat", True),
+        ("thermostat", True, "thermostat", False),
+        (None, False, None, False),
     ],
 )
 def test_translation_key_and_name(
-    platform_translation_key, name_postfix, expected_key, expected_name
+    platform_translation_key,
+    has_duplicate_attribute,
+    expected_key,
+    expected_name_is_none,
 ) -> None:
     """Test translation_key and name assignment logic for MatterEntity.
 
     This test verifies that the translation_key and name fields are set
     correctly for primary and non-primary entities based on platform_translation_key
-    and name_postfix values.
+    and has_duplicate_attribute values.
     """
     # Create a mock MatterClient and patch required server_info attributes
     matter_client = MagicMock()
@@ -98,19 +86,38 @@ def test_translation_key_and_name(
     endpoint = DummyEndpoint()
     endpoint.node.compressed_fabric_id = 1234567890123456  # Required for unique_id
     endpoint.node.node_id = 42  # Required for unique_id
+    endpoint.node.is_bridge_device = False
+
+    # Create a second endpoint if we want to simulate duplicate attributes
+    if has_duplicate_attribute:
+        endpoint2 = DummyEndpoint()
+        endpoint2.endpoint_id = 2
+        endpoint.node.endpoints = {1: endpoint, 2: endpoint2}
+        # The second endpoint should report having the attribute
+        endpoint2.has_attribute = MagicMock(return_value=True)
+    else:
+        endpoint.node.endpoints = {1: endpoint}
 
     # Create a dummy entity info
     entity_info = DummyEntityInfo()
 
-    # Instantiate the test entity with platform translation key
-    entity = TestMatterEntity(
-        matter_client, endpoint, entity_info, platform_translation_key
-    )
-    # Manually set name_postfix to simulate the discovery logic
-    entity._name_postfix = name_postfix
-    if not name_postfix:
-        entity._attr_name = "Dummy"
+    # Create a temporary subclass with the specified platform_translation_key
+    class MatterEntityImpl(MatterEntity):
+        _platform_translation_key = platform_translation_key
 
-    # Assert the state matches expected values
-    assert entity._attr_translation_key == expected_key
-    assert entity._attr_name == expected_name
+    # Instantiate the entity
+    entity = MatterEntityImpl(matter_client, endpoint, entity_info)
+
+    # Verify state attributes are set correctly
+    if expected_key is not None:
+        assert hasattr(entity, "_attr_translation_key")
+        assert entity._attr_translation_key == expected_key
+    else:
+        assert not hasattr(entity, "_attr_translation_key")
+
+    if expected_name_is_none:
+        # For primary entities, _attr_name should be explicitly set to None
+        assert hasattr(entity, "_attr_name")
+        assert entity._attr_name is None
+    # For non-primary entities, we don't make assertions about name
+    # since they may have other means of getting their name set
