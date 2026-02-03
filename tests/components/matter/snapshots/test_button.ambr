@@ -30,7 +30,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000005B-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -80,7 +80,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000053-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -130,7 +130,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000053-MatterNodeDevice-2-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -180,7 +180,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000CD-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -230,7 +230,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000CD-MatterNodeDevice-2-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -280,7 +280,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000CD-MatterNodeDevice-3-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -330,7 +330,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000CD-MatterNodeDevice-4-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -380,7 +380,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000004B-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -430,7 +430,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000004B-MatterNodeDevice-2-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -480,7 +480,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000004B-MatterNodeDevice-3-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -530,7 +530,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000004B-MatterNodeDevice-4-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -580,7 +580,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000004B-MatterNodeDevice-5-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -630,7 +630,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000064-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -680,7 +680,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000064-MatterNodeDevice-2-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -730,7 +730,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000014-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -780,7 +780,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -830,7 +830,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000014-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -880,7 +880,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000002F-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -930,7 +930,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000028-MatterNodeDevice-0-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -980,7 +980,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000028-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1030,7 +1030,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1080,7 +1080,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C7-MatterNodeDevice-2-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1130,7 +1130,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C7-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1180,7 +1180,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000053-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1230,7 +1230,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000B7-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1280,7 +1280,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000094-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1330,7 +1330,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000021-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1380,7 +1380,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000000C-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1430,7 +1430,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000001D-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1480,7 +1480,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000001D-MatterNodeDevice-2-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1530,7 +1530,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1580,7 +1580,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000003-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1630,7 +1630,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000058-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1680,7 +1680,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000025-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1730,7 +1730,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000100-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1780,7 +1780,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1830,7 +1830,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-2-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1880,7 +1880,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-6-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1930,7 +1930,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-5-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -1980,7 +1980,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-4-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2030,7 +2030,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-3-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2080,7 +2080,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000004-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2093,6 +2093,104 @@
     }),
     'context': <ANY>,
     'entity_id': 'button.longan_link_hvac_identify',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': None,
+    'entity_id': 'button.mock_air_purifier_reset_filter_condition',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Reset filter condition',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Reset filter condition',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'reset_filter_condition',
+    'unique_id': '00000000000004D2-000000000000008F-MatterNodeDevice-1-HepaFilterMonitoringResetButton-113-65529',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Air Purifier Reset filter condition',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.mock_air_purifier_reset_filter_condition',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition_2-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': None,
+    'entity_id': 'button.mock_air_purifier_reset_filter_condition_2',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Reset filter condition',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Reset filter condition',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'reset_filter_condition',
+    'unique_id': '00000000000004D2-000000000000008F-MatterNodeDevice-1-ActivatedCarbonFilterMonitoringResetButton-114-65529',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition_2-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Air Purifier Reset filter condition',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.mock_air_purifier_reset_filter_condition_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -2130,7 +2228,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000024-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2278,7 +2376,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000001D-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2493,104 +2591,6 @@
     'state': 'unknown',
   })
 # ---
-# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'button',
-    'entity_category': None,
-    'entity_id': 'button.mock_air_purifier_reset_filter_condition',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Reset filter condition',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Reset filter condition',
-    'platform': 'matter',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'reset_filter_condition',
-    'unique_id': '00000000000004D2-000000000000008F-MatterNodeDevice-1-HepaFilterMonitoringResetButton-113-65529',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Air Purifier Reset filter condition',
-    }),
-    'context': <ANY>,
-    'entity_id': 'button.mock_air_purifier_reset_filter_condition',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition_2-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'button',
-    'entity_category': None,
-    'entity_id': 'button.mock_air_purifier_reset_filter_condition_2',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Reset filter condition',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Reset filter condition',
-    'platform': 'matter',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'reset_filter_condition',
-    'unique_id': '00000000000004D2-000000000000008F-MatterNodeDevice-1-ActivatedCarbonFilterMonitoringResetButton-114-65529',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_buttons[mock_air_purifier][button.mock_air_purifier_reset_filter_condition_2-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Air Purifier Reset filter condition',
-    }),
-    'context': <ANY>,
-    'entity_id': 'button.mock_air_purifier_reset_filter_condition_2',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
 # name: test_buttons[mock_lock][button.mock_lock_identify-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -2622,7 +2622,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000097-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2868,7 +2868,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2918,7 +2918,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -2968,7 +2968,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3018,7 +3018,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-0-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3068,7 +3068,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000096-MatterNodeDevice-0-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3118,7 +3118,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000096-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3168,7 +3168,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3218,7 +3218,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000008-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3268,7 +3268,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000004-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3318,7 +3318,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000002-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3368,7 +3368,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000036-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3565,7 +3565,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000001D-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3811,7 +3811,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000008E-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3861,7 +3861,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000003A-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -3960,7 +3960,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -4059,7 +4059,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-000000000000000C-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })
@@ -4109,7 +4109,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'identify',
     'unique_id': '00000000000004D2-0000000000000004-MatterNodeDevice-1-IdentifyButton-3-1',
     'unit_of_measurement': None,
   })

@@ -227,10 +227,17 @@ async def test_multi_endpoint_translation_key_set(
     assert entity_entry_6.translation_key == "light"
 
     # Primary endpoint (1) should have name as None (device name is used)
+    # With translation_key, original_name is used for translated name lookup
     assert entity_entry_1.name is None
+    # original_name holds the translation base name for primary entities
+    assert entity_entry_1.original_name is not None
 
-    # Secondary endpoint should have a name with postfix
-    assert entity_entry_6.name is not None
+    # Secondary endpoint should also have name as None
+    # original_name is used for both primary and secondary endpoints
+    assert entity_entry_6.name is None
+    # original_name is set for secondary endpoints with postfix
+    assert entity_entry_6.original_name is not None
+    assert "(6)" in entity_entry_6.original_name
 
 
 @pytest.mark.usefixtures("matter_node")
