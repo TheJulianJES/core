@@ -271,13 +271,13 @@ async def test_climate_translation_key_set(
 
 
 @pytest.mark.usefixtures("matter_node")
-@pytest.mark.parametrize("node_fixture", ["silabs_refrigerator"])
+@pytest.mark.parametrize("node_fixture", ["mock_air_purifier"])
 async def test_fan_translation_key_set(
     hass: HomeAssistant,
     entity_registry: er.EntityRegistry,
 ) -> None:
     """Test that translation_key is set for fan entities."""
-    entity_entry = entity_registry.async_get("fan.silabs_refrigerator_fan")
+    entity_entry = entity_registry.async_get("fan.mock_air_purifier")
 
     assert entity_entry is not None
     assert entity_entry.translation_key == "fan"
