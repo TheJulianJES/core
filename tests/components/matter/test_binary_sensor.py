@@ -52,7 +52,7 @@ async def test_occupancy_sensor(
     matter_node: MatterNode,
 ) -> None:
     """Test occupancy sensor."""
-    state = hass.states.get("binary_sensor.mock_occupancy_sensor_occupancy")
+    state = hass.states.get("binary_sensor.mock_occupancy_sensor")
     assert state
     assert state.state == "on"
 
@@ -61,7 +61,7 @@ async def test_occupancy_sensor(
         hass, matter_client, data=(matter_node.node_id, "1/1030/0", 0)
     )
 
-    state = hass.states.get("binary_sensor.mock_occupancy_sensor_occupancy")
+    state = hass.states.get("binary_sensor.mock_occupancy_sensor")
     assert state
     assert state.state == "off"
 
@@ -69,7 +69,7 @@ async def test_occupancy_sensor(
 @pytest.mark.parametrize(
     ("node_fixture", "entity_id"),
     [
-        ("eve_contact_sensor", "binary_sensor.eve_door_door"),
+        ("eve_contact_sensor", "binary_sensor.eve_door"),
         ("mock_leak_sensor", "binary_sensor.water_leak_detector_water_leak"),
     ],
 )
@@ -104,7 +104,7 @@ async def test_battery_sensor(
     matter_node: MatterNode,
 ) -> None:
     """Test battery sensor."""
-    entity_id = "binary_sensor.mock_door_lock_battery"
+    entity_id = "binary_sensor.mock_door_lock"
     state = hass.states.get(entity_id)
     assert state
     assert state.state == "off"
@@ -127,7 +127,7 @@ async def test_optional_sensor_from_featuremap(
     matter_node: MatterNode,
 ) -> None:
     """Test discovery of optional doorsensor in doorlock featuremap."""
-    entity_id = "binary_sensor.mock_door_lock_door"
+    entity_id = "binary_sensor.mock_door_lock_2"
     state = hass.states.get(entity_id)
     assert state is None
 
@@ -395,7 +395,7 @@ async def test_thermostat_occupancy(
     matter_node: MatterNode,
 ) -> None:
     """Test thermostat occupancy."""
-    state = hass.states.get("binary_sensor.longan_link_hvac_occupancy")
+    state = hass.states.get("binary_sensor.longan_link_hvac")
     assert state
     assert state.state == "on"
 
@@ -411,7 +411,7 @@ async def test_thermostat_occupancy(
     )
     await trigger_subscription_callback(hass, matter_client)
 
-    state = hass.states.get("binary_sensor.longan_link_hvac_occupancy")
+    state = hass.states.get("binary_sensor.longan_link_hvac")
     assert state
     assert state.state == "off"
 

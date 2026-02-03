@@ -1,5 +1,5 @@
 # serializer version: 1
-# name: test_binary_sensors[aqara_door_window_p2][binary_sensor.aqara_door_and_window_sensor_p2_door-entry]
+# name: test_binary_sensors[aqara_door_window_p2][binary_sensor.aqara_door_and_window_sensor_p2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -12,7 +12,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.aqara_door_and_window_sensor_p2_door',
+    'entity_id': 'binary_sensor.aqara_door_and_window_sensor_p2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -20,36 +20,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Door',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.DOOR: 'door'>,
     'original_icon': None,
-    'original_name': 'Door',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-000000000000005B-MatterNodeDevice-1-ContactSensor-69-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[aqara_door_window_p2][binary_sensor.aqara_door_and_window_sensor_p2_door-state]
+# name: test_binary_sensors[aqara_door_window_p2][binary_sensor.aqara_door_and_window_sensor_p2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'door',
-      'friendly_name': 'Aqara Door and Window Sensor P2 Door',
+      'friendly_name': 'Aqara Door and Window Sensor P2',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.aqara_door_and_window_sensor_p2_door',
+    'entity_id': 'binary_sensor.aqara_door_and_window_sensor_p2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2_occupancy-entry]
+# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -62,7 +62,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2_occupancy',
+    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -70,36 +70,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000053-MatterNodeDevice-1-OccupancySensor-1030-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2_occupancy-state]
+# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'occupancy',
-      'friendly_name': 'Aqara Motion and Light Sensor P2 Occupancy',
+      'friendly_name': 'Aqara Motion and Light Sensor P2',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2_occupancy',
+    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[aqara_presence_fp300][binary_sensor.presence_multi_sensor_fp300_1_occupancy-entry]
+# name: test_binary_sensors[aqara_presence_fp300][binary_sensor.presence_multi_sensor_fp300_1-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -112,7 +112,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.presence_multi_sensor_fp300_1_occupancy',
+    'entity_id': 'binary_sensor.presence_multi_sensor_fp300_1',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -120,36 +120,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-00000000000000CD-MatterNodeDevice-1-OccupancySensor-1030-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[aqara_presence_fp300][binary_sensor.presence_multi_sensor_fp300_1_occupancy-state]
+# name: test_binary_sensors[aqara_presence_fp300][binary_sensor.presence_multi_sensor_fp300_1-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'occupancy',
-      'friendly_name': 'Presence Multi-Sensor FP300 1 Occupancy',
+      'friendly_name': 'Presence Multi-Sensor FP300 1',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.presence_multi_sensor_fp300_1_occupancy',
+    'entity_id': 'binary_sensor.presence_multi_sensor_fp300_1',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'on',
   })
 # ---
-# name: test_binary_sensors[eve_contact_sensor][binary_sensor.eve_door_door-entry]
+# name: test_binary_sensors[eve_contact_sensor][binary_sensor.eve_door-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -162,7 +162,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.eve_door_door',
+    'entity_id': 'binary_sensor.eve_door',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -170,29 +170,29 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Door',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.DOOR: 'door'>,
     'original_icon': None,
-    'original_name': 'Door',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-ContactSensor-69-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[eve_contact_sensor][binary_sensor.eve_door_door-state]
+# name: test_binary_sensors[eve_contact_sensor][binary_sensor.eve_door-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'door',
-      'friendly_name': 'Eve Door Door',
+      'friendly_name': 'Eve Door',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.eve_door_door',
+    'entity_id': 'binary_sensor.eve_door',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -347,7 +347,7 @@
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor_occupancy-entry]
+# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -360,7 +360,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.smart_motion_sensor_occupancy',
+    'entity_id': 'binary_sensor.smart_motion_sensor',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -368,36 +368,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000058-MatterNodeDevice-1-OccupancySensor-1030-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor_occupancy-state]
+# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'occupancy',
-      'friendly_name': 'Smart motion sensor Occupancy',
+      'friendly_name': 'Smart motion sensor',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.smart_motion_sensor_occupancy',
+    'entity_id': 'binary_sensor.smart_motion_sensor',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[longan_link_thermostat][binary_sensor.longan_link_hvac_occupancy-entry]
+# name: test_binary_sensors[longan_link_thermostat][binary_sensor.longan_link_hvac-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -410,7 +410,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.longan_link_hvac_occupancy',
+    'entity_id': 'binary_sensor.longan_link_hvac',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -418,36 +418,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000004-MatterNodeDevice-1-ThermostatOccupancySensor-513-2',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[longan_link_thermostat][binary_sensor.longan_link_hvac_occupancy-state]
+# name: test_binary_sensors[longan_link_thermostat][binary_sensor.longan_link_hvac-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'occupancy',
-      'friendly_name': 'Longan link HVAC Occupancy',
+      'friendly_name': 'Longan link HVAC',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.longan_link_hvac_occupancy',
+    'entity_id': 'binary_sensor.longan_link_hvac',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'on',
   })
 # ---
-# name: test_binary_sensors[mock_door_lock][binary_sensor.mock_door_lock_battery-entry]
+# name: test_binary_sensors[mock_door_lock][binary_sensor.mock_door_lock-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -460,7 +460,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.mock_door_lock_battery',
+    'entity_id': 'binary_sensor.mock_door_lock',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -468,36 +468,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Battery',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
     'original_icon': None,
-    'original_name': 'Battery',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-BatteryChargeLevel-47-14',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_door_lock][binary_sensor.mock_door_lock_battery-state]
+# name: test_binary_sensors[mock_door_lock][binary_sensor.mock_door_lock-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'battery',
-      'friendly_name': 'Mock Door Lock Battery',
+      'friendly_name': 'Mock Door Lock',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_door_lock_battery',
+    'entity_id': 'binary_sensor.mock_door_lock',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt_battery-entry]
+# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -510,7 +510,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt_battery',
+    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -518,36 +518,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Battery',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
     'original_icon': None,
-    'original_name': 'Battery',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-BatteryChargeLevel-47-14',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt_battery-state]
+# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'battery',
-      'friendly_name': 'Mock Door Lock with unbolt Battery',
+      'friendly_name': 'Mock Door Lock with unbolt',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt_battery',
+    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt_door-entry]
+# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -560,7 +560,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt_door',
+    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -568,29 +568,29 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Door',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.DOOR: 'door'>,
     'original_icon': None,
-    'original_name': 'Door',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-LockDoorStateSensor-257-3',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt_door-state]
+# name: test_binary_sensors[mock_door_lock_with_unbolt][binary_sensor.mock_door_lock_with_unbolt_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'door',
-      'friendly_name': 'Mock Door Lock with unbolt Door',
+      'friendly_name': 'Mock Door Lock with unbolt',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt_door',
+    'entity_id': 'binary_sensor.mock_door_lock_with_unbolt_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -647,7 +647,7 @@
     'state': 'on',
   })
 # ---
-# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock_battery-entry]
+# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -660,7 +660,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.mock_lock_battery',
+    'entity_id': 'binary_sensor.mock_lock',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -668,36 +668,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Battery',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
     'original_icon': None,
-    'original_name': 'Battery',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000097-MatterNodeDevice-1-BatteryChargeLevel-47-14',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock_battery-state]
+# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'battery',
-      'friendly_name': 'Mock Lock Battery',
+      'friendly_name': 'Mock Lock',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_lock_battery',
+    'entity_id': 'binary_sensor.mock_lock',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock_door-entry]
+# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -710,7 +710,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_lock_door',
+    'entity_id': 'binary_sensor.mock_lock_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -718,36 +718,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Door',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.DOOR: 'door'>,
     'original_icon': None,
-    'original_name': 'Door',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000097-MatterNodeDevice-1-LockDoorStateSensor-257-3',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock_door-state]
+# name: test_binary_sensors[mock_lock][binary_sensor.mock_lock_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'door',
-      'friendly_name': 'Mock Lock Door',
+      'friendly_name': 'Mock Lock',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_lock_door',
+    'entity_id': 'binary_sensor.mock_lock_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor_occupancy-entry]
+# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -760,7 +760,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_occupancy_sensor_occupancy',
+    'entity_id': 'binary_sensor.mock_occupancy_sensor',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -768,36 +768,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-OccupancySensor-1030-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor_occupancy-state]
+# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'occupancy',
-      'friendly_name': 'Mock Occupancy Sensor Occupancy',
+      'friendly_name': 'Mock Occupancy Sensor',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_occupancy_sensor_occupancy',
+    'entity_id': 'binary_sensor.mock_occupancy_sensor',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'on',
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light_occupancy-entry]
+# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -810,7 +810,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_onoff_light_occupancy',
+    'entity_id': 'binary_sensor.mock_onoff_light',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -818,36 +818,36 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-OccupancySensor-1030-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light_occupancy-state]
+# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'occupancy',
-      'friendly_name': 'Mock OnOff Light Occupancy',
+      'friendly_name': 'Mock OnOff Light',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_onoff_light_occupancy',
+    'entity_id': 'binary_sensor.mock_onoff_light',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light_occupancy-entry]
+# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -860,7 +860,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_light_occupancy',
+    'entity_id': 'binary_sensor.mock_light',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -868,29 +868,29 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': None,
+    'translation_key': 'binary_sensor',
     'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-OccupancySensor-1030-0',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light_occupancy-state]
+# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'occupancy',
-      'friendly_name': 'Mock Light Occupancy',
+      'friendly_name': 'Mock Light',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_light_occupancy',
+    'entity_id': 'binary_sensor.mock_light',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -1893,6 +1893,56 @@
     'state': 'off',
   })
 # ---
+# name: test_binary_sensors[smoke_detector][binary_sensor.smoke_sensor-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.smoke_sensor',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.SMOKE: 'smoke'>,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'binary_sensor',
+    'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-SmokeCoAlarmSmokeStateSensor-92-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[smoke_detector][binary_sensor.smoke_sensor-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'smoke',
+      'friendly_name': 'Smoke sensor',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.smoke_sensor',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_binary_sensors[smoke_detector][binary_sensor.smoke_sensor_battery_alert-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -2086,56 +2136,6 @@
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.smoke_sensor_muted',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
-# name: test_binary_sensors[smoke_detector][binary_sensor.smoke_sensor_smoke-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': None,
-    'entity_id': 'binary_sensor.smoke_sensor_smoke',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Smoke',
-    'options': dict({
-    }),
-    'original_device_class': <BinarySensorDeviceClass.SMOKE: 'smoke'>,
-    'original_icon': None,
-    'original_name': 'Smoke',
-    'platform': 'matter',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': None,
-    'unique_id': '00000000000004D2-0000000000000001-MatterNodeDevice-1-SmokeCoAlarmSmokeStateSensor-92-1',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_binary_sensors[smoke_detector][binary_sensor.smoke_sensor_smoke-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'smoke',
-      'friendly_name': 'Smoke sensor Smoke',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.smoke_sensor_smoke',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
