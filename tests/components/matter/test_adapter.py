@@ -10,7 +10,7 @@ import pytest
 from homeassistant.components.matter.adapter import get_clean_name
 from homeassistant.components.matter.const import DOMAIN
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import device_registry as dr, entity_registry as er
 
 from .common import create_node_from_fixture
 
@@ -203,3 +203,166 @@ async def test_bad_node_not_crash_integration(
     assert hass.states.get("light.mock_onoff_light") is not None
     assert len(hass.states.async_all("light")) == 1
     assert "Error setting up node" in caplog.text
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["inovelli_vtm31"])
+async def test_multi_endpoint_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for multi-endpoint devices.
+
+    When a device has multiple endpoints with the same primary attribute,
+    the translation_key should be set for all endpoints.
+    """
+    entity_entry_1 = entity_registry.async_get("light.inovelli_light_1")
+    entity_entry_6 = entity_registry.async_get("light.inovelli_light_6")
+
+    assert entity_entry_1 is not None
+    assert entity_entry_6 is not None
+
+    # Both endpoints should have translation_key set
+    assert entity_entry_1.translation_key == "light"
+    assert entity_entry_6.translation_key == "light"
+
+    # Primary endpoint (1) should have name as None (device name is used)
+    assert entity_entry_1.name is None
+
+    # Secondary endpoint should have a name with postfix
+    assert entity_entry_6.name is not None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["extended_color_light"])
+async def test_single_endpoint_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for single-endpoint devices.
+
+    When a device has only one endpoint with a primary attribute,
+    the translation_key should be set and the name should be None
+    (only device name is used).
+    """
+    entity_entry = entity_registry.async_get("light.mock_extended_color_light")
+
+    assert entity_entry is not None
+
+    # Should have translation_key set
+    assert entity_entry.translation_key == "light"
+
+    # Single endpoint should have name as None (device name is used)
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["eve_thermo_v5"])
+async def test_climate_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for climate entities."""
+    entity_entry = entity_registry.async_get("climate.eve_thermo_20ecd1701")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "thermostat"
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["silabs_refrigerator"])
+async def test_fan_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for fan entities."""
+    entity_entry = entity_registry.async_get("fan.silabs_refrigerator_fan")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "fan"
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["eve_shutter"])
+async def test_cover_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for cover entities."""
+    entity_entry = entity_registry.async_get("cover.eve_shutter_switch_20eci1701")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "cover"
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["secuyou_smart_lock"])
+async def test_lock_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for lock entities."""
+    entity_entry = entity_registry.async_get("lock.secuyou_smart_lock")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "lock"
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["eve_energy_plug"])
+async def test_switch_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for switch entities."""
+    entity_entry = entity_registry.async_get("switch.eve_energy_plug")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "switch"
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["ecovacs_deebot"])
+async def test_vacuum_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for vacuum entities."""
+    entity_entry = entity_registry.async_get("vacuum.ecodeebot")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "vacuum"
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["mock_valve"])
+async def test_valve_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for valve entities."""
+    entity_entry = entity_registry.async_get("valve.mock_valve")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "valve"
+    assert entity_entry.name is None
+
+
+@pytest.mark.usefixtures("matter_node")
+@pytest.mark.parametrize("node_fixture", ["silabs_water_heater"])
+async def test_water_heater_translation_key_set(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test that translation_key is set for water heater entities."""
+    entity_entry = entity_registry.async_get("water_heater.water_heater")
+
+    assert entity_entry is not None
+    assert entity_entry.translation_key == "water_heater"
+    assert entity_entry.name is None
