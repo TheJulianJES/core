@@ -45,6 +45,7 @@ class MatterBinarySensorEntityDescription(
 class MatterBinarySensor(MatterEntity, BinarySensorEntity):
     """Representation of a Matter binary sensor."""
 
+    _platform_translation_key = "binary_sensor"
     entity_description: MatterBinarySensorEntityDescription
 
     @callback

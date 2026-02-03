@@ -105,6 +105,7 @@ class MatterListSelectEntityDescription(MatterSelectEntityDescription):
 class MatterAttributeSelectEntity(MatterEntity, SelectEntity):
     """Representation of a select entity from Matter Attribute read/write."""
 
+    _platform_translation_key = "select"
     entity_description: MatterSelectEntityDescription
 
     async def async_select_option(self, option: str) -> None:
@@ -228,6 +229,7 @@ class MatterDoorLockOperatingModeSelectEntity(MatterAttributeSelectEntity):
 class MatterListSelectEntity(MatterEntity, SelectEntity):
     """Representation of a select entity from Matter list and selected item Cluster attribute(s)."""
 
+    _platform_translation_key = "select"
     entity_description: MatterListSelectEntityDescription
 
     async def async_select_option(self, option: str) -> None:

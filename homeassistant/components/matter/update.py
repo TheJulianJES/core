@@ -75,6 +75,7 @@ class MatterUpdateEntityDescription(UpdateEntityDescription, MatterEntityDescrip
 class MatterUpdate(MatterEntity, UpdateEntity):
     """Representation of a Matter node capable of updating."""
 
+    _platform_translation_key = "update"
     # Matter attribute changes are generally not polled, but the update check
     # itself is. The update check is not done by the device itself, but by the
     # Matter server.

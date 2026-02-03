@@ -43,6 +43,7 @@ class MatterButtonEntityDescription(ButtonEntityDescription, MatterEntityDescrip
 class MatterCommandButton(MatterEntity, ButtonEntity):
     """Representation of a Matter Button entity."""
 
+    _platform_translation_key = "button"
     entity_description: MatterButtonEntityDescription
 
     async def async_press(self) -> None:

@@ -55,6 +55,8 @@ class MatterEventEntityDescription(EventEntityDescription, MatterEntityDescripti
 class MatterEventEntity(MatterEntity, EventEntity):
     """Representation of a Matter Event entity."""
 
+    _platform_translation_key = "event"
+
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Initialize the entity."""
         super().__init__(*args, **kwargs)

@@ -70,6 +70,7 @@ class MatterCoverEntityDescription(CoverEntityDescription, MatterEntityDescripti
 class MatterCover(MatterEntity, CoverEntity):
     """Representation of a Matter Cover."""
 
+    _platform_translation_key = "cover"
     entity_description: MatterCoverEntityDescription
 
     @property

@@ -74,6 +74,7 @@ class MatterRangeNumberEntityDescription(
 class MatterNumber(MatterEntity, NumberEntity):
     """Representation of a Matter Attribute as a Number entity."""
 
+    _platform_translation_key = "number"
     entity_description: MatterNumberEntityDescription
 
     async def async_set_native_value(self, value: float) -> None:
@@ -95,6 +96,7 @@ class MatterNumber(MatterEntity, NumberEntity):
 class MatterRangeNumber(MatterEntity, NumberEntity):
     """Representation of a Matter Attribute as a Number entity with min and max values."""
 
+    _platform_translation_key = "number"
     entity_description: MatterRangeNumberEntityDescription
 
     async def async_set_native_value(self, value: float) -> None:
@@ -142,6 +144,7 @@ class MatterRangeNumber(MatterEntity, NumberEntity):
 class MatterLevelControlNumber(MatterEntity, NumberEntity):
     """Representation of a Matter Attribute as a Number entity."""
 
+    _platform_translation_key = "number"
     entity_description: MatterNumberEntityDescription
 
     async def async_set_native_value(self, value: float) -> None:

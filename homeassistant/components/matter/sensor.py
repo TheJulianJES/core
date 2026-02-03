@@ -254,6 +254,7 @@ class MatterOperationalStateSensorEntityDescription(MatterSensorEntityDescriptio
 class MatterSensor(MatterEntity, SensorEntity):
     """Representation of a Matter sensor."""
 
+    _platform_translation_key = "sensor"
     entity_description: MatterSensorEntityDescription
 
     @callback
