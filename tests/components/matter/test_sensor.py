@@ -73,14 +73,15 @@ async def test_humidity_sensor(
     matter_node: MatterNode,
 ) -> None:
     """Test humidity sensor."""
-    state = hass.states.get("sensor.mock_humidity_sensor_humidity")
+    # With translation_key, entity ID uses device name only
+    state = hass.states.get("sensor.mock_humidity_sensor")
     assert state
     assert state.state == "0.0"
 
     set_node_attribute(matter_node, 1, 1029, 0, 4000)
     await trigger_subscription_callback(hass, matter_client)
 
-    state = hass.states.get("sensor.mock_humidity_sensor_humidity")
+    state = hass.states.get("sensor.mock_humidity_sensor")
     assert state
     assert state.state == "40.0"
 
@@ -92,14 +93,15 @@ async def test_light_sensor(
     matter_node: MatterNode,
 ) -> None:
     """Test light sensor."""
-    state = hass.states.get("sensor.mock_light_sensor_illuminance")
+    # With translation_key, entity ID uses device name only
+    state = hass.states.get("sensor.mock_light_sensor")
     assert state
     assert state.state == "1.3"
 
     set_node_attribute(matter_node, 1, 1024, 0, 3000)
     await trigger_subscription_callback(hass, matter_client)
 
-    state = hass.states.get("sensor.mock_light_sensor_illuminance")
+    state = hass.states.get("sensor.mock_light_sensor")
     assert state
     assert state.state == "2.0"
 
@@ -111,14 +113,15 @@ async def test_temperature_sensor(
     matter_node: MatterNode,
 ) -> None:
     """Test temperature sensor."""
-    state = hass.states.get("sensor.mock_temperature_sensor_temperature")
+    # With translation_key, entity ID uses device name only
+    state = hass.states.get("sensor.mock_temperature_sensor")
     assert state
     assert state.state == "21.0"
 
     set_node_attribute(matter_node, 1, 1026, 0, 2500)
     await trigger_subscription_callback(hass, matter_client)
 
-    state = hass.states.get("sensor.mock_temperature_sensor_temperature")
+    state = hass.states.get("sensor.mock_temperature_sensor")
     assert state
     assert state.state == "25.0"
 
@@ -260,14 +263,15 @@ async def test_pressure_sensor(
     matter_node: MatterNode,
 ) -> None:
     """Test pressure sensor."""
-    state = hass.states.get("sensor.mock_pressure_sensor_pressure")
+    # With translation_key, entity ID uses device name only
+    state = hass.states.get("sensor.mock_pressure_sensor")
     assert state
     assert state.state == "0.0"
 
     set_node_attribute(matter_node, 1, 1027, 0, 1010)
     await trigger_subscription_callback(hass, matter_client)
 
-    state = hass.states.get("sensor.mock_pressure_sensor_pressure")
+    state = hass.states.get("sensor.mock_pressure_sensor")
     assert state
     assert state.state == "101.0"
 
