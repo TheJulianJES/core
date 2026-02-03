@@ -7,6 +7,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from homeassistant.components.matter.entity import MatterEntity, MatterEntityDescription
+from homeassistant.helpers.typing import UNDEFINED
 
 
 class DummyEndpoint:
@@ -41,6 +42,7 @@ class DummyEntityInfo:
         self.primary_attribute = MagicMock(cluster_id=1, attribute_id=1)
         self.attributes_to_watch = []
         self.discovery_schema = MagicMock()
+        self.discovery_schema.platform_name = "dummy"
         self.discovery_schema.featuremap_contains = None
 
 
@@ -50,11 +52,12 @@ class DummyEntityInfo:
         "has_duplicate",
         "expect_translation_key",
         "expect_name_none",
+        "expect_name_undefined",
     ),
     [
-        ("thermostat", False, "thermostat", True),
-        ("thermostat", True, "thermostat", False),
-        (None, False, None, False),
+        ("thermostat", False, "thermostat", True, False),
+        ("thermostat", True, "thermostat", False, False),
+        (None, False, None, False, True),
     ],
 )
 def test_matter_entity_translation_key_and_name(
@@ -62,6 +65,7 @@ def test_matter_entity_translation_key_and_name(
     has_duplicate: bool,
     expect_translation_key: str | None,
     expect_name_none: bool,
+    expect_name_undefined: bool,
 ) -> None:
     """Test that translation_key and name are set correctly for Matter entities.
 
@@ -91,13 +95,27 @@ def test_matter_entity_translation_key_and_name(
 
     entity = MatterEntityImpl(matter_client, endpoint, entity_info)
 
+    if has_duplicate:
+        platform_data = MagicMock()
+        platform_data.platform_name = "matter"
+        platform_data.domain = "climate"
+        platform_data.platform_translations = {
+            "component.matter.entity.climate.thermostat.name": "Thermostat"
+        }
+        platform_data.object_id_platform_translations = {}
+        platform_data.component_translations = {}
+        platform_data.object_id_component_translations = {}
+        entity.platform_data = platform_data
+
     # Verify translation_key state via public property
     assert entity.translation_key == expect_translation_key
 
     # Verify name state via public property
     if expect_name_none:
         assert entity.name is None
+    elif expect_name_undefined:
+        assert entity.name is UNDEFINED
     else:
-        # For non-primary entities, we just verify name is not explicitly None
+        # For non-primary entities, verify name is not explicitly None
         # (it could be derived from other properties)
-        pass
+        assert entity.name is not None
