@@ -701,6 +701,9 @@
       "max_temperature": {
         "name": "Max temperature"
       },
+      "maximum_dimming_level": {
+        "name": "Maximum dimming level"
+      },
       "maximum_level": {
         "name": "Maximum load dimming level"
       },
@@ -727,6 +730,9 @@
       },
       "mini_set": {
         "name": "Liquid minimal percentage"
+      },
+      "minimum_dimming_level": {
+        "name": "Minimum dimming level"
       },
       "minimum_level": {
         "name": "Minimum load dimming level"
