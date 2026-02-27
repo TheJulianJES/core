@@ -31,7 +31,6 @@ from .helpers import (
     EntityData,
     async_add_entities as zha_async_add_entities,
     get_zha_data,
-    get_zha_gateway,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -56,10 +55,6 @@ async def async_setup_entry(
 ) -> None:
     """Set up the Zigbee Home Automation update from config entry."""
     zha_data = get_zha_data(hass)
-    if zha_data.update_coordinator is None:
-        zha_data.update_coordinator = ZHAFirmwareUpdateCoordinator(
-            hass, config_entry, get_zha_gateway(hass).application_controller
-        )
     entities_to_create = zha_data.platforms[Platform.UPDATE]
 
     unsub = async_dispatcher_connect(
@@ -115,12 +110,13 @@ class ZHAFirmwareUpdateEntity(
     _attr_display_precision = 2  # 40 byte chunks with ~200KB files increments by 0.02%
 
     def __init__(self, entity_data: EntityData, **kwargs: Any) -> None:
-        """Initialize the ZHA siren."""
-        zha_data = get_zha_data(entity_data.device_proxy.gateway_proxy.hass)
-        assert zha_data.update_coordinator is not None
+        """Initialize the ZHA update entity."""
+        coordinator: ZHAFirmwareUpdateCoordinator = (
+            entity_data.device_proxy.gateway_proxy.config_entry.runtime_data
+        )
 
-        super().__init__(entity_data, coordinator=zha_data.update_coordinator, **kwargs)
-        CoordinatorEntity.__init__(self, zha_data.update_coordinator)
+        super().__init__(entity_data, coordinator=coordinator, **kwargs)
+        CoordinatorEntity.__init__(self, coordinator)
 
     @property
     def installed_version(self) -> str | None:

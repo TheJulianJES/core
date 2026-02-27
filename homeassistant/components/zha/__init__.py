@@ -58,6 +58,7 @@ from .repairs.wrong_silabs_firmware import (
     AlreadyRunningEZSP,
     warn_on_wrong_silabs_firmware,
 )
+from .update import ZHAFirmwareUpdateCoordinator
 
 DEVICE_CONFIG_SCHEMA_ENTRY = vol.Schema({vol.Optional(CONF_TYPE): cv.string})
 ZHA_CONFIG_SCHEMA = {
@@ -267,6 +268,9 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
         )
 
     await ha_zha_data.gateway_proxy.async_initialize_devices_and_entities()
+    config_entry.runtime_data = ZHAFirmwareUpdateCoordinator(
+        hass, config_entry, zha_gateway.application_controller
+    )
     await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
     async_dispatcher_send(hass, SIGNAL_ADD_ENTITIES)
     return True
@@ -280,8 +284,6 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     if ha_zha_data.gateway_proxy is not None:
         await ha_zha_data.gateway_proxy.shutdown()
         ha_zha_data.gateway_proxy = None
-
-    ha_zha_data.update_coordinator = None
 
     # clean up any remaining entity metadata
     # (entities that have been discovered but not yet added to HA)

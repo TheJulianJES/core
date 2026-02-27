@@ -176,7 +176,6 @@ if TYPE_CHECKING:
     from logging import Filter, LogRecord
 
     from .entity import ZHAEntity
-    from .update import ZHAFirmwareUpdateCoordinator
 
     type _LogFilterType = Filter | Callable[[LogRecord], bool]
 
@@ -1042,9 +1041,6 @@ class HAZHAData:
     gateway_proxy: ZHAGatewayProxy | None = dataclasses.field(default=None)
     platforms: collections.defaultdict[Platform, list] = dataclasses.field(
         default_factory=lambda: collections.defaultdict(list)
-    )
-    update_coordinator: ZHAFirmwareUpdateCoordinator | None = dataclasses.field(
-        default=None
     )
 
 

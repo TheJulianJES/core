@@ -33,7 +33,6 @@ from homeassistant.components.update import (
 from homeassistant.components.zha.helpers import (
     ZHADeviceProxy,
     ZHAGatewayProxy,
-    get_zha_data,
     get_zha_gateway,
     get_zha_gateway_proxy,
 )
@@ -279,14 +278,13 @@ async def test_firmware_update_poll_after_reload(
     await setup_zha()
     await async_setup_component(hass, HA_DOMAIN, {})
 
-    zha_data = get_zha_data(hass)
-    coordinator_before = zha_data.update_coordinator
+    coordinator_before = config_entry.runtime_data
     assert coordinator_before is not None
 
     assert await hass.config_entries.async_reload(config_entry.entry_id)
     await hass.async_block_till_done()
 
-    coordinator_after = get_zha_data(hass).update_coordinator
+    coordinator_after = config_entry.runtime_data
     assert coordinator_after is not None
     assert coordinator_after is not coordinator_before
 
