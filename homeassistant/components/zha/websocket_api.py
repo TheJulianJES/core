@@ -657,7 +657,7 @@ async def websocket_reconfigure_node(
 
     _LOGGER.debug("Reconfiguring node with ieee_address: %s", ieee)
     assert device
-    hass.async_create_task(zha_gateway.async_reconfigure_device(device.ieee))
+    hass.async_create_task(zha_gateway.async_reinterview_device(device.ieee))
 
 
 @websocket_api.require_admin
