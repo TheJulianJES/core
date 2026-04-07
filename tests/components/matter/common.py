@@ -44,6 +44,7 @@ FIXTURES = [
     "heiman_co_sensor",
     "heiman_motion_sensor_m1",
     "heiman_smoke_detector",
+    "heiman_smoke_detector_hs1sam",
     "ikea_air_quality_monitor",
     "ikea_bilresa_dual_button",
     "ikea_scroll_wheel",
