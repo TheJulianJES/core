@@ -11,8 +11,10 @@ from homeassistant.const import (
     CONCENTRATION_GRAMS_PER_CUBIC_METER,
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     CONCENTRATION_MILLIGRAMS_PER_CUBIC_METER,
+    CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
     CONCENTRATION_PARTS_PER_BILLION,
     CONCENTRATION_PARTS_PER_MILLION,
+    CONCENTRATION_PARTS_PER_TRILLION,
     PERCENTAGE,
     UnitOfApparentPower,
     UnitOfArea,
@@ -323,7 +325,26 @@ _CONVERTED_VALUE: dict[
         ),
     ],
     CarbonMonoxideConcentrationConverter: [
+        # PPT to other units
+        (
+            1000,
+            CONCENTRATION_PARTS_PER_TRILLION,
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+        ),
+        (
+            1000000,
+            CONCENTRATION_PARTS_PER_TRILLION,
+            1,
+            CONCENTRATION_PARTS_PER_MILLION,
+        ),
         # PPB to other units
+        (
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+            1000,
+            CONCENTRATION_PARTS_PER_TRILLION,
+        ),
         (
             1,
             CONCENTRATION_PARTS_PER_BILLION,
@@ -341,6 +362,12 @@ _CONVERTED_VALUE: dict[
             CONCENTRATION_PARTS_PER_BILLION,
             0.00116441,
             CONCENTRATION_MILLIGRAMS_PER_CUBIC_METER,
+        ),
+        (
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+            1164.41,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
         ),
         # PPM to other units
         (
@@ -380,6 +407,13 @@ _CONVERTED_VALUE: dict[
             120,
             CONCENTRATION_MILLIGRAMS_PER_CUBIC_METER,
         ),
+        # NANOGRAMS_PER_CUBIC_METER to other units
+        (
+            1000,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+            1,
+            CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        ),
         # MILLIGRAMS_PER_CUBIC_METER to other units
         (
             120,
@@ -402,10 +436,22 @@ _CONVERTED_VALUE: dict[
     ],
     NitrogenDioxideConcentrationConverter: [
         (
+            1000,
+            CONCENTRATION_PARTS_PER_TRILLION,
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+        ),
+        (
             1,
             CONCENTRATION_PARTS_PER_BILLION,
             1.912503,
             CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        ),
+        (
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+            1912.503,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
         ),
         (
             120,
@@ -437,8 +483,20 @@ _CONVERTED_VALUE: dict[
             500,
             CONCENTRATION_PARTS_PER_BILLION,
         ),
+        (
+            1000,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+            1,
+            CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        ),
     ],
     NitrogenMonoxideConcentrationConverter: [
+        (
+            1000,
+            CONCENTRATION_PARTS_PER_TRILLION,
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+        ),
         (
             1,
             CONCENTRATION_PARTS_PER_BILLION,
@@ -446,10 +504,22 @@ _CONVERTED_VALUE: dict[
             CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         ),
         (
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+            1247.389,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+        ),
+        (
             120,
             CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
             96.200906,
             CONCENTRATION_PARTS_PER_BILLION,
+        ),
+        (
+            1000,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+            1,
+            CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         ),
     ],
     ConductivityConverter: [
@@ -793,10 +863,22 @@ _CONVERTED_VALUE: dict[
     ],
     OzoneConcentrationConverter: [
         (
+            1000,
+            CONCENTRATION_PARTS_PER_TRILLION,
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+        ),
+        (
             1,
             CONCENTRATION_PARTS_PER_BILLION,
             1.995417,
             CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        ),
+        (
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+            1995.417,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
         ),
         (
             120,
@@ -815,6 +897,12 @@ _CONVERTED_VALUE: dict[
             CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
             0.0601378,
             CONCENTRATION_PARTS_PER_MILLION,
+        ),
+        (
+            1000,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+            1,
+            CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         ),
     ],
     PowerConverter: [
@@ -995,16 +1083,34 @@ _CONVERTED_VALUE: dict[
     ],
     SulphurDioxideConcentrationConverter: [
         (
+            1000,
+            CONCENTRATION_PARTS_PER_TRILLION,
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+        ),
+        (
             1,
             CONCENTRATION_PARTS_PER_BILLION,
             2.6633,
             CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         ),
         (
+            1,
+            CONCENTRATION_PARTS_PER_BILLION,
+            2663.3,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+        ),
+        (
             120,
             CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
             45.056879,
             CONCENTRATION_PARTS_PER_BILLION,
+        ),
+        (
+            1000,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+            1,
+            CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         ),
     ],
     TemperatureConverter: [
@@ -1045,11 +1151,20 @@ _CONVERTED_VALUE: dict[
     ],
     UnitlessRatioConverter: [
         (5, None, 500, PERCENTAGE),
+        (5, None, 5000000000000, CONCENTRATION_PARTS_PER_TRILLION),
         (5, None, 5000000000, CONCENTRATION_PARTS_PER_BILLION),
         (5, None, 5000000, CONCENTRATION_PARTS_PER_MILLION),
         (5, PERCENTAGE, 0.05, None),
+        (1000, CONCENTRATION_PARTS_PER_TRILLION, 1, CONCENTRATION_PARTS_PER_BILLION),
     ],
     MassVolumeConcentrationConverter: [
+        # 1000 ng/m³ = 1 µg/m³
+        (
+            1000,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
+            1,
+            CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+        ),
         # 1000 µg/m³ = 1 mg/m³
         (
             1000,
@@ -1070,6 +1185,13 @@ _CONVERTED_VALUE: dict[
             CONCENTRATION_GRAMS_PER_CUBIC_METER,
             3000,
             CONCENTRATION_MILLIGRAMS_PER_CUBIC_METER,
+        ),
+        # 1 g/m³ = 1000000000 ng/m³
+        (
+            1,
+            CONCENTRATION_GRAMS_PER_CUBIC_METER,
+            1000000000,
+            CONCENTRATION_NANOGRAMS_PER_CUBIC_METER,
         ),
     ],
     VolumeConverter: [
