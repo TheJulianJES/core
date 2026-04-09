@@ -11,6 +11,7 @@ from zha.application.helpers import ZHAData
 from zha.zigbee.device import get_device_automation_triggers
 from zigpy.config import CONF_DATABASE, CONF_DEVICE, CONF_DEVICE_PATH
 from zigpy.exceptions import NetworkSettingsInconsistent, TransientConnectionError
+from zigpy.types import EUI64
 
 from homeassistant.components.homeassistant_hardware.helpers import (
     async_is_firmware_update_in_progress,
@@ -51,6 +52,7 @@ from .helpers import (
     create_zha_config,
     get_config_entry_unique_id,
     get_zha_data,
+    get_zha_gateway_proxy,
 )
 from .radio_manager import ZhaRadioManager
 from .repairs.network_settings_inconsistent import warn_on_inconsistent_network_settings
@@ -297,6 +299,37 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     websocket_api.async_unload_api(hass)
 
     return True
+
+
+async def async_remove_config_entry_device(
+    hass: HomeAssistant, config_entry: ConfigEntry, device_entry: dr.DeviceEntry
+) -> bool:
+    """Remove a config entry from a device."""
+    try:
+        zha_gateway_proxy = get_zha_gateway_proxy(hass)
+    except ValueError:
+        return True
+
+    ieee_address = next(
+        (
+            identifier
+            for domain, identifier in device_entry.identifiers
+            if domain == DOMAIN
+        ),
+        None,
+    )
+
+    if ieee_address is None:
+        return True
+
+    ieee = EUI64.convert(ieee_address)
+
+    # Don't allow removal of the coordinator
+    if ieee == zha_gateway_proxy.gateway.state.node_info.ieee:
+        return False
+
+    # Allow removal only if the device is no longer on the network
+    return ieee not in zha_gateway_proxy.device_proxies
 
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:

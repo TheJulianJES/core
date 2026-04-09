@@ -10,8 +10,10 @@ import zoneinfo
 import pytest
 from zigpy.application import ControllerApplication
 from zigpy.config import CONF_DEVICE, CONF_DEVICE_PATH
+from zigpy.const import SIG_EP_INPUT, SIG_EP_OUTPUT, SIG_EP_TYPE
 from zigpy.device import Device
 from zigpy.exceptions import TransientConnectionError
+from zigpy.profiles import zha
 
 from homeassistant.components.homeassistant_hardware import (
     DOMAIN as HOMEASSISTANT_HARDWARE_DOMAIN,
@@ -21,6 +23,7 @@ from homeassistant.components.homeassistant_hardware.helpers import (
     async_register_firmware_update_in_progress,
 )
 from homeassistant.components.usb import USBDevice
+from homeassistant.components.zha import async_remove_config_entry_device
 from homeassistant.components.zha.const import (
     CONF_BAUDRATE,
     CONF_FLOW_CONTROL,
@@ -41,6 +44,7 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import CoreState, HomeAssistant
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.event import async_call_later
 from homeassistant.setup import async_setup_component
 
@@ -543,3 +547,79 @@ async def test_gateway_created_with_migrated_device_path(
     zha_data = mock_create_config.call_args.args[1]
 
     assert zha_data.config_entry.data[CONF_DEVICE][CONF_DEVICE_PATH] == unique_path
+
+
+async def test_remove_config_entry_device_orphaned(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[None]],
+    config_entry: MockConfigEntry,
+    device_registry: dr.DeviceRegistry,
+) -> None:
+    """Test removal of an orphaned device (not on the network) is allowed."""
+    await setup_zha()
+
+    # Create a device registry entry for a device not known to the gateway
+    orphan_device = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={(DOMAIN, "aa:bb:cc:dd:ee:ff:00:11")},
+    )
+
+    result = await async_remove_config_entry_device(hass, config_entry, orphan_device)
+    assert result is True
+
+
+async def test_remove_config_entry_device_coordinator_blocked(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[None]],
+    config_entry: MockConfigEntry,
+    zigpy_app_controller: ControllerApplication,
+    device_registry: dr.DeviceRegistry,
+) -> None:
+    """Test that removing the coordinator device is blocked."""
+    await setup_zha()
+
+    coordinator_ieee = str(zigpy_app_controller.state.node_info.ieee)
+    coordinator_device = device_registry.async_get_device(
+        identifiers={(DOMAIN, coordinator_ieee)},
+    )
+    assert coordinator_device is not None
+
+    result = await async_remove_config_entry_device(
+        hass, config_entry, coordinator_device
+    )
+    assert result is False
+
+
+async def test_remove_config_entry_device_active_blocked(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[None]],
+    config_entry: MockConfigEntry,
+    zigpy_device_mock: Callable[..., Device],
+    device_registry: dr.DeviceRegistry,
+) -> None:
+    """Test that removing an active device still on the network is blocked."""
+    await setup_zha()
+
+    zigpy_device = zigpy_device_mock(
+        {
+            1: {
+                SIG_EP_INPUT: [0],
+                SIG_EP_OUTPUT: [],
+                SIG_EP_TYPE: zha.DeviceType.ON_OFF_SWITCH,
+            }
+        },
+    )
+
+    # Register the device in the HA device registry
+    device_entry = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={(DOMAIN, str(zigpy_device.ieee))},
+    )
+
+    # Add a proxy for this device so the gateway considers it active
+    gateway_proxy = get_zha_data(hass).gateway_proxy
+    assert gateway_proxy is not None
+    gateway_proxy.device_proxies[zigpy_device.ieee] = Mock()
+
+    result = await async_remove_config_entry_device(hass, config_entry, device_entry)
+    assert result is False
