@@ -216,6 +216,11 @@ async def test_guess_hardware_owners_z2m(
 
         raise AddonError
 
+    supervisor_client.store.addon_info.return_value = Mock(
+        available=True,
+        installed=True,
+    )
+    supervisor_client.store.addon_info.return_value.to_dict.return_value = {}
     supervisor_client.addons.addon_info.side_effect = mock_addon_info
 
     with (
@@ -236,15 +241,13 @@ async def test_guess_hardware_owners_z2m(
             return_value=multipan_addon_manager,
         ),
         patch(
-            "homeassistant.components.homeassistant_hardware.util.get_supervisor_info",
-            return_value={
-                "addons": [
-                    {"slug": TEST_Z2M_ADDON_SLUG_1, "state": "started"},
-                    {"slug": TEST_Z2M_ADDON_SLUG_2, "state": "stopped"},
-                    {"slug": TEST_Z2M_ADDON_SLUG_3, "state": "stopped"},
-                    {"slug": "unrelated_addon", "state": "started"},
-                ]
-            },
+            "homeassistant.components.homeassistant_hardware.util.get_addons_list",
+            return_value=[
+                {"slug": TEST_Z2M_ADDON_SLUG_1, "state": "started"},
+                {"slug": TEST_Z2M_ADDON_SLUG_2, "state": "stopped"},
+                {"slug": TEST_Z2M_ADDON_SLUG_3, "state": "stopped"},
+                {"slug": "unrelated_addon", "state": "started"},
+            ],
         ),
     ):
         assert (await guess_hardware_owners(hass, "/dev/ttyUSB1")) == [
