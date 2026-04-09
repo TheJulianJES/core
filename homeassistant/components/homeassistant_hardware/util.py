@@ -18,7 +18,7 @@ from homeassistant.components.hassio import (
     AddonError,
     AddonManager,
     AddonState,
-    get_supervisor_info,
+    get_addons_list,
 )
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant, callback
@@ -301,10 +301,8 @@ async def guess_hardware_owners(
                     )
                 )
 
-    # Z2M can be provided by one of many add-ons, we match them by name
-    supervisor_info = get_supervisor_info(hass) or {}
-
-    for addon in supervisor_info.get("addons", []):
+    # Z2M can be provided by one of many add-ons, we match them by slug pattern
+    for addon in get_addons_list(hass) or []:
         slug = addon.get("slug")
 
         if not isinstance(slug, str) or Z2M_ADDON_SLUG_REGEX.fullmatch(slug) is None:
