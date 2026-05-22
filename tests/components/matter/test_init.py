@@ -6,15 +6,18 @@ from unittest.mock import AsyncMock, MagicMock, call, patch
 
 from aiohasupervisor import SupervisorError
 from aiohasupervisor.models import PartialBackupOptions
+from chip.clusters import Objects as clusters
 from matter_server.client.exceptions import (
     CannotConnect,
     NotConnected,
     ServerVersionTooNew,
     ServerVersionTooOld,
 )
+from matter_server.client.models.node import MatterNode
 from matter_server.common.errors import MatterError
 import pytest
 
+from homeassistant.components.matter import get_matter_device_info
 from homeassistant.components.matter.const import DOMAIN
 from homeassistant.config_entries import ConfigEntryDisabler, ConfigEntryState
 from homeassistant.const import STATE_UNAVAILABLE
@@ -731,3 +734,40 @@ async def test_remove_config_entry_device_no_node(
     await hass.async_block_till_done()
 
     assert not device_registry.async_get(device_entry.id)
+
+
+@pytest.mark.parametrize("node_fixture", ["mock_onoff_light"])
+@pytest.mark.parametrize(
+    ("cluster_unique_id", "expected_unique_id"),
+    [
+        pytest.param("mock-onoff-light", "mock-onoff-light", id="present"),
+        pytest.param(None, "", id="missing"),
+    ],
+)
+async def test_get_matter_device_info_unique_id(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    cluster_unique_id: str | None,
+    expected_unique_id: str,
+) -> None:
+    """Test get_matter_device_info returns the UniqueID (or "" when absent).
+
+    UniqueID is optional in the Matter spec, so `node.device_info.uniqueID` can
+    be None; coerced to "" to keep MatterDeviceInfo.unique_id a string.
+    """
+    basic_info = matter_node.endpoints[0].get_cluster(clusters.BasicInformation)
+    assert basic_info is not None
+    basic_info.uniqueID = cluster_unique_id
+
+    device_entry = device_registry.async_get_device(
+        identifiers={
+            (DOMAIN, "deviceid_00000000000004D2-000000000000001E-MatterNodeDevice")
+        }
+    )
+    assert device_entry is not None
+
+    info = get_matter_device_info(hass, device_entry.id)
+    assert info is not None
+    assert info["unique_id"] == expected_unique_id
