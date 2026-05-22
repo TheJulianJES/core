@@ -759,6 +759,10 @@ async def test_get_matter_device_info_unique_id(
     """
     basic_info = matter_node.endpoints[0].get_cluster(clusters.BasicInformation)
     assert basic_info is not None
+    # This will be adjusted once the 0.7.1 bump is merged,
+    # where uniqueID will be None by default for most devices.
+    # Currently, with the 0.6.0 lib, it is an empty string by default,
+    # so we need to force set the attribute value cache.
     basic_info.uniqueID = cluster_unique_id
 
     device_entry = device_registry.async_get_device(
