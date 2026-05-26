@@ -19,7 +19,7 @@ from homeassistant.components.hassio import AddonError, AddonManager, AddonState
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import CONF_URL, EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import Event, HomeAssistant, callback
-from homeassistant.exceptions import ConfigEntryNotReady
+from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers import config_validation as cv, device_registry as dr
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.issue_registry import (
@@ -271,9 +271,13 @@ async def _client_listen(
         if entry.state is not ConfigEntryState.LOADED:
             raise
 
-    if not hass.is_stopping:
-        LOGGER.debug("Disconnected from server. Reloading integration")
-        hass.async_create_task(hass.config_entries.async_reload(entry.entry_id))
+    if hass.is_stopping or entry.state is ConfigEntryState.UNLOAD_IN_PROGRESS:
+        return
+
+    if entry.state is not ConfigEntryState.LOADED:
+        raise HomeAssistantError("Listen task ended unexpectedly")
+
+    hass.config_entries.async_schedule_reload(entry.entry_id)
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: MatterConfigEntry) -> bool:
