@@ -266,8 +266,6 @@ async def test_listen_clean_exit_during_setup(
         """Mock the client start_listening method."""
         listen_ready.set()
         await listen_proceed.wait()
-        # Set the connect side effect to stop an endless loop on reload.
-        matter_client.connect.side_effect = MatterError("Boom")
 
     matter_client.start_listening.side_effect = start_listening
     entry = MockConfigEntry(domain=DOMAIN, data={"url": "ws://localhost:5580/ws"})
@@ -280,15 +278,24 @@ async def test_listen_clean_exit_during_setup(
         listen_proceed.set()
         await entry.runtime_data.listen_task
 
-    with patch(
-        "homeassistant.components.matter.MatterAdapter.setup_nodes",
-        setup_nodes_await_listen,
+    # Mock `async_reload` so the reload scheduled by `_client_listen` after
+    # the clean exit cannot mask the result: without the fix, setup would
+    # return True (LOADED) and the reload would push the entry to
+    # SETUP_RETRY for an unrelated reason, hiding the bug.
+    with (
+        patch.object(hass.config_entries, "async_reload", AsyncMock()) as async_reload,
+        patch(
+            "homeassistant.components.matter.MatterAdapter.setup_nodes",
+            setup_nodes_await_listen,
+        ),
     ):
         await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
 
     assert entry.state is ConfigEntryState.SETUP_RETRY
+    assert entry.reason == "Matter client connection was closed"
     assert matter_client.disconnect.call_count == 1
+    async_reload.assert_awaited_once_with(entry.entry_id)
 
 
 @pytest.mark.parametrize("error", [MatterError("Boom"), Exception("Boom")])
