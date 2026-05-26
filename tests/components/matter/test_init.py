@@ -278,15 +278,9 @@ async def test_listen_clean_exit_during_setup(
         listen_proceed.set()
         await asyncio.wait([entry.runtime_data.listen_task])
 
-    # Mock `async_reload` to break the endless reload loop a regression in
-    # `_client_listen` (re-introducing the previous `hass.async_create_task(
-    # hass.config_entries.async_reload(...))` tail) would otherwise produce.
-    with (
-        patch.object(hass.config_entries, "async_reload", AsyncMock()),
-        patch(
-            "homeassistant.components.matter.MatterAdapter.setup_nodes",
-            setup_nodes_await_listen,
-        ),
+    with patch(
+        "homeassistant.components.matter.MatterAdapter.setup_nodes",
+        setup_nodes_await_listen,
     ):
         await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
