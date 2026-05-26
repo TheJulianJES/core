@@ -216,8 +216,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: MatterConfigEntry) -> bo
         listen_task.cancel()
         setup_error = err
     else:
-        if listen_task.done() and (listen_err := listen_task.exception()) is not None:
-            setup_error = listen_err
+        if listen_task.done():
+            setup_error = listen_task.exception() or RuntimeError(
+                "Matter client listen task ended unexpectedly"
+            )
 
     if setup_error is None:
         return True
