@@ -255,6 +255,47 @@ async def test_listen_failure_config_entry_not_loaded(
     assert matter_client.disconnect.call_count == 1
 
 
+async def test_listen_clean_exit_during_setup(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+) -> None:
+    """Listen task ending cleanly mid-setup should retry config entry."""
+    listen_proceed = asyncio.Event()
+
+    async def start_listening(listen_ready: asyncio.Event) -> None:
+        """Mock the client start_listening method."""
+        listen_ready.set()
+        await listen_proceed.wait()
+
+    matter_client.start_listening.side_effect = start_listening
+    entry = MockConfigEntry(domain=DOMAIN, data={"url": "ws://localhost:5580/ws"})
+    entry.add_to_hass(hass)
+
+    # Guarantee that the listen task is fully done before `async_setup_entry`
+    # reaches its `listen_task.done()` check by completing it from inside
+    # `setup_nodes` and waiting on the task without re-raising its exception.
+    async def setup_nodes_await_listen(_self: object) -> None:
+        listen_proceed.set()
+        await asyncio.wait([entry.runtime_data.listen_task])
+
+    # Mock `async_reload` to break the endless reload loop a regression in
+    # `_client_listen` (re-introducing the previous `hass.async_create_task(
+    # hass.config_entries.async_reload(...))` tail) would otherwise produce.
+    with (
+        patch.object(hass.config_entries, "async_reload", AsyncMock()),
+        patch(
+            "homeassistant.components.matter.MatterAdapter.setup_nodes",
+            setup_nodes_await_listen,
+        ),
+    ):
+        await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+
+    assert entry.state is ConfigEntryState.SETUP_RETRY
+    assert entry.reason == "Listen task ended unexpectedly"
+    assert matter_client.disconnect.call_count == 1
+
+
 @pytest.mark.parametrize("error", [MatterError("Boom"), Exception("Boom")])
 async def test_listen_failure_config_entry_loaded(
     hass: HomeAssistant,
