@@ -206,6 +206,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: MatterConfigEntry) -> bo
     entry.runtime_data = MatterEntryData(matter, listen_task, ble_proxy)
 
     setup_error: BaseException | None = None
+    error_message: str | None = None
     try:
         await hass.config_entries.async_forward_entry_setups(entry, SUPPORTED_PLATFORMS)
         await matter.setup_nodes()
@@ -215,13 +216,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: MatterConfigEntry) -> bo
         # the partially-loaded platforms, then surfaces this error.
         listen_task.cancel()
         setup_error = err
+        error_message = str(err)
     else:
         if listen_task.done():
-            setup_error = listen_task.exception() or RuntimeError(
-                "Matter client listen task ended unexpectedly"
-            )
+            if (setup_error := listen_task.exception()) is not None:
+                error_message = f"Matter client listen failed: {setup_error}"
+            else:
+                error_message = "Matter client connection was closed"
 
-    if setup_error is None:
+    if error_message is None:
         return True
 
     await hass.config_entries.async_unload_platforms(entry, SUPPORTED_PLATFORMS)
@@ -233,7 +236,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: MatterConfigEntry) -> bo
                 LOGGER.exception("Failed to disconnect BLE proxy during setup abort")
         await matter_client.disconnect()
     finally:
-        raise ConfigEntryNotReady(setup_error) from setup_error
+        raise ConfigEntryNotReady(error_message) from setup_error
 
 
 def _derive_ble_proxy_url(matter_ws_url: str) -> str | None:
