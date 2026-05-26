@@ -260,27 +260,32 @@ async def test_listen_clean_exit_during_setup(
     matter_client: MagicMock,
 ) -> None:
     """Listen task ending cleanly mid-setup should retry config entry."""
-    listen_block = asyncio.Event()
+    listen_proceed = asyncio.Event()
 
     async def start_listening(listen_ready: asyncio.Event) -> None:
         """Mock the client start_listening method."""
         listen_ready.set()
-        await listen_block.wait()
+        await listen_proceed.wait()
         # Set the connect side effect to stop an endless loop on reload.
         matter_client.connect.side_effect = MatterError("Boom")
 
-    def get_nodes() -> list[MagicMock]:
-        """Mock the client get_nodes method."""
-        listen_block.set()
-        return []
-
     matter_client.start_listening.side_effect = start_listening
-    matter_client.get_nodes.side_effect = get_nodes
     entry = MockConfigEntry(domain=DOMAIN, data={"url": "ws://localhost:5580/ws"})
     entry.add_to_hass(hass)
 
-    await hass.config_entries.async_setup(entry.entry_id)
-    await hass.async_block_till_done()
+    # Guarantee that the listen task is fully done before `async_setup_entry`
+    # reaches its `listen_task.done()` check by completing it from inside
+    # `setup_nodes` and awaiting the task there.
+    async def setup_nodes_await_listen(_self: object) -> None:
+        listen_proceed.set()
+        await entry.runtime_data.listen_task
+
+    with patch(
+        "homeassistant.components.matter.MatterAdapter.setup_nodes",
+        setup_nodes_await_listen,
+    ):
+        await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
 
     assert entry.state is ConfigEntryState.SETUP_RETRY
     assert matter_client.disconnect.call_count == 1
