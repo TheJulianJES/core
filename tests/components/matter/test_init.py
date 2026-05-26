@@ -255,6 +255,37 @@ async def test_listen_failure_config_entry_not_loaded(
     assert matter_client.disconnect.call_count == 1
 
 
+async def test_listen_clean_exit_during_setup(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+) -> None:
+    """Listen task ending cleanly mid-setup should retry config entry."""
+    listen_block = asyncio.Event()
+
+    async def start_listening(listen_ready: asyncio.Event) -> None:
+        """Mock the client start_listening method."""
+        listen_ready.set()
+        await listen_block.wait()
+        # Set the connect side effect to stop an endless loop on reload.
+        matter_client.connect.side_effect = MatterError("Boom")
+
+    def get_nodes() -> list[MagicMock]:
+        """Mock the client get_nodes method."""
+        listen_block.set()
+        return []
+
+    matter_client.start_listening.side_effect = start_listening
+    matter_client.get_nodes.side_effect = get_nodes
+    entry = MockConfigEntry(domain=DOMAIN, data={"url": "ws://localhost:5580/ws"})
+    entry.add_to_hass(hass)
+
+    await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert entry.state is ConfigEntryState.SETUP_RETRY
+    assert matter_client.disconnect.call_count == 1
+
+
 @pytest.mark.parametrize("error", [MatterError("Boom"), Exception("Boom")])
 async def test_listen_failure_config_entry_loaded(
     hass: HomeAssistant,
