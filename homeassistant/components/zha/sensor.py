@@ -141,6 +141,12 @@ class Sensor(ZHAEntity, SensorEntity):
                 entity.info_object.suggested_display_precision
             )
 
+        if (
+            self.device_class is SensorDeviceClass.ENUM
+            and (options := getattr(entity, "_attr_options", None)) is not None
+        ):
+            self._attr_options = options
+
     @property
     def native_value(self) -> StateType:
         """Return the state of the entity."""
