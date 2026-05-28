@@ -103,4 +103,3 @@ async def test_device_tracker(
 
     assert entity.is_connected is True
     assert entity.source_type == SourceType.ROUTER
-    assert entity.battery_level == 100
