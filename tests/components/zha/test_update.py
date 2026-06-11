@@ -239,8 +239,12 @@ async def test_firmware_update_notification_from_service_call(
         )
 
     await async_setup_component(hass, HA_DOMAIN, {})
-    with patch(
-        "zigpy.ota.OTA.broadcast_notify", side_effect=_async_image_notify_side_effect
+    with (
+        patch("zigpy.ota.OTA.check_for_updates") as mock_check_for_updates,
+        patch(
+            "zigpy.ota.OTA.broadcast_notify",
+            side_effect=_async_image_notify_side_effect,
+        ),
     ):
         await hass.services.async_call(
             HA_DOMAIN,
@@ -248,6 +252,9 @@ async def test_firmware_update_notification_from_service_call(
             service_data={ATTR_ENTITY_ID: entity_id},
             blocking=True,
         )
+
+        # The provider indexes are refreshed and cached queries re-checked
+        assert mock_check_for_updates.await_count == 1
 
         assert cluster.endpoint.device.application.ota.broadcast_notify.await_count == 1
         assert cluster.endpoint.device.application.ota.broadcast_notify.call_args_list[
@@ -294,7 +301,10 @@ async def test_firmware_update_poll_after_reload(
     entity_id = find_entity_id(Platform.UPDATE, zha_device, hass)
     assert entity_id is not None
 
-    with patch("zigpy.ota.OTA.broadcast_notify") as mock_broadcast_notify:
+    with (
+        patch("zigpy.ota.OTA.check_for_updates") as mock_check_for_updates,
+        patch("zigpy.ota.OTA.broadcast_notify") as mock_broadcast_notify,
+    ):
         await hass.services.async_call(
             HA_DOMAIN,
             SERVICE_UPDATE_ENTITY,
@@ -302,6 +312,7 @@ async def test_firmware_update_poll_after_reload(
             blocking=True,
         )
 
+        assert mock_check_for_updates.await_count == 1
         assert mock_broadcast_notify.await_count == 1
         assert mock_broadcast_notify.call_args_list[0] == call(jitter=100)
 

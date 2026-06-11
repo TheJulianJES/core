@@ -94,7 +94,12 @@ class ZHAFirmwareUpdateCoordinator(DataUpdateCoordinator[None]):  # pylint: disa
 
     async def async_update_data(self) -> None:
         """Fetch the latest firmware update data."""
-        # Broadcast to all devices
+        # Refresh the provider indexes (rate-limited inside zigpy) and re-check
+        # all devices with cached query commands; results are pushed to the
+        # update entities via OTA image available events
+        await self.controller_application.ota.check_for_updates()
+
+        # Broadcast so devices without a cached query command also check in
         await self.controller_application.ota.broadcast_notify(jitter=100)
 
 
