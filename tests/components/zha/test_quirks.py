@@ -1,10 +1,10 @@
 """Test ZHA quirks."""
 
-import itertools
-
 import orjson
-import zigpy.quirks
-from zigpy.quirks.v2 import EntityMetadata, QuirksV2RegistryEntry
+from zha.quirks import DEVICE_REGISTRY, QuirkRegistryEntry
+import zhaquirks
+from zhaquirks.builder.device import QuirkV2Factory
+from zhaquirks.builder.metadata import EntityMetadata
 
 from homeassistant.const import Platform
 from homeassistant.util.json import load_json
@@ -12,16 +12,18 @@ from homeassistant.util.json import load_json
 
 def test_v2_quirks() -> None:
     """Ensure v2 quirk entities have a translations."""
-    all_v2_quirks = itertools.chain.from_iterable(
-        zigpy.quirks.DEVICE_REGISTRY._registry_v2.values()
-    )
+    zhaquirks.setup()
+
     translations = load_json("homeassistant/components/zha/strings.json")
     translations_new = translations.copy()
-    for quirk in all_v2_quirks:
-        for entity_metadata in quirk.entity_metadata:
+    for entry in DEVICE_REGISTRY:
+        factory = entry.zha_device_factory
+        if not isinstance(factory, QuirkV2Factory):
+            continue
+        for entity_metadata in factory.quirk_definition.entity_metadata:
             platform = Platform(entity_metadata.entity_platform.value)
             validate_translation_keys(
-                quirk, entity_metadata, platform, translations, translations_new
+                entry, entity_metadata, platform, translations, translations_new
             )
 
     # sort dict in all nested dics
@@ -30,14 +32,14 @@ def test_v2_quirks() -> None:
         for platform, entities in translations_new["entity"].items()
     }
 
-    with open("homeassistant/components/zha/strings.json", "w") as f:
+    with open("homeassistant/components/zha/strings.json", "w", encoding="utf-8") as f:
         f.write(
             orjson.dumps(translations_new, option=orjson.OPT_INDENT_2).decode() + "\n"
         )
 
 
 def validate_translation_keys(
-    quirk: QuirksV2RegistryEntry,
+    quirk: QuirkRegistryEntry,
     entity_metadata: EntityMetadata,
     platform: Platform,
     translations: dict,
