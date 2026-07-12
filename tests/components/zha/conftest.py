@@ -424,11 +424,11 @@ def zigpy_device_mock(zigpy_app_controller) -> Callable[..., zigpy.device.Device
 
 
 @pytest.fixture
-def zigpy_app_controller_with_group(
+def zigpy_app_controller_with_switches(
     zigpy_app_controller: ControllerApplication,
     zigpy_device_mock: Callable[..., zigpy.device.Device],
 ) -> ControllerApplication:
-    """Add two switch devices and a group with members to the app controller."""
+    """Add two groupable switch devices to the app controller."""
     endpoint_config = {
         1: {
             SIG_EP_INPUT: [
@@ -447,12 +447,24 @@ def zigpy_app_controller_with_group(
     zigpy_app_controller.devices[device_1.ieee] = device_1
     zigpy_app_controller.devices[device_2.ieee] = device_2
 
-    group = zigpy_app_controller.groups.add_group(
+    return zigpy_app_controller
+
+
+@pytest.fixture
+def zigpy_app_controller_with_group(
+    zigpy_app_controller_with_switches: ControllerApplication,
+) -> ControllerApplication:
+    """Add a group with two switch members to the app controller."""
+    app_controller = zigpy_app_controller_with_switches
+    group = app_controller.groups.add_group(
         FIXTURE_GRP_WITH_ENTITIES_ID,
         FIXTURE_GRP_WITH_ENTITIES_NAME,
         suppress_event=True,
     )
-    group.add_member(device_1.endpoints[1], suppress_event=True)
-    group.add_member(device_2.endpoints[1], suppress_event=True)
+    coordinator_ieee = app_controller.state.node_info.ieee
+    for device in app_controller.devices.values():
+        if device.ieee == coordinator_ieee:
+            continue
+        group.add_member(device.endpoints[1], suppress_event=True)
 
-    return zigpy_app_controller
+    return app_controller
