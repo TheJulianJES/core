@@ -87,10 +87,12 @@ async def test_group_entity_name_and_device_info(
     # Verify device info points to the group device
     device = device_registry.async_get(group_proxy.device_id)
     assert device is not None
-    assert (
-        "zha",
-        f"zha_group_0x{FIXTURE_GRP_WITH_ENTITIES_ID:04x}",
-    ) in device.identifiers
+    config_entry_id = gateway_proxy.config_entry.entry_id
+    expected_identifier = (
+        f"{config_entry_id}_group_0x{FIXTURE_GRP_WITH_ENTITIES_ID:04x}"
+    )
+    assert group_proxy.device_identifier == expected_identifier
+    assert ("zha", expected_identifier) in device.identifiers
     assert device.manufacturer == "Zigbee"
     assert device.model == "Group"
     assert device.entry_type == dr.DeviceEntryType.SERVICE
