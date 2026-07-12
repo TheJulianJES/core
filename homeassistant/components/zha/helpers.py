@@ -1079,7 +1079,9 @@ class ZHAGatewayProxy(EventBase):
                 coordinator_proxy.device_id,
                 include_disabled_entities=True,
             )
-            if entry.unique_id == f"{entry.domain}_zha_group_0x{group_id:04x}"
+            if entry.platform == DOMAIN
+            and entry.config_entry_id == self.config_entry.entry_id
+            and entry.unique_id == f"{entry.domain}_zha_group_0x{group_id:04x}"
         )
 
         for entry in entries_to_remove:
@@ -1295,6 +1297,8 @@ def async_get_zha_device_proxy(hass: HomeAssistant, device_id: str) -> ZHADevice
         for domain, identifier in registry_device.identifiers
         if domain == DOMAIN
     )
+    if _group_id_from_device_identifier(ieee_address) is not None:
+        raise KeyError(f"Device id `{device_id}` is a ZHA group, not a Zigbee device.")
     ieee = EUI64.convert(ieee_address)
     return zha_gateway_proxy.device_proxies[ieee]
 
