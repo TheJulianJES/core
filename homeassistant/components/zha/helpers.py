@@ -1094,11 +1094,12 @@ class ZHAGatewayProxy(EventBase):
         # Purge deleted-entry caches so a new group reusing the same zigpy
         # group ID is not restored with stale settings from the old group.
         entities_purged = False
-        for key in list(entity_registry.deleted_entities):
+        for key, deleted_entity in list(entity_registry.deleted_entities.items()):
             domain, platform, unique_id = key
             if (
                 platform == DOMAIN
                 and unique_id == f"{domain}_zha_group_0x{group_id:04x}"
+                and deleted_entity.config_entry_id == self.config_entry.entry_id
             ):
                 entity_registry.deleted_entities.pop(key)
                 entities_purged = True
