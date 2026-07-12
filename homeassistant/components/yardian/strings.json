@@ -32,7 +32,12 @@
         "name": "Watering running"
       },
       "zone_enabled": {
-        "name": "Zone {zone} enabled"
+        "name": "Enabled"
+      }
+    },
+    "button": {
+      "stop_irrigation": {
+        "name": "Stop irrigation"
       }
     },
     "sensor": {
