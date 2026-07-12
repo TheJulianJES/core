@@ -16,12 +16,14 @@ from homeassistant.const import CONF_UNIQUE_ID
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 
-from .const import CONF_ALARM_MASTER_CODE
+from .const import CONF_ALARM_MASTER_CODE, DOMAIN
 from .helpers import (
     ZHADeviceProxy,
+    _group_id_from_device_identifier,
     async_get_zha_device_proxy,
     get_zha_data,
     get_zha_gateway,
+    get_zha_gateway_proxy,
 )
 
 KEYS_TO_REDACT = {
@@ -122,6 +124,13 @@ async def async_get_device_diagnostics(
     hass: HomeAssistant, config_entry: ConfigEntry, device: dr.DeviceEntry
 ) -> dict[str, Any]:
     """Return diagnostics for a device."""
+    zha_identifier = next(
+        identifier for domain, identifier in device.identifiers if domain == DOMAIN
+    )
+    if (group_id := _group_id_from_device_identifier(zha_identifier)) is not None:
+        group_proxy = get_zha_gateway_proxy(hass).group_proxies[group_id]
+        return async_redact_data(group_proxy.group_info, KEYS_TO_REDACT)
+
     zha_device_proxy: ZHADeviceProxy = async_get_zha_device_proxy(hass, device.id)
     diagnostics_json: dict[str, Any] = zha_device_proxy.device.get_diagnostics_json()
     return async_redact_data(diagnostics_json, KEYS_TO_REDACT)
