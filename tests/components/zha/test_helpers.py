@@ -124,11 +124,11 @@ async def test_zcl_schema_conversions(hass: HomeAssistant) -> None:
     assert isinstance(converted_data["action"], lighting.Color.ColorLoopAction)
     assert (
         converted_data["action"]
-        is lighting.Color.ColorLoopAction.Activate_from_current_hue
+        == lighting.Color.ColorLoopAction.Activate_from_current_hue
     )
 
     assert isinstance(converted_data["direction"], lighting.Color.ColorLoopDirection)
-    assert converted_data["direction"] is lighting.Color.ColorLoopDirection.Increment
+    assert converted_data["direction"] == lighting.Color.ColorLoopDirection.Increment
 
     assert isinstance(converted_data["time"], uint16_t)
     assert converted_data["time"] == 20
@@ -157,11 +157,11 @@ async def test_zcl_schema_conversions(hass: HomeAssistant) -> None:
     assert isinstance(converted_data["action"], lighting.Color.ColorLoopAction)
     assert (
         converted_data["action"]
-        is lighting.Color.ColorLoopAction.Activate_from_current_hue
+        == lighting.Color.ColorLoopAction.Activate_from_current_hue
     )
 
     assert isinstance(converted_data["direction"], lighting.Color.ColorLoopDirection)
-    assert converted_data["direction"] is lighting.Color.ColorLoopDirection.Increment
+    assert converted_data["direction"] == lighting.Color.ColorLoopDirection.Increment
 
     assert isinstance(converted_data["time"], uint16_t)
     assert converted_data["time"] == 20
