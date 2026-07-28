@@ -6,6 +6,7 @@ from typing import Any
 from unittest.mock import MagicMock
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.event import Event
 from zwave_js_server.model.node import Node
 
@@ -37,6 +38,7 @@ from .common import (
     PROPERTY_DOOR_STATUS_BINARY_SENSOR,
     TAMPER_SENSOR,
     NodeDataType,
+    snapshot_zwave_entities,
 )
 
 from tests.common import MockConfigEntry, async_fire_time_changed
@@ -171,6 +173,24 @@ def _set_opening_state_metadata_states(
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.BINARY_SENSOR]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all binary sensors created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.BINARY_SENSOR,
+        node_batch,
+    )
 
 
 async def test_battery_sensors(

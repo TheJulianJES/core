@@ -3,6 +3,7 @@
 from copy import deepcopy
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.event import Event
 
 from homeassistant.components.light import (
@@ -38,7 +39,10 @@ from .common import (
     BULB_6_MULTI_COLOR_LIGHT_ENTITY,
     EATON_RF9640_ENTITY,
     ZEN_31_ENTITY,
+    snapshot_zwave_entities,
 )
+
+from tests.common import MockConfigEntry
 
 ZDB5100_ENTITY = "light.matrix_office"
 HSM200_V1_ENTITY = "light.basement_hsm200"
@@ -48,6 +52,24 @@ HSM200_V1_ENTITY = "light.basement_hsm200"
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.LIGHT]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all light entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.LIGHT,
+        node_batch,
+    )
 
 
 async def test_light(

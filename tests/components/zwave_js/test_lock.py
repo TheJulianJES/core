@@ -3,6 +3,7 @@
 from unittest.mock import patch
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.const import CommandClass
 from zwave_js_server.const.command_class.lock import (
     ATTR_CODE_SLOT,
@@ -29,11 +30,42 @@ from homeassistant.components.zwave_js.const import (
     SERVICE_SET_LOCK_USERCODE,
 )
 from homeassistant.components.zwave_js.helpers import ZwaveValueMatcher
-from homeassistant.const import ATTR_ENTITY_ID, STATE_UNKNOWN
+from homeassistant.const import ATTR_ENTITY_ID, STATE_UNKNOWN, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
+from homeassistant.helpers import entity_registry as er
 
-from .common import SCHLAGE_BE469_LOCK_ENTITY, replace_value_of_zwave_value
+from .common import (
+    SCHLAGE_BE469_LOCK_ENTITY,
+    replace_value_of_zwave_value,
+    snapshot_zwave_entities,
+)
+
+from tests.common import MockConfigEntry
+
+
+@pytest.fixture
+def platforms() -> list[Platform]:
+    """Fixture to specify platforms to test."""
+    return [Platform.LOCK]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all lock entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.LOCK,
+        node_batch,
+    )
 
 
 async def test_door_lock(

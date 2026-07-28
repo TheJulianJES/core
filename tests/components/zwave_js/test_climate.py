@@ -4,6 +4,7 @@ import copy
 from unittest.mock import MagicMock
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.const import CommandClass
 from zwave_js_server.const.command_class.thermostat import (
     THERMOSTAT_OPERATING_STATE_PROPERTY,
@@ -47,6 +48,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceValidationError
+from homeassistant.helpers import entity_registry as er
 
 from .common import (
     CLIMATE_DANFOSS_LC13_ENTITY,
@@ -55,6 +57,7 @@ from .common import (
     CLIMATE_MAIN_HEAT_ACTIONNER,
     CLIMATE_RADIO_THERMOSTAT_ENTITY,
     replace_value_of_zwave_value,
+    snapshot_zwave_entities,
 )
 
 from tests.common import MockConfigEntry
@@ -64,6 +67,24 @@ from tests.common import MockConfigEntry
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.CLIMATE]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all climate entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.CLIMATE,
+        node_batch,
+    )
 
 
 async def test_thermostat_v2(

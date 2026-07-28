@@ -5,6 +5,7 @@ from datetime import timedelta
 from unittest.mock import patch
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.const.command_class.meter import MeterType
 from zwave_js_server.event import Event
 from zwave_js_server.exceptions import FailedZWaveCommand
@@ -59,6 +60,7 @@ from .common import (
     HUMIDITY_SENSOR,
     POWER_SENSOR,
     VOLTAGE_SENSOR,
+    snapshot_zwave_entities,
 )
 
 from tests.common import MockConfigEntry, async_fire_time_changed
@@ -68,6 +70,24 @@ from tests.common import MockConfigEntry, async_fire_time_changed
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.SENSOR]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all sensor entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.SENSOR,
+        node_batch,
+    )
 
 
 async def test_battery_sensors(

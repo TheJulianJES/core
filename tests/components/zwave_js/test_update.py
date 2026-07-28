@@ -8,6 +8,7 @@ from unittest.mock import MagicMock
 
 from freezegun.api import FrozenDateTimeFactory
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.event import Event
 from zwave_js_server.exceptions import FailedZWaveCommand
 from zwave_js_server.model.driver.firmware import DriverFirmwareUpdateStatus
@@ -38,6 +39,8 @@ from homeassistant.core import CoreState, HomeAssistant, State
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.util import dt as dt_util
+
+from .common import snapshot_zwave_entities
 
 from tests.common import (
     MockConfigEntry,
@@ -127,6 +130,24 @@ FIRMWARE_UPDATES = {
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.UPDATE]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all update entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.UPDATE,
+        node_batch,
+    )
 
 
 @pytest.fixture(name="controller_state", autouse=True)

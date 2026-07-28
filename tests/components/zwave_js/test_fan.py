@@ -3,6 +3,7 @@
 import copy
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from voluptuous.error import MultipleInvalid
 from zwave_js_server.const import CommandClass
 from zwave_js_server.event import Event
@@ -35,11 +36,33 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import entity_registry as er
 
+from .common import snapshot_zwave_entities
+
+from tests.common import MockConfigEntry
+
 
 @pytest.fixture
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.FAN]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all fan entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.FAN,
+        node_batch,
+    )
 
 
 async def test_generic_fan(

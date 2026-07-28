@@ -1,14 +1,27 @@
 """Provide common test tools for Z-Wave JS."""
 
 from copy import deepcopy
+from functools import cache
+import json
+from pathlib import Path
 from typing import Any
 
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.model.node.data_model import NodeDataType
 
 from homeassistant.components.zwave_js.helpers import (
     ZwaveValueMatcher,
     value_matches_matcher,
 )
+from homeassistant.const import Platform
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
+
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
+# The controller node is always added by the `client` fixture, so node fixtures
+# that also claim node id 1 can never be loaded alongside it.
+CONTROLLER_NODE_ID = 1
 
 AIR_TEMPERATURE_SENSOR = "sensor.multisensor_6_air_temperature"
 BATTERY_SENSOR = "sensor.multisensor_6_battery_level"
@@ -58,3 +71,77 @@ def replace_value_of_zwave_value(
                 value_data["value"] = new_value
 
     return new_node_data
+
+
+@cache
+def get_node_state_fixtures() -> tuple[tuple[str, int], ...]:
+    """Return every node state fixture as a (file name, node id) pair."""
+    fixtures: list[tuple[str, int]] = []
+    for path in sorted(FIXTURES_DIR.glob("*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        # Distinguishes node states from diagnostics dumps and event payloads.
+        if isinstance(data, dict) and "nodeId" in data and "values" in data:
+            fixtures.append((path.name, data["nodeId"]))
+    return tuple(fixtures)
+
+
+@cache
+def get_node_fixture_batches() -> tuple[tuple[str, ...], ...]:
+    """Split the node state fixtures into batches with no duplicate node ids.
+
+    Nodes are keyed by node id on the driver, so fixtures sharing a node id would
+    silently overwrite each other if loaded together. Batching keeps the original
+    node ids, which keeps entity unique ids stable as fixtures are added.
+
+    The batch index is part of the snapshot names. A fixture with an unused node id
+    is added to the first batch and leaves the other snapshots alone, but adding one
+    that sorts before an existing fixture with the same node id moves that fixture to
+    a later batch and renames its snapshots.
+
+    Fixtures for node id 1 are skipped, so the two `nabu_casa_zwa2` controller node
+    states are not covered here.
+    """
+    batches: list[dict[int, str]] = []
+    for name, node_id in get_node_state_fixtures():
+        if node_id == CONTROLLER_NODE_ID:
+            continue
+        for batch in batches:
+            if node_id not in batch:
+                batch[node_id] = name
+                break
+        else:
+            batches.append({node_id: name})
+    return tuple(tuple(batch.values()) for batch in batches)
+
+
+def snapshot_zwave_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    config_entry_id: str,
+    platform: Platform,
+    fixture_names: dict[int, str],
+) -> None:
+    """Snapshot every entity of one platform, grouped by source node fixture.
+
+    Entities that are disabled by default are not enabled for these tests, because
+    some config parameter sensors carry both a unit and a list of states and fail to
+    be added at all once enabled. Only their registry entry is snapshotted, so the
+    disabled ones are still covered against unintended entity category or name
+    changes.
+    """
+    entries = [
+        entry
+        for entry in er.async_entries_for_config_entry(entity_registry, config_entry_id)
+        if entry.domain == platform
+    ]
+    for entry in entries:
+        # Unique ids are `{home_id}.{node_id}-...` for value based entities and
+        # `{home_id}.{node_id}.{suffix}` for the valueless ones.
+        node_id = int(entry.unique_id.split(".")[1].split("-")[0])
+        fixture_name = fixture_names[node_id]
+        assert entry == snapshot(name=f"{fixture_name}][{entry.entity_id}-entry")
+        if entry.disabled_by is None:
+            assert hass.states.get(entry.entity_id) == snapshot(
+                name=f"{fixture_name}][{entry.entity_id}-state"
+            )

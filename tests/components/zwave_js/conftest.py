@@ -22,6 +22,8 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.util.json import JsonArrayType
 
+from .common import CONTROLLER_NODE_ID, get_node_fixture_batches
+
 from tests.common import (
     MockConfigEntry,
     load_json_array_fixture,
@@ -1016,6 +1018,23 @@ async def integration_fixture(
 def platforms() -> list[Platform]:
     """Fixture to specify platforms to test."""
     return PLATFORMS
+
+
+@pytest.fixture(name="node_batch", params=range(len(get_node_fixture_batches())))
+def node_batch_fixture(
+    request: pytest.FixtureRequest, client: MagicMock
+) -> dict[int, str]:
+    """Add one batch of node fixtures to the driver.
+
+    Returns the node id to fixture file name mapping of the added nodes.
+    """
+    # The controller node is always present and has entities of its own.
+    nodes: dict[int, str] = {CONTROLLER_NODE_ID: "controller_node_state.json"}
+    for name in get_node_fixture_batches()[request.param]:
+        node = Node(client, cast(NodeDataType, load_json_object_fixture(name, DOMAIN)))
+        client.driver.controller.nodes[node.node_id] = node
+        nodes[node.node_id] = name
+    return nodes
 
 
 @pytest.fixture(name="chain_actuator_zws12")

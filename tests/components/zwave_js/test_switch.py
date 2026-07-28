@@ -1,6 +1,7 @@
 """Test the Z-Wave JS switch platform."""
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.const import CURRENT_VALUE_PROPERTY, CommandClass
 from zwave_js_server.event import Event
 from zwave_js_server.exceptions import FailedZWaveCommand
@@ -12,12 +13,44 @@ from homeassistant.components.switch import (
     SERVICE_TURN_ON,
 )
 from homeassistant.components.zwave_js.helpers import ZwaveValueMatcher
-from homeassistant.const import STATE_OFF, STATE_ON, STATE_UNKNOWN, EntityCategory
+from homeassistant.const import (
+    STATE_OFF,
+    STATE_ON,
+    STATE_UNKNOWN,
+    EntityCategory,
+    Platform,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import entity_registry as er
 
-from .common import SWITCH_ENTITY, replace_value_of_zwave_value
+from .common import SWITCH_ENTITY, replace_value_of_zwave_value, snapshot_zwave_entities
+
+from tests.common import MockConfigEntry
+
+
+@pytest.fixture
+def platforms() -> list[Platform]:
+    """Fixture to specify platforms to test."""
+    return [Platform.SWITCH]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all switch entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.SWITCH,
+        node_batch,
+    )
 
 
 async def test_switch(

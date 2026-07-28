@@ -1,6 +1,7 @@
 """Test the Z-Wave JS humidifier platform."""
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.const import CommandClass
 from zwave_js_server.const.command_class.humidity_control import HumidityControlMode
 from zwave_js_server.event import Event
@@ -26,14 +27,39 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
 
-from .common import DEHUMIDIFIER_ADC_T3000_ENTITY, HUMIDIFIER_ADC_T3000_ENTITY
+from .common import (
+    DEHUMIDIFIER_ADC_T3000_ENTITY,
+    HUMIDIFIER_ADC_T3000_ENTITY,
+    snapshot_zwave_entities,
+)
+
+from tests.common import MockConfigEntry
 
 
 @pytest.fixture
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.HUMIDIFIER]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all humidifier entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.HUMIDIFIER,
+        node_batch,
+    )
 
 
 async def test_humidifier(

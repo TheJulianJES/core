@@ -1,6 +1,7 @@
 """Test the Z-Wave JS siren platform."""
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.event import Event
 
 from homeassistant.components.siren import (
@@ -10,6 +11,11 @@ from homeassistant.components.siren import (
 )
 from homeassistant.const import STATE_OFF, STATE_ON, STATE_UNKNOWN, Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
+
+from .common import snapshot_zwave_entities
+
+from tests.common import MockConfigEntry
 
 SIREN_ENTITY = "siren.indoor_siren_6_play_tone_2"
 
@@ -69,6 +75,24 @@ TONE_ID_VALUE_ID = {
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.SIREN]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all siren entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.SIREN,
+        node_batch,
+    )
 
 
 async def test_siren(

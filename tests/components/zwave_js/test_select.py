@@ -2,21 +2,49 @@
 
 from unittest.mock import MagicMock
 
+import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.const import CURRENT_VALUE_PROPERTY, CommandClass
 from zwave_js_server.event import Event
 from zwave_js_server.model.node import Node
 
 from homeassistant.components.zwave_js.helpers import ZwaveValueMatcher
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import STATE_UNKNOWN, EntityCategory
+from homeassistant.const import STATE_UNKNOWN, EntityCategory, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 
-from .common import replace_value_of_zwave_value
+from .common import replace_value_of_zwave_value, snapshot_zwave_entities
+
+from tests.common import MockConfigEntry
 
 DEFAULT_TONE_SELECT_ENTITY = "select.indoor_siren_6_default_tone_2"
 PROTECTION_SELECT_ENTITY = "select.family_room_combo_local_protection_state"
 MULTILEVEL_SWITCH_SELECT_ENTITY = "select.outside_front_door_siren"
+
+
+@pytest.fixture
+def platforms() -> list[Platform]:
+    """Fixture to specify platforms to test."""
+    return [Platform.SELECT]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all select entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.SELECT,
+        node_batch,
+    )
 
 
 async def test_default_tone_select(

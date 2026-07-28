@@ -3,18 +3,45 @@
 from unittest.mock import patch
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.event import Event
 
 from homeassistant.components.zwave_js import DOMAIN
-from homeassistant.const import STATE_UNKNOWN, EntityCategory
+from homeassistant.const import STATE_UNKNOWN, EntityCategory, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import entity_registry as er
+
+from .common import snapshot_zwave_entities
 
 from tests.common import MockConfigEntry
 
 NUMBER_ENTITY = "number.thermostat_hvac_valve_control"
 VOLUME_NUMBER_ENTITY = "number.indoor_siren_6_default_volume_2"
+
+
+@pytest.fixture
+def platforms() -> list[Platform]:
+    """Fixture to specify platforms to test."""
+    return [Platform.NUMBER]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all number entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.NUMBER,
+        node_batch,
+    )
 
 
 async def test_number(

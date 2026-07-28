@@ -4,6 +4,7 @@ from datetime import timedelta
 from unittest.mock import MagicMock
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.model.node import Node
 
 from homeassistant.components.button import DOMAIN as BUTTON_DOMAIN, SERVICE_PRESS
@@ -15,6 +16,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.util import dt as dt_util
 
+from .common import snapshot_zwave_entities
+
 from tests.common import MockConfigEntry, async_fire_time_changed
 
 
@@ -22,6 +25,24 @@ from tests.common import MockConfigEntry, async_fire_time_changed
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.BUTTON]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all button entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.BUTTON,
+        node_batch,
+    )
 
 
 async def test_ping_entity(

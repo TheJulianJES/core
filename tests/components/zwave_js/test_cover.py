@@ -6,6 +6,7 @@ from typing import Any
 from unittest.mock import MagicMock
 
 import pytest
+from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.const import (
     CURRENT_STATE_PROPERTY,
     CURRENT_VALUE_PROPERTY,
@@ -43,8 +44,9 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
 
-from .common import replace_value_of_zwave_value
+from .common import replace_value_of_zwave_value, snapshot_zwave_entities
 
 from tests.common import MockConfigEntry
 
@@ -63,6 +65,24 @@ LOGGER.setLevel(logging.DEBUG)
 def platforms() -> list[str]:
     """Fixture to specify platforms to test."""
     return [Platform.COVER]
+
+
+async def test_all_entities(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    node_batch: dict[int, str],
+    integration: MockConfigEntry,
+) -> None:
+    """Test all cover entities created from the node state fixtures."""
+    snapshot_zwave_entities(
+        hass,
+        entity_registry,
+        snapshot,
+        integration.entry_id,
+        Platform.COVER,
+        node_batch,
+    )
 
 
 @pytest.fixture(name="window_covering_outbound_bottom_no_position")
