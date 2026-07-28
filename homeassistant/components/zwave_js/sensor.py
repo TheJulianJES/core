@@ -988,17 +988,36 @@ class ZWaveListSensor(ZwaveSensor):
                 alternate_value_name=info.primary_value.property_name,
                 additional_info=[info.primary_value.property_key_name],
             )
-        if self.info.primary_value.metadata.states:
+        self._attr_options = self._enum_options()
+        if self._attr_options is not None:
             self._attr_device_class = SensorDeviceClass.ENUM
-            self._attr_options = list(info.primary_value.metadata.states.values())
+
+    def _enum_options(self) -> list[str] | None:
+        """Return the enum options, or None if the value is not an enum.
+
+        A value with a unit is numeric and its states only label some of the values
+        it can take, so it can not be represented as an enum.
+        """
+        if (
+            not self.info.primary_value.metadata.states
+            or self.native_unit_of_measurement is not None
+        ):
+            return None
+        return list(self.info.primary_value.metadata.states.values())
+
+    @property
+    @override
+    def native_value(self) -> StateType:
+        """Return state of the sensor."""
+        if self._attr_options is None:
+            return self.info.primary_value.value
+        return super().native_value
 
     @callback
     @override
     def should_rediscover_on_metadata_update(self) -> bool:
-        """Check if metadata states have changed."""
-        return list(self.info.primary_value.metadata.states.values()) != (
-            self._attr_options or []
-        )
+        """Check if the enum options derived from the metadata have changed."""
+        return self._enum_options() != self._attr_options
 
     @property
     @override

@@ -11,6 +11,7 @@ from zwave_js_server.exceptions import FailedZWaveCommand
 from zwave_js_server.model.node import Node
 
 from homeassistant.components.sensor import (
+    ATTR_OPTIONS,
     ATTR_STATE_CLASS,
     SensorDeviceClass,
     SensorStateClass,
@@ -1385,3 +1386,24 @@ async def test_energy_production_sensors(
 
         for attr in state_data.get("missing_attributes", []):
             assert attr not in state.attributes
+
+
+@pytest.mark.usefixtures("entity_registry_enabled_by_default")
+async def test_config_parameter_sensor_with_unit_and_states(
+    hass: HomeAssistant,
+    aeotec_zw164_siren: Node,
+    integration: MockConfigEntry,
+) -> None:
+    """Test a numeric config parameter that labels only some of its values.
+
+    Such a value keeps its unit and reports the raw number, since its states can
+    not describe the whole range it can take.
+    """
+    entity_id = "sensor.indoor_siren_6_button_1_battery_voltage"
+    state = hass.states.get(entity_id)
+
+    assert state
+    assert state.state == "0"
+    assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == "mV"
+    assert ATTR_DEVICE_CLASS not in state.attributes
+    assert ATTR_OPTIONS not in state.attributes
