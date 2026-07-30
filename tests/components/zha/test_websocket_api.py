@@ -26,6 +26,13 @@ from zha.application.const import (
     CLUSTER_COMMAND_SERVER,
     CLUSTER_TYPE_IN,
 )
+from zha.application.platforms.siren import (
+    SirenLevel,
+    SquawkMode,
+    Strobe,
+    StrobeLevel,
+    WarningMode,
+)
 from zha.zigbee.device import (
     ClusterBindEvent,
     ClusterConfigureReportingEvent,
@@ -34,10 +41,12 @@ from zha.zigbee.device import (
 )
 import zigpy.backups
 from zigpy.const import SIG_EP_INPUT, SIG_EP_OUTPUT, SIG_EP_PROFILE, SIG_EP_TYPE
+import zigpy.device
 import zigpy.exceptions
 import zigpy.profiles.zha
 import zigpy.types
 from zigpy.types.named import EUI64
+from zigpy.typing import UNDEFINED as ZIGPY_UNDEFINED
 import zigpy.util
 from zigpy.zcl.clusters import closures, general, security
 from zigpy.zcl.clusters.general import Groups
@@ -90,6 +99,7 @@ from tests.typing import MockHAClientWebSocket, WebSocketGenerator
 
 IEEE_SWITCH_DEVICE = "01:2d:6f:00:0a:90:69:e7"
 IEEE_GROUPABLE_DEVICE = "01:2d:6f:00:0a:90:69:e8"
+IEEE_WARNING_DEVICE = "01:2d:6f:00:0a:90:69:e9"
 IEEE_UNKNOWN_DEVICE = "01:2d:6f:00:0a:90:69:ff"
 
 if TYPE_CHECKING:
@@ -105,6 +115,7 @@ def required_platform_only():
             Platform.ALARM_CONTROL_PANEL,
             Platform.SELECT,
             Platform.SENSOR,
+            Platform.SIREN,
             Platform.SWITCH,
         ),
     ):
@@ -1516,3 +1527,243 @@ async def test_websocket_bind_device_not_found(
         msg["error"]["message"]
         == f"Device with IEEE address {IEEE_UNKNOWN_DEVICE} not found"
     )
+
+
+@pytest.fixture
+async def warning_device(
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+    zigpy_device_mock: Callable[..., Device],
+) -> zigpy.device.Device:
+    """Add an IAS warning device to the ZHA gateway."""
+    gateway = get_zha_gateway(hass)
+    zigpy_device = zigpy_device_mock(
+        {
+            1: {
+                SIG_EP_INPUT: [general.Basic.cluster_id, security.IasWd.cluster_id],
+                SIG_EP_OUTPUT: [],
+                SIG_EP_TYPE: zigpy.profiles.zha.DeviceType.IAS_WARNING_DEVICE,
+                SIG_EP_PROFILE: zigpy.profiles.zha.PROFILE_ID,
+            }
+        },
+        ieee=IEEE_WARNING_DEVICE,
+    )
+    gateway.get_or_create_device(zigpy_device)
+    await gateway.async_device_initialized(zigpy_device)
+    await hass.async_block_till_done(wait_background_tasks=True)
+    return zigpy_device
+
+
+@pytest.mark.usefixtures("zha_client")
+async def test_remove_device(hass: HomeAssistant) -> None:
+    """Test the remove action asks the gateway to remove the device."""
+    gateway = get_zha_gateway(hass)
+
+    with patch.object(gateway, "async_remove_device") as remove_mock:
+        await hass.services.async_call(
+            DOMAIN, "remove", {ATTR_IEEE: IEEE_SWITCH_DEVICE}, blocking=True
+        )
+
+    assert remove_mock.mock_calls == [call(EUI64.convert(IEEE_SWITCH_DEVICE))]
+
+
+@pytest.mark.usefixtures("zha_client")
+async def test_set_zigbee_cluster_attribute(hass: HomeAssistant) -> None:
+    """Test the set attribute action forwards the request to the device."""
+    gateway = get_zha_gateway(hass)
+    device = gateway.get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+
+    with patch.object(device, "write_zigbee_attribute") as write_mock:
+        await hass.services.async_call(
+            DOMAIN,
+            SERVICE_SET_ZIGBEE_CLUSTER_ATTRIBUTE,
+            {ATTR_IEEE: IEEE_SWITCH_DEVICE} | SET_CLUSTER_ATTRIBUTE_DATA,
+            blocking=True,
+        )
+
+    assert write_mock.mock_calls == [
+        call(
+            1,
+            general.OnOff.cluster_id,
+            general.OnOff.AttributeDefs.start_up_on_off.id,
+            1,
+            cluster_type=CLUSTER_TYPE_IN,
+            manufacturer=ZIGPY_UNDEFINED,
+        )
+    ]
+
+
+@pytest.mark.parametrize(
+    ("extra_data", "expected_manufacturer"),
+    [
+        pytest.param({}, ZIGPY_UNDEFINED, id="no_manufacturer"),
+        pytest.param({ATTR_MANUFACTURER: 0x1037}, 0x1037, id="explicit_manufacturer"),
+    ],
+)
+@pytest.mark.usefixtures("zha_client")
+async def test_issue_zigbee_cluster_command(
+    extra_data: dict[str, Any],
+    expected_manufacturer: int,
+    hass: HomeAssistant,
+) -> None:
+    """Test the issue cluster command action forwards the request to the device."""
+    gateway = get_zha_gateway(hass)
+    device = gateway.get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+
+    with patch.object(device, "issue_cluster_command") as command_mock:
+        await hass.services.async_call(
+            DOMAIN,
+            SERVICE_ISSUE_ZIGBEE_CLUSTER_COMMAND,
+            {ATTR_IEEE: IEEE_SWITCH_DEVICE} | ISSUE_CLUSTER_COMMAND_DATA | extra_data,
+            blocking=True,
+        )
+
+    assert command_mock.mock_calls == [
+        call(
+            1,
+            general.OnOff.cluster_id,
+            general.OnOff.ServerCommandDefs.on.id,
+            CLUSTER_COMMAND_SERVER,
+            None,
+            {},
+            cluster_type=CLUSTER_TYPE_IN,
+            manufacturer=expected_manufacturer,
+        )
+    ]
+
+
+@pytest.mark.usefixtures("zha_client")
+async def test_issue_zigbee_group_command(hass: HomeAssistant) -> None:
+    """Test the issue group command action sends the command to the group."""
+    gateway = get_zha_gateway(hass)
+    cluster = gateway.get_group(FIXTURE_GRP_ID).endpoint[general.OnOff.cluster_id]
+
+    with patch.object(cluster, "command", new_callable=AsyncMock) as command_mock:
+        await hass.services.async_call(
+            DOMAIN,
+            SERVICE_ISSUE_ZIGBEE_GROUP_COMMAND,
+            {
+                ATTR_GROUP: FIXTURE_GRP_ID,
+                ATTR_CLUSTER_ID: general.OnOff.cluster_id,
+                ATTR_COMMAND: general.OnOff.ServerCommandDefs.on.id,
+            },
+            blocking=True,
+        )
+
+    assert command_mock.mock_calls == [
+        call(
+            general.OnOff.ServerCommandDefs.on.id,
+            manufacturer=ZIGPY_UNDEFINED,
+            expect_reply=True,
+        )
+    ]
+
+
+@pytest.mark.usefixtures("warning_device")
+async def test_warning_device_squawk(hass: HomeAssistant) -> None:
+    """Test the squawk action reaches the IAS warning device's siren entity."""
+    siren = (
+        get_zha_gateway(hass)
+        .get_device(EUI64.convert(IEEE_WARNING_DEVICE))
+        .get_entity(Platform.SIREN, pick_first=True)
+    )
+
+    with patch.object(siren, "async_squawk") as squawk_mock:
+        await hass.services.async_call(
+            DOMAIN,
+            SERVICE_WARNING_DEVICE_SQUAWK,
+            {ATTR_IEEE: IEEE_WARNING_DEVICE},
+            blocking=True,
+        )
+
+    assert squawk_mock.mock_calls == [
+        call(
+            mode=SquawkMode.Armed,
+            strobe=Strobe.Strobe,
+            squawk_level=SirenLevel.High_level_sound,
+        )
+    ]
+
+
+@pytest.mark.usefixtures("warning_device")
+async def test_warning_device_warn(hass: HomeAssistant) -> None:
+    """Test the warn action reaches the IAS warning device's siren entity."""
+    siren = (
+        get_zha_gateway(hass)
+        .get_device(EUI64.convert(IEEE_WARNING_DEVICE))
+        .get_entity(Platform.SIREN, pick_first=True)
+    )
+
+    with patch.object(siren, "async_turn_on") as warn_mock:
+        await hass.services.async_call(
+            DOMAIN,
+            SERVICE_WARNING_DEVICE_WARN,
+            {ATTR_IEEE: IEEE_WARNING_DEVICE},
+            blocking=True,
+        )
+
+    assert warn_mock.mock_calls == [
+        call(
+            tone=WarningMode.Emergency,
+            volume_level=SirenLevel.High_level_sound,
+            duration=5,
+            strobe=Strobe.Strobe,
+            strobe_duty_cycle=0,
+            strobe_intensity=StrobeLevel.High_level_strobe,
+        )
+    ]
+
+
+async def test_websocket_read_cluster_attribute(
+    hass: HomeAssistant, zha_client: MockHAClientWebSocket
+) -> None:
+    """Test reading a cluster attribute returns the value to the frontend."""
+    gateway = get_zha_gateway(hass)
+    device = gateway.get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+    cluster = device.async_get_cluster(1, general.OnOff.cluster_id)
+
+    with patch.object(
+        cluster,
+        "read_attributes",
+        return_value=({general.OnOff.AttributeDefs.on_off.id: True}, {}),
+    ) as read_mock:
+        await zha_client.send_json(
+            {
+                ID: 33,
+                TYPE: "zha/devices/clusters/attributes/value",
+                ATTR_IEEE: IEEE_SWITCH_DEVICE,
+                ATTR_ENDPOINT_ID: 1,
+                ATTR_CLUSTER_ID: general.OnOff.cluster_id,
+                ATTR_CLUSTER_TYPE: CLUSTER_TYPE_IN,
+                ATTR_ATTRIBUTE: general.OnOff.AttributeDefs.on_off.id,
+            }
+        )
+        msg = await zha_client.receive_json()
+
+    assert msg["id"] == 33
+    assert msg["success"]
+    assert msg["result"] == "True"
+    assert read_mock.mock_calls == [
+        call(
+            [general.OnOff.AttributeDefs.on_off.id],
+            allow_cache=False,
+            only_cache=False,
+            manufacturer=ZIGPY_UNDEFINED,
+        )
+    ]
+
+
+async def test_websocket_get_bindable_devices(
+    hass: HomeAssistant, zha_client: MockHAClientWebSocket
+) -> None:
+    """Test getting bindable devices for a known device."""
+    coordinator = get_zha_gateway(hass).coordinator_zha_device
+
+    await zha_client.send_json(
+        {ID: 34, TYPE: "zha/devices/bindable", ATTR_IEEE: IEEE_SWITCH_DEVICE}
+    )
+    msg = await zha_client.receive_json()
+
+    assert msg["id"] == 34
+    assert msg["success"]
+    assert [device["ieee"] for device in msg["result"]] == [str(coordinator.ieee)]
