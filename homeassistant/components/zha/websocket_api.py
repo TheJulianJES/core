@@ -81,7 +81,6 @@ from .const import (
     GROUP_ID,
     GROUP_IDS,
     GROUP_NAME,
-    MFG_CLUSTER_ID_START,
     SIGNAL_DEVICE_RECONFIGURE_EVENT,
     ZHA_ALARM_OPTIONS,
     ZHA_OPTIONS,
@@ -1432,8 +1431,6 @@ def async_load_api(hass: HomeAssistant) -> None:
             ATTR_MANUFACTURER, ZIGPY_UNDEFINED
         )
         zha_device = _get_device(zha_gateway, ieee)
-        if cluster_id >= MFG_CLUSTER_ID_START and manufacturer is None:
-            manufacturer = zha_device.manufacturer_code
 
         async with convert_zha_error_to_ha_error():
             await zha_device.issue_cluster_command(
@@ -1487,8 +1484,6 @@ def async_load_api(hass: HomeAssistant) -> None:
             ATTR_MANUFACTURER, ZIGPY_UNDEFINED
         )
         group = _get_group(zha_gateway, group_id)
-        if cluster_id >= MFG_CLUSTER_ID_START and manufacturer is None:
-            _LOGGER.error("Missing manufacturer attribute for cluster: %d", cluster_id)
         cluster = group.endpoint[cluster_id]
         async with convert_zha_error_to_ha_error():
             response = await cluster.command(

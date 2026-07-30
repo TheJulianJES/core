@@ -71,8 +71,6 @@ GROUP_ID = "group_id"
 GROUP_IDS = "group_ids"
 GROUP_NAME = "group_name"
 
-MFG_CLUSTER_ID_START = 0xFC00
-
 ZHA_ALARM_OPTIONS = "zha_alarm_options"
 ZHA_OPTIONS = "zha_options"
 
