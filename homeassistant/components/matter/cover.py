@@ -122,6 +122,22 @@ class MatterCover(MatterEntity, CoverEntity):
             clusters.WindowCovering.Commands.GoToTiltPercentage((100 - position) * 100)
         )
 
+    @override
+    async def async_open_cover_tilt(self, **kwargs: Any) -> None:
+        """Open the cover tilt."""
+        # only exposed on tilt-only covers, where UpOrOpen moves the tilt axis
+        await self.send_device_command(clusters.WindowCovering.Commands.UpOrOpen())
+
+    @override
+    async def async_close_cover_tilt(self, **kwargs: Any) -> None:
+        """Close the cover tilt."""
+        await self.send_device_command(clusters.WindowCovering.Commands.DownOrClose())
+
+    @override
+    async def async_stop_cover_tilt(self, **kwargs: Any) -> None:
+        """Stop the cover tilt movement."""
+        await self.send_device_command(clusters.WindowCovering.Commands.StopMotion())
+
     @callback
     @override
     def _update_from_device(self) -> None:
@@ -196,9 +212,23 @@ class MatterCover(MatterEntity, CoverEntity):
         )
         self._attr_device_class = TYPE_MAP.get(device_type, CoverDeviceClass.AWNING)
 
-        supported_features = (
-            CoverEntityFeature.OPEN | CoverEntityFeature.CLOSE | CoverEntityFeature.STOP
+        feature_map = self.get_matter_attribute_value(
+            clusters.WindowCovering.Attributes.FeatureMap
         )
+        if feature_map & clusters.WindowCovering.Bitmaps.Feature.kLift:
+            supported_features = (
+                CoverEntityFeature.OPEN
+                | CoverEntityFeature.CLOSE
+                | CoverEntityFeature.STOP
+            )
+        else:
+            # tilt-only covers expose the tilt button features instead,
+            # so UIs derive the button state from the tilt position
+            supported_features = (
+                CoverEntityFeature.OPEN_TILT
+                | CoverEntityFeature.CLOSE_TILT
+                | CoverEntityFeature.STOP_TILT
+            )
         commands = self.get_matter_attribute_value(
             clusters.WindowCovering.Attributes.AcceptedCommandList
         )
