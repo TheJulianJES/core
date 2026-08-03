@@ -212,22 +212,29 @@ class MatterCover(MatterEntity, CoverEntity):
         )
         self._attr_device_class = TYPE_MAP.get(device_type, CoverDeviceClass.AWNING)
 
-        feature_map = self.get_matter_attribute_value(
-            clusters.WindowCovering.Attributes.FeatureMap
-        )
-        if feature_map & clusters.WindowCovering.Bitmaps.Feature.kLift:
-            supported_features = (
-                CoverEntityFeature.OPEN
-                | CoverEntityFeature.CLOSE
-                | CoverEntityFeature.STOP
+        feature_map = (
+            self.get_matter_attribute_value(
+                clusters.WindowCovering.Attributes.FeatureMap
             )
-        else:
+            or 0
+        )
+        if feature_map & clusters.WindowCovering.Bitmaps.Feature.kTilt and not (
+            feature_map & clusters.WindowCovering.Bitmaps.Feature.kLift
+        ):
             # tilt-only covers expose the tilt button features instead,
             # so UIs derive the button state from the tilt position
             supported_features = (
                 CoverEntityFeature.OPEN_TILT
                 | CoverEntityFeature.CLOSE_TILT
                 | CoverEntityFeature.STOP_TILT
+            )
+        else:
+            # the lift commands are mandatory for all window coverings,
+            # so they are the safe default for non-conformant feature maps
+            supported_features = (
+                CoverEntityFeature.OPEN
+                | CoverEntityFeature.CLOSE
+                | CoverEntityFeature.STOP
             )
         commands = self.get_matter_attribute_value(
             clusters.WindowCovering.Attributes.AcceptedCommandList
