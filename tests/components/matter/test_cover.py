@@ -338,7 +338,11 @@ async def test_cover_position_aware_tilt(
     )
     assert state.attributes["supported_features"] & mask == mask
 
-    for tilt_position in (0, 9999, 10000):
+    for tilt_position, expected_state in (
+        (0, CoverState.OPEN),
+        (9999, CoverState.OPEN),
+        (10000, CoverState.CLOSED),
+    ):
         set_node_attribute(matter_node, 1, 258, 15, tilt_position)
         set_node_attribute(matter_node, 1, 258, 10, 0b000000)
         await trigger_subscription_callback(hass, matter_client)
@@ -348,6 +352,16 @@ async def test_cover_position_aware_tilt(
         assert state.attributes["current_tilt_position"] == 100 - floor(
             tilt_position / 100
         )
+        assert state.state == expected_state
+
+    # a null tilt position means the current position is unknown per the spec
+    set_node_attribute(matter_node, 1, 258, 15, None)
+    set_node_attribute(matter_node, 1, 258, 10, 0b000000)
+    await trigger_subscription_callback(hass, matter_client)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "unknown"
 
 
 @pytest.mark.parametrize("node_fixture", ["mock_window_covering_full"])
