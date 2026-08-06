@@ -17,11 +17,22 @@ from homeassistant.helpers import entity_registry as er
 
 from .common import (
     set_node_attribute,
+    set_node_attribute_and_notify,
     snapshot_matter_entities,
     trigger_subscription_callback,
 )
 
 from tests.common import async_fire_time_changed
+
+
+async def flush_debounced_state_write(
+    hass: HomeAssistant,
+    freezer: FrozenDateTimeFactory,
+) -> None:
+    """Advance time past the cooldown so the debounced state write happens."""
+    freezer.tick(STATE_WRITE_DEBOUNCE_COOLDOWN)
+    async_fire_time_changed(hass)
+    await hass.async_block_till_done()
 
 
 async def trigger_subscription_callback_debounced(
@@ -31,9 +42,7 @@ async def trigger_subscription_callback_debounced(
 ) -> None:
     """Trigger subscription callbacks and wait for the debounced state write."""
     await trigger_subscription_callback(hass, client)
-    freezer.tick(STATE_WRITE_DEBOUNCE_COOLDOWN)
-    async_fire_time_changed(hass)
-    await hass.async_block_till_done()
+    await flush_debounced_state_write(hass, freezer)
 
 
 @pytest.mark.usefixtures("matter_devices")
@@ -263,9 +272,27 @@ async def test_cover_split_attribute_updates(
 ) -> None:
     """Test state writes are debounced to coalesce split attribute updates."""
 
-    set_node_attribute(matter_node, 1, 258, 14, 9900)
-    set_node_attribute(matter_node, 1, 258, 10, 0b001010)
-    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+    # the Matter Server WebSocket API delivers the attributes of a single report
+    # as separate subscription events
+    await set_node_attribute_and_notify(
+        hass,
+        matter_client,
+        matter_node,
+        endpoint=1,
+        cluster_id=258,
+        attribute_id=14,
+        value=9900,
+    )
+    await set_node_attribute_and_notify(
+        hass,
+        matter_client,
+        matter_node,
+        endpoint=1,
+        cluster_id=258,
+        attribute_id=10,
+        value=0b001010,
+    )
+    await flush_debounced_state_write(hass, freezer)
 
     state = hass.states.get(entity_id)
     assert state
@@ -273,16 +300,31 @@ async def test_cover_split_attribute_updates(
 
     # the device reports it stopped moving, while the final position
     # arrives as a separate attribute update slightly later
-    set_node_attribute(matter_node, 1, 258, 10, 0b000000)
-    await trigger_subscription_callback(hass, matter_client)
+    await set_node_attribute_and_notify(
+        hass,
+        matter_client,
+        matter_node,
+        endpoint=1,
+        cluster_id=258,
+        attribute_id=10,
+        value=0b000000,
+    )
 
     # the intermittent state (stopped at 1% open) is not written
     state = hass.states.get(entity_id)
     assert state
     assert state.state == CoverState.CLOSING
 
-    set_node_attribute(matter_node, 1, 258, 14, 10000)
-    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+    await set_node_attribute_and_notify(
+        hass,
+        matter_client,
+        matter_node,
+        endpoint=1,
+        cluster_id=258,
+        attribute_id=14,
+        value=10000,
+    )
+    await flush_debounced_state_write(hass, freezer)
 
     state = hass.states.get(entity_id)
     assert state
