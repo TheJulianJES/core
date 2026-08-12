@@ -29,6 +29,7 @@ from zha.application.const import (
     UNKNOWN_MODEL,
     ZHA_EVENT,
     ZHA_GW_MSG,
+    ZHA_GW_MSG_CONNECTION_LOST,
     ZHA_GW_MSG_DEVICE_FULL_INIT,
     ZHA_GW_MSG_DEVICE_INFO,
     ZHA_GW_MSG_DEVICE_JOINED,
@@ -45,7 +46,6 @@ from zha.application.gateway import (
     ConnectionLostEvent,
     DeviceFullInitEvent,
     DeviceJoinedEvent,
-    DeviceLeftEvent,
     DeviceRemovedEvent,
     Gateway,
     GroupEvent,
@@ -311,7 +311,29 @@ class ZHADeviceProxy(EventBase):
         self.device = device
         self.gateway_proxy = gateway_proxy
         self._unsubs: list[Callable[[], None]] = []
-        self._unsubs.append(self.device.on_all_events(self._handle_event_protocol))
+        self._subscribe_device_events()
+
+    @callback
+    def _subscribe_device_events(self) -> None:
+        """Subscribe to the events emitted by the ZHA device."""
+        for event_type, handler in (
+            (ZHAEvent.event_type, self.handle_zha_event),
+            (ClusterBindEvent.event_type, self.handle_zha_cluster_bind),
+            (
+                ClusterConfigureReportingEvent.event_type,
+                self.handle_zha_cluster_configure_reporting,
+            ),
+            (DeviceConfiguredEvent.event_type, self.handle_zha_device_configured),
+            (
+                DeviceEntityAddedEvent.event_type,
+                self.handle_zha_device_entity_added_event,
+            ),
+            (
+                DeviceEntityRemovedEvent.event_type,
+                self.handle_zha_device_entity_removed_event,
+            ),
+        ):
+            self._unsubs.append(self.device.on_event(event_type, handler))
 
     @callback
     def async_rebind_device(self, device: Device) -> None:
@@ -322,7 +344,7 @@ class ZHADeviceProxy(EventBase):
         self._unsubs.clear()
 
         self.device = device
-        self._unsubs.append(self.device.on_all_events(self._handle_event_protocol))
+        self._subscribe_device_events()
         self.attach_event_handlers()
 
     @callback
@@ -598,7 +620,18 @@ class ZHAGatewayProxy(EventBase):
         self._log_queue_handler_count: int = 0
 
         self._unsubs: list[Callable[[], None]] = []
-        self._unsubs.append(self.gateway.on_all_events(self._handle_event_protocol))
+        for event_type, handler in (
+            (ZHA_GW_MSG_CONNECTION_LOST, self.handle_connection_lost),
+            (ZHA_GW_MSG_DEVICE_JOINED, self.handle_device_joined),
+            (ZHA_GW_MSG_DEVICE_REMOVED, self.handle_device_removed),
+            (ZHA_GW_MSG_RAW_INIT, self.handle_raw_device_initialized),
+            (ZHA_GW_MSG_DEVICE_FULL_INIT, self.handle_device_fully_initialized),
+            (ZHA_GW_MSG_GROUP_ADDED, self.handle_group_added),
+            (ZHA_GW_MSG_GROUP_REMOVED, self.handle_group_removed),
+            (ZHA_GW_MSG_GROUP_MEMBER_ADDED, self.handle_group_member_added),
+            (ZHA_GW_MSG_GROUP_MEMBER_REMOVED, self.handle_group_member_removed),
+        ):
+            self._unsubs.append(self.gateway.on_event(event_type, handler))
         config_entry.async_on_unload(
             self.hass.bus.async_listen(
                 er.EVENT_ENTITY_REGISTRY_UPDATED,
@@ -727,10 +760,6 @@ class ZHAGatewayProxy(EventBase):
                         ZHA_GW_MSG_DEVICE_INFO: device_info,
                     },
                 )
-
-    @callback
-    def handle_device_left(self, event: DeviceLeftEvent) -> None:
-        """Handle a device left event."""
 
     @callback
     def handle_raw_device_initialized(self, event: RawDeviceInitializedEvent) -> None:

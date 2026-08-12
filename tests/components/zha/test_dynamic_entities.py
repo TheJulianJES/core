@@ -142,8 +142,8 @@ async def test_dynamic_entity_lifecycle(
     ha_zha_data = get_zha_data(hass)
     assert len(ha_zha_data.platforms[Platform.SWITCH]) == 0
 
-    # Re-add: emitter exercises the on_all_events -> _handle_event_protocol
-    # -> handler wiring; the entity reappears as a HA state.
+    # Re-add: emitter exercises the device event subscription -> handler
+    # wiring; the entity reappears as a HA state.
     zha_device_proxy.device.emit(
         DeviceEntityAddedEvent.event_type,
         DeviceEntityAddedEvent(
