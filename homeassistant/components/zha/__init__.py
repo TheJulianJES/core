@@ -2,6 +2,7 @@
 
 import contextlib
 import logging
+from typing import Any
 from zoneinfo import ZoneInfo
 
 import voluptuous as vol
@@ -13,6 +14,7 @@ from zha.quirks import DEVICE_REGISTRY
 from zha.zigbee.device import get_device_automation_triggers
 from zigpy.config import CONF_DATABASE, CONF_DEVICE, CONF_DEVICE_PATH
 from zigpy.exceptions import NetworkSettingsInconsistent, TransientConnectionError
+from zigpy.types import EUI64
 
 from homeassistant.components.homeassistant_hardware.helpers import (
     async_is_firmware_update_in_progress,
@@ -62,13 +64,56 @@ from .repairs.wrong_silabs_firmware import (
     warn_on_wrong_silabs_firmware,
 )
 
+
+def _device_config_key(value: Any) -> str:
+    """Validate and normalize a `<ieee>-<endpoint_id>` device config key.
+
+    IEEE addresses are commonly displayed in upper case but ZHA matches devices by
+    their lower case address, so the key is normalized instead of silently ignored.
+    """
+    ieee, separator, endpoint_id = cv.string(value).rpartition("-")
+    error = (
+        f"Invalid device config key {value!r}, expected '<ieee_address>-<endpoint_id>'"
+    )
+
+    if not separator:
+        raise vol.Invalid(error)
+
+    try:
+        ieee_address = EUI64.convert(ieee)
+        endpoint = int(endpoint_id)
+    except (AssertionError, ValueError) as err:
+        raise vol.Invalid(error) from err
+
+    # `EUI64.convert` only checks the address length with an `assert`, which is stripped
+    # when running with `-O`, and endpoint IDs are `uint8_t` (0 is the ZDO endpoint)
+    if len(ieee_address) != 8 or not 1 <= endpoint <= 255:
+        raise vol.Invalid(error)
+
+    return f"{ieee_address}-{endpoint}"
+
+
 DEVICE_CONFIG_SCHEMA_ENTRY = vol.Schema({vol.Optional(CONF_TYPE): cv.string})
+DEVICE_CONFIG_SCHEMA = vol.Schema({_device_config_key: DEVICE_CONFIG_SCHEMA_ENTRY})
+
+
+def _device_config(value: Any) -> dict[str, dict[str, Any]]:
+    """Validate the device config, rejecting keys for an already configured endpoint."""
+    config: dict[str, dict[str, Any]] = DEVICE_CONFIG_SCHEMA(value)
+
+    # Distinct keys can normalize to the same endpoint, silently overriding each other
+    if len(config) != len(value):
+        raise vol.Invalid(
+            "Duplicate device config keys: multiple entries configure the same endpoint"
+        )
+
+    return config
+
+
 ZHA_CONFIG_SCHEMA = {
     vol.Optional(CONF_BAUDRATE): cv.positive_int,
     vol.Optional(CONF_DATABASE): cv.string,
-    vol.Optional(CONF_DEVICE_CONFIG, default={}): vol.Schema(
-        {cv.string: DEVICE_CONFIG_SCHEMA_ENTRY}
-    ),
+    vol.Optional(CONF_DEVICE_CONFIG, default={}): _device_config,
     vol.Optional(CONF_ENABLE_QUIRKS, default=True): cv.boolean,
     vol.Optional(CONF_ZIGPY): dict,
     vol.Optional(CONF_RADIO_TYPE): cv.enum(RadioType),

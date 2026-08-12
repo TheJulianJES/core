@@ -8,6 +8,7 @@ from unittest.mock import AsyncMock, patch
 import zoneinfo
 
 import pytest
+import voluptuous as vol
 from zigpy.application import ControllerApplication
 from zigpy.config import CONF_DEVICE, CONF_DEVICE_PATH
 from zigpy.device import Device
@@ -21,9 +22,11 @@ from homeassistant.components.homeassistant_hardware.helpers import (
     async_register_firmware_update_in_progress,
 )
 from homeassistant.components.usb import USBDevice
+from homeassistant.components.zha import CONFIG_SCHEMA
 from homeassistant.components.zha.config_flow import ZhaConfigFlowHandler
 from homeassistant.components.zha.const import (
     CONF_BAUDRATE,
+    CONF_DEVICE_CONFIG,
     CONF_FLOW_CONTROL,
     CONF_RADIO_TYPE,
     CONF_USB_PATH,
@@ -68,6 +71,61 @@ def config_entry_v1(hass: HomeAssistant):
         data={CONF_RADIO_TYPE: DATA_RADIO_TYPE, CONF_USB_PATH: DATA_PORT_PATH},
         version=1,
     )
+
+
+@pytest.mark.parametrize(
+    ("device_config_key", "normalized_key"),
+    [
+        ("00:0d:6f:00:05:7d:2d:34-1", "00:0d:6f:00:05:7d:2d:34-1"),
+        ("00:0D:6F:00:05:7D:2D:34-1", "00:0d:6f:00:05:7d:2d:34-1"),
+        ("00:0D:6f:00:05:7D:2d:34-11", "00:0d:6f:00:05:7d:2d:34-11"),
+    ],
+)
+def test_device_config_key_normalization(
+    device_config_key: str, normalized_key: str
+) -> None:
+    """Test that device config keys are normalized to the ZHA unique ID format."""
+    config = CONFIG_SCHEMA(
+        {DOMAIN: {CONF_DEVICE_CONFIG: {device_config_key: {"type": "switch"}}}}
+    )
+
+    assert config[DOMAIN][CONF_DEVICE_CONFIG] == {normalized_key: {"type": "switch"}}
+
+
+@pytest.mark.parametrize(
+    "device_config_key",
+    [
+        "00:0d:6f:00:05:7d:2d:34",  # No endpoint ID
+        "00:0d:6f:00:05:7d:2d:34-",  # Empty endpoint ID
+        "00:0d:6f:00:05:7d:2d:34-one",  # Non-numeric endpoint ID
+        "00:0d:6f:00:05:7d:2d-1",  # Too short
+        "00:0d:6f:00:05:7d:2d:34:56-1",  # Too long
+        "00:0d:6f:00:05:7d:2d:34-0",  # ZDO endpoint
+        "00:0d:6f:00:05:7d:2d:34-256",  # Endpoint IDs are `uint8_t`
+        "not an ieee address-1",
+    ],
+)
+def test_device_config_key_invalid(device_config_key: str) -> None:
+    """Test that an invalid device config key is rejected instead of being ignored."""
+    with pytest.raises(vol.Invalid, match="Invalid device config key"):
+        CONFIG_SCHEMA(
+            {DOMAIN: {CONF_DEVICE_CONFIG: {device_config_key: {"type": "switch"}}}}
+        )
+
+
+def test_device_config_duplicate_keys() -> None:
+    """Test that keys normalizing to the same endpoint are rejected."""
+    with pytest.raises(vol.Invalid, match="Duplicate device config keys"):
+        CONFIG_SCHEMA(
+            {
+                DOMAIN: {
+                    CONF_DEVICE_CONFIG: {
+                        "00:0D:6F:00:05:7D:2D:34-1": {"type": "switch"},
+                        "00:0d:6f:00:05:7d:2d:34-1": {"type": "light"},
+                    }
+                }
+            }
+        )
 
 
 @pytest.mark.parametrize("config", [{}, {DOMAIN: {}}])

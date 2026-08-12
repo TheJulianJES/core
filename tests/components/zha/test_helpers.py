@@ -5,6 +5,7 @@ from typing import Any
 
 import pytest
 import voluptuous_serialize
+from zha.application.helpers import DeviceOverridesConfiguration
 from zigpy.application import ControllerApplication
 from zigpy.types.basic import uint16_t
 from zigpy.zcl.clusters import lighting
@@ -17,6 +18,7 @@ from homeassistant.components.zha.helpers import (
     exclude_none_values,
     get_zha_data,
 )
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.setup import async_setup_component
@@ -218,3 +220,33 @@ async def test_create_zha_config_remove_unused(
 
     # Does not error out
     create_zha_config(hass, ha_zha_data)
+
+
+async def test_create_zha_config_device_overrides(
+    hass: HomeAssistant,
+    config_entry: MockConfigEntry,
+    mock_zigpy_connect: ControllerApplication,
+) -> None:
+    """Test that device overrides are passed to ZHA with a normalized unique ID."""
+    config_entry.add_to_hass(hass)
+
+    status = await async_setup_component(
+        hass,
+        zha_const.DOMAIN,
+        {
+            zha_const.DOMAIN: {
+                zha_const.CONF_DEVICE_CONFIG: {
+                    # Upper case, as IEEE addresses are commonly displayed
+                    "00:0D:6F:00:05:7D:2D:34-1": {"type": "switch"}
+                }
+            }
+        },
+    )
+    assert status is True
+    await hass.async_block_till_done()
+
+    zha_data = create_zha_config(hass, get_zha_data(hass))
+
+    assert zha_data.config.device_overrides == {
+        "00:0d:6f:00:05:7d:2d:34-1": DeviceOverridesConfiguration(type=Platform.SWITCH)
+    }
