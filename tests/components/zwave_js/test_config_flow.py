@@ -352,6 +352,12 @@ async def slow_server_version(*args: Any) -> Any:
         ),
         (
             "ws://localhost:3000",
+            KeyError("homeId"),
+            SERVER_VERSION_TIMEOUT,
+            "cannot_connect",
+        ),
+        (
+            "ws://localhost:3000",
             Exception("Boom"),
             SERVER_VERSION_TIMEOUT,
             "unknown",
@@ -391,6 +397,12 @@ async def test_manual_errors(hass: HomeAssistant, url: str, error: str) -> None:
             "ws://localhost:3000",
             slow_server_version,
             0,
+            "cannot_connect",
+        ),
+        (
+            "ws://localhost:3000",
+            KeyError("homeId"),
+            SERVER_VERSION_TIMEOUT,
             "cannot_connect",
         ),
         (
@@ -2381,6 +2393,20 @@ async def test_addon_running(
             ],
             None,
             TimeoutError,
+            None,
+            "cannot_connect",
+        ),
+        (
+            [
+                Discovery(
+                    addon="core_zwave_js",
+                    service="zwave_js",
+                    uuid=uuid4(),
+                    config=ADDON_DISCOVERY_INFO,
+                )
+            ],
+            None,
+            KeyError("homeId"),
             None,
             "cannot_connect",
         ),

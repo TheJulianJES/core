@@ -205,6 +205,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ZwaveJSConfigEntry) -> b
         raise ConfigEntryNotReady(f"Invalid server version: {err}") from err
     except (TimeoutError, BaseZwaveJSServerError) as err:
         raise ConfigEntryNotReady(f"Failed to connect: {err}") from err
+    except KeyError as err:
+        # The server omits the home ID from the version message
+        # until the controller has been identified.
+        raise ConfigEntryNotReady(f"Invalid version message: {err}") from err
 
     async_delete_issue(hass, DOMAIN, "invalid_server_version")
     LOGGER.debug("Connected to Zwave JS Server")

@@ -632,6 +632,12 @@ async def async_get_version_info(hass: HomeAssistant, ws_address: str) -> Versio
         # or takes a long time to start.
         LOGGER.debug("Failed to connect to Z-Wave JS server: %s", err)
         raise CannotConnect from err
+    except (KeyError, TypeError, ValueError) as err:
+        # The server omits the home ID from the version message until the
+        # controller has been identified, and aiohttp raises TypeError for a
+        # non-text message and ValueError for a payload that isn't JSON.
+        LOGGER.debug("Invalid version message from Z-Wave JS server: %s", err)
+        raise CannotConnect from err
 
     return version_info
 

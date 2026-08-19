@@ -9,9 +9,11 @@ from zwave_js_server.model.controller import ProvisioningEntry
 
 from homeassistant.components.zwave_js.const import DOMAIN
 from homeassistant.components.zwave_js.helpers import (
+    CannotConnect,
     async_get_node_status_sensor_entity_id,
     async_get_nodes_from_area_id,
     async_get_provisioning_entry_from_device_id,
+    async_get_version_info,
     format_home_id_for_display,
     get_value_state_schema,
 )
@@ -157,3 +159,20 @@ def test_format_home_id_for_display() -> None:
 
     # Test with None
     assert format_home_id_for_display(None) == "Unknown"
+
+
+@pytest.mark.parametrize(
+    "server_version_side_effect",
+    [
+        # The server omits the home ID while the driver isn't ready.
+        KeyError("homeId"),
+        # aiohttp raises TypeError for a non-text websocket message.
+        TypeError("Received message BINARY is not str"),
+        ValueError("Expecting value: line 1 column 1 (char 0)"),
+    ],
+    ids=["missing_home_id", "not_text", "invalid_json"],
+)
+async def test_async_get_version_info_invalid_message(hass: HomeAssistant) -> None:
+    """Test that an invalid version message is treated as a connection error."""
+    with pytest.raises(CannotConnect):
+        await async_get_version_info(hass, "ws://test.org")
