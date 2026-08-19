@@ -184,6 +184,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ZwaveJSConfigEntry) -> b
         async_get_clientsession(hass),
         additional_user_agent_components=USER_AGENT,
     )
+    # Register this before connecting. The client opens the websocket before it
+    # parses the server handshake, so a failed connect can leave it open.
+    entry.async_on_unload(client.disconnect)
 
     # connect and throw error if connection failed
     try:
@@ -218,8 +221,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ZwaveJSConfigEntry) -> b
         client_listen(hass, entry, client, driver_ready),
         f"{DOMAIN}_{entry.title}_client_listen",
     )
-
-    entry.async_on_unload(client.disconnect)
 
     async def handle_ha_shutdown(event: Event) -> None:
         """Handle HA shutdown."""

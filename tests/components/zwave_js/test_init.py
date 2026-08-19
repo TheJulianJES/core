@@ -90,8 +90,8 @@ async def test_home_assistant_stop(
     assert client.disconnect.call_count == 1
 
 
-@pytest.mark.usefixtures("client", "connect_timeout")
-async def test_initialized_timeout(hass: HomeAssistant) -> None:
+@pytest.mark.usefixtures("connect_timeout")
+async def test_initialized_timeout(hass: HomeAssistant, client: MagicMock) -> None:
     """Test we handle a timeout during client initialization."""
     entry = MockConfigEntry(domain=DOMAIN, data={"url": "ws://test.org"})
     entry.add_to_hass(hass)
@@ -100,6 +100,43 @@ async def test_initialized_timeout(hass: HomeAssistant) -> None:
     await hass.async_block_till_done()
 
     assert entry.state is ConfigEntryState.SETUP_RETRY
+    assert client.disconnect.call_count == 1
+
+
+@pytest.mark.parametrize(
+    ("connect_side_effect", "entry_state"),
+    [
+        pytest.param(
+            BaseZwaveJSServerError("Boom"),
+            ConfigEntryState.SETUP_RETRY,
+            id="server_error",
+        ),
+        pytest.param(
+            InvalidServerVersion(VersionInfo("a", "b", 1, 1, 1), 1, "Invalid version"),
+            ConfigEntryState.SETUP_RETRY,
+            id="invalid_server_version",
+        ),
+        pytest.param(
+            KeyError("homeId"), ConfigEntryState.SETUP_ERROR, id="unexpected_error"
+        ),
+    ],
+)
+async def test_disconnect_on_failed_connect(
+    hass: HomeAssistant,
+    client: MagicMock,
+    connect_side_effect: Exception,
+    entry_state: ConfigEntryState,
+) -> None:
+    """Test we close the client when connecting fails."""
+    client.connect.side_effect = connect_side_effect
+    entry = MockConfigEntry(domain=DOMAIN, data={"url": "ws://test.org"})
+    entry.add_to_hass(hass)
+
+    await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert entry.state is entry_state
+    assert client.disconnect.call_count == 1
 
 
 @pytest.mark.usefixtures("client")
@@ -1238,6 +1275,7 @@ async def test_issue_registry(
     hass: HomeAssistant,
     client: MagicMock,
     issue_registry: ir.IssueRegistry,
+    listen_block: asyncio.Event,
 ) -> None:
     """Test issue registry."""
     device = "/test"
@@ -1267,6 +1305,9 @@ async def test_issue_registry(
     assert issue_registry.async_get_issue(DOMAIN, "invalid_server_version")
 
     async def connect():
+        # The failed setup disconnected the client, which released the mock
+        # listen block, so re-arm it like the client fixture does.
+        listen_block.clear()
         await asyncio.sleep(0)
         client.connected = True
 
