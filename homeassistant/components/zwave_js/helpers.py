@@ -18,6 +18,7 @@ from zwave_js_server.const.command_class.notification import (
     CC_SPECIFIC_NOTIFICATION_TYPE,
     NotificationType,
 )
+from zwave_js_server.exceptions import BaseZwaveJSServerError
 from zwave_js_server.model.controller import Controller, ProvisioningEntry
 from zwave_js_server.model.driver import Driver
 from zwave_js_server.model.log_config import LogConfig
@@ -632,11 +633,15 @@ async def async_get_version_info(hass: HomeAssistant, ws_address: str) -> Versio
         # or takes a long time to start.
         LOGGER.debug("Failed to connect to Z-Wave JS server: %s", err)
         raise CannotConnect from err
-    except (KeyError, TypeError, ValueError) as err:
+    except (KeyError, TypeError, ValueError, BaseZwaveJSServerError) as err:
         # The server omits the home ID from the version message until the
         # controller has been identified, and aiohttp raises TypeError for a
         # non-text message and ValueError for a payload that isn't JSON.
-        LOGGER.debug("Invalid version message from Z-Wave JS server: %s", err)
+        # Newer versions of the client library raise InvalidMessage,
+        # a BaseZwaveJSServerError, for these instead.
+        LOGGER.debug(
+            "Failed to get a usable version message from the Z-Wave JS server: %s", err
+        )
         raise CannotConnect from err
 
     return version_info

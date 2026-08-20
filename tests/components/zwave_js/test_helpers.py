@@ -5,6 +5,7 @@ from unittest.mock import patch
 import pytest
 import voluptuous as vol
 from zwave_js_server.const import SecurityClass
+from zwave_js_server.exceptions import InvalidMessage
 from zwave_js_server.model.controller import ProvisioningEntry
 
 from homeassistant.components.zwave_js.const import DOMAIN
@@ -169,8 +170,10 @@ def test_format_home_id_for_display() -> None:
         # aiohttp raises TypeError for a non-text websocket message.
         TypeError("Received message BINARY is not str"),
         ValueError("Expecting value: line 1 column 1 (char 0)"),
+        # Newer versions of the client library raise this instead.
+        InvalidMessage("Missing 'homeId' in version message"),
     ],
-    ids=["missing_home_id", "not_text", "invalid_json"],
+    ids=["missing_home_id", "not_text", "invalid_json", "invalid_message"],
 )
 async def test_async_get_version_info_invalid_message(hass: HomeAssistant) -> None:
     """Test that an invalid version message is treated as a connection error."""
