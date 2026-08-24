@@ -9,18 +9,11 @@ import python_otbr_api
 from python_otbr_api import tlv_parser
 from python_otbr_api.tlv_parser import MeshcopTLVType
 import voluptuous as vol
-import yarl
 
 from homeassistant.components.hassio import AddonError, AddonManager
 from homeassistant.components.homeassistant_yellow import hardware as yellow_hardware
 from homeassistant.components.thread import async_get_preferred_dataset
-from homeassistant.config_entries import (
-    SOURCE_HASSIO,
-    ConfigEntry,
-    ConfigEntryState,
-    ConfigFlow,
-    ConfigFlowResult,
-)
+from homeassistant.config_entries import ConfigEntryState, ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_URL
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import HomeAssistantError
@@ -29,6 +22,7 @@ from homeassistant.helpers.service_info.hassio import HassioServiceInfo
 
 from .const import DEFAULT_CHANNEL, DOMAIN
 from .util import (
+    async_find_legacy_entries,
     compose_default_network_name,
     generate_random_pan_id,
     get_allowed_channel,
@@ -187,22 +181,6 @@ class OTBRConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user", data_schema=data_schema, errors=errors
         )
 
-    @callback
-    def _async_find_legacy_entry_by_host(self, host: str) -> ConfigEntry | None:
-        """Return an entry created by the first version of the integration.
-
-        Those entries have no unique id, they can only be matched by host.
-        This can be removed in HA Core 2027.3.
-        """
-        for entry in self._async_current_entries():
-            if (
-                entry.source == SOURCE_HASSIO
-                and entry.unique_id is None
-                and yarl.URL(entry.data["url"]).host == host
-            ):
-                return entry
-        return None
-
     @override
     async def async_step_hassio(
         self, discovery_info: HassioServiceInfo
@@ -219,7 +197,8 @@ class OTBRConfigFlow(ConfigFlow, domain=DOMAIN):
             # Entries created by the first version of the integration have no unique
             # id and can only be matched to this discovery by host
             # This fallback can be removed in HA Core 2027.3
-            matching_entry = self._async_find_legacy_entry_by_host(config["host"])
+            if legacy_entries := async_find_legacy_entries(self.hass, config["host"]):
+                matching_entry = legacy_entries[0]
 
         if matching_entry is not None:
             # Update the URL in case the add-on moved, and set the unique id of

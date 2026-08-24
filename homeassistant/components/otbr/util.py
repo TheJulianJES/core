@@ -12,14 +12,15 @@ import python_otbr_api
 from python_otbr_api import PENDING_DATASET_DELAY_TIMER, tlv_parser
 from python_otbr_api.pskc import compute_pskc
 from python_otbr_api.tlv_parser import MeshcopTLVType
+import yarl
 
 from homeassistant.components.homeassistant_hardware.silabs_multiprotocol_addon import (
     MultiprotocolAddonManager,
     get_multiprotocol_addon_manager,
     is_multiprotocol_url,
 )
-from homeassistant.config_entries import SOURCE_USER
-from homeassistant.core import HomeAssistant
+from homeassistant.config_entries import SOURCE_HASSIO, SOURCE_USER, ConfigEntry
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import issue_registry as ir
 
@@ -279,3 +280,19 @@ async def update_unique_id(
             border_agent_id_hex,
         )
         hass.config_entries.async_update_entry(entry, unique_id=border_agent_id_hex)
+
+
+@callback
+def async_find_legacy_entries(hass: HomeAssistant, host: str) -> list[ConfigEntry]:
+    """Return the entries created by the first version of the integration for a host.
+
+    Those entries have no unique id, they can only be matched by host.
+    This can be removed in HA Core 2027.3.
+    """
+    return [
+        entry
+        for entry in hass.config_entries.async_entries(DOMAIN)
+        if entry.source == SOURCE_HASSIO
+        and entry.unique_id is None
+        and yarl.URL(entry.data["url"]).host == host
+    ]

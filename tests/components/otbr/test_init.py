@@ -11,7 +11,12 @@ from zeroconf.asyncio import AsyncServiceInfo
 
 from homeassistant.components import otbr, thread
 from homeassistant.components.thread import discovery
-from homeassistant.config_entries import SOURCE_HASSIO, SOURCE_USER
+from homeassistant.config_entries import (
+    SOURCE_HASSIO,
+    SOURCE_USER,
+    ConfigEntryDisabler,
+    ConfigEntryState,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import issue_registry as ir
 from homeassistant.setup import async_setup_component
@@ -31,6 +36,9 @@ from . import (
 
 from tests.common import MockConfigEntry
 from tests.test_util.aiohttp import AiohttpClientMocker
+
+CONFIG_ENTRY_DATA_OTHER_HOST = {"url": "http://core-openthread-border-router:8081"}
+TEST_HASSIO_UUID = "12345"
 
 DATASET_NO_CHANNEL = bytes.fromhex(
     "0E08000000000001000035060004001FFFE00208F642646DA209B1C00708FDF57B5A"
@@ -357,3 +365,115 @@ async def test_update_unique_id(
     assert await async_setup_component(hass, otbr.DOMAIN, {})
     config_entry = hass.config_entries.async_get_entry(config_entry.entry_id)
     assert config_entry.unique_id == updated_unique_id
+
+
+@pytest.mark.parametrize("legacy_disabled_by", [None, ConfigEntryDisabler.USER])
+@pytest.mark.usefixtures("multiprotocol_addon_manager_mock")
+async def test_duplicate_legacy_entry_removed(
+    hass: HomeAssistant,
+    get_border_agent_id: AsyncMock,
+    legacy_disabled_by: ConfigEntryDisabler | None,
+) -> None:
+    """Test an entry created by the first version is removed as a duplicate.
+
+    An install which hit the duplicate entry bug ends up with such an entry next to
+    the entry owning the add-on's uuid. Disabling it is not a reason to keep it, the
+    entry owning the uuid is the one which is used.
+    """
+    legacy_entry = MockConfigEntry(
+        data=CONFIG_ENTRY_DATA_MULTIPAN,
+        disabled_by=legacy_disabled_by,
+        domain=otbr.DOMAIN,
+        options={},
+        source=SOURCE_HASSIO,
+        title="Open Thread Border Router",
+        unique_id=None,
+    )
+    legacy_entry.add_to_hass(hass)
+    config_entry = MockConfigEntry(
+        data=CONFIG_ENTRY_DATA_MULTIPAN,
+        domain=otbr.DOMAIN,
+        options={},
+        source=SOURCE_HASSIO,
+        title="Open Thread Border Router",
+        unique_id=TEST_HASSIO_UUID,
+    )
+    config_entry.add_to_hass(hass)
+
+    assert await async_setup_component(hass, otbr.DOMAIN, {})
+
+    assert hass.config_entries.async_entries(otbr.DOMAIN) == [config_entry]
+    assert config_entry.state is ConfigEntryState.LOADED
+    # The duplicate is removed before any config entry is set up
+    get_border_agent_id.assert_called_once()
+
+
+@pytest.mark.parametrize(
+    ("other_data", "other_source", "other_unique_id", "other_disabled_by"),
+    [
+        pytest.param(
+            CONFIG_ENTRY_DATA_OTHER_HOST,
+            SOURCE_HASSIO,
+            TEST_HASSIO_UUID,
+            None,
+            id="other_host",
+        ),
+        pytest.param(
+            CONFIG_ENTRY_DATA_MULTIPAN,
+            SOURCE_USER,
+            TEST_HASSIO_UUID,
+            None,
+            id="user_entry",
+        ),
+        pytest.param(
+            CONFIG_ENTRY_DATA_MULTIPAN, SOURCE_HASSIO, None, None, id="no_unique_id"
+        ),
+        pytest.param(
+            CONFIG_ENTRY_DATA_MULTIPAN,
+            SOURCE_HASSIO,
+            TEST_HASSIO_UUID,
+            ConfigEntryDisabler.USER,
+            id="disabled",
+        ),
+    ],
+)
+@pytest.mark.usefixtures("multiprotocol_addon_manager_mock")
+async def test_legacy_entry_kept(
+    hass: HomeAssistant,
+    other_data: dict[str, str],
+    other_source: str,
+    other_unique_id: str | None,
+    other_disabled_by: ConfigEntryDisabler | None,
+) -> None:
+    """Test an entry created by the first version is only removed for a duplicate.
+
+    A disabled entry is not set up, so it must not claim the add-on: removing the
+    legacy entry would leave the install without a working entry.
+    """
+    legacy_entry = MockConfigEntry(
+        data=CONFIG_ENTRY_DATA_MULTIPAN,
+        domain=otbr.DOMAIN,
+        options={},
+        source=SOURCE_HASSIO,
+        title="Open Thread Border Router",
+        unique_id=None,
+    )
+    legacy_entry.add_to_hass(hass)
+    other_entry = MockConfigEntry(
+        data=other_data,
+        disabled_by=other_disabled_by,
+        domain=otbr.DOMAIN,
+        options={},
+        source=other_source,
+        title="Open Thread Border Router",
+        unique_id=other_unique_id,
+    )
+    other_entry.add_to_hass(hass)
+
+    assert await async_setup_component(hass, otbr.DOMAIN, {})
+
+    assert hass.config_entries.async_entries(otbr.DOMAIN) == [
+        legacy_entry,
+        other_entry,
+    ]
+    assert legacy_entry.state is ConfigEntryState.LOADED

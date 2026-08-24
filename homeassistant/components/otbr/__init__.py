@@ -4,12 +4,14 @@ import logging
 
 import aiohttp
 import python_otbr_api
+import yarl
 
 from homeassistant.components.homeassistant_hardware.helpers import (
     async_notify_firmware_info,
     async_register_firmware_info_provider,
 )
 from homeassistant.components.thread import async_add_dataset
+from homeassistant.config_entries import SOURCE_HASSIO
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers import config_validation as cv, issue_registry as ir
@@ -22,6 +24,7 @@ from .types import OTBRConfigEntry
 from .util import (
     GetBorderAgentIdNotSupported,
     OTBRData,
+    async_find_legacy_entries,
     update_issues,
     update_unique_id,
 )
@@ -31,11 +34,42 @@ _LOGGER = logging.getLogger(__name__)
 CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
 
 
+async def _async_remove_duplicate_entries(hass: HomeAssistant) -> None:
+    """Remove the duplicates an older version of the integration left behind.
+
+    Before HA Core 2026.9, a rediscovery of the add-on could create a second entry
+    next to an entry created by the first version of the integration. The older entry
+    has no unique id, so it is never matched again while the newer one owns the
+    add-on's uuid.
+    This can be removed in HA Core 2027.3.
+    """
+    # A disabled entry is not set up, it must not cause the removal of the entry which
+    # is actually used
+    claimed_hosts = {
+        host
+        for entry in hass.config_entries.async_entries(DOMAIN, include_disabled=False)
+        if entry.source == SOURCE_HASSIO
+        and entry.unique_id is not None
+        and (host := yarl.URL(entry.data["url"]).host) is not None
+    }
+    for host in claimed_hosts:
+        for duplicate in async_find_legacy_entries(hass, host):
+            _LOGGER.warning(
+                "Removing config entry %s, it is a duplicate of the entry for %s",
+                duplicate.entry_id,
+                host,
+            )
+            await hass.config_entries.async_remove(duplicate.entry_id)
+
+
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the Open Thread Border Router component."""
     websocket_api.async_setup(hass)
 
     async_register_firmware_info_provider(hass, DOMAIN, homeassistant_hardware)
+
+    # Runs before the config entries are set up, so a duplicate is never set up
+    await _async_remove_duplicate_entries(hass)
 
     return True
 
