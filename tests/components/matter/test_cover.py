@@ -702,3 +702,154 @@ async def test_cover_full_features(
     state = hass.states.get(entity_id)
     assert state
     assert state.state == "unknown"
+
+
+@pytest.mark.parametrize(
+    ("node_fixture", "entity_id"),
+    [
+        ("mock_window_covering_pa_lift", "cover.longan_link_wncv_da01"),
+    ],
+)
+async def test_cover_moving_status_with_unobservable_axis(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_id: str,
+    freezer: FrozenDateTimeFactory,
+) -> None:
+    """Test a moving axis without positions is not vetoed by the other axis."""
+
+    # a covering that tilts without being position aware on tilt: the lift
+    # sitting at its target says nothing about whether the tilt is moving
+    set_node_attribute(matter_node, 1, 258, 65532, 0b111)
+    set_node_attribute(matter_node, 1, 258, 11, 10000)
+    set_node_attribute(matter_node, 1, 258, 14, 10000)
+    set_node_attribute(matter_node, 1, 258, 10, 0b100010)
+    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == CoverState.CLOSING
+
+
+@pytest.mark.parametrize(
+    ("current_position", "expected_state"),
+    [
+        pytest.param(10000, CoverState.CLOSED, id="at_target"),
+        pytest.param(5000, CoverState.CLOSING, id="away_from_target"),
+    ],
+)
+@pytest.mark.parametrize(
+    ("node_fixture", "entity_id"),
+    [
+        ("mock_window_covering_pa_lift", "cover.longan_link_wncv_da01"),
+    ],
+)
+async def test_cover_global_only_moving_status(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_id: str,
+    freezer: FrozenDateTimeFactory,
+    current_position: int,
+    expected_state: CoverState,
+) -> None:
+    """Test a device that reports movement in the global bits only."""
+
+    set_node_attribute(matter_node, 1, 258, 11, 10000)
+    set_node_attribute(matter_node, 1, 258, 14, current_position)
+    set_node_attribute(matter_node, 1, 258, 10, 0b000010)
+    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == expected_state
+
+
+@pytest.mark.parametrize(
+    ("node_fixture", "entity_id"),
+    [
+        ("mock_window_covering_pa_lift", "cover.longan_link_wncv_da01"),
+    ],
+)
+async def test_cover_global_only_moving_status_with_unobservable_axis(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_id: str,
+    freezer: FrozenDateTimeFactory,
+) -> None:
+    """Test a global only moving status is kept when an axis has no position."""
+
+    set_node_attribute(matter_node, 1, 258, 65532, 0b111)
+    set_node_attribute(matter_node, 1, 258, 11, 10000)
+    set_node_attribute(matter_node, 1, 258, 14, 10000)
+    set_node_attribute(matter_node, 1, 258, 10, 0b000010)
+    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == CoverState.CLOSING
+
+
+@pytest.mark.parametrize(
+    ("node_fixture", "entity_id"),
+    [
+        ("mock_window_covering_pa_lift", "cover.longan_link_wncv_da01"),
+    ],
+)
+async def test_cover_moving_status_of_unsupported_axis_ignored(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_id: str,
+    freezer: FrozenDateTimeFactory,
+) -> None:
+    """Test movement bits of an axis the covering does not have are ignored."""
+
+    # a lift only covering has no tilt state to report, and its position pair
+    # could never veto one, so stray tilt bits would stick forever
+    set_node_attribute(matter_node, 1, 258, 10, 0b100000)
+    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == CoverState.OPEN
+
+
+@pytest.mark.parametrize(
+    ("lift_position", "tilt_position", "expected_state"),
+    [
+        pytest.param(10000, 0, CoverState.CLOSED, id="all_axes_at_target"),
+        pytest.param(None, 0, CoverState.CLOSING, id="lift_position_unknown"),
+        pytest.param(10000, 5000, CoverState.CLOSING, id="tilt_away_from_target"),
+    ],
+)
+@pytest.mark.parametrize(
+    ("node_fixture", "entity_id"),
+    [
+        ("mock_window_covering_full", "cover.mock_full_window_covering"),
+    ],
+)
+async def test_cover_global_only_moving_status_two_axes(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_id: str,
+    freezer: FrozenDateTimeFactory,
+    lift_position: int | None,
+    tilt_position: int,
+    expected_state: CoverState,
+) -> None:
+    """Test a global only moving status against both position pairs."""
+
+    set_node_attribute(matter_node, 1, 258, 11, 10000)
+    set_node_attribute(matter_node, 1, 258, 14, lift_position)
+    set_node_attribute(matter_node, 1, 258, 12, 0)
+    set_node_attribute(matter_node, 1, 258, 15, tilt_position)
+    set_node_attribute(matter_node, 1, 258, 10, 0b000010)
+    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == expected_state

@@ -6,6 +6,7 @@ from math import floor
 from typing import Any, override
 
 from chip.clusters import Objects as clusters
+from chip.clusters.ClusterObjects import ClusterAttributeDescriptor
 
 from homeassistant.components.cover import (
     ATTR_POSITION,
@@ -24,8 +25,12 @@ from .entity import MatterEntity, MatterEntityDescription
 from .helpers import MatterConfigEntry
 from .models import MatterDiscoverySchema
 
-# The MASK used for extracting bits 0 to 1 of the byte.
+# OperationalStatus packs three 2-bit fields: bits 1 to 0 hold the global
+# state, bits 3 to 2 the lift state (conformance LF) and bits 5 to 4 the tilt
+# state (conformance TL).
 OPERATIONAL_STATUS_MASK = 0b11
+LIFT_STATUS_SHIFT = 2
+TILT_STATUS_SHIFT = 4
 
 # Cover state is derived from both the operational status and the current
 # position, which some devices report as separate attribute updates shortly
@@ -55,6 +60,24 @@ class OperationalStatus(IntEnum):
     COVERING_IS_CURRENTLY_OPENING = 0b01
     COVERING_IS_CURRENTLY_CLOSING = 0b10
     RESERVED = 0b11
+
+
+# Each movement axis, as its OperationalStatus bit offset plus the attributes
+# that tell whether that axis reached the position it was asked for.
+MOVEMENT_AXES = (
+    (
+        LIFT_STATUS_SHIFT,
+        clusters.WindowCovering.Bitmaps.Feature.kLift,
+        clusters.WindowCovering.Attributes.CurrentPositionLiftPercent100ths,
+        clusters.WindowCovering.Attributes.TargetPositionLiftPercent100ths,
+    ),
+    (
+        TILT_STATUS_SHIFT,
+        clusters.WindowCovering.Bitmaps.Feature.kTilt,
+        clusters.WindowCovering.Attributes.CurrentPositionTiltPercent100ths,
+        clusters.WindowCovering.Attributes.TargetPositionTiltPercent100ths,
+    ),
+)
 
 
 async def async_setup_entry(
@@ -127,6 +150,27 @@ class MatterCover(MatterEntity, CoverEntity):
         )
 
     @callback
+    def _axis_at_target(
+        self,
+        current_attribute: type[ClusterAttributeDescriptor],
+        target_attribute: type[ClusterAttributeDescriptor],
+    ) -> bool | None:
+        """Return whether one axis rests at its target position.
+
+        Returns None if the two positions cannot be compared, e.g. the axis is
+        not position aware or a position is (still) unknown.
+        """
+        if not self._entity_info.endpoint.has_attribute(
+            None, current_attribute
+        ) or not self._entity_info.endpoint.has_attribute(None, target_attribute):
+            return None
+        current_position = self.get_matter_attribute_value(current_attribute)
+        target_position = self.get_matter_attribute_value(target_attribute)
+        if current_position is None or target_position is None:
+            return None
+        return bool(current_position == target_position)
+
+    @callback
     def _positions_at_target(self) -> bool | None:
         """Return whether all supported positions match their target position.
 
@@ -134,28 +178,78 @@ class MatterCover(MatterEntity, CoverEntity):
         not position aware or a position is (still) unknown.
         """
         at_target: bool | None = None
-        for current_attribute, target_attribute in (
-            (
-                clusters.WindowCovering.Attributes.CurrentPositionLiftPercent100ths,
-                clusters.WindowCovering.Attributes.TargetPositionLiftPercent100ths,
-            ),
-            (
-                clusters.WindowCovering.Attributes.CurrentPositionTiltPercent100ths,
-                clusters.WindowCovering.Attributes.TargetPositionTiltPercent100ths,
-            ),
-        ):
+        for _, _, current_attribute, target_attribute in MOVEMENT_AXES:
             if not self._entity_info.endpoint.has_attribute(
                 None, current_attribute
             ) or not self._entity_info.endpoint.has_attribute(None, target_attribute):
                 continue
-            current_position = self.get_matter_attribute_value(current_attribute)
-            target_position = self.get_matter_attribute_value(target_attribute)
-            if current_position is None or target_position is None:
+            axis_at_target = self._axis_at_target(current_attribute, target_attribute)
+            # a null position is unknown, not known to be at its target
+            if axis_at_target is None:
                 return None
-            if current_position != target_position:
+            if not axis_at_target:
                 return False
             at_target = True
         return at_target
+
+    @callback
+    def _has_unobservable_axis(self) -> bool:
+        """Return whether a supported axis cannot report its position.
+
+        Lift and tilt are independently position aware (PA_LF conformance
+        `[LF]`, PA_TL conformance `[TL]`), so a covering may support an axis
+        while being unable to report where that axis is.
+        """
+        feature_map = self.get_matter_attribute_value(
+            clusters.WindowCovering.Attributes.FeatureMap
+        )
+        features = clusters.WindowCovering.Bitmaps.Feature
+        return bool(
+            (
+                feature_map & features.kLift
+                and not feature_map & features.kPositionAwareLift
+            )
+            or (
+                feature_map & features.kTilt
+                and not feature_map & features.kPositionAwareTilt
+            )
+        )
+
+    @callback
+    def _movement_state(self, operational_status: int) -> int:
+        """Return the state the covering is actually moving in.
+
+        Some devices report a moving operational status together with the
+        final position(s) without a subsequent report clearing the moving
+        state, leaving the cover stuck in a moving state. A covering resting
+        at the position it was asked for is not moving.
+        """
+        feature_map = self.get_matter_attribute_value(
+            clusters.WindowCovering.Attributes.FeatureMap
+        )
+        axis_state: int = OperationalStatus.COVERING_IS_CURRENTLY_NOT_MOVING
+        axis_reported = False
+        for shift, feature, current_attribute, target_attribute in MOVEMENT_AXES:
+            # an axis the covering does not have reports no state of its own
+            if not feature_map & feature:
+                continue
+            state = (operational_status >> shift) & OPERATIONAL_STATUS_MASK
+            if not state:
+                continue
+            axis_reported = True
+            if self._axis_at_target(current_attribute, target_attribute):
+                continue
+            axis_state = state
+
+        if axis_reported:
+            return axis_state
+
+        # devices that populate only the global field cannot be checked per
+        # axis, so keep the global state unless every supported axis is
+        # observable and known to rest at its target
+        if self._has_unobservable_axis() or not self._positions_at_target():
+            return operational_status & OPERATIONAL_STATUS_MASK
+        return OperationalStatus.COVERING_IS_CURRENTLY_NOT_MOVING
 
     @callback
     @override
@@ -173,7 +267,7 @@ class MatterCover(MatterEntity, CoverEntity):
             self.entity_id,
         )
 
-        state = operational_status & OPERATIONAL_STATUS_MASK
+        state = self._movement_state(operational_status)
         match state:
             case OperationalStatus.COVERING_IS_CURRENTLY_OPENING:
                 self._attr_is_opening = True
@@ -185,27 +279,11 @@ class MatterCover(MatterEntity, CoverEntity):
                 self._attr_is_opening = False
                 self._attr_is_closing = False
 
-        # Some devices report a moving operational status together with the
-        # final position(s) without a subsequent report clearing the moving
-        # state, leaving the cover stuck in a moving state. For position aware
-        # covers, a covering whose position(s) match the target position(s) is
-        # not moving.
-        at_target = self._positions_at_target()
-        if at_target and (self._attr_is_opening or self._attr_is_closing):
-            LOGGER.debug(
-                "Ignoring moving operational status for %s, position(s) match target position(s)",
-                self.entity_id,
-            )
-            self._attr_is_opening = False
-            self._attr_is_closing = False
         LOGGER.debug(
-            "Movement state for %s: opening=%s closing=%s (%s)",
+            "Movement state for %s: opening=%s closing=%s",
             self.entity_id,
             self._attr_is_opening,
             self._attr_is_closing,
-            "from operational status and target/current position"
-            if at_target is not None
-            else "from operational status only",
         )
 
         if self._entity_info.endpoint.has_attribute(
