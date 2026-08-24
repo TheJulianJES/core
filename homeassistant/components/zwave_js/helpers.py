@@ -423,18 +423,16 @@ def async_get_nodes_from_area_id(
         ent_reg = er.async_get(hass)
     if dev_reg is None:
         dev_reg = dr.async_get(hass)
-    # Add devices for all entities in an area that are Z-Wave JS entities
-    nodes.update(
-        {
-            async_get_node_from_device_id(hass, entity.device_id, dev_reg)
-            for entity in er.async_entries_for_area(ent_reg, area_id)
-            if entity.platform == DOMAIN and entity.device_id is not None
-        }
-    )
+    # Collect the devices of all Z-Wave JS entities in the area
+    device_ids = {
+        entity.device_id
+        for entity in er.async_entries_for_area(ent_reg, area_id)
+        if entity.platform == DOMAIN and entity.device_id is not None
+    }
     # Add devices in an area that are Z-Wave JS devices. Child devices are skipped
     # since a child device is not a Z-Wave JS node.
-    nodes.update(
-        async_get_node_from_device_id(hass, device.id, dev_reg)
+    device_ids.update(
+        device.id
         for device in dr.async_entries_for_area(dev_reg, area_id)
         if not isinstance(device, dr.ChildDeviceEntry)
         and any(
@@ -446,6 +444,13 @@ def async_get_nodes_from_area_id(
             for config_entry_id in device.config_entries
         )
     )
+    for device_id in device_ids:
+        try:
+            nodes.add(async_get_node_from_device_id(hass, device_id, dev_reg))
+        except ValueError as err:
+            # An area is a broad target: a device which does not resolve to a node
+            # must not hide the ones in the area which do.
+            LOGGER.debug("Skipping device %s: %s", device_id, err.args[0])
 
     return nodes
 
