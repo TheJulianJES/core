@@ -1,11 +1,12 @@
 """Test the Z-Wave JS helpers module."""
 
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 import voluptuous as vol
 from zwave_js_server.const import SecurityClass
 from zwave_js_server.model.controller import ProvisioningEntry
+from zwave_js_server.model.node import Node
 
 from homeassistant.components.zwave_js.const import DOMAIN
 from homeassistant.components.zwave_js.helpers import (
@@ -13,11 +14,16 @@ from homeassistant.components.zwave_js.helpers import (
     async_get_nodes_from_area_id,
     async_get_provisioning_entry_from_device_id,
     format_home_id_for_display,
+    get_device_id,
     get_value_state_schema,
 )
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import area_registry as ar, device_registry as dr
+from homeassistant.helpers import (
+    area_registry as ar,
+    device_registry as dr,
+    entity_registry as er,
+)
 
 from tests.common import MockConfigEntry
 
@@ -73,6 +79,38 @@ async def test_async_get_nodes_from_area_id_skips_child_device(
 
     # A child device is not a Z-Wave JS node; it is skipped rather than raising.
     assert not async_get_nodes_from_area_id(hass, area.id)
+
+
+async def test_async_get_nodes_from_area_id_skips_entity_on_child_device(
+    hass: HomeAssistant,
+    area_registry: ar.AreaRegistry,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    client: MagicMock,
+    multisensor_6: Node,
+    integration: MockConfigEntry,
+) -> None:
+    """Test a child device in an area, and an entity on it, are both skipped."""
+    device = device_registry.async_get_device_by_identifier(
+        get_device_id(client.driver, multisensor_6), integration.entry_id
+    )
+    assert device
+    area = area_registry.async_create("test")
+    device_registry.async_update_device(device.id, area_id=area.id)
+    # The child device has no area of its own, so it inherits the parent's.
+    child = device_registry.async_get_or_create_child(
+        config_entry_id=integration.entry_id,
+        identifiers={(DOMAIN, "child")},
+        parent_device_id=device.id,
+    )
+    entity_entry = entity_registry.async_get_or_create(
+        "sensor", DOMAIN, "child_entity", device_id=child.id
+    )
+    entity_registry.async_update_entity(entity_entry.entity_id, area_id=area.id)
+
+    # Neither the child device nor its entity is a Z-Wave JS node, so only the
+    # parent device resolves to one.
+    assert async_get_nodes_from_area_id(hass, area.id) == {multisensor_6}
 
 
 async def test_get_value_state_schema_boolean_config_value(
