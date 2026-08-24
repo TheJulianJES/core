@@ -1,7 +1,7 @@
 """The tests for Z-Wave JS automation triggers."""
 
 import copy
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 import voluptuous as vol
@@ -16,6 +16,7 @@ from homeassistant.components.zwave_js.trigger import TRIGGERS
 from homeassistant.components.zwave_js.triggers.trigger_helpers import (
     async_bypass_dynamic_config_validation,
 )
+from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import SERVICE_RELOAD
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
@@ -23,7 +24,7 @@ from homeassistant.setup import async_setup_component
 
 from .common import SCHLAGE_BE469_LOCK_ENTITY
 
-from tests.common import async_capture_events
+from tests.common import MockConfigEntry, async_capture_events
 
 
 async def test_zwave_js_value_updated(
@@ -1045,9 +1046,9 @@ async def test_invalid_trigger_configs(hass: HomeAssistant) -> None:
 async def test_zwave_js_trigger_config_entry_unloaded(
     hass: HomeAssistant,
     device_registry: dr.DeviceRegistry,
-    client,
-    lock_schlage_be469,
-    integration,
+    client: MagicMock,
+    lock_schlage_be469: Node,
+    integration: MockConfigEntry,
 ) -> None:
     """Test zwave_js triggers bypass dynamic validation when needed."""
     device = device_registry.async_get_device_by_identifier(
@@ -1059,12 +1060,9 @@ async def test_zwave_js_trigger_config_entry_unloaded(
     assert not async_bypass_dynamic_config_validation(
         hass,
         {
-            "platform": f"{DOMAIN}.value_updated",
-            "options": {
-                "entity_id": SCHLAGE_BE469_LOCK_ENTITY,
-                "command_class": CommandClass.DOOR_LOCK.value,
-                "property": "latchStatus",
-            },
+            "entity_id": [SCHLAGE_BE469_LOCK_ENTITY],
+            "command_class": CommandClass.DOOR_LOCK.value,
+            "property": "latchStatus",
         },
     )
 
@@ -1099,62 +1097,56 @@ async def test_zwave_js_trigger_config_entry_unloaded(
     assert async_bypass_dynamic_config_validation(
         hass,
         {
-            "platform": f"{DOMAIN}.value_updated",
-            "options": {
-                "entity_id": SCHLAGE_BE469_LOCK_ENTITY,
-                "command_class": CommandClass.DOOR_LOCK.value,
-                "property": "latchStatus",
-            },
+            "entity_id": [SCHLAGE_BE469_LOCK_ENTITY],
+            "command_class": CommandClass.DOOR_LOCK.value,
+            "property": "latchStatus",
         },
     )
 
     assert async_bypass_dynamic_config_validation(
         hass,
         {
-            "platform": f"{DOMAIN}.value_updated",
-            "options": {
-                "device_id": device.id,
-                "command_class": CommandClass.DOOR_LOCK.value,
-                "property": "latchStatus",
-                "from": "ajar",
-            },
+            "device_id": [device.id],
+            "command_class": CommandClass.DOOR_LOCK.value,
+            "property": "latchStatus",
+            "from": "ajar",
         },
     )
 
     assert async_bypass_dynamic_config_validation(
         hass,
         {
-            "platform": f"{DOMAIN}.event",
-            "options": {
-                "entity_id": SCHLAGE_BE469_LOCK_ENTITY,
-                "event_source": "node",
-                "event": "interview stage completed",
-            },
+            "config_entry_id": integration.entry_id,
+            "event_source": "controller",
+            "event": "nvm convert progress",
         },
     )
 
-    assert async_bypass_dynamic_config_validation(
-        hass,
-        {
-            "platform": f"{DOMAIN}.event",
-            "options": {
-                "device_id": device.id,
-                "event_source": "node",
-                "event": "interview stage completed",
-                "event_data": {"stageName": "ProtocolInfo"},
-            },
-        },
-    )
 
-    assert async_bypass_dynamic_config_validation(
+async def test_zwave_js_trigger_untargeted_config_entry_unloaded(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    client: MagicMock,
+    lock_schlage_be469: Node,
+    integration: MockConfigEntry,
+) -> None:
+    """Test an unloaded config entry the trigger does not target is ignored."""
+    device = device_registry.async_get_device_by_identifier(
+        get_device_id(client.driver, lock_schlage_be469), integration.entry_id
+    )
+    assert device
+
+    other_entry = MockConfigEntry(domain=DOMAIN)
+    other_entry.add_to_hass(hass)
+    assert other_entry.state is ConfigEntryState.NOT_LOADED
+
+    # The trigger targets the loaded entry, so validation must not be bypassed.
+    assert not async_bypass_dynamic_config_validation(
         hass,
         {
-            "platform": f"{DOMAIN}.event",
-            "options": {
-                "config_entry_id": integration.entry_id,
-                "event_source": "controller",
-                "event": "nvm convert progress",
-            },
+            "device_id": [device.id],
+            "command_class": CommandClass.DOOR_LOCK.value,
+            "property": "latchStatus",
         },
     )
 

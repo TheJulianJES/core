@@ -21,18 +21,25 @@ def async_bypass_dynamic_config_validation(
     trigger_devices = config.get(ATTR_DEVICE_ID, [])
     trigger_entities = config.get(ATTR_ENTITY_ID, [])
     for entry in hass.config_entries.async_entries(DOMAIN):
-        if entry.state is not ConfigEntryState.LOADED and (
-            entry.entry_id == config.get(ATTR_CONFIG_ENTRY_ID)
-            or any(
-                device.id in trigger_devices
-                for device in dr.async_entries_for_config_entry(dev_reg, entry.entry_id)
-            )
-            or (
-                entity.entity_id in trigger_entities
-                for entity in er.async_entries_for_config_entry(ent_reg, entry.entry_id)
-            )
-        ):
-            return True
+        if entry.state is not ConfigEntryState.LOADED:
+            if (
+                entry.entry_id == config.get(ATTR_CONFIG_ENTRY_ID)
+                or any(
+                    device.id in trigger_devices
+                    for device in dr.async_entries_for_config_entry(
+                        dev_reg, entry.entry_id
+                    )
+                )
+                or any(
+                    entity.entity_id in trigger_entities
+                    for entity in er.async_entries_for_config_entry(
+                        ent_reg, entry.entry_id
+                    )
+                )
+            ):
+                return True
+            # Only a loaded entry is guaranteed to have runtime_data.
+            continue
 
         # The driver may not be ready when the config entry is loaded.
         client = entry.runtime_data.client
