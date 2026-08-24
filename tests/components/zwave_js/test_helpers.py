@@ -20,8 +20,13 @@ from homeassistant.components.zwave_js.helpers import (
     value_requires_endpoint_device,
 )
 from homeassistant.config_entries import ConfigEntryState
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import area_registry as ar, device_registry as dr
+from homeassistant.helpers import (
+    area_registry as ar,
+    device_registry as dr,
+    entity_registry as er,
+)
 
 from tests.common import MockConfigEntry
 
@@ -55,28 +60,66 @@ async def test_async_get_nodes_from_area_id(
     assert not async_get_nodes_from_area_id(hass, area.id)
 
 
-async def test_async_get_nodes_from_area_id_skips_child_device(
+@pytest.mark.parametrize("platforms", [[Platform.SWITCH]])
+async def test_async_get_nodes_from_area_id_endpoint_child_device(
+    hass: HomeAssistant,
+    area_registry: ar.AreaRegistry,
+    device_registry: dr.DeviceRegistry,
+    client: MagicMock,
+    vision_security_zl7432: Node,
+    integration: MockConfigEntry,
+) -> None:
+    """Test an endpoint child device in an area resolves to its node."""
+    endpoint_2_device = device_registry.async_get_child_device_by_identifier(
+        get_device_id(client.driver, vision_security_zl7432, 2), integration.entry_id
+    )
+    assert endpoint_2_device
+    # The endpoint is assigned to an area of its own, so the node device is not in it.
+    area = area_registry.async_create("test")
+    device_registry.async_update_child_device(endpoint_2_device.id, area_id=area.id)
+
+    assert async_get_nodes_from_area_id(hass, area.id) == {vision_security_zl7432}
+
+
+async def test_async_get_nodes_from_area_id_ignores_other_integration_child_device(
     hass: HomeAssistant,
     area_registry: ar.AreaRegistry,
     device_registry: dr.DeviceRegistry,
 ) -> None:
-    """Test async_get_nodes_from_area_id skips child devices in the area."""
+    """Test a child device from another integration in the area is ignored."""
     area = area_registry.async_create("test")
-    config_entry = MockConfigEntry(domain=DOMAIN)
+    config_entry = MockConfigEntry(domain="other")
     config_entry.add_to_hass(hass)
     parent = device_registry.async_get_or_create(
         config_entry_id=config_entry.entry_id,
-        identifiers={(DOMAIN, "parent")},
+        identifiers={("other", "parent")},
     )
     child = device_registry.async_get_or_create_child(
         config_entry_id=config_entry.entry_id,
-        identifiers={(DOMAIN, "child")},
+        identifiers={("other", "child")},
         parent_device_id=parent.id,
     )
     device_registry.async_update_child_device(child.id, area_id=area.id)
 
-    # A child device is not a Z-Wave JS node; it is skipped rather than raising.
     assert not async_get_nodes_from_area_id(hass, area.id)
+
+
+@pytest.mark.parametrize("platforms", [[Platform.SWITCH]])
+async def test_async_get_nodes_from_area_id_entity_on_endpoint_child_device(
+    hass: HomeAssistant,
+    area_registry: ar.AreaRegistry,
+    entity_registry: er.EntityRegistry,
+    vision_security_zl7432: Node,
+    # Unused, but must stay an argument: usefixtures would order it before the node.
+    integration: MockConfigEntry,
+) -> None:
+    """Test an entity on an endpoint child device resolves to its node."""
+    entity_entry = entity_registry.async_get("switch.endpoint_1")
+    assert entity_entry
+    area = area_registry.async_create("test")
+    entity_registry.async_update_entity(entity_entry.entity_id, area_id=area.id)
+
+    assert async_get_nodes_from_area_id(hass, area.id) == {vision_security_zl7432}
 
 
 async def test_get_value_state_schema_boolean_config_value(
