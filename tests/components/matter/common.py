@@ -6,6 +6,7 @@ from typing import Any
 from unittest.mock import MagicMock
 
 from matter_server.client.models.node import MatterNode
+from matter_server.common.errors import NodeNotExists
 from matter_server.common.helpers.util import dataclass_from_dict
 from matter_server.common.models import EventType, MatterNodeData
 from syrupy.assertion import SnapshotAssertion
@@ -137,7 +138,7 @@ async def _setup_integration_with_nodes(
         try:
             return next(node for node in nodes if node.node_id == node_id)
         except StopIteration as err:
-            raise KeyError(f"Node with id {node_id} not found") from err
+            raise NodeNotExists(f"Node with id {node_id} not found") from err
 
     client.get_node.side_effect = _get_node
     config_entry = MockConfigEntry(

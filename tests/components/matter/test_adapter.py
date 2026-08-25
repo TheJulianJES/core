@@ -1,8 +1,10 @@
 """Test the adapter."""
 
+from collections.abc import Callable
 from unittest.mock import MagicMock
 
 from matter_server.client.models.node import MatterNode
+from matter_server.common.errors import NodeNotExists
 from matter_server.common.models import EventType
 import pytest
 
@@ -12,9 +14,11 @@ from homeassistant.components.matter.helpers import get_device_id
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 
-from .common import create_node_from_fixture
+from .common import create_node_from_fixture, load_and_parse_node_fixture
 
 from tests.common import MockConfigEntry
+
+BRIDGED_ENDPOINT_ID = 29
 
 
 def identifier_for(
@@ -25,16 +29,22 @@ def identifier_for(
     return (DOMAIN, f"{ID_TYPE_DEVICE_ID}_{device_id}")
 
 
-def fire_endpoint_event(
-    matter_client: MagicMock, event: EventType, node: MatterNode, endpoint_id: int
-) -> None:
-    """Fire an endpoint added/removed event for a node endpoint."""
-    callback = next(
+def callback_for(matter_client: MagicMock, event: EventType) -> Callable[..., None]:
+    """Return the callback the adapter subscribed for an event type."""
+    return next(
         call.kwargs["callback"]
         for call in matter_client.subscribe_events.call_args_list
         if call.kwargs["event_filter"] == event
     )
-    callback(event, {"node_id": node.node_id, "endpoint_id": endpoint_id})
+
+
+def fire_endpoint_event(
+    matter_client: MagicMock, event: EventType, node: MatterNode, endpoint_id: int
+) -> None:
+    """Fire an endpoint added/removed event for a node endpoint."""
+    callback_for(matter_client, event)(
+        event, {"node_id": node.node_id, "endpoint_id": endpoint_id}
+    )
 
 
 @pytest.mark.usefixtures("matter_node")
@@ -601,3 +611,93 @@ async def test_device_registry_bridged_device_split_off_with_changed_bridge_seri
     assert bridged_entry.id != bridge_entry.id
     assert bridged_entry.via_device_id == bridge_entry.id
     assert (DOMAIN, "serial_glg5mxh") in bridged_entry.identifiers
+
+
+async def test_endpoint_added_before_node_snapshot(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    device_registry: dr.DeviceRegistry,
+    integration: MockConfigEntry,
+) -> None:
+    """Test an ENDPOINT_ADDED event that overtakes the node snapshot is ignored.
+
+    The client creates endpoints from the full node snapshot of a NODE_UPDATED
+    event only, so an ENDPOINT_ADDED event arriving first has no endpoint to
+    resolve yet. It must be dropped instead of raising, and the snapshot that
+    follows sets the endpoint up.
+    """
+    node = create_node_from_fixture("atios_knx_bridge")
+    matter_client.get_node.return_value = node
+    added_endpoint_id = max(node.endpoints) + 1
+
+    fire_endpoint_event(
+        matter_client, EventType.ENDPOINT_ADDED, node, added_endpoint_id
+    )
+    await hass.async_block_till_done()
+
+    assert not device_registry.devices
+
+    # the node snapshot carrying the added endpoint arrives next
+    attributes = load_and_parse_node_fixture("atios_knx_bridge")["attributes"]
+    added_endpoint_attributes = {
+        f"{added_endpoint_id}/{path.split('/', 1)[1]}": value
+        for path, value in attributes.items()
+        if path.startswith(f"{BRIDGED_ENDPOINT_ID}/")
+    }
+    # a distinct BridgedDeviceBasicInformation serial number, otherwise the added
+    # endpoint shares an identifier with the cloned one and they become one device
+    added_endpoint_attributes[f"{added_endpoint_id}/57/15"] = "serial-added-endpoint"
+    updated_node = create_node_from_fixture(
+        "atios_knx_bridge", added_endpoint_attributes
+    )
+    matter_client.get_node.return_value = updated_node
+
+    callback_for(matter_client, EventType.NODE_UPDATED)(
+        EventType.NODE_UPDATED, updated_node
+    )
+    await hass.async_block_till_done()
+
+    assert (
+        device_registry.async_get_device_by_identifier(
+            identifier_for(matter_client, updated_node, added_endpoint_id),
+            integration.entry_id,
+        )
+        is not None
+    )
+
+
+@pytest.mark.parametrize(
+    ("event", "data"),
+    [
+        pytest.param(
+            EventType.ENDPOINT_ADDED,
+            {"node_id": 1, "endpoint_id": 1},
+            id="endpoint_added",
+        ),
+        pytest.param(
+            EventType.ENDPOINT_REMOVED,
+            {"node_id": 1, "endpoint_id": 1},
+            id="endpoint_removed",
+        ),
+        pytest.param(EventType.NODE_REMOVED, 1, id="node_removed"),
+    ],
+)
+@pytest.mark.usefixtures("integration")
+async def test_event_for_unknown_node_ignored(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    device_registry: dr.DeviceRegistry,
+    event: EventType,
+    data: dict[str, int] | int,
+) -> None:
+    """Test events for a node the client no longer knows are ignored.
+
+    `MatterClient.get_node` raises `NodeNotExists`, which escaping a callback
+    would unwind the client's listen task.
+    """
+    matter_client.get_node.side_effect = NodeNotExists("Node 1 does not exist")
+
+    callback_for(matter_client, event)(event, data)
+    await hass.async_block_till_done()
+
+    assert not device_registry.devices

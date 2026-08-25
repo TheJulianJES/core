@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, cast
 
 from chip.clusters import Objects as clusters
 from matter_server.client.models.device_types import BridgedNode
+from matter_server.common.errors import NodeNotExists
 from matter_server.common.models import EventType, ServerInfoMessage
 
 from homeassistant.const import Platform
@@ -70,8 +71,16 @@ class MatterAdapter:
 
         def endpoint_added_callback(event: EventType, data: dict[str, int]) -> None:
             """Handle endpoint added event."""
-            node = self.matter_client.get_node(data["node_id"])
-            endpoint = node.endpoints[data["endpoint_id"]]
+            try:
+                node = self.matter_client.get_node(data["node_id"])
+            except NodeNotExists:
+                return  # race condition
+            # The client creates endpoints from the full node snapshot of a
+            # NODE_UPDATED event only, so an ENDPOINT_ADDED event overtaking that
+            # snapshot has no endpoint to resolve yet; the snapshot sets it up.
+            endpoint = node.endpoints.get(data["endpoint_id"])
+            if endpoint is None:
+                return  # race condition
             # Ensure the bridge device (endpoint 0) is registered before a
             # bridged child endpoint resolves it as its via_device.
             device_endpoint = get_device_endpoint(endpoint)
@@ -87,7 +96,7 @@ class MatterAdapter:
             server_info = cast(ServerInfoMessage, self.matter_client.server_info)
             try:
                 node = self.matter_client.get_node(data["node_id"])
-            except KeyError:
+            except NodeNotExists:
                 return  # race condition
             device_registry = dr.async_get(self.hass)
             endpoint = node.endpoints.get(data["endpoint_id"])
@@ -108,7 +117,7 @@ class MatterAdapter:
             """Handle node removed event."""
             try:
                 node = self.matter_client.get_node(node_id)
-            except KeyError:
+            except NodeNotExists:
                 return  # race condition
             for endpoint_id in node.endpoints:
                 endpoint_removed_callback(
