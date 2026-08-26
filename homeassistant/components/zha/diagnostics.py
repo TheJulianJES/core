@@ -125,10 +125,23 @@ async def async_get_device_diagnostics(
 ) -> dict[str, Any]:
     """Return diagnostics for a device."""
     zha_identifier = next(
-        identifier for domain, identifier in device.identifiers if domain == DOMAIN
+        (identifier for domain, identifier in device.identifiers if domain == DOMAIN),
+        None,
     )
-    if (group_id := _group_id_from_device_identifier(zha_identifier)) is not None:
-        group_proxy = get_zha_gateway_proxy(hass).group_proxies[group_id]
+    if (
+        zha_identifier is not None
+        and (
+            group_id := _group_id_from_device_identifier(
+                config_entry.entry_id, zha_identifier
+            )
+        )
+        is not None
+    ):
+        group_proxy = get_zha_gateway_proxy(hass).group_proxies.get(group_id)
+        if group_proxy is None:
+            # The device outlived its group, e.g. the group was removed while
+            # Home Assistant was not running
+            return {"group_id": group_id, "error": "group no longer exists"}
         return async_redact_data(group_proxy.group_info, KEYS_TO_REDACT)
 
     zha_device_proxy: ZHADeviceProxy = async_get_zha_device_proxy(hass, device.id)

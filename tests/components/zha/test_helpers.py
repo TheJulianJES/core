@@ -3,7 +3,7 @@
 from collections.abc import Callable, Coroutine
 import logging
 from typing import Any
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from probatio import to_field_list
 import pytest
@@ -260,16 +260,24 @@ def test_zha_group_proxy_device_identifier(
     [
         ("test_entry_id_group_0x0001", 0x0001),
         ("test_entry_id_group_0x1001", 0x1001),
-        ("zha_group_0x1001", 0x1001),
+        # the legacy group entity unique id form is not a device identifier
+        ("zha_group_0x1001", None),
+        # another config entry's group device
+        ("other_entry_id_group_0x1001", None),
         ("00:15:8d:00:02:32:4f:32", None),
-        ("some_entry_group_0xnothex", None),
+        ("test_entry_id_group_0xnothex", None),
+        ("test_entry_id_group_0x1", None),
+        ("test_entry_id_group_0x 123", None),
     ],
 )
 def test_group_id_from_device_identifier(
     identifier: str, expected_group_id: int | None
 ) -> None:
     """Test parsing the group id from a group device identifier."""
-    assert _group_id_from_device_identifier(identifier) == expected_group_id
+    assert (
+        _group_id_from_device_identifier("test_entry_id", identifier)
+        == expected_group_id
+    )
 
 
 def test_zha_group_proxy_device_info() -> None:
@@ -281,7 +289,11 @@ def test_zha_group_proxy_device_info() -> None:
     gateway_proxy.config_entry.entry_id = "test_entry_id"
     gateway_proxy.gateway.state.node_info.ieee = coordinator_ieee
 
-    device_info = ZHAGroupProxy(mock_group, gateway_proxy).device_info
+    with patch(
+        "homeassistant.components.zha.helpers.dr.async_get_device_id_by_identifier",
+        return_value="coordinator_device_id",
+    ) as mock_get_device_id:
+        device_info = ZHAGroupProxy(mock_group, gateway_proxy).device_info
 
     assert device_info == {
         "identifiers": {(zha_const.DOMAIN, "test_entry_id_group_0x1001")},
@@ -289,8 +301,12 @@ def test_zha_group_proxy_device_info() -> None:
         "manufacturer": "Zigbee",
         "model": "Group",
         "entry_type": dr.DeviceEntryType.SERVICE,
-        "via_device": (zha_const.DOMAIN, coordinator_ieee),
+        "via_device_id": "coordinator_device_id",
     }
+    assert mock_get_device_id.mock_calls[0].args[1] == (
+        zha_const.DOMAIN,
+        coordinator_ieee,
+    )
 
 
 async def test_zha_group_proxy_device_id_property(
@@ -359,9 +375,10 @@ async def test_zha_group_device_creation_with_entities(
     # Verify via_device points to coordinator
     gateway = get_zha_gateway(hass)
     coordinator_ieee = str(gateway.state.node_info.ieee)
-    coordinator_device = device_registry.async_get_device(
-        identifiers={("zha", coordinator_ieee)}
+    coordinator_device = device_registry.async_get_device_by_identifier(
+        ("zha", coordinator_ieee), gateway_proxy.config_entry.entry_id
     )
+    assert coordinator_device is not None
     assert device.via_device_id == coordinator_device.id
 
 
@@ -396,12 +413,12 @@ async def test_zha_group_cleanup_on_removal(
 
     # Device should be removed from device registry
     assert device_registry.async_get(device_id) is None
-    # Deleted devices cache should not contain the removed device
-    assert device_id not in device_registry.deleted_devices
+    # ... and the proxy's cached device id is dropped with it
+    assert group_proxy.device_id is None
 
-    # Entities should be removed and not in deleted cache
-    for key in entity_keys:
-        assert key not in entity_registry.deleted_entities
+    # Entities should be removed from the entity registry
+    for domain, platform, unique_id in entity_keys:
+        assert entity_registry.async_get_entity_id(domain, platform, unique_id) is None
 
 
 async def test_zha_group_device_created_when_entities_appear(
@@ -458,8 +475,9 @@ async def test_zha_group_cleanup_legacy_coordinator_entities(
     gateway = get_zha_gateway(hass)
     gateway_proxy = get_zha_gateway_proxy(hass)
 
-    coordinator_device = device_registry.async_get_device(
-        identifiers={(zha_const.DOMAIN, str(gateway.state.node_info.ieee))}
+    coordinator_device = device_registry.async_get_device_by_identifier(
+        (zha_const.DOMAIN, str(gateway.state.node_info.ieee)),
+        gateway_proxy.config_entry.entry_id,
     )
     assert coordinator_device is not None
 
@@ -483,7 +501,143 @@ async def test_zha_group_cleanup_legacy_coordinator_entities(
 
     assert entity_registry.async_get(legacy_entry.entity_id) is None
     assert (
+        entity_registry.async_get_entity_id(
+            "switch", zha_const.DOMAIN, legacy_unique_id
+        )
+        is None
+    )
+
+
+async def test_zha_group_device_removed_when_group_shrinks(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test the group device is removed when the group loses its entities."""
+    await setup_zha()
+
+    app_controller = zigpy_app_controller_with_group
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    group_proxy = gateway_proxy.group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID]
+
+    device_id = group_proxy.device_id
+    assert device_id is not None
+    entity_entries = er.async_entries_for_device(
+        entity_registry, device_id, include_disabled_entities=True
+    )
+    assert len(entity_entries) > 0
+
+    # drop the group below two members, so it no longer has group entities
+    group = app_controller.groups[FIXTURE_GRP_WITH_ENTITIES_ID]
+    member = next(iter(group.values()))
+    group.remove_member(member)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    assert not group_proxy.group.group_entities
+    # the now empty group device and its entities are gone
+    assert device_registry.async_get(device_id) is None
+    assert group_proxy.device_id is None
+    for entry in entity_entries:
+        assert entity_registry.async_get(entry.entity_id) is None
+
+    # the group itself still exists, so growing it back recreates the device
+    group.add_member(member)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    assert group_proxy.group.group_entities
+    assert group_proxy.device_id is not None
+    assert device_registry.async_get(group_proxy.device_id) is not None
+
+
+async def test_zha_group_entity_migrated_from_coordinator_device(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    config_entry: MockConfigEntry,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test an existing group entity moves from the coordinator to the group device.
+
+    Before group devices existed, group entities were registered against the
+    coordinator device. Upgrading must keep the entity id and move the entry,
+    not orphan it or create a duplicate.
+    """
+    config_entry.add_to_hass(hass)
+    coordinator_device = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            (
+                zha_const.DOMAIN,
+                str(zigpy_app_controller_with_group.state.node_info.ieee),
+            )
+        },
+    )
+    legacy_unique_id = f"switch_zha_group_0x{FIXTURE_GRP_WITH_ENTITIES_ID:04x}"
+    legacy_entry = entity_registry.async_get_or_create(
         "switch",
         zha_const.DOMAIN,
         legacy_unique_id,
-    ) not in entity_registry.deleted_entities
+        config_entry=config_entry,
+        device_id=coordinator_device.id,
+        original_name="Test Group",
+    )
+    assert legacy_entry.device_id == coordinator_device.id
+
+    await setup_zha()
+
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    group_proxy = gateway_proxy.group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID]
+    assert group_proxy.device_id is not None
+
+    migrated_entry = entity_registry.async_get(legacy_entry.entity_id)
+    assert migrated_entry is not None
+    # same entity id, now pointing at the group device
+    assert migrated_entry.entity_id == legacy_entry.entity_id
+    assert migrated_entry.device_id == group_proxy.device_id
+    # and no duplicate was created for the same unique id
+    assert (
+        entity_registry.async_get_entity_id(
+            "switch", zha_const.DOMAIN, legacy_unique_id
+        )
+        == legacy_entry.entity_id
+    )
+    # no group entity is left behind on the coordinator device
+    assert not [
+        entry
+        for entry in er.async_entries_for_device(
+            entity_registry, coordinator_device.id, include_disabled_entities=True
+        )
+        if "_zha_group_0x" in entry.unique_id
+    ]
+
+
+async def test_zha_group_proxy_associated_entities(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test a group's entities are reported for each of its members."""
+    await setup_zha()
+
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    group_proxy = gateway_proxy.group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID]
+    assert group_proxy.device_id is not None
+
+    group_entity_ids = [
+        entry.entity_id
+        for entry in er.async_entries_for_device(
+            entity_registry, group_proxy.device_id, include_disabled_entities=True
+        )
+    ]
+    assert group_entity_ids
+
+    members = group_proxy.group_info["members"]
+    assert len(members) == 2
+    for member in members:
+        assert [entity["entity_id"] for entity in member["entities"]] == (
+            group_entity_ids
+        )
