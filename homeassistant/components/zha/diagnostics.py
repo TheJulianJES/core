@@ -141,7 +141,11 @@ async def async_get_device_diagnostics(
         if group_proxy is None:
             # The device outlived its group, e.g. the group was removed while
             # Home Assistant was not running
-            return {"group_id": group_id, "error": "group no longer exists"}
+            return {
+                "group_id": group_id,
+                "device_identifier": zha_identifier,
+                "error": "group no longer exists",
+            }
         return async_redact_data(group_proxy.group_info, KEYS_TO_REDACT)
 
     zha_device_proxy: ZHADeviceProxy = async_get_zha_device_proxy(hass, device.id)
