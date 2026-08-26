@@ -8,8 +8,10 @@ from unittest.mock import MagicMock, patch
 from probatio import to_field_list
 import pytest
 from zigpy.application import ControllerApplication
+import zigpy.device
+from zigpy.profiles import zha
 from zigpy.types.basic import uint16_t
-from zigpy.zcl.clusters import lighting
+from zigpy.zcl.clusters import general, lighting
 
 from homeassistant.components.zha import const as zha_const
 from homeassistant.components.zha.helpers import (
@@ -36,6 +38,10 @@ from .conftest import (
     FIXTURE_GRP_NAME,
     FIXTURE_GRP_WITH_ENTITIES_ID,
     FIXTURE_GRP_WITH_ENTITIES_NAME,
+    SIG_EP_INPUT,
+    SIG_EP_OUTPUT,
+    SIG_EP_PROFILE,
+    SIG_EP_TYPE,
 )
 
 from tests.common import MockConfigEntry
@@ -583,8 +589,18 @@ async def test_zha_group_entity_migrated_from_coordinator_device(
         config_entry=config_entry,
         device_id=coordinator_device.id,
         original_name="Test Group",
+        # the entity id an upgrading user actually has: derived from the
+        # coordinator device name, not from the group name
+        suggested_object_id="coordinator_manufacturer_coordinator_model_test_group",
     )
     assert legacy_entry.device_id == coordinator_device.id
+    assert legacy_entry.entity_id == (
+        "switch.coordinator_manufacturer_coordinator_model_test_group"
+    )
+    # user customisation that must survive the move
+    entity_registry.async_update_entity(
+        legacy_entry.entity_id, name="My kitchen group", icon="mdi:test"
+    )
 
     await setup_zha()
 
@@ -597,6 +613,9 @@ async def test_zha_group_entity_migrated_from_coordinator_device(
     # same entity id, now pointing at the group device
     assert migrated_entry.entity_id == legacy_entry.entity_id
     assert migrated_entry.device_id == group_proxy.device_id
+    # and the user's customisation is untouched
+    assert migrated_entry.name == "My kitchen group"
+    assert migrated_entry.icon == "mdi:test"
     # and no duplicate was created for the same unique id
     assert (
         entity_registry.async_get_entity_id(
@@ -641,3 +660,56 @@ async def test_zha_group_proxy_associated_entities(
         assert [entity["entity_id"] for entity in member["entities"]] == (
             group_entity_ids
         )
+
+
+async def test_zha_group_cleanup_leaves_other_integrations_alone(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    zigpy_device_mock: Callable[..., zigpy.device.Device],
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test the group cleanup only removes ZHA's own group entities.
+
+    Helper integrations attach their entity to the device of the entity they
+    wrap, so an unscoped cleanup would delete them from the group device.
+    """
+    await setup_zha()
+
+    app_controller = zigpy_app_controller_with_group
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    group_proxy = gateway_proxy.group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID]
+    assert group_proxy.device_id is not None
+
+    other_config_entry = MockConfigEntry(domain="switch_as_x")
+    other_config_entry.add_to_hass(hass)
+    foreign_entry = entity_registry.async_get_or_create(
+        "light",
+        "switch_as_x",
+        "some_helper_unique_id",
+        config_entry=other_config_entry,
+        device_id=group_proxy.device_id,
+    )
+
+    # an ordinary action: add a new member to the group
+    third_device = zigpy_device_mock(
+        {
+            1: {
+                SIG_EP_INPUT: [
+                    general.OnOff.cluster_id,
+                    general.Basic.cluster_id,
+                    general.Groups.cluster_id,
+                ],
+                SIG_EP_OUTPUT: [],
+                SIG_EP_TYPE: zha.DeviceType.ON_OFF_SWITCH,
+                SIG_EP_PROFILE: zha.PROFILE_ID,
+            }
+        },
+        ieee="01:2d:6f:00:0a:90:69:e3",
+    )
+    app_controller.devices[third_device.ieee] = third_device
+    group = app_controller.groups[FIXTURE_GRP_WITH_ENTITIES_ID]
+    group.add_member(third_device.endpoints[1])
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    assert entity_registry.async_get(foreign_entry.entity_id) is not None
