@@ -713,3 +713,15 @@ async def test_zha_group_cleanup_leaves_other_integrations_alone(
     await hass.async_block_till_done(wait_background_tasks=True)
 
     assert entity_registry.async_get(foreign_entry.entity_id) is not None
+
+    # shrinking the group to nothing removes the group device, which detaches
+    # the other integration's entity instead of removing it
+    for member in (*group.values(),):
+        group.remove_member(member)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    assert not group_proxy.group.group_entities
+    assert group_proxy.device_id is None
+    detached_entry = entity_registry.async_get(foreign_entry.entity_id)
+    assert detached_entry is not None
+    assert detached_entry.device_id is None

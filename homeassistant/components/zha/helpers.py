@@ -259,6 +259,11 @@ def _group_id_from_device_identifier(
     return int(group_id, 16)
 
 
+def _group_entity_unique_id(domain: str, group_id: int) -> str:
+    """Return the unique id of a group entity of the given HA domain."""
+    return f"{domain}_zha_group_0x{group_id:04x}"
+
+
 def _group_entity_entries(
     entity_registry: er.EntityRegistry,
     device_id: str,
@@ -279,7 +284,7 @@ def _group_entity_entries(
         )
         if entry.platform == DOMAIN
         and entry.config_entry_id == config_entry_id
-        and entry.unique_id == f"{entry.domain}_zha_group_0x{group_id:04x}"
+        and entry.unique_id == _group_entity_unique_id(entry.domain, group_id)
     ]
 
 
@@ -1127,7 +1132,7 @@ class ZHAGatewayProxy(EventBase):
             )
             if entry.platform == DOMAIN
             and entry.config_entry_id == self.config_entry.entry_id
-            and entry.unique_id == f"{entry.domain}_zha_group_0x{group_id:04x}"
+            and entry.unique_id == _group_entity_unique_id(entry.domain, group_id)
         )
 
         for entry in entries_to_remove:
@@ -1178,14 +1183,8 @@ class ZHAGatewayProxy(EventBase):
         if zha_group_proxy.group.group_entities:
             return
 
-        # Anything still on the device belongs to another integration (helpers
-        # attach their entity to the device of the entity they wrap), so the
-        # device is only removed once nothing is left on it
-        if er.async_entries_for_device(
-            entity_registry, device_id, include_disabled_entities=True
-        ):
-            return
-
+        # Any entity another integration attached to the group device is
+        # detached rather than removed with it, so the device can go
         device_registry = dr.async_get(self.hass)
         if device_registry.async_get(device_id) is not None:
             device_registry.async_remove_device(device_id)
