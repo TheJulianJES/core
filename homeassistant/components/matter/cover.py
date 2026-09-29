@@ -76,6 +76,7 @@ class MatterCover(MatterEntity, CoverEntity):
     """Representation of a Matter Cover."""
 
     _write_state_debounce_cooldown = STATE_WRITE_DEBOUNCE_COOLDOWN
+    _tilt_only = False
     entity_description: MatterCoverEntityDescription
 
     @property
@@ -86,7 +87,7 @@ class MatterCover(MatterEntity, CoverEntity):
             None, clusters.WindowCovering.Attributes.CurrentPositionLiftPercent100ths
         ):
             position = self.current_cover_position
-        elif self._entity_info.endpoint.has_attribute(
+        elif self._tilt_only and self._entity_info.endpoint.has_attribute(
             None, clusters.WindowCovering.Attributes.CurrentPositionTiltPercent100ths
         ):
             # tilt-only covers have no lift axis, so tilt is the only closure indicator
@@ -132,7 +133,8 @@ class MatterCover(MatterEntity, CoverEntity):
     @override
     async def async_open_cover_tilt(self, **kwargs: Any) -> None:
         """Open the cover tilt."""
-        # only exposed on tilt-only covers, where UpOrOpen moves the tilt axis
+        # tilt button features are only set on tilt-only covers,
+        # where UpOrOpen moves the tilt axis
         await self.send_device_command(clusters.WindowCovering.Commands.UpOrOpen())
 
     @override
@@ -226,9 +228,10 @@ class MatterCover(MatterEntity, CoverEntity):
             )
             or 0
         )
-        if feature_map & clusters.WindowCovering.Bitmaps.Feature.kTilt and not (
-            feature_map & clusters.WindowCovering.Bitmaps.Feature.kLift
-        ):
+        self._tilt_only = bool(
+            feature_map & clusters.WindowCovering.Bitmaps.Feature.kTilt
+        ) and not (feature_map & clusters.WindowCovering.Bitmaps.Feature.kLift)
+        if self._tilt_only:
             # tilt-only covers expose the tilt button features instead,
             # so UIs derive the button state from the tilt position
             supported_features = (
