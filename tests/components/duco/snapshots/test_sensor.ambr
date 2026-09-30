@@ -25,6 +25,9 @@
     'name': None,
     'object_id_base': 'Humidity',
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
     'original_icon': None,
@@ -134,6 +137,9 @@
     'name': None,
     'object_id_base': 'Humidity',
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
     'original_icon': None,
@@ -752,6 +758,9 @@
     'name': None,
     'object_id_base': 'Humidity',
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
     'original_icon': None,
@@ -1621,6 +1630,9 @@
     'name': None,
     'object_id_base': 'Humidity',
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
     'original_icon': None,

@@ -308,6 +308,9 @@
     'name': None,
     'object_id_base': 'Moisture',
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': <SensorDeviceClass.MOISTURE: 'moisture'>,
     'original_icon': None,
@@ -1265,6 +1268,9 @@
     'name': None,
     'object_id_base': 'Moisture',
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': <SensorDeviceClass.MOISTURE: 'moisture'>,
     'original_icon': None,

@@ -1871,7 +1871,9 @@ async def test_unit_conversion_priority_suggested_unit_change_2(
         (SensorDeviceClass.ENERGY_STORAGE, UnitOfEnergy.WATT_HOUR, 0),
         (SensorDeviceClass.FREQUENCY, UnitOfFrequency.HERTZ, 0),
         (SensorDeviceClass.GAS, UnitOfVolume.MILLILITERS, 0),
+        (SensorDeviceClass.HUMIDITY, UnitOfRatio.PERCENTAGE, 1),
         (SensorDeviceClass.IRRADIANCE, UnitOfIrradiance.WATTS_PER_SQUARE_METER, 0),
+        (SensorDeviceClass.MOISTURE, UnitOfRatio.PERCENTAGE, 1),
         (SensorDeviceClass.POWER, UnitOfPower.WATT, 0),
         (SensorDeviceClass.PRECIPITATION, UnitOfPrecipitationDepth.CENTIMETERS, 0),
         (

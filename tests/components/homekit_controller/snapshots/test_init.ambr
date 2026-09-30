@@ -2685,6 +2685,9 @@
             'name': None,
             'object_id_base': 'ArloBabyA0 Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -3972,6 +3975,9 @@
             'name': None,
             'object_id_base': 'HomeW Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -7462,6 +7468,9 @@
             'name': None,
             'object_id_base': 'Thermostat Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -8490,6 +8499,9 @@
             'name': None,
             'object_id_base': 'HomeW Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -8965,6 +8977,9 @@
             'name': None,
             'object_id_base': 'HomeW Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -9909,6 +9924,9 @@
             'name': None,
             'object_id_base': 'My ecobee Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -10615,6 +10633,9 @@
             'name': None,
             'object_id_base': 'Eve Degree AA11 Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -12469,6 +12490,9 @@
             'name': None,
             'object_id_base': '89 Living Room Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -14159,6 +14183,9 @@
             'name': None,
             'object_id_base': '89 Living Room Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -14557,6 +14584,9 @@
             'name': None,
             'object_id_base': 'Humidifier 182A Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -14826,6 +14856,9 @@
             'name': None,
             'object_id_base': 'Humidifier 182A Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -18297,6 +18330,9 @@
             'name': None,
             'object_id_base': 'Lennox Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -20054,6 +20090,9 @@
             'name': None,
             'object_id_base': 'Mysa-85dda9 Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -21146,6 +21185,9 @@
             'name': None,
             'object_id_base': 'Healthy Home Coach Humidity sensor',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -24400,6 +24442,9 @@
             'name': None,
             'object_id_base': 'VELUX Sensor Humidity sensor',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -24708,6 +24753,9 @@
             'name': None,
             'object_id_base': 'VELUX Sensor Humidity sensor',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
@@ -25461,6 +25509,9 @@
             'name': None,
             'object_id_base': 'VOCOlinc-Flowerbud-0d324b Current Humidity',
             'options': dict({
+              'sensor': dict({
+                'suggested_display_precision': 1,
+              }),
             }),
             'original_device_class': <SensorDeviceClass.HUMIDITY: 'humidity'>,
             'original_icon': None,
