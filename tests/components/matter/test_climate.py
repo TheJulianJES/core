@@ -475,6 +475,83 @@ async def test_room_airconditioner(
     assert state.attributes["supported_features"] & ClimateEntityFeature.TURN_ON
 
 
+@pytest.mark.parametrize("node_fixture", ["mock_room_airconditioner"])
+@pytest.mark.parametrize(
+    ("attributes", "expected_temperature", "expected_limits", "setpoint_path"),
+    [
+        pytest.param(
+            {"1/513/65532": 2},
+            26,
+            (16, 32),
+            "1/513/17",
+            id="cooling_only",
+        ),
+        pytest.param(
+            {"1/513/65532": 3},
+            20,
+            (7, 30),
+            "1/513/18",
+            id="heating_and_cooling",
+        ),
+        pytest.param(
+            {"1/513/65532": 1},
+            20,
+            (7, 30),
+            "1/513/18",
+            id="heating_only",
+        ),
+    ],
+)
+@pytest.mark.parametrize(
+    ("system_mode", "expected_hvac_mode"),
+    [
+        pytest.param(0, HVACMode.OFF, id="off"),
+        pytest.param(7, HVACMode.FAN_ONLY, id="fan_only"),
+        pytest.param(8, HVACMode.DRY, id="dry"),
+    ],
+)
+async def test_setpoint_outside_heat_and_cool_modes(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    system_mode: int,
+    expected_hvac_mode: HVACMode,
+    expected_temperature: float,
+    expected_limits: tuple[float, float],
+    setpoint_path: str,
+) -> None:
+    """Test the setpoint used in the off, fan-only and dry modes."""
+    set_node_attribute(matter_node, 1, 6, 0, True)
+    set_node_attribute(matter_node, 1, 513, 3, 700)
+    set_node_attribute(matter_node, 1, 513, 4, 3000)
+    set_node_attribute(matter_node, 1, 513, 28, system_mode)
+    await trigger_subscription_callback(hass, matter_client)
+    state = hass.states.get("climate.room_airconditioner")
+    assert state
+    assert state.state == expected_hvac_mode
+    assert state.attributes["temperature"] == expected_temperature
+    assert (state.attributes["min_temp"], state.attributes["max_temp"]) == (
+        expected_limits
+    )
+
+    await hass.services.async_call(
+        "climate",
+        "set_temperature",
+        {
+            "entity_id": "climate.room_airconditioner",
+            "temperature": 24,
+        },
+        blocking=True,
+    )
+    assert matter_client.write_attribute.call_args_list == [
+        call(
+            node_id=matter_node.node_id,
+            attribute_path=setpoint_path,
+            value=2400,
+        )
+    ]
+
+
 @pytest.mark.parametrize("node_fixture", ["eve_thermo_v5"])
 async def test_eve_thermo_v5_presets(
     hass: HomeAssistant,
