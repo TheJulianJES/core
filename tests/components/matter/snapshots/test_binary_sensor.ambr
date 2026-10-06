@@ -50,7 +50,7 @@
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2_occupancy-entry]
+# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2_motion-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -64,7 +64,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2_occupancy',
+    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2_motion',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -72,12 +72,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': 'Motion',
     'options': dict({
     }),
-    'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
+    'original_device_class': <BinarySensorDeviceClass.MOTION: 'motion'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': 'Motion',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -87,14 +87,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2_occupancy-state]
+# name: test_binary_sensors[aqara_motion_p2][binary_sensor.aqara_motion_and_light_sensor_p2_motion-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'occupancy',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Motion and Light Sensor P2 Occupancy',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'motion',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Motion and Light Sensor P2 Motion',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2_occupancy',
+    'entity_id': 'binary_sensor.aqara_motion_and_light_sensor_p2_motion',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -811,7 +811,7 @@
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor_occupancy-entry]
+# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor_motion-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -825,7 +825,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.smart_motion_sensor_occupancy',
+    'entity_id': 'binary_sensor.smart_motion_sensor_motion',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -833,12 +833,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': 'Motion',
     'options': dict({
     }),
-    'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
+    'original_device_class': <BinarySensorDeviceClass.MOTION: 'motion'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': 'Motion',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -848,14 +848,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor_occupancy-state]
+# name: test_binary_sensors[heiman_motion_sensor_m1][binary_sensor.smart_motion_sensor_motion-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'occupancy',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart motion sensor Occupancy',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'motion',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart motion sensor Motion',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.smart_motion_sensor_occupancy',
+    'entity_id': 'binary_sensor.smart_motion_sensor_motion',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -1674,7 +1674,7 @@
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor_occupancy-entry]
+# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor_motion-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1688,7 +1688,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_occupancy_sensor_occupancy',
+    'entity_id': 'binary_sensor.mock_occupancy_sensor_motion',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1696,12 +1696,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': 'Motion',
     'options': dict({
     }),
-    'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
+    'original_device_class': <BinarySensorDeviceClass.MOTION: 'motion'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': 'Motion',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1711,21 +1711,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor_occupancy-state]
+# name: test_binary_sensors[mock_occupancy_sensor][binary_sensor.mock_occupancy_sensor_motion-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'occupancy',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock Occupancy Sensor Occupancy',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'motion',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock Occupancy Sensor Motion',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_occupancy_sensor_occupancy',
+    'entity_id': 'binary_sensor.mock_occupancy_sensor_motion',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'on',
   })
 # ---
-# name: test_binary_sensors[mock_occupancy_sensor_pir][binary_sensor.mock_pir_occupancy_sensor_occupancy-entry]
+# name: test_binary_sensors[mock_occupancy_sensor_pir][binary_sensor.mock_pir_occupancy_sensor_motion-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1739,7 +1739,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_pir_occupancy_sensor_occupancy',
+    'entity_id': 'binary_sensor.mock_pir_occupancy_sensor_motion',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1747,12 +1747,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': 'Motion',
     'options': dict({
     }),
-    'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
+    'original_device_class': <BinarySensorDeviceClass.MOTION: 'motion'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': 'Motion',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1762,21 +1762,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_occupancy_sensor_pir][binary_sensor.mock_pir_occupancy_sensor_occupancy-state]
+# name: test_binary_sensors[mock_occupancy_sensor_pir][binary_sensor.mock_pir_occupancy_sensor_motion-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'occupancy',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock PIR Occupancy Sensor Occupancy',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'motion',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock PIR Occupancy Sensor Motion',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_pir_occupancy_sensor_occupancy',
+    'entity_id': 'binary_sensor.mock_pir_occupancy_sensor_motion',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'on',
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light_occupancy-entry]
+# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light_motion-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1790,7 +1790,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_onoff_light_occupancy',
+    'entity_id': 'binary_sensor.mock_onoff_light_motion',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1798,12 +1798,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': 'Motion',
     'options': dict({
     }),
-    'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
+    'original_device_class': <BinarySensorDeviceClass.MOTION: 'motion'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': 'Motion',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1813,21 +1813,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light_occupancy-state]
+# name: test_binary_sensors[mock_onoff_light_alt_name][binary_sensor.mock_onoff_light_motion-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'occupancy',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock OnOff Light Occupancy',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'motion',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock OnOff Light Motion',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_onoff_light_occupancy',
+    'entity_id': 'binary_sensor.mock_onoff_light_motion',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light_occupancy-entry]
+# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light_motion-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1841,7 +1841,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.mock_light_occupancy',
+    'entity_id': 'binary_sensor.mock_light_motion',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1849,12 +1849,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Occupancy',
+    'object_id_base': 'Motion',
     'options': dict({
     }),
-    'original_device_class': <BinarySensorDeviceClass.OCCUPANCY: 'occupancy'>,
+    'original_device_class': <BinarySensorDeviceClass.MOTION: 'motion'>,
     'original_icon': None,
-    'original_name': 'Occupancy',
+    'original_name': 'Motion',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1864,14 +1864,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light_occupancy-state]
+# name: test_binary_sensors[mock_onoff_light_no_name][binary_sensor.mock_light_motion-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'occupancy',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock Light Occupancy',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'motion',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Mock Light Motion',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.mock_light_occupancy',
+    'entity_id': 'binary_sensor.mock_light_motion',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

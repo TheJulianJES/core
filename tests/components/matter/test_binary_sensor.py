@@ -53,7 +53,7 @@ async def test_occupancy_sensor(
     matter_node: MatterNode,
 ) -> None:
     """Test occupancy sensor."""
-    state = hass.states.get("binary_sensor.mock_occupancy_sensor_occupancy")
+    state = hass.states.get("binary_sensor.mock_occupancy_sensor_motion")
     assert state
     assert state.state == "on"
 
@@ -67,9 +67,87 @@ async def test_occupancy_sensor(
         value=0,
     )
 
-    state = hass.states.get("binary_sensor.mock_occupancy_sensor_occupancy")
+    state = hass.states.get("binary_sensor.mock_occupancy_sensor_motion")
     assert state
     assert state.state == "off"
+
+
+@pytest.mark.parametrize("node_fixture", ["mock_occupancy_sensor_pir"])
+@pytest.mark.parametrize(
+    ("attributes", "entity_id", "device_class"),
+    [
+        pytest.param(
+            {"1/1030/65532": 2},
+            "binary_sensor.mock_pir_occupancy_sensor_motion",
+            "motion",
+            id="rev5_pir",
+        ),
+        pytest.param(
+            {"1/1030/65532": 514},
+            "binary_sensor.mock_pir_occupancy_sensor_motion",
+            "motion",
+            id="rev5_pir_occupancy_event",
+        ),
+        pytest.param(
+            {"1/1030/65532": 34},
+            "binary_sensor.mock_pir_occupancy_sensor_occupancy",
+            "occupancy",
+            id="rev5_pir_radar",
+        ),
+        pytest.param(
+            {"1/1030/65532": 3},
+            "binary_sensor.mock_pir_occupancy_sensor_occupancy",
+            "occupancy",
+            id="rev5_pir_other",
+        ),
+        pytest.param(
+            {"1/1030/65532": 1026},
+            "binary_sensor.mock_pir_occupancy_sensor_occupancy",
+            "occupancy",
+            id="rev5_pir_unknown_feature",
+        ),
+        pytest.param(
+            {"1/1030/65532": 32, "1/1030/2": 1},
+            "binary_sensor.mock_pir_occupancy_sensor_occupancy",
+            "occupancy",
+            id="rev5_radar_legacy_pir",
+        ),
+        pytest.param(
+            {"1/1030/65533": 4, "1/1030/65532": 0, "1/1030/2": 1},
+            "binary_sensor.mock_pir_occupancy_sensor_motion",
+            "motion",
+            id="rev4_pir",
+        ),
+        pytest.param(
+            {"1/1030/65533": 4, "1/1030/65532": 0, "1/1030/2": 3},
+            "binary_sensor.mock_pir_occupancy_sensor_occupancy",
+            "occupancy",
+            id="rev4_pir_ultrasonic",
+        ),
+        pytest.param(
+            {"1/1030/65533": 4, "1/1030/65532": 0, "1/1030/2": 2},
+            "binary_sensor.mock_pir_occupancy_sensor_occupancy",
+            "occupancy",
+            id="rev4_ultrasonic",
+        ),
+        pytest.param(
+            {"1/1030/65533": 0, "1/1030/65532": 0, "1/1030/2": 1},
+            "binary_sensor.mock_pir_occupancy_sensor_occupancy",
+            "occupancy",
+            id="unknown_revision_legacy_pir",
+        ),
+    ],
+)
+@pytest.mark.usefixtures("matter_node")
+async def test_occupancy_sensor_device_class(
+    hass: HomeAssistant,
+    entity_id: str,
+    device_class: str,
+) -> None:
+    """Test occupancy sensor is a motion sensor only if PIR is its only modality."""
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.attributes["device_class"] == device_class
 
 
 @pytest.mark.parametrize(

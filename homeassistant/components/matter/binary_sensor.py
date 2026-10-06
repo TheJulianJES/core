@@ -19,7 +19,11 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .entity import MatterEntity, MatterEntityDescription
 from .helpers import MatterConfigEntry
-from .models import MatterDiscoverySchema
+from .models import MatterDiscoverySchema, MatterEntityInfo
+
+if TYPE_CHECKING:
+    from matter_server.client import MatterClient
+    from matter_server.client.models.node import MatterEndpoint
 
 
 async def async_setup_entry(
@@ -59,6 +63,45 @@ class MatterBinarySensor(MatterEntity, BinarySensorEntity):
         self._attr_is_on = value
 
 
+_OCCUPANCY_FEATURE = clusters.OccupancySensing.Bitmaps.Feature
+
+
+class MatterOccupancySensor(MatterBinarySensor):
+    """Matter occupancy sensor, exposed as motion sensor if it only senses with PIR."""
+
+    def __init__(
+        self,
+        matter_client: MatterClient,
+        endpoint: MatterEndpoint,
+        entity_info: MatterEntityInfo,
+    ) -> None:
+        """Initialize the entity."""
+        super().__init__(matter_client, endpoint, entity_info)
+        if self._is_pir_only():
+            self._attr_device_class = BinarySensorDeviceClass.MOTION
+
+    def _is_pir_only(self) -> bool:
+        """Return if PIR is the only sensing modality of the sensor."""
+        attributes = clusters.OccupancySensing.Attributes
+        cluster_revision = self.get_matter_attribute_value(attributes.ClusterRevision)
+        # 0 if the attribute could not be read
+        if not cluster_revision:
+            return False
+        if cluster_revision < 5:
+            return bool(
+                self.get_matter_attribute_value(attributes.OccupancySensorTypeBitmap)
+                == clusters.OccupancySensing.Bitmaps.OccupancySensorTypeBitmap.kPir
+            )
+        # Revision 5+ servers report the legacy sensor type attributes as PIR for
+        # sensors without a PIR, Ultrasonic or PhysicalContact feature (e.g. radar)
+        feature_map = self.get_matter_attribute_value(attributes.FeatureMap)
+        return (
+            feature_map is not None
+            and feature_map | _OCCUPANCY_FEATURE.kOccupancyEvent
+            == _OCCUPANCY_FEATURE.kPassiveInfrared | _OCCUPANCY_FEATURE.kOccupancyEvent
+        )
+
+
 _PUMP_STATUS = clusters.PumpConfigurationAndControl.Bitmaps.PumpStatusBitmap
 _VALVE_FAULT = clusters.ValveConfigurationAndControl.Bitmaps.ValveFaultBitmap
 
@@ -86,7 +129,7 @@ DISCOVERY_SCHEMAS = [
             # The first bit = if occupied
             device_to_ha=lambda x: (x & 1 == 1) if x is not None else None,
         ),
-        entity_class=MatterBinarySensor,
+        entity_class=MatterOccupancySensor,
         required_attributes=(clusters.OccupancySensing.Attributes.Occupancy,),
     ),
     MatterDiscoverySchema(
