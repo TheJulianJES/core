@@ -9,6 +9,7 @@ from typing import Any
 from unittest.mock import AsyncMock, MagicMock, call, create_autospec, patch
 import uuid
 
+import bellows.zigbee.application
 import pytest
 from zha.application.const import RadioType
 from zigpy.application import ControllerApplication
@@ -30,6 +31,7 @@ from homeassistant.components.zha.const import (
     CONF_BAUDRATE,
     CONF_FLOW_CONTROL,
     CONF_RADIO_TYPE,
+    CONF_ZIGPY,
     DOMAIN,
     EZSP_OVERWRITE_EUI64,
 )
@@ -54,6 +56,7 @@ from homeassistant.helpers.service_info.ssdp import (
 )
 from homeassistant.helpers.service_info.usb import UsbServiceInfo
 from homeassistant.helpers.service_info.zeroconf import ZeroconfServiceInfo
+from homeassistant.setup import async_setup_component
 
 from tests.common import MockConfigEntry
 
@@ -1489,6 +1492,123 @@ async def test_hardware_flow_strategy_recommended(hass: HomeAssistant) -> None:
         CONF_RADIO_TYPE: "ezsp",
     }
     assert result_create["result"].unique_id == "epid=aa:bb:cc:dd:ee:00:00:00"
+
+
+async def test_hardware_invalid_zigpy_config(
+    hass: HomeAssistant, mock_app: AsyncMock
+) -> None:
+    """Test the flow aborts when the YAML `zigpy_config` is invalid for the radio."""
+    assert await async_setup_component(
+        hass, DOMAIN, {DOMAIN: {CONF_ZIGPY: {"ezsp_policies": None}}}
+    )
+
+    async def validate_config(
+        config: dict[str, Any], **kwargs: Any
+    ) -> ControllerApplication:
+        bellows.zigbee.application.ControllerApplication.SCHEMA(config)
+        return mock_app
+
+    data = {
+        "name": "Yellow",
+        "radio_type": "efr32",
+        "port": {
+            "path": "/dev/ttyAMA1",
+            "baudrate": 115200,
+            "flow_control": "hardware",
+        },
+        "flow_strategy": "recommended",
+    }
+    with (
+        patch(
+            "homeassistant.components.onboarding.async_is_onboarded", return_value=True
+        ),
+        patch(
+            "zigpy.application.ControllerApplication.new", side_effect=validate_config
+        ),
+    ):
+        result_hardware = await hass.config_entries.flow.async_init(
+            DOMAIN, context={"source": config_entries.SOURCE_HARDWARE}, data=data
+        )
+        result_confirm = await hass.config_entries.flow.async_configure(
+            result_hardware["flow_id"],
+            user_input={},
+        )
+
+    assert result_confirm["type"] is FlowResultType.ABORT
+    assert result_confirm["reason"] == "invalid_zigpy_config"
+    assert "ezsp_policies" in result_confirm["description_placeholders"]["error"]
+
+
+async def test_options_flow_invalid_zigpy_config(
+    hass: HomeAssistant, mock_app: AsyncMock
+) -> None:
+    """Test migrating aborts on an invalid YAML `zigpy_config` and reloads ZHA."""
+    assert await async_setup_component(
+        hass, DOMAIN, {DOMAIN: {CONF_ZIGPY: {"ezsp_policies": None}}}
+    )
+
+    entry = MockConfigEntry(
+        version=config_flow.ZhaConfigFlowHandler.VERSION,
+        domain=DOMAIN,
+        data={
+            CONF_DEVICE: {
+                CONF_DEVICE_PATH: "/dev/ttyUSB_old",
+                CONF_BAUDRATE: 115200,
+                CONF_FLOW_CONTROL: None,
+            },
+            CONF_RADIO_TYPE: "znp",
+        },
+    )
+    entry.add_to_hass(hass)
+
+    async def validate_config(
+        config: dict[str, Any], **kwargs: Any
+    ) -> ControllerApplication:
+        bellows.zigbee.application.ControllerApplication.SCHEMA(config)
+        return mock_app
+
+    async def detect_ezsp(self: ZhaRadioManager) -> ProbeResult:
+        self.radio_type = RadioType.ezsp
+        self.device_settings = SCHEMA_DEVICE({CONF_DEVICE_PATH: self.device_path})
+        return ProbeResult.RADIO_TYPE_DETECTED
+
+    flow = await hass.config_entries.options.async_init(entry.entry_id)
+    result_init = await hass.config_entries.options.async_configure(
+        flow["flow_id"], user_input={}
+    )
+    assert result_init["step_id"] == "prompt_migrate_or_reconfigure"
+
+    result_migrate = await hass.config_entries.options.async_configure(
+        flow["flow_id"],
+        user_input={"next_step_id": config_flow.OptionsMigrationIntent.MIGRATE},
+    )
+    assert result_migrate["step_id"] == "choose_serial_port"
+
+    with (
+        patch(
+            "homeassistant.components.zha.radio_manager.ZhaRadioManager.detect_radio_type",
+            autospec=True,
+            side_effect=detect_ezsp,
+        ),
+        patch(
+            "zigpy.application.ControllerApplication.new", side_effect=validate_config
+        ),
+        patch(
+            "homeassistant.components.zha.async_setup_entry", return_value=True
+        ) as mock_setup_entry,
+    ):
+        result_port = await hass.config_entries.options.async_configure(
+            flow["flow_id"],
+            user_input={CONF_DEVICE_PATH: "/dev/ttyUSB_new"},
+        )
+        await hass.async_block_till_done()
+
+    assert result_port["type"] is FlowResultType.ABORT
+    assert result_port["reason"] == "invalid_zigpy_config"
+
+    # Aborting the options flow sets ZHA up again on the old adapter
+    assert len(mock_setup_entry.mock_calls) == 1
+    assert entry.data[CONF_DEVICE][CONF_DEVICE_PATH] == "/dev/ttyUSB_old"
 
 
 @patch(f"zigpy_znp.{PROBE_FUNCTION_PATH}", AsyncMock(return_value=True))

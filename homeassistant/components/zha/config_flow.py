@@ -316,7 +316,14 @@ class BaseZhaFlow(ConfigEntryBaseFlow):
     ) -> ConfigFlowResult:
         """Add a warning step to dissuade the use of deprecated radios."""
         assert self._radio_mgr.radio_type is not None
-        await self._radio_mgr.async_read_backups_from_database()
+        try:
+            await self._radio_mgr.async_read_backups_from_database()
+        except probatio.Invalid as err:
+            # Radio libraries only validate the YAML `zigpy_config` when creating an app
+            return self.async_abort(
+                reason="invalid_zigpy_config",
+                description_placeholders={"error": str(err)},
+            )
 
         # Skip this step if we are using a recommended radio
         if user_input is not None or self._radio_mgr.radio_type in RECOMMENDED_RADIOS:
