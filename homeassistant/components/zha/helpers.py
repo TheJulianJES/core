@@ -827,17 +827,20 @@ class ZHAGatewayProxy(EventBase):
     @callback
     def async_enable_debug_mode(self, filterer: _LogFilterType | None = None) -> None:
         """Enable debug mode for ZHA."""
+        if filterer:
+            self._log_queue_handler.addFilter(filterer)
+
+        self._log_queue_handler_count += 1
+
+        # Overlapping sessions must not capture the DEBUG levels as the originals
+        if self._log_queue_handler_count > 1:
+            return
+
         self._log_levels[DEBUG_LEVEL_ORIGINAL] = async_capture_log_levels()
         async_set_logger_levels(DEBUG_LEVELS)
         self._log_levels[DEBUG_LEVEL_CURRENT] = async_capture_log_levels()
 
-        if filterer:
-            self._log_queue_handler.addFilter(filterer)
-
-        # Only start a new log queue handler if the old one is no longer running
-        self._log_queue_handler_count += 1
-
-        if self._log_queue_handler.listener and self._log_queue_handler_count == 1:
+        if self._log_queue_handler.listener:
             self._log_queue_handler.listener.start()
 
         for logger_name in DEBUG_RELAY_LOGGERS:
@@ -848,19 +851,22 @@ class ZHAGatewayProxy(EventBase):
     @callback
     def async_disable_debug_mode(self, filterer: _LogFilterType | None = None) -> None:
         """Disable debug mode for ZHA."""
+        if filterer:
+            self._log_queue_handler.removeFilter(filterer)
+
+        self._log_queue_handler_count -= 1
+
+        # Only restore the original state once the last session has ended
+        if self._log_queue_handler_count > 0:
+            return
+
         async_set_logger_levels(self._log_levels[DEBUG_LEVEL_ORIGINAL])
         self._log_levels[DEBUG_LEVEL_CURRENT] = async_capture_log_levels()
         for logger_name in DEBUG_RELAY_LOGGERS:
             logging.getLogger(logger_name).removeHandler(self._log_queue_handler)
 
-        # Only stop the log queue handler if nothing else is using it
-        self._log_queue_handler_count -= 1
-
-        if self._log_queue_handler.listener and self._log_queue_handler_count == 0:
+        if self._log_queue_handler.listener:
             self._log_queue_handler.listener.stop()
-
-        if filterer:
-            self._log_queue_handler.removeFilter(filterer)
 
         self.debug_enabled = False
 

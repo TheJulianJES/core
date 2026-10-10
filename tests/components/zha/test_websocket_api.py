@@ -1,8 +1,9 @@
 """Test ZHA WebSocket API."""
 
 from binascii import unhexlify
-from collections.abc import Callable, Coroutine
+from collections.abc import Callable, Coroutine, Generator
 from copy import deepcopy
+import logging
 from typing import TYPE_CHECKING
 from unittest.mock import ANY, AsyncMock, MagicMock, call, patch
 
@@ -50,8 +51,12 @@ from homeassistant.components.zha.const import (
     EZSP_OVERWRITE_EUI64,
 )
 from homeassistant.components.zha.helpers import (
+    DEBUG_LEVELS,
+    DEBUG_RELAY_LOGGERS,
     ZHADeviceProxy,
     ZHAGatewayProxy,
+    async_capture_log_levels,
+    async_set_logger_levels,
     get_zha_gateway,
     get_zha_gateway_proxy,
 )
@@ -953,6 +958,60 @@ async def test_ws_permit_ha12(
     assert app_controller.permit.await_args[1]["time_s"] == duration
     assert app_controller.permit.await_args[1]["node"] == node
     assert app_controller.permit_with_link_key.call_count == 0
+
+
+@pytest.fixture
+def info_log_levels() -> Generator[dict[str, int]]:
+    """Set the ZHA debug loggers to INFO and restore their levels afterwards."""
+    original_levels = async_capture_log_levels()
+    info_levels = dict.fromkeys(DEBUG_LEVELS, logging.INFO)
+    async_set_logger_levels(info_levels)
+    yield info_levels
+    async_set_logger_levels(original_levels)
+
+
+async def _async_receive_result(client: MockHAClientWebSocket, msg_id: int) -> None:
+    """Receive the result for a message, skipping relayed log events."""
+    msg = await client.receive_json()
+    while msg["type"] != TYPE_RESULT:
+        msg = await client.receive_json()
+    assert msg["id"] == msg_id
+    assert msg["success"]
+
+
+async def test_ws_permit_overlapping_debug_mode(
+    hass: HomeAssistant,
+    app_controller: ControllerApplication,
+    zha_client: MockHAClientWebSocket,
+    info_log_levels: dict[str, int],
+) -> None:
+    """Test overlapping permit subscriptions restore the original log levels."""
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    relay_handler = gateway_proxy._log_queue_handler
+
+    await zha_client.send_json({ID: 14, TYPE: f"{DOMAIN}/devices/{SERVICE_PERMIT}"})
+    await _async_receive_result(zha_client, 14)
+    await zha_client.send_json({ID: 15, TYPE: f"{DOMAIN}/devices/{SERVICE_PERMIT}"})
+    await _async_receive_result(zha_client, 15)
+
+    assert async_capture_log_levels() == DEBUG_LEVELS
+
+    await zha_client.send_json({ID: 16, TYPE: "unsubscribe_events", "subscription": 14})
+    await _async_receive_result(zha_client, 16)
+
+    # The other subscription is still open, so debug mode must stay on
+    assert gateway_proxy.debug_enabled
+    assert async_capture_log_levels() == DEBUG_LEVELS
+    for logger_name in DEBUG_RELAY_LOGGERS:
+        assert relay_handler in logging.getLogger(logger_name).handlers
+
+    await zha_client.send_json({ID: 17, TYPE: "unsubscribe_events", "subscription": 15})
+    await _async_receive_result(zha_client, 17)
+
+    assert not gateway_proxy.debug_enabled
+    assert async_capture_log_levels() == info_log_levels
+    for logger_name in DEBUG_RELAY_LOGGERS:
+        assert relay_handler not in logging.getLogger(logger_name).handlers
 
 
 async def test_get_network_settings(
