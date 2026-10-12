@@ -27,9 +27,11 @@ from homeassistant.components.zha.helpers import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import (
+    area_registry as ar,
     config_validation as cv,
     device_registry as dr,
     entity_registry as er,
+    label_registry as lr,
 )
 from homeassistant.setup import async_setup_component
 
@@ -514,14 +516,14 @@ async def test_zha_group_cleanup_legacy_coordinator_entities(
     )
 
 
-async def test_zha_group_device_removed_when_group_shrinks(
+async def test_zha_group_device_kept_when_group_shrinks(
     hass: HomeAssistant,
     setup_zha: Callable[..., Coroutine[Any, Any, None]],
     zigpy_app_controller_with_group: ControllerApplication,
     device_registry: dr.DeviceRegistry,
     entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test the group device is removed when the group loses its entities."""
+    """Test a shrinking group loses its entities but keeps its device."""
     await setup_zha()
 
     app_controller = zigpy_app_controller_with_group
@@ -542,19 +544,179 @@ async def test_zha_group_device_removed_when_group_shrinks(
     await hass.async_block_till_done(wait_background_tasks=True)
 
     assert not group_proxy.group.group_entities
-    # the now empty group device and its entities are gone
-    assert device_registry.async_get(device_id) is None
-    assert group_proxy.device_id is None
     for entry in entity_entries:
         assert entity_registry.async_get(entry.entity_id) is None
+    # the group itself still exists, so its device stays
+    assert device_registry.async_get(device_id) is not None
+    assert group_proxy.device_id == device_id
 
-    # the group itself still exists, so growing it back recreates the device
     group.add_member(member)
     await hass.async_block_till_done(wait_background_tasks=True)
 
     assert group_proxy.group.group_entities
+    assert group_proxy.device_id == device_id
+    assert er.async_entries_for_device(entity_registry, device_id)
+
+
+async def test_zha_group_device_id_reuse_starts_clean(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    area_registry: ar.AreaRegistry,
+    device_registry: dr.DeviceRegistry,
+    label_registry: lr.LabelRegistry,
+) -> None:
+    """Test a new group reusing a removed group's id starts with a clean device."""
+    await setup_zha()
+
+    app_controller = zigpy_app_controller_with_group
+    gateway = get_zha_gateway(hass)
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    device_id = gateway_proxy.group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID].device_id
+    assert device_id is not None
+    device_registry.async_update_device(
+        device_id,
+        area_id=area_registry.async_create("Kitchen").id,
+        disabled_by=dr.DeviceEntryDisabler.USER,
+        labels={label_registry.async_create("Lights").label_id},
+        name_by_user="Old group",
+    )
+    members = list(app_controller.groups[FIXTURE_GRP_WITH_ENTITIES_ID].values())
+
+    await gateway.async_remove_zigpy_group(FIXTURE_GRP_WITH_ENTITIES_ID)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    # ZHA hands out the freed group id to the next new group
+    group = app_controller.groups.add_group(FIXTURE_GRP_WITH_ENTITIES_ID, "New group")
+    for member in members:
+        group.add_member(member)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    new_device_id = gateway_proxy.group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID].device_id
+    assert new_device_id is not None
+    device = device_registry.async_get(new_device_id)
+    assert device is not None
+    assert device.name == "New group"
+    assert device.name_by_user is None
+    assert device.area_id is None
+    assert device.labels == set()
+    assert device.disabled_by is None
+
+
+def _remove_group_while_stopped(app_controller: ControllerApplication) -> None:
+    """Remove the group without emitting the zigpy group events."""
+    dict.pop(app_controller.groups, FIXTURE_GRP_WITH_ENTITIES_ID)
+
+
+def _shrink_group_while_stopped(app_controller: ControllerApplication) -> None:
+    """Drop the group below two members without emitting zigpy group events."""
+    group = app_controller.groups[FIXTURE_GRP_WITH_ENTITIES_ID]
+    group.remove_member(next(iter(group.values())), suppress_event=True)
+
+
+@pytest.mark.parametrize(
+    ("change_group", "device_removed"),
+    [
+        pytest.param(_remove_group_while_stopped, True, id="group_removed"),
+        pytest.param(_shrink_group_while_stopped, False, id="group_shrunk"),
+    ],
+)
+async def test_zha_group_device_reconciled_on_startup(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    config_entry: MockConfigEntry,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    change_group: Callable[[ControllerApplication], None],
+    device_removed: bool,
+) -> None:
+    """Test group changes made while ZHA was not running are cleaned up on setup."""
+    await setup_zha()
+
+    device_id = (
+        get_zha_gateway_proxy(hass)
+        .group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID]
+        .device_id
+    )
+    assert device_id is not None
+    entity_entries = er.async_entries_for_device(
+        entity_registry, device_id, include_disabled_entities=True
+    )
+    assert entity_entries
+
+    assert await hass.config_entries.async_unload(config_entry.entry_id)
+    change_group(zigpy_app_controller_with_group)
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    assert (device_registry.async_get(device_id) is None) is device_removed
+    for entry in entity_entries:
+        assert entity_registry.async_get(entry.entity_id) is None
+
+
+async def test_zha_group_stale_entity_removed_on_startup(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    config_entry: MockConfigEntry,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test a group entity the group no longer has is removed on setup."""
+    await setup_zha()
+
+    group_proxy = get_zha_gateway_proxy(hass).group_proxies[
+        FIXTURE_GRP_WITH_ENTITIES_ID
+    ]
+    device_id = group_proxy.device_id
+    assert device_id is not None
+    current_entries = er.async_entries_for_device(entity_registry, device_id)
+    assert current_entries
+
+    # e.g. left behind by a ZHA version that created other group entities
+    stale_entry = entity_registry.async_get_or_create(
+        "light",
+        zha_const.DOMAIN,
+        f"light_zha_group_0x{FIXTURE_GRP_WITH_ENTITIES_ID:04x}",
+        config_entry=config_entry,
+        device_id=device_id,
+    )
+    assert await hass.config_entries.async_reload(config_entry.entry_id)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    assert entity_registry.async_get(stale_entry.entity_id) is None
+    assert device_registry.async_get(device_id) is not None
+    for entry in current_entries:
+        assert entity_registry.async_get(entry.entity_id) is not None
+
+
+async def test_zha_group_entity_registry_disable_propagates(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test disabling a group entity in the registry disables the ZHA entity."""
+    await setup_zha()
+
+    group_proxy = get_zha_gateway_proxy(hass).group_proxies[
+        FIXTURE_GRP_WITH_ENTITIES_ID
+    ]
     assert group_proxy.device_id is not None
-    assert device_registry.async_get(group_proxy.device_id) is not None
+    [entry] = er.async_entries_for_device(entity_registry, group_proxy.device_id)
+    group_entity = group_proxy.group.group_entities[entry.unique_id]
+    assert group_entity.enabled
+
+    entity_registry.async_update_entity(
+        entry.entity_id, disabled_by=er.RegistryEntryDisabler.USER
+    )
+    await hass.async_block_till_done()
+    assert not group_entity.enabled
+
+    entity_registry.async_update_entity(entry.entity_id, disabled_by=None)
+    await hass.async_block_till_done()
+    assert group_entity.enabled
 
 
 async def test_zha_group_entity_migrated_from_coordinator_device(
@@ -738,13 +900,11 @@ async def test_zha_group_cleanup_leaves_other_integrations_alone(
 
     assert entity_registry.async_get(foreign_entry.entity_id) is not None
 
-    # shrinking the group to nothing removes the group device, which detaches
-    # the other integration's entity instead of removing it
-    for member in (*group.values(),):
-        group.remove_member(member)
+    # removing the group removes the group device, which detaches the other
+    # integration's entity instead of removing it
+    await get_zha_gateway(hass).async_remove_zigpy_group(FIXTURE_GRP_WITH_ENTITIES_ID)
     await hass.async_block_till_done(wait_background_tasks=True)
 
-    assert not group_proxy.group.group_entities
     assert group_proxy.device_id is None
     detached_entry = entity_registry.async_get(foreign_entry.entity_id)
     assert detached_entry is not None
