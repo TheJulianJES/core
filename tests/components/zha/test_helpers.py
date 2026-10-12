@@ -617,9 +617,10 @@ def _shrink_group_while_stopped(app_controller: ControllerApplication) -> None:
 
 
 @pytest.mark.parametrize(
-    ("change_group", "device_removed"),
+    ("change_group", "removed"),
     [
         pytest.param(_remove_group_while_stopped, True, id="group_removed"),
+        # entries disabled by the device are kept until the device is enabled
         pytest.param(_shrink_group_while_stopped, False, id="group_shrunk"),
     ],
 )
@@ -631,7 +632,7 @@ async def test_zha_group_device_reconciled_on_startup(
     device_registry: dr.DeviceRegistry,
     entity_registry: er.EntityRegistry,
     change_group: Callable[[ControllerApplication], None],
-    device_removed: bool,
+    removed: bool,
 ) -> None:
     """Test group changes made while ZHA was not running are cleaned up on setup."""
     await setup_zha()
@@ -661,9 +662,9 @@ async def test_zha_group_device_reconciled_on_startup(
 
     # resetting the removed device must not re-enable entities and reload ZHA
     mock_reload.assert_not_called()
-    assert (device_registry.async_get(device_id) is None) is device_removed
+    assert (device_registry.async_get(device_id) is None) is removed
     for entry in entity_entries:
-        assert entity_registry.async_get(entry.entity_id) is None
+        assert (entity_registry.async_get(entry.entity_id) is None) is removed
 
 
 async def test_zha_group_stale_entity_removed_on_startup(
@@ -728,6 +729,49 @@ async def test_zha_group_entity_registry_disable_propagates(
     entity_registry.async_update_entity(entry.entity_id, disabled_by=None)
     await hass.async_block_till_done()
     assert group_entity.enabled
+
+
+async def test_zha_group_entity_enabled_after_regrow_of_disabled_device(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test a group entity is enabled again after its device was disabled.
+
+    The group shrinks while its device is disabled and grows back after the
+    device was enabled again.
+    """
+    await setup_zha()
+
+    group_proxy = get_zha_gateway_proxy(hass).group_proxies[
+        FIXTURE_GRP_WITH_ENTITIES_ID
+    ]
+    device_id = group_proxy.device_id
+    assert device_id is not None
+    [entry] = er.async_entries_for_device(entity_registry, device_id)
+
+    device_registry.async_update_device(
+        device_id, disabled_by=dr.DeviceEntryDisabler.USER
+    )
+    await hass.async_block_till_done()
+
+    group = zigpy_app_controller_with_group.groups[FIXTURE_GRP_WITH_ENTITIES_ID]
+    member = next(iter(group.values()))
+    group.remove_member(member)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    device_registry.async_update_device(device_id, disabled_by=None)
+    await hass.async_block_till_done()
+
+    group.add_member(member)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    regrown_entry = entity_registry.async_get(entry.entity_id)
+    assert regrown_entry is not None
+    assert regrown_entry.disabled_by is None
+    assert hass.states.get(entry.entity_id) is not None
 
 
 async def test_zha_group_entity_migrated_from_coordinator_device(
