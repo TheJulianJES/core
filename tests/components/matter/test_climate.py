@@ -982,7 +982,7 @@ async def test_turn_on_uses_mode_selected_with_power_off(
     hvac_mode: HVACMode,
     system_mode: int,
 ) -> None:
-    """An explicit mode selected while power is off replaces the remembered mode."""
+    """An explicit mode selected while power is off is resumed by powering on."""
     set_node_attribute(matter_node, 1, 6, 0, False)
     await trigger_subscription_callback(hass, matter_client)
     matter_client.write_attribute.assert_not_called()
@@ -1006,9 +1006,7 @@ async def test_turn_on_uses_mode_selected_with_power_off(
     await hass.services.async_call(
         "climate", "turn_on", {"entity_id": ROOM_AC_ENTITY_ID}, blocking=True
     )
-    matter_client.write_attribute.assert_called_once_with(
-        node_id=matter_node.node_id, attribute_path="1/513/28", value=system_mode
-    )
+    matter_client.write_attribute.assert_not_called()
     matter_client.send_device_command.assert_called_once_with(
         node_id=matter_node.node_id, endpoint_id=1, command=clusters.OnOff.Commands.On()
     )
@@ -1019,7 +1017,7 @@ async def test_turn_on_uses_mode_selected_with_power_off(
 async def test_failed_mode_write_keeps_previous_mode(
     hass: HomeAssistant, matter_client: MagicMock, matter_node: MatterNode
 ) -> None:
-    """A failed mode write while power is off does not change the remembered mode."""
+    """A failed mode write while power is off keeps the mode the device resumes."""
     set_node_attribute(matter_node, 1, 6, 0, False)
     await trigger_subscription_callback(hass, matter_client)
     matter_client.write_attribute.side_effect = MatterError("Mode write failed")
@@ -1039,9 +1037,7 @@ async def test_failed_mode_write_keeps_previous_mode(
     await hass.services.async_call(
         "climate", "turn_on", {"entity_id": ROOM_AC_ENTITY_ID}, blocking=True
     )
-    matter_client.write_attribute.assert_called_once_with(
-        node_id=matter_node.node_id, attribute_path="1/513/28", value=4
-    )
+    matter_client.write_attribute.assert_not_called()
     matter_client.send_device_command.assert_called_once_with(
         node_id=matter_node.node_id, endpoint_id=1, command=clusters.OnOff.Commands.On()
     )
@@ -1069,9 +1065,36 @@ async def test_turn_on_uses_mode_kept_while_powered_off(
     await hass.services.async_call(
         "climate", "turn_on", {"entity_id": ROOM_AC_ENTITY_ID}, blocking=True
     )
-    matter_client.write_attribute.assert_called_once_with(
-        node_id=matter_node.node_id, attribute_path="1/513/28", value=3
-    )
+    matter_client.write_attribute.assert_not_called()
     matter_client.send_device_command.assert_called_once_with(
         node_id=matter_node.node_id, endpoint_id=1, command=clusters.OnOff.Commands.On()
     )
+
+
+@pytest.mark.parametrize("node_fixture", ["mock_room_airconditioner"])
+@pytest.mark.parametrize("attributes", [{"1/6/0": True, "1/513/28": 3}])
+async def test_turn_on_powers_on_before_writing_mode(
+    hass: HomeAssistant, matter_client: MagicMock, matter_node: MatterNode
+) -> None:
+    """Leave dead front before writing a mode, as writes may be rejected until then."""
+    set_node_attribute(matter_node, 1, 513, 28, 0)
+    set_node_attribute(matter_node, 1, 6, 0, False)
+    await trigger_subscription_callback(hass, matter_client)
+
+    await hass.services.async_call(
+        "climate", "turn_on", {"entity_id": ROOM_AC_ENTITY_ID}, blocking=True
+    )
+    assert [
+        mock_call
+        for mock_call in matter_client.mock_calls
+        if mock_call[0] in ("send_device_command", "write_attribute")
+    ] == [
+        call.send_device_command(
+            node_id=matter_node.node_id,
+            endpoint_id=1,
+            command=clusters.OnOff.Commands.On(),
+        ),
+        call.write_attribute(
+            node_id=matter_node.node_id, attribute_path="1/513/28", value=3
+        ),
+    ]
