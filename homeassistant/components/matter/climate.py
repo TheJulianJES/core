@@ -364,9 +364,6 @@ class MatterClimate(MatterEntity, ClimateEntity, RestoreEntity):
             value=system_mode_value,
             matter_attribute=clusters.Thermostat.Attributes.SystemMode,
         )
-        # Dedicated power can keep the reported HVAC mode off after a mode write.
-        if hvac_mode != HVACMode.OFF:
-            self._last_hvac_mode = hvac_mode
         # we need to optimistically update the attribute's value here
         # to prevent a race condition when adjusting the mode and temperature
         # in the same call
@@ -400,11 +397,11 @@ class MatterClimate(MatterEntity, ClimateEntity, RestoreEntity):
         self._update_presets()
 
         self._update_hvac_mode_and_action()
+        # Dead front keeps SystemMode while the reported HVAC mode is off.
         if (
-            self._attr_hvac_mode != HVACMode.OFF
-            and self._attr_hvac_mode in self.hvac_modes
-        ):
-            self._last_hvac_mode = self._attr_hvac_mode
+            system_hvac_mode := self._get_system_hvac_mode()
+        ) != HVACMode.OFF and system_hvac_mode in self.hvac_modes:
+            self._last_hvac_mode = system_hvac_mode
         self._update_target_temperatures()
         self._update_temperature_limits()
 
@@ -486,29 +483,7 @@ class MatterClimate(MatterEntity, ClimateEntity, RestoreEntity):
             self._attr_hvac_mode = HVACMode.OFF
             self._attr_hvac_action = None
         else:
-            # update hvac_mode from SystemMode
-            system_mode_value = int(
-                self.get_matter_attribute_value(
-                    clusters.Thermostat.Attributes.SystemMode
-                )
-            )
-            match system_mode_value:
-                case SystemModeEnum.kAuto:
-                    self._attr_hvac_mode = HVACMode.HEAT_COOL
-                case SystemModeEnum.kDry:
-                    self._attr_hvac_mode = HVACMode.DRY
-                case SystemModeEnum.kFanOnly:
-                    self._attr_hvac_mode = HVACMode.FAN_ONLY
-                case SystemModeEnum.kCool | SystemModeEnum.kPrecooling:
-                    self._attr_hvac_mode = HVACMode.COOL
-                case SystemModeEnum.kHeat | SystemModeEnum.kEmergencyHeat:
-                    self._attr_hvac_mode = HVACMode.HEAT
-                case SystemModeEnum.kFanOnly:
-                    self._attr_hvac_mode = HVACMode.FAN_ONLY
-                case SystemModeEnum.kDry:
-                    self._attr_hvac_mode = HVACMode.DRY
-                case _:
-                    self._attr_hvac_mode = HVACMode.OFF
+            self._attr_hvac_mode = self._get_system_hvac_mode()
             # running state is an optional attribute
             # which we map to hvac_action if it exists (its value is not None)
             self._attr_hvac_action = None
@@ -531,6 +506,25 @@ class MatterClimate(MatterEntity, ClimateEntity, RestoreEntity):
                     self._attr_hvac_action = HVACAction.FAN
                 else:
                     self._attr_hvac_action = HVACAction.OFF
+
+    @callback
+    def _get_system_hvac_mode(self) -> HVACMode:
+        """Return the HVAC mode set in SystemMode, ignoring dedicated power."""
+        match int(
+            self.get_matter_attribute_value(clusters.Thermostat.Attributes.SystemMode)
+        ):
+            case SystemModeEnum.kAuto:
+                return HVACMode.HEAT_COOL
+            case SystemModeEnum.kDry:
+                return HVACMode.DRY
+            case SystemModeEnum.kFanOnly:
+                return HVACMode.FAN_ONLY
+            case SystemModeEnum.kCool | SystemModeEnum.kPrecooling:
+                return HVACMode.COOL
+            case SystemModeEnum.kHeat | SystemModeEnum.kEmergencyHeat:
+                return HVACMode.HEAT
+            case _:
+                return HVACMode.OFF
 
     @callback
     def _update_target_temperatures(self) -> None:
