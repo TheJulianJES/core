@@ -1,6 +1,7 @@
 """Tests for ZHA helpers."""
 
 from collections.abc import Callable, Coroutine
+from datetime import timedelta
 import logging
 from typing import Any
 from unittest.mock import MagicMock, patch
@@ -34,6 +35,7 @@ from homeassistant.helpers import (
     label_registry as lr,
 )
 from homeassistant.setup import async_setup_component
+from homeassistant.util import dt as dt_util
 
 from .conftest import (
     FIXTURE_GRP_ID,
@@ -46,7 +48,7 @@ from .conftest import (
     SIG_EP_TYPE,
 )
 
-from tests.common import MockConfigEntry
+from tests.common import MockConfigEntry, async_fire_time_changed
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -640,6 +642,10 @@ async def test_zha_group_device_reconciled_on_startup(
         .device_id
     )
     assert device_id is not None
+    # a disabled group device disables its entities, too
+    device_registry.async_update_device(
+        device_id, disabled_by=dr.DeviceEntryDisabler.USER
+    )
     entity_entries = er.async_entries_for_device(
         entity_registry, device_id, include_disabled_entities=True
     )
@@ -647,9 +653,14 @@ async def test_zha_group_device_reconciled_on_startup(
 
     assert await hass.config_entries.async_unload(config_entry.entry_id)
     change_group(zigpy_app_controller_with_group)
-    assert await hass.config_entries.async_setup(config_entry.entry_id)
-    await hass.async_block_till_done(wait_background_tasks=True)
+    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+        assert await hass.config_entries.async_setup(config_entry.entry_id)
+        await hass.async_block_till_done(wait_background_tasks=True)
+        async_fire_time_changed(hass, dt_util.utcnow() + timedelta(seconds=31))
+        await hass.async_block_till_done(wait_background_tasks=True)
 
+    # resetting the removed device must not re-enable entities and reload ZHA
+    mock_reload.assert_not_called()
     assert (device_registry.async_get(device_id) is None) is device_removed
     for entry in entity_entries:
         assert entity_registry.async_get(entry.entity_id) is None
@@ -793,6 +804,58 @@ async def test_zha_group_entity_migrated_from_coordinator_device(
         )
         if "_zha_group_0x" in entry.unique_id
     ]
+
+
+@pytest.mark.parametrize(
+    ("domain", "legacy_unique_id"),
+    [
+        pytest.param(
+            "switch", f"switch_zha_group_0x{FIXTURE_GRP_ID:04x}", id="no_entities"
+        ),
+        pytest.param("light", "light_zha_group_0x3001", id="group_gone"),
+    ],
+)
+async def test_zha_group_stale_legacy_entity_removed_on_startup(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    config_entry: MockConfigEntry,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    domain: str,
+    legacy_unique_id: str,
+) -> None:
+    """Test legacy coordinator group entities that no longer exist are removed."""
+    config_entry.add_to_hass(hass)
+    coordinator_device = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            (
+                zha_const.DOMAIN,
+                str(zigpy_app_controller_with_group.state.node_info.ieee),
+            )
+        },
+    )
+    stale_entry = entity_registry.async_get_or_create(
+        domain,
+        zha_const.DOMAIN,
+        legacy_unique_id,
+        config_entry=config_entry,
+        device_id=coordinator_device.id,
+    )
+    # not a group entity, so it is left alone
+    other_entry = entity_registry.async_get_or_create(
+        "sensor",
+        zha_const.DOMAIN,
+        "sensor_zha_group_0xgggg",
+        config_entry=config_entry,
+        device_id=coordinator_device.id,
+    )
+
+    await setup_zha()
+
+    assert entity_registry.async_get(stale_entry.entity_id) is None
+    assert entity_registry.async_get(other_entry.entity_id) is not None
 
 
 async def test_zha_group_proxy_associated_entities(
