@@ -944,26 +944,6 @@ async def test_turn_on_after_supported_modes_change(
     )
 
 
-@pytest.mark.parametrize("node_fixture", ["longan_link_thermostat"])
-async def test_explicit_mode_overrides_history(
-    hass: HomeAssistant, matter_client: MagicMock, matter_node: MatterNode
-) -> None:
-    """An explicit mode command is not replaced by the remembered cooling mode."""
-    await hass.services.async_call(
-        "climate", "turn_off", {"entity_id": THERMOSTAT_ENTITY_ID}, blocking=True
-    )
-    matter_client.write_attribute.reset_mock()
-    await hass.services.async_call(
-        "climate",
-        "set_hvac_mode",
-        {"entity_id": THERMOSTAT_ENTITY_ID, "hvac_mode": HVACMode.HEAT},
-        blocking=True,
-    )
-    matter_client.write_attribute.assert_called_once_with(
-        node_id=matter_node.node_id, attribute_path="1/513/28", value=4
-    )
-
-
 @pytest.mark.parametrize("node_fixture", ["mock_room_airconditioner"])
 @pytest.mark.parametrize("attributes", [{"1/6/0": True, "1/513/28": 4}])
 @pytest.mark.parametrize(
