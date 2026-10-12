@@ -662,6 +662,30 @@ async def test_zha_group_proxy_associated_entities(
         )
 
 
+async def test_zha_group_entity_reference_follows_entity_id_change(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[Any, Any, None]],
+    zigpy_app_controller_with_group: ControllerApplication,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test a renamed group entity is still reported for the group members."""
+    await setup_zha()
+
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    group_proxy = gateway_proxy.group_proxies[FIXTURE_GRP_WITH_ENTITIES_ID]
+    assert group_proxy.device_id is not None
+
+    [entry] = er.async_entries_for_device(entity_registry, group_proxy.device_id)
+    new_entity_id = f"{entry.domain}.renamed_group"
+    entity_registry.async_update_entity(entry.entity_id, new_entity_id=new_entity_id)
+    await hass.async_block_till_done()
+
+    assert gateway_proxy.get_entity_reference(entry.entity_id) is None
+    assert gateway_proxy.get_entity_reference(new_entity_id) is not None
+    for member in group_proxy.group_info["members"]:
+        assert [entity["entity_id"] for entity in member["entities"]] == [new_entity_id]
+
+
 async def test_zha_group_cleanup_leaves_other_integrations_alone(
     hass: HomeAssistant,
     setup_zha: Callable[..., Coroutine[Any, Any, None]],

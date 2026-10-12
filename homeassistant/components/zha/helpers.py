@@ -1024,10 +1024,10 @@ class ZHAGatewayProxy(EventBase):
 
     def update_entity_reference(self, entity: ZHAEntity, old_entity_id: str) -> None:
         """Update the entity_id of the entity reference for a renamed entity."""
-        ieee = entity.entity_data.device_proxy.device.ieee
-        if (entity_refs := self._ha_entity_refs.get(ieee)) is None:
+        key = _entity_reference_key(entity.entity_data)
+        if (entity_refs := self._ha_entity_refs.get(key)) is None:
             return
-        self._ha_entity_refs[ieee] = [
+        self._ha_entity_refs[key] = [
             e._replace(ha_entity_id=entity.entity_id)
             if e.ha_entity_id == old_entity_id
             else e
