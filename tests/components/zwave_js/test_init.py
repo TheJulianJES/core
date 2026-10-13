@@ -1397,27 +1397,47 @@ async def test_issue_registry(
     assert not issue_registry.async_get_issue(DOMAIN, "invalid_server_version")
 
 
-@pytest.mark.usefixtures("addon_running", "client")
+@pytest.mark.usefixtures("addon_running")
 @pytest.mark.parametrize(
-    ("stop_addon_side_effect", "entry_state", "entry_reason"),
+    ("unload_platforms_ok", "stop_addon_side_effect", "entry_state", "entry_reason"),
     [
-        (None, ConfigEntryState.NOT_LOADED, None),
-        (
+        pytest.param(
+            True, None, ConfigEntryState.NOT_LOADED, None, id="unload_ok-stop_ok"
+        ),
+        pytest.param(
+            True,
             SupervisorError("Boom"),
             ConfigEntryState.FAILED_UNLOAD,
             "Failed to stop the Z-Wave JS app",
+            id="unload_ok-stop_fails",
+        ),
+        pytest.param(
+            False,
+            None,
+            ConfigEntryState.FAILED_UNLOAD,
+            "Failed to unload one or more platforms",
+            id="unload_fails-stop_ok",
+        ),
+        pytest.param(
+            False,
+            SupervisorError("Boom"),
+            ConfigEntryState.FAILED_UNLOAD,
+            "Failed to stop the Z-Wave JS app",
+            id="unload_fails-stop_fails",
         ),
     ],
 )
 async def test_stop_addon(
     hass: HomeAssistant,
+    client: MagicMock,
     addon_options: dict[str, Any],
     stop_addon: AsyncMock,
+    unload_platforms_ok: bool,
     stop_addon_side_effect: Exception | None,
     entry_state: ConfigEntryState,
     entry_reason: str | None,
 ) -> None:
-    """Test stop the Z-Wave JS add-on on entry unload if entry is disabled."""
+    """Test server logging is disabled and the add-on is stopped on unload if disabled."""
     stop_addon.side_effect = stop_addon_side_effect
     device = "/test"
     network_key = "abc123"
@@ -1439,14 +1459,22 @@ async def test_stop_addon(
     await hass.async_block_till_done()
 
     assert entry.state is ConfigEntryState.LOADED
+    client.disable_server_logging.reset_mock()
 
-    await hass.config_entries.async_set_disabled_by(
-        entry.entry_id, ConfigEntryDisabler.USER
-    )
-    await hass.async_block_till_done()
+    # Server logging and the add-on are cleaned up even if unloading platforms fails
+    with patch.object(
+        hass.config_entries,
+        "async_unload_platforms",
+        return_value=unload_platforms_ok,
+    ):
+        await hass.config_entries.async_set_disabled_by(
+            entry.entry_id, ConfigEntryDisabler.USER
+        )
+        await hass.async_block_till_done()
 
     assert entry.state is entry_state
     assert entry.reason == entry_reason
+    assert client.disable_server_logging.call_count == 1
     assert stop_addon.call_count == 1
     assert stop_addon.call_args == call("core_zwave_js")
 
