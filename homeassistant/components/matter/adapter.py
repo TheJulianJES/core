@@ -14,7 +14,12 @@ from homeassistant.helpers.typing import UNDEFINED, UndefinedType
 
 from .const import DOMAIN, ID_TYPE_DEVICE_ID, ID_TYPE_SERIAL, LOGGER
 from .discovery import async_discover_entities
-from .helpers import MatterConfigEntry, get_device_endpoint, get_device_id
+from .helpers import (
+    MatterConfigEntry,
+    get_device_endpoint,
+    get_device_id,
+    get_discovery_key,
+)
 
 if TYPE_CHECKING:
     from matter_server.client import MatterClient
@@ -275,12 +280,7 @@ class MatterAdapter:
         self._create_device_registry(endpoint)
         # run platform discovery from device type instances
         for entity_info in async_discover_entities(endpoint):
-            discovery_key = (
-                f"{entity_info.platform}_{endpoint.node.node_id}_{endpoint.endpoint_id}_"
-                f"{entity_info.primary_attribute.cluster_id}_"
-                f"{entity_info.primary_attribute.attribute_id}_"
-                f"{entity_info.entity_description.key}"
-            )
+            discovery_key = get_discovery_key(endpoint, entity_info)
             if discovery_key in self.discovered_entities:
                 continue
             LOGGER.debug(
