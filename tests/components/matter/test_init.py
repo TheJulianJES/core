@@ -746,13 +746,47 @@ async def test_ipv6_repair_resolves_on_reload(
 
 
 @pytest.mark.parametrize(
-    ("stop_addon_side_effect", "entry_state", "entry_reason"),
+    (
+        "unload_platforms_ok",
+        "stop_addon_side_effect",
+        "entry_state",
+        "entry_reason",
+        "expected_lingering_tasks",
+    ),
     [
-        (None, ConfigEntryState.NOT_LOADED, None),
-        (
+        pytest.param(
+            True,
+            None,
+            ConfigEntryState.NOT_LOADED,
+            None,
+            False,
+            id="unload_ok-stop_ok",
+        ),
+        pytest.param(
+            True,
             SupervisorError("Boom"),
             ConfigEntryState.FAILED_UNLOAD,
             "Failed to stop the Matter Server app",
+            False,
+            id="unload_ok-stop_fails",
+        ),
+        # The client is only torn down after a successful platform unload,
+        # so its listen task is still running when the test ends.
+        pytest.param(
+            False,
+            None,
+            ConfigEntryState.FAILED_UNLOAD,
+            "Failed to unload one or more platforms",
+            True,
+            id="unload_fails-stop_ok",
+        ),
+        pytest.param(
+            False,
+            SupervisorError("Boom"),
+            ConfigEntryState.FAILED_UNLOAD,
+            "Failed to stop the Matter Server app",
+            True,
+            id="unload_fails-stop_fails",
         ),
     ],
 )
@@ -763,6 +797,7 @@ async def test_stop_addon(
     addon_running: AsyncMock,
     addon_info: AsyncMock,
     stop_addon: AsyncMock,
+    unload_platforms_ok: bool,
     stop_addon_side_effect: Exception | None,
     entry_state: ConfigEntryState,
     entry_reason: str | None,
@@ -786,10 +821,16 @@ async def test_stop_addon(
     assert addon_info.call_count == 1
     addon_info.reset_mock()
 
-    await hass.config_entries.async_set_disabled_by(
-        entry.entry_id, ConfigEntryDisabler.USER
-    )
-    await hass.async_block_till_done()
+    # The add-on is stopped even if unloading platforms fails
+    with patch.object(
+        hass.config_entries,
+        "async_unload_platforms",
+        return_value=unload_platforms_ok,
+    ):
+        await hass.config_entries.async_set_disabled_by(
+            entry.entry_id, ConfigEntryDisabler.USER
+        )
+        await hass.async_block_till_done()
 
     assert entry.state is entry_state
     assert entry.reason == entry_reason
