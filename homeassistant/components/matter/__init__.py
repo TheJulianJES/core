@@ -70,11 +70,13 @@ def get_matter_device_info(
         node := node_from_ha_device_id(hass, device_id)
     ):
         return None
+    if (device_info := node.device_info) is None:
+        return None
 
     return MatterDeviceInfo(
-        unique_id=node.device_info.uniqueID or "",
-        vendor_id=hex(node.device_info.vendorID),
-        product_id=hex(node.device_info.productID),
+        unique_id=device_info.uniqueID or "",
+        vendor_id=hex(device_info.vendorID),
+        product_id=hex(device_info.productID),
     )
 
 

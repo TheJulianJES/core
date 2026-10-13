@@ -178,7 +178,9 @@ class MatterAdapter:
         # so derive that entry from the compose parent for every one of them.
         endpoint = get_device_endpoint(endpoint)
 
-        basic_info = endpoint.device_info
+        # a Bridged Node without BridgedDeviceBasicInformation gets a device without its info
+        basic_info = endpoint.device_info or clusters.BridgedDeviceBasicInformation()
+        node_info = endpoint.node.device_info
         # use (first) DeviceType of the endpoint as fallback product name
         device_type = next(
             (
@@ -225,7 +227,8 @@ class MatterAdapter:
             # which would make the identifier resolve to the bridge's device
             and not (
                 isinstance(basic_info, clusters.BridgedDeviceBasicInformation)
-                and basic_info_serial_number == endpoint.node.device_info.serialNumber
+                and node_info is not None
+                and basic_info_serial_number == node_info.serialNumber
             )
         ):
             # prefix identifier with 'serial_' to be able to filter it
@@ -267,7 +270,8 @@ class MatterAdapter:
             identifiers=identifiers,
             hw_version=basic_info.hardwareVersionString,
             sw_version=basic_info.softwareVersionString,
-            manufacturer=basic_info.vendorName or endpoint.node.device_info.vendorName,
+            manufacturer=basic_info.vendorName
+            or (node_info.vendorName if node_info is not None else None),
             model=model_name,
             model_id=model_id,
             serial_number=serial_number,

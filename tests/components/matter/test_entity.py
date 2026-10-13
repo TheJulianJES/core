@@ -13,6 +13,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 
 from .common import (
+    _setup_integration_with_nodes,
+    create_node_from_fixture,
     set_node_attribute,
     set_node_attribute_and_notify,
     setup_integration_with_node_fixture,
@@ -1004,3 +1006,111 @@ async def test_entity_removed_for_other_reason_in_same_batch(
     await hass.async_block_till_done()
 
     assert entity_registry.async_get(entity_id) is None
+
+
+@pytest.mark.parametrize("node_fixture", ["silabs_fan"])
+async def test_node_update_without_wind_setting(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+) -> None:
+    """Test a fan falls back to its fan mode preset without a wind setting."""
+    entity_id = "fan.sl_fan"
+    await set_node_attribute_and_notify(
+        hass,
+        matter_client,
+        matter_node,
+        endpoint=1,
+        cluster_id=514,
+        attribute_id=10,
+        value=2,
+    )
+    state = hass.states.get(entity_id)
+    assert state is not None
+    assert state.attributes["preset_mode"] == "natural_wind"
+
+    node_data = copy.deepcopy(matter_node.node_data)
+    del node_data.attributes["1/514/10"]
+    matter_node.update(node_data)
+    await trigger_subscription_callback(
+        hass,
+        matter_client,
+        EventType.NODE_UPDATED,
+        matter_node,
+        node_id=matter_node.node_id,
+    )
+
+    state = hass.states.get(entity_id)
+    assert state is not None
+    assert state.attributes["preset_mode"] == "low"
+
+
+@pytest.mark.parametrize(
+    ("node_fixture", "entity_id", "removed_path", "check_attribute"),
+    [
+        (
+            "extended_color_light",
+            "light.mock_extended_color_light",
+            "1/8/0",
+            "brightness",
+        ),
+        (
+            "extended_color_light",
+            "light.mock_extended_color_light",
+            "1/768/0",
+            "hs_color",
+        ),
+    ],
+)
+async def test_node_update_without_optional_attribute(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_id: str,
+    removed_path: str,
+    check_attribute: str,
+) -> None:
+    """Test a node update without an optional attribute the entity reads.
+
+    The client resets the endpoint to the node update, so the attribute reads as
+    None even without a null value before it.
+    """
+    node_data = copy.deepcopy(matter_node.node_data)
+    del node_data.attributes[removed_path]
+    matter_node.update(node_data)
+    await trigger_subscription_callback(
+        hass,
+        matter_client,
+        EventType.NODE_UPDATED,
+        matter_node,
+        node_id=matter_node.node_id,
+    )
+
+    state = hass.states.get(entity_id)
+    assert state is not None
+    assert state.state == "on"
+    assert state.attributes[check_attribute] is None
+
+
+async def test_bridged_node_without_device_info(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    matter_client: MagicMock,
+) -> None:
+    """Test a Bridged Node without BridgedDeviceBasicInformation is set up."""
+    node = create_node_from_fixture("fritz_bridge")
+    node_data = copy.deepcopy(node.node_data)
+    node_data.attributes = {
+        path: value
+        for path, value in node_data.attributes.items()
+        if not path.startswith("42/57/")
+    }
+
+    await _setup_integration_with_nodes(hass, matter_client, [MatterNode(node_data)])
+
+    # the entities of endpoints 40 and 41 belong to the device of the Bridged Node (42)
+    for endpoint_id in (40, 41):
+        assert any(
+            entity.platform == "matter" and f"-42-{endpoint_id}-" in entity.unique_id
+            for entity in entity_registry.entities.values()
+        )

@@ -161,8 +161,12 @@ class MatterEntity(Entity):
         """Find all labels for a Matter entity."""
 
         device_info = self._endpoint.device_info
-        labeling_list = VENDOR_LABELING_LIST.get(device_info.vendorID, {}).get(
-            device_info.productID
+        labeling_list = (
+            VENDOR_LABELING_LIST.get(device_info.vendorID, {}).get(
+                device_info.productID
+            )
+            if device_info is not None
+            else None
         )
 
         # get the labels from the UserLabel and FixedLabel clusters
