@@ -11519,9 +11519,10 @@ async def test_remove_device_not_restorable_removes_orphaned_device(
     assert new_device.name_by_user is None
 
 
+@pytest.mark.usefixtures("hass")
 async def test_remove_child_device_not_restorable(
-    hass: HomeAssistant,
     device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
     mock_config_entry: MockConfigEntry,
 ) -> None:
     """Test a child device removed with restorable=False is not restored."""
@@ -11531,12 +11532,21 @@ async def test_remove_child_device_not_restorable(
     device_registry.async_update_child_device(
         child_device.id, labels={"outdoor"}, name_by_user="Lamp"
     )
+    entity = entity_registry.async_get_or_create(
+        "switch",
+        "test",
+        "outlet_1",
+        config_entry=mock_config_entry,
+        device_id=child_device.id,
+    )
 
     device_registry.async_remove_device(child_device.id, restorable=False)
 
     assert device_registry.async_get(child_device.id) is None
     assert device_registry.async_get(parent.id) is not None
     assert not device_registry._deleted_devices
+    assert entity_registry.async_get(entity.entity_id) is None
+    assert not entity_registry.deleted_entities
 
     new_child = device_registry.async_get_or_create_child(
         config_entry_id=mock_config_entry.entry_id,
@@ -11549,9 +11559,10 @@ async def test_remove_child_device_not_restorable(
     assert new_child.name_by_user is None
 
 
+@pytest.mark.usefixtures("hass")
 async def test_remove_parent_device_not_restorable_removes_child(
-    hass: HomeAssistant,
     device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
     mock_config_entry: MockConfigEntry,
 ) -> None:
     """Test a child device removed with its parent with restorable=False is not kept."""
@@ -11561,12 +11572,21 @@ async def test_remove_parent_device_not_restorable_removes_child(
     device_registry.async_update_child_device(
         child_device.id, labels={"outdoor"}, name_by_user="Lamp"
     )
+    entity = entity_registry.async_get_or_create(
+        "switch",
+        "test",
+        "outlet_1",
+        config_entry=mock_config_entry,
+        device_id=child_device.id,
+    )
 
     device_registry.async_remove_device(parent.id, restorable=False)
 
     assert device_registry.async_get(parent.id) is None
     assert device_registry.async_get(child_device.id) is None
     assert not device_registry._deleted_devices
+    assert entity_registry.async_get(entity.entity_id) is None
+    assert not entity_registry.deleted_entities
 
     new_parent = device_registry.async_get_or_create(
         config_entry_id=mock_config_entry.entry_id,

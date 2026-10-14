@@ -4330,14 +4330,14 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
 
         A removed device is kept as a deleted device, which is restored with its id and
         user customizations when a device with the same identifiers or connections is
-        created again. Pass restorable=False when the device is gone for good, e.g.
+        registered again by the same integration. Pass restorable=False when the device is gone for good, e.g.
         when the integration may reuse its identifiers for an unrelated device. Its
         child devices and its own entities (same config entry and subentry) are then
         removed without being kept either, and orphaned deleted devices of the same
         integration with the same identifiers or connections are removed.
         """
         if (child_device := self._child_device_data.get(device_id)) is not None:
-            self._async_remove_child_device(child_device, restorable)
+            self._async_remove_child_device(child_device, restorable=restorable)
             return
         if (
             underlying_ids := self._async_device_ids_for_composite_device_id(device_id)
@@ -4348,7 +4348,7 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
         self.hass.verify_event_loop_thread("device_registry.async_remove_device")
         # Removing the parent removes its child devices
         for child in self._child_devices.get_children_for_device_id(device_id):
-            self._async_remove_child_device(child, restorable)
+            self._async_remove_child_device(child, restorable=restorable)
         device = self._devices.pop(device_id)
         config_entry = self.hass.config_entries.async_get_entry(device.config_entry_id)
         if not restorable:
@@ -4382,7 +4382,7 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
 
     @callback
     def _async_remove_child_device(
-        self, child_device: ChildDeviceEntry, restorable: bool
+        self, child_device: ChildDeviceEntry, *, restorable: bool
     ) -> None:
         """Remove a child device from the device registry."""
         self.hass.verify_event_loop_thread("device_registry.async_remove_device")
@@ -4441,6 +4441,7 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
                 and entity.config_subentry_id == device.config_subentry_id
             ):
                 ent_reg.async_remove(entity.entity_id, restorable=False)
+        # Orphans are matched by domain, which is unknown without the config entry
         if config_entry is None:
             return
         connections = (
