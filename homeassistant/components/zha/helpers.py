@@ -67,6 +67,7 @@ from zha.application.platforms import GroupEntity, PlatformEntity
 from zha.event import EventBase
 from zha.exceptions import ZHAException
 from zha.mixins import LogMixin
+from zha.zigbee.child_device import ChildDevice
 from zha.zigbee.device import (
     ClusterBindEvent,
     ClusterConfigureReportingEvent,
@@ -117,6 +118,7 @@ from homeassistant.helpers import (
     config_validation as cv,
     device_registry as dr,
     entity_registry as er,
+    translation,
 )
 from homeassistant.helpers.dispatcher import async_dispatcher_send, dispatcher_send
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -647,8 +649,8 @@ class ZHAGatewayProxy(EventBase):
             or entity_entry.device_id is None
         ):
             return
-        device_entry: dr.AnyDeviceEntry | None = dr.async_get(self.hass).async_get(
-            entity_entry.device_id
+        device_entry = async_get_zha_main_device_entry(
+            dr.async_get(self.hass), entity_entry.device_id
         )
         assert device_entry
 
@@ -946,6 +948,69 @@ class ZHAGatewayProxy(EventBase):
 
         return zha_device_proxy
 
+    @callback
+    def _async_reconcile_child_devices(self, device_proxy: ZHADeviceProxy) -> None:
+        """Sync the child devices of a device and the entities on them to ZHA.
+
+        Entities are moved explicitly, as disabled entities are never added (which is
+        when their device info is applied), and child devices ZHA no longer defines,
+        e.g. after a re-interview, are removed after moving their entities back to the
+        main device, so entity customizations survive.
+        """
+        device_registry = dr.async_get(self.hass)
+        entity_registry = er.async_get(self.hass)
+        zha_device = device_proxy.device
+        parent_device_id = device_proxy.device_id
+
+        target_devices: dict[str | None, dr.AnyDeviceEntry] = {}
+        if (parent := device_registry.async_get(parent_device_id)) is None:
+            return
+        target_devices[None] = parent
+
+        for child_device in zha_device.child_devices.values():
+            target_devices[child_device.id] = device_registry.async_get_or_create_child(
+                config_entry_id=self.config_entry.entry_id,
+                parent_device_id=parent_device_id,
+                identifiers={
+                    get_child_device_identifier(str(zha_device.ieee), child_device.id)
+                },
+                **async_get_child_device_name(self.hass, child_device),
+            )
+
+        for entity in zha_device.platform_entities.values():
+            if entity.PLATFORM is ZhaPlatform.VIRTUAL:
+                continue
+
+            if (
+                entity_id := entity_registry.async_get_entity_id(
+                    Platform(entity.PLATFORM), DOMAIN, entity.unique_id
+                )
+            ) is None:
+                continue
+
+            child_device_id = (
+                entity.child_device.id if entity.child_device is not None else None
+            )
+            _async_move_entity(
+                entity_registry, entity_id, target_devices[child_device_id]
+            )
+
+        expected_child_ids = {
+            device.id for device in target_devices.values() if device is not parent
+        }
+        for stale_child in dr.async_entries_for_parent_device(
+            device_registry, parent_device_id
+        ):
+            if stale_child.id in expected_child_ids:
+                continue
+
+            for entity_entry in er.async_entries_for_device(
+                entity_registry, stale_child.id, include_disabled_entities=True
+            ):
+                _async_move_entity(entity_registry, entity_entry.entity_id, parent)
+
+            device_registry.async_remove_device(stale_child.id)
+
     def _async_get_or_create_group_proxy(self, group_info: GroupInfo) -> ZHAGroupProxy:
         """Get or create a ZHA group."""
         zha_group_proxy = self.group_proxies.get(group_info.group_id)
@@ -966,6 +1031,8 @@ class ZHAGatewayProxy(EventBase):
         ]
 
         if isinstance(proxy_object, ZHADeviceProxy):
+            self._async_reconcile_child_devices(proxy_object)
+
             for entity in proxy_object.device.platform_entities.values():
                 if entity.PLATFORM is ZhaPlatform.VIRTUAL:
                     continue
@@ -1193,11 +1260,91 @@ def get_config_entry(hass: HomeAssistant) -> ConfigEntry:
     return gateway_proxy.config_entry
 
 
+def get_child_device_identifier(ieee: str, child_device_id: str) -> tuple[str, str]:
+    """Return the device registry identifier of a child device of a ZHA device."""
+    return (DOMAIN, f"{ieee}-{child_device_id}")
+
+
+@callback
+def async_get_child_device_name(
+    hass: HomeAssistant, child_device: ChildDevice
+) -> dict[str, Any]:
+    """Return the name of a child device as device registry keyword arguments.
+
+    Built-in child devices have translations in HA, so those are used. Custom quirks
+    with new translation keys won't have translations, so the fallback name is used.
+    """
+    if (translation_key := child_device.translation_key) is not None and (
+        f"component.{DOMAIN}.device.{translation_key}.name"
+        in translation.async_get_cached_translations(
+            hass, hass.config.language, "device", DOMAIN
+        )
+    ):
+        return {
+            "translation_key": translation_key,
+            "translation_placeholders": (
+                dict(child_device.translation_placeholders)
+                if child_device.translation_placeholders is not None
+                else None
+            ),
+        }
+
+    return {"name": child_device.fallback_name}
+
+
+@callback
+def _async_move_entity(
+    entity_registry: er.EntityRegistry,
+    entity_id: str,
+    device: dr.AnyDeviceEntry,
+) -> None:
+    """Move an entity registry entry to another device of the same ZHA device."""
+    entity_entry = entity_registry.async_get(entity_id)
+    assert entity_entry is not None
+
+    if entity_entry.device_id == device.id:
+        return
+
+    changes: dict[str, Any] = {"device_id": device.id}
+
+    # An entity disabled along with its old device must not stay disabled on a new
+    # enabled one, and vice versa
+    if (
+        entity_entry.disabled_by is er.RegistryEntryDisabler.DEVICE
+        and device.disabled_by is None
+    ):
+        changes["disabled_by"] = None
+    elif entity_entry.disabled_by is None and device.disabled_by is not None:
+        changes["disabled_by"] = er.RegistryEntryDisabler.DEVICE
+
+    entity_registry.async_update_entity(entity_id, **changes)
+
+
+@callback
+def async_get_zha_main_device_entry(
+    device_registry: dr.DeviceRegistry, device_id: str
+) -> dr.DeviceEntry | None:
+    """Return the device registry entry of a ZHA device, also for a child device."""
+    registry_device = device_registry.async_get(device_id)
+
+    # A child device is a logical part of a ZHA device (e.g. one gang of a switch),
+    # whose Zigbee device is its parent device
+    if isinstance(registry_device, dr.ChildDeviceEntry):
+        return device_registry.async_get(
+            registry_device.parent_device_id, include_child_devices=False
+        )
+
+    return registry_device
+
+
 @callback
 def async_get_zha_device_proxy(hass: HomeAssistant, device_id: str) -> ZHADeviceProxy:
-    """Get a ZHA device for the given device registry id."""
+    """Get a ZHA device for the given device registry id.
+
+    A child device id resolves to its parent ZHA device.
+    """
     device_registry = dr.async_get(hass)
-    registry_device = device_registry.async_get(device_id)
+    registry_device = async_get_zha_main_device_entry(device_registry, device_id)
     if not registry_device:
         _LOGGER.error("Device id `%s` not found in registry", device_id)
         raise KeyError(f"Device id `{device_id}` not found in registry.")
