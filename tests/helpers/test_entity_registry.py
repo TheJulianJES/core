@@ -493,6 +493,28 @@ async def test_remove_not_restorable(
     assert new_entry.name is None
 
 
+def test_remove_not_restorable_after_unique_id_update(
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test restorable=False removes a deleted entity with the same unique id.
+
+    Updating an entity to the unique id of a deleted entity keeps the deleted entity.
+    """
+    entry = entity_registry.async_get_or_create("light", "hue", "1234")
+    entry = entity_registry.async_update_entity(entry.entity_id, name="Old name")
+    entity_registry.async_remove(entry.entity_id)
+    other_entry = entity_registry.async_get_or_create("light", "hue", "5678")
+    entity_registry.async_update_entity(other_entry.entity_id, new_unique_id="1234")
+    assert list(entity_registry.deleted_entities) == [("light", "hue", "1234")]
+
+    entity_registry.async_remove(other_entry.entity_id, restorable=False)
+
+    assert not entity_registry.deleted_entities
+    new_entry = entity_registry.async_get_or_create("light", "hue", "1234")
+    assert new_entry.id not in (entry.id, other_entry.id)
+    assert new_entry.name is None
+
+
 def test_create_triggers_save(entity_registry: er.EntityRegistry) -> None:
     """Test that registering entry triggers a save."""
     with patch.object(entity_registry, "async_schedule_save") as mock_schedule_save:

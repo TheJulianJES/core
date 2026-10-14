@@ -2720,7 +2720,10 @@ async def test_async_get_devices_multiple_keys(
     assert len(devices) == 2
 
 
-@pytest.mark.parametrize("restorable", [True, False])
+@pytest.mark.parametrize(
+    "restorable",
+    [pytest.param(True, id="restorable"), pytest.param(False, id="not_restorable")],
+)
 async def test_async_remove_device_fans_out_to_migration_composite(
     hass: HomeAssistant, device_registry: dr.DeviceRegistry, restorable: bool
 ) -> None:
@@ -11432,46 +11435,150 @@ async def test_remove_device_not_restorable(
     assert new_device.name_by_user is None
 
 
-@pytest.mark.parametrize("remove_parent", [True, False])
+async def test_remove_device_not_restorable_removes_entities(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    mock_config_entry: MockConfigEntry,
+) -> None:
+    """Test removing a device with restorable=False does not keep its entities.
+
+    Entities of other config entries are not removed.
+    """
+    other_config_entry = MockConfigEntry(domain="other")
+    other_config_entry.add_to_hass(hass)
+    device = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id,
+        identifiers={("bridgeid", "0123")},
+    )
+    entity = entity_registry.async_get_or_create(
+        "light",
+        "hue",
+        "1234",
+        config_entry=mock_config_entry,
+        device_id=device.id,
+    )
+    entity = entity_registry.async_update_entity(
+        entity.entity_id, name="Custom name", new_entity_id="light.custom"
+    )
+    other_entity = entity_registry.async_get_or_create(
+        "light",
+        "other",
+        "5678",
+        config_entry=other_config_entry,
+        device_id=device.id,
+    )
+
+    device_registry.async_remove_device(device.id, restorable=False)
+    await hass.async_block_till_done()
+
+    assert entity_registry.async_get(entity.entity_id) is None
+    assert not entity_registry.deleted_entities
+    other_entity = entity_registry.async_get(other_entity.entity_id)
+    assert other_entity is not None
+    assert other_entity.device_id is None
+
+    new_entity = entity_registry.async_get_or_create(
+        "light", "hue", "1234", config_entry=mock_config_entry
+    )
+    assert new_entity.id != entity.id
+    assert new_entity.entity_id == "light.hue_1234"
+    assert new_entity.name is None
+
+
+async def test_remove_device_not_restorable_removes_orphaned_device(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    mock_config_entry: MockConfigEntry,
+) -> None:
+    """Test removing a device with restorable=False removes matching orphans.
+
+    The orphaned deleted device of a removed config entry of the same integration
+    would otherwise be restored for the next device with the same identifiers.
+    """
+    removed_config_entry = MockConfigEntry(domain=mock_config_entry.domain)
+    removed_config_entry.add_to_hass(hass)
+    identifiers = {("bridgeid", "0123")}
+    orphan = device_registry.async_get_or_create(
+        config_entry_id=removed_config_entry.entry_id, identifiers=identifiers
+    )
+    device_registry.async_update_device(orphan.id, name_by_user="Old name")
+    device = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id, identifiers=identifiers
+    )
+    await hass.config_entries.async_remove(removed_config_entry.entry_id)
+    assert orphan.id in device_registry._deleted_devices
+
+    device_registry.async_remove_device(device.id, restorable=False)
+
+    assert not device_registry._deleted_devices
+    new_device = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id, identifiers=identifiers
+    )
+    assert new_device.id not in (orphan.id, device.id)
+    assert new_device.name_by_user is None
+
+
 async def test_remove_child_device_not_restorable(
     hass: HomeAssistant,
     device_registry: dr.DeviceRegistry,
     mock_config_entry: MockConfigEntry,
-    remove_parent: bool,
 ) -> None:
-    """Test a child device removed with restorable=False is not restored.
-
-    This applies both when removing the child device itself and when it is removed
-    together with its parent.
-    """
+    """Test a child device removed with restorable=False is not restored."""
     parent, child_device = _create_parent_and_child(
         device_registry, mock_config_entry.entry_id
     )
     device_registry.async_update_child_device(
         child_device.id, labels={"outdoor"}, name_by_user="Lamp"
     )
-    update_events = async_capture_events(hass, dr.EVENT_DEVICE_REGISTRY_UPDATED)
 
-    device_registry.async_remove_device(
-        parent.id if remove_parent else child_device.id, restorable=False
-    )
-    await hass.async_block_till_done()
+    device_registry.async_remove_device(child_device.id, restorable=False)
 
     assert device_registry.async_get(child_device.id) is None
+    assert device_registry.async_get(parent.id) is not None
     assert not device_registry._deleted_devices
-    assert {event.data["device_id"] for event in update_events} == (
-        {parent.id, child_device.id} if remove_parent else {child_device.id}
-    )
 
     new_child = device_registry.async_get_or_create_child(
         config_entry_id=mock_config_entry.entry_id,
         identifiers={("test", "strip_outlet_1")},
-        parent_device_id=device_registry.async_get_or_create(
-            config_entry_id=mock_config_entry.entry_id,
-            identifiers={("test", "strip")},
-        ).id,
+        parent_device_id=parent.id,
         name="Outlet 1",
     )
+    assert new_child.id != child_device.id
+    assert new_child.labels == set()
+    assert new_child.name_by_user is None
+
+
+async def test_remove_parent_device_not_restorable_removes_child(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    mock_config_entry: MockConfigEntry,
+) -> None:
+    """Test a child device removed with its parent with restorable=False is not kept."""
+    parent, child_device = _create_parent_and_child(
+        device_registry, mock_config_entry.entry_id
+    )
+    device_registry.async_update_child_device(
+        child_device.id, labels={"outdoor"}, name_by_user="Lamp"
+    )
+
+    device_registry.async_remove_device(parent.id, restorable=False)
+
+    assert device_registry.async_get(parent.id) is None
+    assert device_registry.async_get(child_device.id) is None
+    assert not device_registry._deleted_devices
+
+    new_parent = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id,
+        identifiers={("test", "strip")},
+    )
+    new_child = device_registry.async_get_or_create_child(
+        config_entry_id=mock_config_entry.entry_id,
+        identifiers={("test", "strip_outlet_1")},
+        parent_device_id=new_parent.id,
+        name="Outlet 1",
+    )
+    assert new_parent.id != parent.id
     assert new_child.id != child_device.id
     assert new_child.labels == set()
     assert new_child.name_by_user is None

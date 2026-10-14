@@ -4331,8 +4331,10 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
         A removed device is kept as a deleted device, which is restored with its id and
         user customizations when a device with the same identifiers or connections is
         created again. Pass restorable=False when the device is gone for good, e.g.
-        when the integration may reuse its identifiers for an unrelated device. This
-        applies to the device's child devices too, but not to its entities.
+        when the integration may reuse its identifiers for an unrelated device. The
+        device's child devices and its entities are then removed without being kept
+        either, and orphaned deleted devices of the same integration with the same
+        identifiers or connections are removed.
         """
         if (child_device := self._child_device_data.get(device_id)) is not None:
             self._async_remove_child_device(child_device, restorable)
@@ -4348,10 +4350,10 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
         for child in self._child_devices.get_children_for_device_id(device_id):
             self._async_remove_child_device(child, restorable)
         device = self._devices.pop(device_id)
-        if restorable:
-            config_entry = self.hass.config_entries.async_get_entry(
-                device.config_entry_id
-            )
+        config_entry = self.hass.config_entries.async_get_entry(device.config_entry_id)
+        if not restorable:
+            self._async_remove_restore_data(device, config_entry)
+        else:
             self._deleted_devices[device_id] = DeletedDeviceEntry(
                 area_id=device.area_id,
                 config_entry_id=device.config_entry_id,
@@ -4385,10 +4387,12 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
         """Remove a child device from the device registry."""
         self.hass.verify_event_loop_thread("device_registry.async_remove_device")
         del self._child_devices[child_device.id]
-        if restorable:
-            config_entry = self.hass.config_entries.async_get_entry(
-                child_device.config_entry_id
-            )
+        config_entry = self.hass.config_entries.async_get_entry(
+            child_device.config_entry_id
+        )
+        if not restorable:
+            self._async_remove_restore_data(child_device, config_entry)
+        else:
             self._deleted_devices[child_device.id] = DeletedDeviceEntry(
                 area_id=child_device.area_id,
                 config_entry_id=child_device.config_entry_id,
@@ -4413,6 +4417,39 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
             ),
         )
         self.async_schedule_save()
+
+    @callback
+    def _async_remove_restore_data(
+        self, device: AnyDeviceEntry, config_entry: ConfigEntry | None
+    ) -> None:
+        """Remove what a new device with the keys of a removed device would restore.
+
+        These are the removed device's own entities, which are removed without keeping
+        deleted entities, and orphaned deleted devices of the same integration.
+        """
+        # Circular dep
+        from . import entity_registry  # noqa: PLC0415
+
+        ent_reg = entity_registry.async_get(self.hass)
+        for entity in entity_registry.async_entries_for_device(
+            ent_reg, device.id, include_disabled_entities=True
+        ):
+            # Entities of other config entries are kept, matching the removal of
+            # entities when a device is removed
+            if (
+                entity.config_entry_id == device.config_entry_id
+                and entity.config_subentry_id == device.config_subentry_id
+            ):
+                ent_reg.async_remove(entity.entity_id, restorable=False)
+        if config_entry is None:
+            return
+        connections = (
+            device.connections if not isinstance(device, ChildDeviceEntry) else set()
+        )
+        for orphan in self._deleted_devices.get_orphaned_entries(
+            device.identifiers, connections, config_entry.domain
+        ):
+            del self._deleted_devices[orphan.id]
 
     @override
     async def _async_load(self) -> None:

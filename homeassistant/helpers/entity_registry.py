@@ -1780,9 +1780,12 @@ class EntityRegistry(BaseRegistry):
             # which deletes entity B when entity A is being removed.
             return
         entity = self.entities.pop(entity_id)
-        if restorable:
+        key = (entity.domain, entity.platform, entity.unique_id)
+        if not restorable:
+            # async_update_entity can move an entity to the unique id of a deleted entity
+            self.deleted_entities.pop(key, None)
+        else:
             config_entry_id = entity.config_entry_id
-            key = (entity.domain, entity.platform, entity.unique_id)
             # If the entity does not belong to a config entry, mark it as orphaned
             orphaned_timestamp = None if config_entry_id else time.time()
             self.deleted_entities[key] = DeletedRegistryEntry(
