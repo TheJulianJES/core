@@ -4,6 +4,11 @@ from collections.abc import Callable, Coroutine
 from unittest.mock import patch
 
 import pytest
+from zha.application.gateway import (
+    DeviceFullInitEvent,
+    DevicePairingStatus,
+    ExtendedDeviceInfoWithPairingStatus,
+)
 from zha.zigbee.child_device import ChildDevice
 from zha.zigbee.device import Device
 from zigpy.device import Device as ZigpyDevice
@@ -338,3 +343,52 @@ async def test_disable_entity_on_child_device(
     await hass.async_block_till_done()
 
     assert not zha_entity.enabled
+
+
+async def test_reinterview_same_device_object(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    setup_zha: Callable[..., Coroutine[None]],
+    zigpy_device_mock: Callable[..., ZigpyDevice],
+) -> None:
+    """Test child devices are reconciled when a re-interview keeps the device object."""
+    await setup_zha()
+    gateway_proxy = get_zha_gateway_proxy(hass)
+    device_proxy = await _join_device(hass, zigpy_device_mock)
+    parent_id = device_proxy.device_id
+    switch_1, _ = _switch_entity_ids(entity_registry)
+
+    child_1 = device_registry.async_get_child_device_by_identifier(
+        (DOMAIN, f"{IEEE}-1"), gateway_proxy.config_entry.entry_id
+    )
+    assert child_1 is not None
+    device_registry.async_update_child_device(
+        child_1.id, disabled_by=dr.DeviceEntryDisabler.USER
+    )
+    await hass.async_block_till_done()
+
+    # The entity already moved to the main device (as the entity platform does when
+    # it is added), but it is still disabled along with its old child device
+    entity_registry.async_update_entity(switch_1, device_id=parent_id)
+    entry = entity_registry.async_get(switch_1)
+    assert entry is not None
+    assert entry.disabled_by is er.RegistryEntryDisabler.DEVICE
+
+    with patch("zha.zigbee.device.is_child_device_allowlisted", return_value=False):
+        await device_proxy.device.recompute_entities()
+
+    gateway_proxy.handle_device_fully_initialized(
+        DeviceFullInitEvent(
+            device_info=ExtendedDeviceInfoWithPairingStatus(
+                pairing_status=DevicePairingStatus.CONFIGURED,
+                **device_proxy.device.extended_device_info.__dict__,
+            )
+        )
+    )
+
+    assert not dr.async_entries_for_parent_device(device_registry, parent_id)
+    entry = entity_registry.async_get(switch_1)
+    assert entry is not None
+    assert entry.device_id == parent_id
+    assert entry.disabled_by is None

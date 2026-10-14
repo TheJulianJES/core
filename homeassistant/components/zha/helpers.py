@@ -783,6 +783,10 @@ class ZHAGatewayProxy(EventBase):
         if event.new_join or swapped_device:
             self._create_entity_metadata(zha_device_proxy)
             async_dispatcher_send(self.hass, SIGNAL_ADD_ENTITIES)
+        else:
+            # A re-interview can also rebuild the entities of the same device object,
+            # which may change its child devices
+            self._async_reconcile_child_devices(zha_device_proxy)
         async_dispatcher_send(
             self.hass,
             ZHA_GW_MSG,
@@ -952,10 +956,10 @@ class ZHAGatewayProxy(EventBase):
     def _async_reconcile_child_devices(self, device_proxy: ZHADeviceProxy) -> None:
         """Sync the child devices of a device and the entities on them to ZHA.
 
-        Entities are moved explicitly, as disabled entities are never added (which is
-        when their device info is applied), and child devices ZHA no longer defines,
-        e.g. after a re-interview, are removed after moving their entities back to the
-        main device, so entity customizations survive.
+        Child devices ZHA no longer defines, e.g. after a re-interview, are removed
+        after moving their entities back to the main device, so entity customizations
+        survive. Entities are moved explicitly to fix up their disabled state, and to
+        not depend on the order in which entities and child devices are added.
         """
         device_registry = dr.async_get(self.hass)
         entity_registry = er.async_get(self.hass)
@@ -1298,14 +1302,18 @@ def _async_move_entity(
     entity_id: str,
     device: dr.AnyDeviceEntry,
 ) -> None:
-    """Move an entity registry entry to another device of the same ZHA device."""
+    """Move an entity registry entry to a (child) device of its ZHA device.
+
+    Entity platforms also move entities on add, but they never re-enable an entity
+    that was disabled along with its old device, so that is done here.
+    """
     entity_entry = entity_registry.async_get(entity_id)
     assert entity_entry is not None
 
-    if entity_entry.device_id == device.id:
-        return
+    changes: dict[str, Any] = {}
 
-    changes: dict[str, Any] = {"device_id": device.id}
+    if entity_entry.device_id != device.id:
+        changes["device_id"] = device.id
 
     # An entity disabled along with its old device must not stay disabled on a new
     # enabled one, and vice versa
@@ -1317,7 +1325,8 @@ def _async_move_entity(
     elif entity_entry.disabled_by is None and device.disabled_by is not None:
         changes["disabled_by"] = er.RegistryEntryDisabler.DEVICE
 
-    entity_registry.async_update_entity(entity_id, **changes)
+    if changes:
+        entity_registry.async_update_entity(entity_id, **changes)
 
 
 @callback
