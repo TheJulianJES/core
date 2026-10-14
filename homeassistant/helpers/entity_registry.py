@@ -1762,8 +1762,14 @@ class EntityRegistry(BaseRegistry):
         return entry
 
     @callback
-    def async_remove(self, entity_id: str) -> None:
-        """Remove an entity from registry."""
+    def async_remove(self, entity_id: str, *, restorable: bool = True) -> None:
+        """Remove an entity from registry.
+
+        A removed entity is kept as a deleted entity, which is restored with its entity
+        id, id and user customizations when an entity with the same unique id is
+        registered again. Pass restorable=False when the entity is gone for good, e.g.
+        when the integration may reuse its unique id for an unrelated entity.
+        """
         self.hass.verify_event_loop_thread("entity_registry.async_remove")
         if entity_id not in self.entities:
             # Allow attempts to remove an entity which does not exist. If this is
@@ -1774,32 +1780,33 @@ class EntityRegistry(BaseRegistry):
             # which deletes entity B when entity A is being removed.
             return
         entity = self.entities.pop(entity_id)
-        config_entry_id = entity.config_entry_id
-        key = (entity.domain, entity.platform, entity.unique_id)
-        # If the entity does not belong to a config entry, mark it as orphaned
-        orphaned_timestamp = None if config_entry_id else time.time()
-        self.deleted_entities[key] = DeletedRegistryEntry(
-            aliases=entity.aliases,
-            area_id=entity.area_id,
-            categories=entity.categories,
-            compat_aliases=entity.compat_aliases,
-            config_entry_id=config_entry_id,
-            config_subentry_id=entity.config_subentry_id,
-            created_at=entity.created_at,
-            device_class=entity.device_class,
-            disabled_by=entity.disabled_by,
-            entity_id=entity_id,
-            hidden_by=entity.hidden_by,
-            icon=entity.icon,
-            id=entity.id,
-            labels=entity.labels,
-            modified_at=utcnow(),
-            name=entity.name,
-            options=entity.options,
-            orphaned_timestamp=orphaned_timestamp,
-            platform=entity.platform,
-            unique_id=entity.unique_id,
-        )
+        if restorable:
+            config_entry_id = entity.config_entry_id
+            key = (entity.domain, entity.platform, entity.unique_id)
+            # If the entity does not belong to a config entry, mark it as orphaned
+            orphaned_timestamp = None if config_entry_id else time.time()
+            self.deleted_entities[key] = DeletedRegistryEntry(
+                aliases=entity.aliases,
+                area_id=entity.area_id,
+                categories=entity.categories,
+                compat_aliases=entity.compat_aliases,
+                config_entry_id=config_entry_id,
+                config_subentry_id=entity.config_subentry_id,
+                created_at=entity.created_at,
+                device_class=entity.device_class,
+                disabled_by=entity.disabled_by,
+                entity_id=entity_id,
+                hidden_by=entity.hidden_by,
+                icon=entity.icon,
+                id=entity.id,
+                labels=entity.labels,
+                modified_at=utcnow(),
+                name=entity.name,
+                options=entity.options,
+                orphaned_timestamp=orphaned_timestamp,
+                platform=entity.platform,
+                unique_id=entity.unique_id,
+            )
         ir.async_delete_issue(
             self.hass, HOMEASSISTANT_DOMAIN, _own_area_without_own_name_issue_id(entity)
         )

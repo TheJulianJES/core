@@ -2720,8 +2720,9 @@ async def test_async_get_devices_multiple_keys(
     assert len(devices) == 2
 
 
+@pytest.mark.parametrize("restorable", [True, False])
 async def test_async_remove_device_fans_out_to_migration_composite(
-    hass: HomeAssistant, device_registry: dr.DeviceRegistry
+    hass: HomeAssistant, device_registry: dr.DeviceRegistry, restorable: bool
 ) -> None:
     """async_remove_device on a pre-migration composite id removes its splits."""
     entry_1 = MockConfigEntry(domain="test")
@@ -2743,10 +2744,12 @@ async def test_async_remove_device_fans_out_to_migration_composite(
         device_2, composite_device_id=old_id
     )
 
-    device_registry.async_remove_device(old_id)
+    device_registry.async_remove_device(old_id, restorable=restorable)
 
     assert device_1.id not in device_registry._devices
     assert device_2.id not in device_registry._devices
+    assert (device_1.id in device_registry._deleted_devices) is restorable
+    assert (device_2.id in device_registry._deleted_devices) is restorable
 
 
 async def test_async_update_device_fans_out_to_migration_composite(
@@ -11379,6 +11382,99 @@ async def test_restore_child_deleted_via_parent_cascade(
     assert restored_child.parent_device_id == restored_parent.id
     assert device_registry.async_get(child_device.id) is restored_child
     assert child_device.id not in device_registry._deleted_devices
+
+
+async def test_remove_device_not_restorable(
+    hass: HomeAssistant,
+    area_registry: ar.AreaRegistry,
+    device_registry: dr.DeviceRegistry,
+    mock_config_entry: MockConfigEntry,
+) -> None:
+    """Test a device removed with restorable=False is not restored."""
+    area = area_registry.async_create("Kitchen")
+    connections = {(dr.CONNECTION_NETWORK_MAC, "12:34:56:ab:cd:ef")}
+    identifiers = {("bridgeid", "0123")}
+    device = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id,
+        connections=connections,
+        identifiers=identifiers,
+    )
+    device = device_registry.async_update_device(
+        device.id,
+        area_id=area.id,
+        disabled_by=dr.DeviceEntryDisabler.USER,
+        labels={"label1"},
+        name_by_user="Custom name",
+    )
+    update_events = async_capture_events(hass, dr.EVENT_DEVICE_REGISTRY_UPDATED)
+
+    device_registry.async_remove_device(device.id, restorable=False)
+    await hass.async_block_till_done()
+
+    assert device_registry.async_get(device.id) is None
+    assert not device_registry._deleted_devices
+    assert len(update_events) == 1
+    assert update_events[0].data == {
+        "action": "remove",
+        "device_id": device.id,
+        "device": device.dict_repr,
+    }
+
+    new_device = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id,
+        connections=connections,
+        identifiers=identifiers,
+    )
+    assert new_device.id != device.id
+    assert new_device.area_id is None
+    assert new_device.disabled_by is None
+    assert new_device.labels == set()
+    assert new_device.name_by_user is None
+
+
+@pytest.mark.parametrize("remove_parent", [True, False])
+async def test_remove_child_device_not_restorable(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    mock_config_entry: MockConfigEntry,
+    remove_parent: bool,
+) -> None:
+    """Test a child device removed with restorable=False is not restored.
+
+    This applies both when removing the child device itself and when it is removed
+    together with its parent.
+    """
+    parent, child_device = _create_parent_and_child(
+        device_registry, mock_config_entry.entry_id
+    )
+    device_registry.async_update_child_device(
+        child_device.id, labels={"outdoor"}, name_by_user="Lamp"
+    )
+    update_events = async_capture_events(hass, dr.EVENT_DEVICE_REGISTRY_UPDATED)
+
+    device_registry.async_remove_device(
+        parent.id if remove_parent else child_device.id, restorable=False
+    )
+    await hass.async_block_till_done()
+
+    assert device_registry.async_get(child_device.id) is None
+    assert not device_registry._deleted_devices
+    assert {event.data["device_id"] for event in update_events} == (
+        {parent.id, child_device.id} if remove_parent else {child_device.id}
+    )
+
+    new_child = device_registry.async_get_or_create_child(
+        config_entry_id=mock_config_entry.entry_id,
+        identifiers={("test", "strip_outlet_1")},
+        parent_device_id=device_registry.async_get_or_create(
+            config_entry_id=mock_config_entry.entry_id,
+            identifiers={("test", "strip")},
+        ).id,
+        name="Outlet 1",
+    )
+    assert new_child.id != child_device.id
+    assert new_child.labels == set()
+    assert new_child.name_by_user is None
 
 
 @pytest.mark.usefixtures("hass")

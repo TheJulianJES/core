@@ -458,6 +458,41 @@ def test_remove(entity_registry: er.EntityRegistry) -> None:
     assert not entity_registry.entities
 
 
+async def test_remove_not_restorable(
+    hass: HomeAssistant, entity_registry: er.EntityRegistry
+) -> None:
+    """Test an entity removed with restorable=False is not restored."""
+    entry = entity_registry.async_get_or_create("light", "hue", "1234")
+    entry = entity_registry.async_update_entity(
+        entry.entity_id,
+        disabled_by=er.RegistryEntryDisabler.USER,
+        hidden_by=er.RegistryEntryHider.USER,
+        icon="mdi:lamp",
+        labels={"label1"},
+        name="Custom name",
+        new_entity_id="light.custom",
+    )
+    update_events = async_capture_events(hass, er.EVENT_ENTITY_REGISTRY_UPDATED)
+
+    entity_registry.async_remove(entry.entity_id, restorable=False)
+    await hass.async_block_till_done()
+
+    assert not entity_registry.entities
+    assert not entity_registry.deleted_entities
+    assert [event.data for event in update_events] == [
+        {"action": "remove", "entity_id": "light.custom"}
+    ]
+
+    new_entry = entity_registry.async_get_or_create("light", "hue", "1234")
+    assert new_entry.id != entry.id
+    assert new_entry.entity_id == "light.hue_1234"
+    assert new_entry.disabled_by is None
+    assert new_entry.hidden_by is None
+    assert new_entry.icon is None
+    assert new_entry.labels == set()
+    assert new_entry.name is None
+
+
 def test_create_triggers_save(entity_registry: er.EntityRegistry) -> None:
     """Test that registering entry triggers a save."""
     with patch.object(entity_registry, "async_schedule_save") as mock_schedule_save:

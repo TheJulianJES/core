@@ -4325,38 +4325,48 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
         return self._restore_composite_device(composite_id, remaining)
 
     @callback
-    def async_remove_device(self, device_id: str) -> None:
-        """Remove a device or child device from the device registry."""
+    def async_remove_device(self, device_id: str, *, restorable: bool = True) -> None:
+        """Remove a device or child device from the device registry.
+
+        A removed device is kept as a deleted device, which is restored with its id and
+        user customizations when a device with the same identifiers or connections is
+        created again. Pass restorable=False when the device is gone for good, e.g.
+        when the integration may reuse its identifiers for an unrelated device. This
+        applies to the device's child devices too, but not to its entities.
+        """
         if (child_device := self._child_device_data.get(device_id)) is not None:
-            self._async_remove_child_device(child_device)
+            self._async_remove_child_device(child_device, restorable)
             return
         if (
             underlying_ids := self._async_device_ids_for_composite_device_id(device_id)
         ) is not None:
             for underlying_id in underlying_ids:
-                self.async_remove_device(underlying_id)
+                self.async_remove_device(underlying_id, restorable=restorable)
             return
         self.hass.verify_event_loop_thread("device_registry.async_remove_device")
         # Removing the parent removes its child devices
         for child in self._child_devices.get_children_for_device_id(device_id):
-            self._async_remove_child_device(child)
+            self._async_remove_child_device(child, restorable)
         device = self._devices.pop(device_id)
-        config_entry = self.hass.config_entries.async_get_entry(device.config_entry_id)
-        self._deleted_devices[device_id] = DeletedDeviceEntry(
-            area_id=device.area_id,
-            config_entry_id=device.config_entry_id,
-            config_subentry_id=device.config_subentry_id,
-            connections=device.connections,
-            created_at=device.created_at,
-            disabled_by=device.disabled_by,
-            identifiers=device.identifiers,
-            id=device.id,
-            labels=device.labels,
-            modified_at=utcnow(),
-            name_by_user=device.name_by_user,
-            orphaned_timestamp=None,
-            domain=config_entry.domain if config_entry is not None else None,
-        )
+        if restorable:
+            config_entry = self.hass.config_entries.async_get_entry(
+                device.config_entry_id
+            )
+            self._deleted_devices[device_id] = DeletedDeviceEntry(
+                area_id=device.area_id,
+                config_entry_id=device.config_entry_id,
+                config_subentry_id=device.config_subentry_id,
+                connections=device.connections,
+                created_at=device.created_at,
+                disabled_by=device.disabled_by,
+                identifiers=device.identifiers,
+                id=device.id,
+                labels=device.labels,
+                modified_at=utcnow(),
+                name_by_user=device.name_by_user,
+                orphaned_timestamp=None,
+                domain=config_entry.domain if config_entry is not None else None,
+            )
         for other_device in list(self._devices.values()):
             if other_device.via_device_id == device_id:
                 self._async_update_device(other_device.id, via_device_id=None)
@@ -4369,28 +4379,31 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
         self.async_schedule_save()
 
     @callback
-    def _async_remove_child_device(self, child_device: ChildDeviceEntry) -> None:
+    def _async_remove_child_device(
+        self, child_device: ChildDeviceEntry, restorable: bool
+    ) -> None:
         """Remove a child device from the device registry."""
         self.hass.verify_event_loop_thread("device_registry.async_remove_device")
         del self._child_devices[child_device.id]
-        config_entry = self.hass.config_entries.async_get_entry(
-            child_device.config_entry_id
-        )
-        self._deleted_devices[child_device.id] = DeletedDeviceEntry(
-            area_id=child_device.area_id,
-            config_entry_id=child_device.config_entry_id,
-            config_subentry_id=child_device.config_subentry_id,
-            connections=set(),
-            created_at=child_device.created_at,
-            disabled_by=child_device.disabled_by,
-            identifiers=child_device.identifiers,
-            id=child_device.id,
-            labels=child_device.labels,
-            modified_at=utcnow(),
-            name_by_user=child_device.name_by_user,
-            orphaned_timestamp=None,
-            domain=config_entry.domain if config_entry is not None else None,
-        )
+        if restorable:
+            config_entry = self.hass.config_entries.async_get_entry(
+                child_device.config_entry_id
+            )
+            self._deleted_devices[child_device.id] = DeletedDeviceEntry(
+                area_id=child_device.area_id,
+                config_entry_id=child_device.config_entry_id,
+                config_subentry_id=child_device.config_subentry_id,
+                connections=set(),
+                created_at=child_device.created_at,
+                disabled_by=child_device.disabled_by,
+                identifiers=child_device.identifiers,
+                id=child_device.id,
+                labels=child_device.labels,
+                modified_at=utcnow(),
+                name_by_user=child_device.name_by_user,
+                orphaned_timestamp=None,
+                domain=config_entry.domain if config_entry is not None else None,
+            )
         self.hass.bus.async_fire_internal(
             EVENT_DEVICE_REGISTRY_UPDATED,
             _EventDeviceRegistryUpdatedData_Remove(
