@@ -4331,10 +4331,10 @@ class DeviceRegistry(BaseRegistry[dict[str, list[dict[str, Any]]]]):
         A removed device is kept as a deleted device, which is restored with its id and
         user customizations when a device with the same identifiers or connections is
         created again. Pass restorable=False when the device is gone for good, e.g.
-        when the integration may reuse its identifiers for an unrelated device. The
-        device's child devices and its entities are then removed without being kept
-        either, and orphaned deleted devices of the same integration with the same
-        identifiers or connections are removed.
+        when the integration may reuse its identifiers for an unrelated device. Its
+        child devices and its own entities (same config entry and subentry) are then
+        removed without being kept either, and orphaned deleted devices of the same
+        integration with the same identifiers or connections are removed.
         """
         if (child_device := self._child_device_data.get(device_id)) is not None:
             self._async_remove_child_device(child_device, restorable)
