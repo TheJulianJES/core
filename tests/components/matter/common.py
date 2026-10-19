@@ -122,6 +122,7 @@ FIXTURES = [
     "localizedtech_presence_one",
     "longan_link_thermostat",
     "martin_renz_zsm",
+    "matterbridge_aggregator",
     "mock_air_purifier",
     "mock_battery_storage",
     "mock_chime",
