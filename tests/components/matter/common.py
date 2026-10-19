@@ -245,6 +245,7 @@ FIXTURES = [
     "tasmota_generic",
     "tasmota_sparkfun_thing_plus_esp32_c6",
     "tasmota_xiao_esp32c3",
+    "tcl_portable_ac",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
