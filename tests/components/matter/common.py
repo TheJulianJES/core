@@ -200,6 +200,7 @@ FIXTURES = [
     "philips_hue_essential_spot",
     "realwe_smart_plug",
     "resideo_x2s_thermostat",
+    "roborock_robotic_vacuum_cleaner_1",
     "roborock_saros_10",
     "secuyou_smart_lock",
     "silabs_dishwasher",
