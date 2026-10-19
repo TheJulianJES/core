@@ -243,6 +243,7 @@ FIXTURES = [
     "tapo_smart_wi_fi_power_strip",
     "tasmota_esp32_c6_devkitc_1",
     "tasmota_generic",
+    "tasmota_sparkfun_thing_plus_esp32_c6",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
