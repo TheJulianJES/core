@@ -206,6 +206,7 @@ FIXTURES = [
     "rollease_acmeda_pulse_pro",
     "schneider_square_d_wifi_switch",
     "secuyou_smart_lock",
+    "selve_home_server_3",
     "silabs_dishwasher",
     "silabs_evse_charging",
     "silabs_fan",
