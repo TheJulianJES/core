@@ -1363,7 +1363,7 @@
     'state': 'previous',
   })
 # ---
-# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_power_on_behavior_1-entry]
+# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_endpoint_1_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1384,7 +1384,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.dewenwils_3_zone_transformer_power_on_behavior_1',
+    'entity_id': 'select.dewenwils_3_zone_transformer_endpoint_1_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1392,12 +1392,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (1)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (1)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1407,10 +1407,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_power_on_behavior_1-state]
+# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_endpoint_1_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'DEWENWILS 3 -Zone Transformer Power-on behavior (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -1419,14 +1419,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.dewenwils_3_zone_transformer_power_on_behavior_1',
+    'entity_id': 'select.dewenwils_3_zone_transformer_endpoint_1_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_power_on_behavior_2-entry]
+# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_endpoint_2_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1447,7 +1447,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.dewenwils_3_zone_transformer_power_on_behavior_2',
+    'entity_id': 'select.dewenwils_3_zone_transformer_endpoint_2_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1455,12 +1455,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1470,10 +1470,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_power_on_behavior_2-state]
+# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_endpoint_2_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'DEWENWILS 3 -Zone Transformer Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -1482,14 +1482,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.dewenwils_3_zone_transformer_power_on_behavior_2',
+    'entity_id': 'select.dewenwils_3_zone_transformer_endpoint_2_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_power_on_behavior_3-entry]
+# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_endpoint_3_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1510,7 +1510,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.dewenwils_3_zone_transformer_power_on_behavior_3',
+    'entity_id': 'select.dewenwils_3_zone_transformer_endpoint_3_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1518,12 +1518,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (3)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (3)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1533,10 +1533,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_power_on_behavior_3-state]
+# name: test_selects[dewenwils_3_zone_transformer][select.dewenwils_3_zone_transformer_endpoint_3_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'DEWENWILS 3 -Zone Transformer Power-on behavior (3)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 3 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -1545,7 +1545,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.dewenwils_3_zone_transformer_power_on_behavior_3',
+    'entity_id': 'select.dewenwils_3_zone_transformer_endpoint_3_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -1940,7 +1940,7 @@
     'state': 'previous',
   })
 # ---
-# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_power_on_behavior_bottom-entry]
+# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_bottom_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -1961,7 +1961,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.eve_energy_20ecn4101_power_on_behavior_bottom',
+    'entity_id': 'select.eve_energy_20ecn4101_bottom_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1969,12 +1969,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (bottom)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (bottom)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1984,10 +1984,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_power_on_behavior_bottom-state]
+# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_bottom_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Eve Energy 20ECN4101 Power-on behavior (bottom)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'bottom Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -1996,14 +1996,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.eve_energy_20ecn4101_power_on_behavior_bottom',
+    'entity_id': 'select.eve_energy_20ecn4101_bottom_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_power_on_behavior_top-entry]
+# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_top_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -2024,7 +2024,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.eve_energy_20ecn4101_power_on_behavior_top',
+    'entity_id': 'select.eve_energy_20ecn4101_top_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -2032,12 +2032,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (top)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (top)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -2047,10 +2047,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_power_on_behavior_top-state]
+# name: test_selects[eve_energy_20ecn4101][select.eve_energy_20ecn4101_top_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Eve Energy 20ECN4101 Power-on behavior (top)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'top Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -2059,7 +2059,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.eve_energy_20ecn4101_power_on_behavior_top',
+    'entity_id': 'select.eve_energy_20ecn4101_top_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -7076,7 +7076,7 @@
     'state': 'on',
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_41-entry]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_41_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -7097,7 +7097,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_41',
+    'entity_id': 'select.kitchen_switch_endpoint_41_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -7105,12 +7105,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (41)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (41)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -7120,10 +7120,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_41-state]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_41_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Kitchen Switch Power-on behavior (41)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 41 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -7132,14 +7132,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_41',
+    'entity_id': 'select.kitchen_switch_endpoint_41_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_42-entry]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_42_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -7160,7 +7160,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_42',
+    'entity_id': 'select.kitchen_switch_endpoint_42_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -7168,12 +7168,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (42)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (42)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -7183,10 +7183,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_42-state]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_42_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Kitchen Switch Power-on behavior (42)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 42 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -7195,14 +7195,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_42',
+    'entity_id': 'select.kitchen_switch_endpoint_42_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_43-entry]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_43_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -7223,7 +7223,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_43',
+    'entity_id': 'select.kitchen_switch_endpoint_43_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -7231,12 +7231,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (43)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (43)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -7246,10 +7246,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_43-state]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_43_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Kitchen Switch Power-on behavior (43)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 43 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -7258,14 +7258,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_43',
+    'entity_id': 'select.kitchen_switch_endpoint_43_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_44-entry]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_44_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -7286,7 +7286,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_44',
+    'entity_id': 'select.kitchen_switch_endpoint_44_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -7294,12 +7294,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (44)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (44)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -7309,10 +7309,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[lifx_switch_115][select.kitchen_switch_power_on_behavior_44-state]
+# name: test_selects[lifx_switch_115][select.kitchen_switch_endpoint_44_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Kitchen Switch Power-on behavior (44)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 44 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -7321,7 +7321,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.kitchen_switch_power_on_behavior_44',
+    'entity_id': 'select.kitchen_switch_endpoint_44_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -12386,7 +12386,7 @@
     'state': 'previous',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_power_on_behavior_1-entry]
+# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_endpoint_1_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12407,7 +12407,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.tapo_smart_wi_fi_outlet_power_on_behavior_1',
+    'entity_id': 'select.tapo_smart_wi_fi_outlet_endpoint_1_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12415,12 +12415,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (1)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (1)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12430,10 +12430,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_power_on_behavior_1-state]
+# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_endpoint_1_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Tapo Smart Wi-Fi Outlet Power-on behavior (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12442,14 +12442,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.tapo_smart_wi_fi_outlet_power_on_behavior_1',
+    'entity_id': 'select.tapo_smart_wi_fi_outlet_endpoint_1_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_power_on_behavior_2-entry]
+# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_endpoint_2_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12470,7 +12470,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.tapo_smart_wi_fi_outlet_power_on_behavior_2',
+    'entity_id': 'select.tapo_smart_wi_fi_outlet_endpoint_2_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12478,12 +12478,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12493,10 +12493,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_power_on_behavior_2-state]
+# name: test_selects[tapo_smart_wi_fi_outlet][select.tapo_smart_wi_fi_outlet_endpoint_2_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Tapo Smart Wi-Fi Outlet Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12505,14 +12505,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.tapo_smart_wi_fi_outlet_power_on_behavior_2',
+    'entity_id': 'select.tapo_smart_wi_fi_outlet_endpoint_2_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_1-entry]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_1_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12533,7 +12533,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_1',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_1_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12541,12 +12541,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (1)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (1)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12556,10 +12556,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_1-state]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_1_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Wi-Fi Power Strip Power-on behavior (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12568,14 +12568,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_1',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_1_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_2-entry]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_2_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12596,7 +12596,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_2',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_2_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12604,12 +12604,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12619,10 +12619,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_2-state]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_2_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Wi-Fi Power Strip Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12631,14 +12631,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_2',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_2_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_3-entry]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_3_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12659,7 +12659,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_3',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_3_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12667,12 +12667,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (3)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (3)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12682,10 +12682,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_3-state]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_3_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Wi-Fi Power Strip Power-on behavior (3)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 3 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12694,14 +12694,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_3',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_3_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_4-entry]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_4_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12722,7 +12722,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_4',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_4_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12730,12 +12730,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (4)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (4)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12745,10 +12745,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_4-state]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_4_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Wi-Fi Power Strip Power-on behavior (4)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 4 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12757,14 +12757,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_4',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_4_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_5-entry]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_5_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12785,7 +12785,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_5',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_5_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12793,12 +12793,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (5)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (5)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12808,10 +12808,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_5-state]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_5_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Wi-Fi Power Strip Power-on behavior (5)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 5 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12820,14 +12820,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_5',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_5_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_6-entry]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_6_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -12848,7 +12848,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_6',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_6_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -12856,12 +12856,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (6)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (6)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -12871,10 +12871,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_power_on_behavior_6-state]
+# name: test_selects[tapo_smart_wi_fi_power_strip][select.smart_wi_fi_power_strip_endpoint_6_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Wi-Fi Power Strip Power-on behavior (6)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 6 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -12883,7 +12883,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_wi_fi_power_strip_power_on_behavior_6',
+    'entity_id': 'select.smart_wi_fi_power_strip_endpoint_6_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
