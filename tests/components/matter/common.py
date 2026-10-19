@@ -46,6 +46,7 @@ FIXTURES = [
     "eufy_vacuum_omni_e28",
     "eve_contact_sensor",
     "eve_energy_20ebu4101",
+    "eve_energy_20ecl1301",
     "eve_energy_20ecn4101",
     "eve_energy_plug",
     "eve_energy_plug_patched",
