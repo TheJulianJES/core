@@ -178,6 +178,7 @@ FIXTURES = [
     "mock_window_covering_pa_tilt",
     "mock_window_covering_tilt",
     "nanoleaf_nl54",
+    "nanoleaf_nl65",
     "onoff_light_with_levelcontrol_present",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
