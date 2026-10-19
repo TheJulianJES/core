@@ -106,6 +106,7 @@ FIXTURES = [
     "inovelli_vtm31",
     "inovelli_vtm36",
     "kasa_smart_wi_fi_dimmer_switch",
+    "kasa_smart_wi_fi_light_switch",
     "longan_link_thermostat",
     "mock_air_purifier",
     "mock_battery_storage",
