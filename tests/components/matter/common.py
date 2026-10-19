@@ -189,6 +189,7 @@ FIXTURES = [
     "neo_smart_blinds_c_br300",
     "nous_a8m",
     "nuki_smart_lock_pro",
+    "nuki_smart_lock_ultra",
     "onoff_light_with_levelcontrol_present",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
