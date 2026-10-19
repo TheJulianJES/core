@@ -21,6 +21,7 @@ from tests.common import MockConfigEntry, load_fixture
 FIXTURES = [
     "air_quality_sensor",
     "aqara_door_window_p2",
+    "aqara_hub_m3",
     "aqara_motion_p2",
     "aqara_multi_state_p100",
     "aqara_presence_fp300",

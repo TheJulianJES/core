@@ -50,6 +50,312 @@
     'state': 'unknown',
   })
 # ---
+# name: test_buttons[aqara_hub_m3][button.air_conditioner_identify-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'button.air_conditioner_identify',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Identify',
+    'options': dict({
+    }),
+    'original_device_class': <ButtonDeviceClass.IDENTIFY: 'identify'>,
+    'original_icon': None,
+    'original_name': 'Identify',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000009F-2-2-IdentifyButton-3-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.air_conditioner_identify-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'identify',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Air Conditioner Identify',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.air_conditioner_identify',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.aqara_hub_m3_identify-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'button.aqara_hub_m3_identify',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Identify',
+    'options': dict({
+    }),
+    'original_device_class': <ButtonDeviceClass.IDENTIFY: 'identify'>,
+    'original_icon': None,
+    'original_name': 'Identify',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000009F-MatterNodeDevice-1-IdentifyButton-3-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.aqara_hub_m3_identify-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'identify',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Hub M3 Identify',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.aqara_hub_m3_identify',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.aqara_temp_humidity_sensor_identify-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'button.aqara_temp_humidity_sensor_identify',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Identify',
+    'options': dict({
+    }),
+    'original_device_class': <ButtonDeviceClass.IDENTIFY: 'identify'>,
+    'original_icon': None,
+    'original_name': 'Identify',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000009F-20-21-IdentifyButton-3-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.aqara_temp_humidity_sensor_identify-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'identify',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Temp/Humidity Sensor Identify',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.aqara_temp_humidity_sensor_identify',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.aqara_temp_humidity_sensor_identify_2-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'button.aqara_temp_humidity_sensor_identify_2',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Identify',
+    'options': dict({
+    }),
+    'original_device_class': <ButtonDeviceClass.IDENTIFY: 'identify'>,
+    'original_icon': None,
+    'original_name': 'Identify',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000009F-20-22-IdentifyButton-3-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.aqara_temp_humidity_sensor_identify_2-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'identify',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Temp/Humidity Sensor Identify',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.aqara_temp_humidity_sensor_identify_2',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.soft_human_presence_sensor_identify-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'button.soft_human_presence_sensor_identify',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Identify',
+    'options': dict({
+    }),
+    'original_device_class': <ButtonDeviceClass.IDENTIFY: 'identify'>,
+    'original_icon': None,
+    'original_name': 'Identify',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000009F-23-23-IdentifyButton-3-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.soft_human_presence_sensor_identify-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'identify',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Soft Human Presence Sensor Identify',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.soft_human_presence_sensor_identify',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.soft_human_presence_sensor_identify_2-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'button',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'button.soft_human_presence_sensor_identify_2',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Identify',
+    'options': dict({
+    }),
+    'original_device_class': <ButtonDeviceClass.IDENTIFY: 'identify'>,
+    'original_icon': None,
+    'original_name': 'Identify',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000009F-24-24-IdentifyButton-3-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_buttons[aqara_hub_m3][button.soft_human_presence_sensor_identify_2-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'identify',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Soft Human Presence Sensor Identify',
+    }),
+    'context': <ANY>,
+    'entity_id': 'button.soft_human_presence_sensor_identify_2',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
 # name: test_buttons[aqara_motion_p2][button.aqara_motion_and_light_sensor_p2_identify_1-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
