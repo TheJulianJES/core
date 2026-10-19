@@ -77,6 +77,7 @@ FIXTURES = [
     "longan_link_thermostat",
     "matterbridge_aggregator",
     "meross_smart_presence_sensor",
+    "meross_smart_thermostat_57346",
     "mock_air_purifier",
     "mock_battery_storage",
     "mock_chime",
