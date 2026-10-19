@@ -43921,6 +43921,59 @@
     'state': '2024-12-31T15:29:37+00:00',
   })
 # ---
+# name: test_sensors[nature_remo_nano][sensor.nature_remo_nano_reboot_count-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.nature_remo_nano_reboot_count',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Reboot count',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Reboot count',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'reboot_count',
+    'unique_id': '00000000000004D2-000000000000042E-MatterNodeDevice-0-GeneralDiagnosticsRebootCount-51-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_sensors[nature_remo_nano][sensor.nature_remo_nano_reboot_count-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Nature Remo nano Reboot count',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.nature_remo_nano_reboot_count',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '92',
+  })
+# ---
 # name: test_sensors[onoff_light_with_levelcontrol_present][sensor.d215s_boot_reason-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
