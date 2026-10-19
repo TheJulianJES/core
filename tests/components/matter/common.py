@@ -237,6 +237,7 @@ FIXTURES = [
     "tapo_smart_iot_hub",
     "tapo_smart_multicolor_bulb",
     "tapo_smart_outdoor_plug_in_dimmer",
+    "tapo_smart_wi_fi_outlet",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
