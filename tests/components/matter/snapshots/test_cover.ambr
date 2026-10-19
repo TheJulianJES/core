@@ -215,6 +215,114 @@
     'state': 'open',
   })
 # ---
+# name: test_covers[ikea_dirigera][cover.store_arriere-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'cover',
+    'entity_category': None,
+    'entity_id': 'cover.store_arriere',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': None,
+    'options': dict({
+    }),
+    'original_device_class': <CoverDeviceClass.SHADE: 'shade'>,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': <CoverEntityFeature: 15>,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-00000000000003FE-142-142-MatterCoverPositionAwareLift-258-10',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_covers[ikea_dirigera][cover.store_arriere-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <CoverEntityStateAttribute.CURRENT_POSITION: 'current_position'>: 100,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'shade',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Store arrière',
+      <CoverEntityStateAttribute.IS_CLOSED: 'is_closed'>: False,
+      <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <CoverEntityFeature: 15>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'cover.store_arriere',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'open',
+  })
+# ---
+# name: test_covers[ikea_dirigera][cover.store_de_cote-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'cover',
+    'entity_category': None,
+    'entity_id': 'cover.store_de_cote',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': None,
+    'options': dict({
+    }),
+    'original_device_class': <CoverDeviceClass.SHADE: 'shade'>,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': <CoverEntityFeature: 15>,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-00000000000003FE-143-143-MatterCoverPositionAwareLift-258-10',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_covers[ikea_dirigera][cover.store_de_cote-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <CoverEntityStateAttribute.CURRENT_POSITION: 'current_position'>: 100,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'shade',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Store de côté',
+      <CoverEntityStateAttribute.IS_CLOSED: 'is_closed'>: False,
+      <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <CoverEntityFeature: 15>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'cover.store_de_cote',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'open',
+  })
+# ---
 # name: test_covers[mock_window_covering_full][cover.mock_full_window_covering-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
