@@ -256,6 +256,7 @@ FIXTURES = [
     "tuya_smart_wired_gateway_pro",
     "uascent_smart_switch",
     "ultraloq_bolt_f_matter",
+    "v1_ir_blaster",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
