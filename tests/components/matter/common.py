@@ -201,6 +201,7 @@ FIXTURES = [
     "realwe_smart_plug",
     "resideo_x2s_thermostat",
     "roborock_robotic_vacuum_cleaner_1",
+    "roborock_robotic_vacuum_cleaner_259",
     "roborock_saros_10",
     "secuyou_smart_lock",
     "silabs_dishwasher",
