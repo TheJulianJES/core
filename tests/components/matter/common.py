@@ -42,6 +42,7 @@ FIXTURES = [
     "aqara_u200",
     "arre_smart_button",
     "assa_abloy_terraforma",
+    "atios_ade_r12",
     "atios_knx_bridge",
     "color_temperature_light",
     "eberle_ute3000",
