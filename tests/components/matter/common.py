@@ -85,6 +85,7 @@ FIXTURES = [
     "heiman_smoke_detector",
     "hisense_airconditioner_13825",
     "hisense_airconditioner_257",
+    "hoorii_technology_hoorii_window_covering",
     "ikea_air_quality_monitor",
     "ikea_bilresa_dual_button",
     "ikea_scroll_wheel",
