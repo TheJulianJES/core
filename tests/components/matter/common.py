@@ -101,6 +101,7 @@ FIXTURES = [
     "ikea_myggbett_door_window_sensor",
     "ikea_myggspray_wrlss_mtn_sensor",
     "ikea_scroll_wheel",
+    "ikea_timmerflotte_temp_hmd_sensor",
     "inovelli_vtm30",
     "inovelli_vtm31",
     "longan_link_thermostat",
