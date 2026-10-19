@@ -151,6 +151,7 @@ FIXTURES = [
     "switchbot_k11_plus",
     "switchbot_relay_switch_2pm",
     "tado_smart_radiator_thermostat_x",
+    "tapo_smart_iot_hub",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
