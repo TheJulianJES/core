@@ -116,6 +116,7 @@ FIXTURES = [
     "level_lock_matter",
     "level_lock_pro",
     "leviton_d26hd",
+    "lifx_br30",
     "longan_link_thermostat",
     "mock_air_purifier",
     "mock_battery_storage",
