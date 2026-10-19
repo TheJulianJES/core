@@ -23,6 +23,7 @@ FIXTURES = [
     "aqara_door_window_p2",
     "aqara_hub_m3",
     "aqara_light_switch_h2_us_4099",
+    "aqara_light_switch_h2_us_4100",
     "aqara_motion_p2",
     "aqara_multi_state_p100",
     "aqara_presence_fp300",
