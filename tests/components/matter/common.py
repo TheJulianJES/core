@@ -47,6 +47,7 @@ FIXTURES = [
     "bosch_climate_series_7000i",
     "color_temperature_light",
     "cync_full_color_undercabinet_24",
+    "cync_indoor_light_strip_32ft",
     "eberle_ute3000",
     "ecovacs_deebot",
     "eufy_vacuum_omni_e28",
