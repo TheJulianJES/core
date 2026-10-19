@@ -232,6 +232,7 @@ FIXTURES = [
     "switchbot_relay_switch_2pm",
     "tado_smart_radiator_thermostat_x",
     "tado_smart_thermostat_x",
+    "tado_wireless_temperature_sensor_x",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
