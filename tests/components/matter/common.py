@@ -38,6 +38,7 @@ FIXTURES = [
     "atios_ade_r12",
     "atios_knx_bridge",
     "color_temperature_light",
+    "cync_keypad_dimmer",
     "eberle_ute3000",
     "ecovacs_deebot",
     "eufy_vacuum_omni_e28",
