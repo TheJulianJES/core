@@ -131,6 +131,7 @@ FIXTURES = [
     "neo_smart_blinds_c_br300",
     "ohf_zigbee_dali_bridge",
     "onoff_light_with_levelcontrol_present",
+    "pergolux_pergola_controller",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
     "secuyou_smart_lock",
