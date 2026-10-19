@@ -158,6 +158,7 @@ FIXTURES = [
     "tapo_smart_wi_fi_power_strip",
     "tasmota_generic",
     "thirdreality_smart_color_night_light",
+    "tp_link_smart_outdoor_plug",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
