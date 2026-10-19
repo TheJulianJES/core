@@ -185,6 +185,7 @@ FIXTURES = [
     "nanoleaf_nl77k1",
     "nanoleaf_squb03",
     "nature_remo_nano",
+    "neo_matter_plug",
     "onoff_light_with_levelcontrol_present",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
