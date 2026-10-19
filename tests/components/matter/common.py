@@ -220,6 +220,7 @@ FIXTURES = [
     "silabs_range_hood",
     "silabs_refrigerator",
     "silabs_water_heater",
+    "smartwings_window_covering",
     "switchbot_k11_plus",
     "tado_smart_radiator_thermostat_x",
     "wago_home_blind_control",
