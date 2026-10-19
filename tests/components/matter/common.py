@@ -111,6 +111,7 @@ FIXTURES = [
     "ledvance_matter_plug_eu_wh",
     "leedarson_air_purifier",
     "leedarson_linkind_smart_light_bulb",
+    "leedarson_smart_rgbtw_bulb_1002",
     "longan_link_thermostat",
     "mock_air_purifier",
     "mock_battery_storage",
