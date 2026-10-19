@@ -124,6 +124,7 @@ FIXTURES = [
     "martin_renz_zsm",
     "matterbridge_aggregator",
     "meross_smart_plug_mini_40961",
+    "meross_smart_plug_mini_40962",
     "mock_air_purifier",
     "mock_battery_storage",
     "mock_chime",
