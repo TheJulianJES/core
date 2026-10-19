@@ -161,6 +161,7 @@ FIXTURES = [
     "tp_link_smart_outdoor_plug",
     "tuya_smart_wired_gateway_pro",
     "uascent_smart_switch",
+    "v1_ir_blaster",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
