@@ -12004,6 +12004,184 @@
     'state': '3',
   })
 # ---
+# name: test_numbers[leviton_d26hd][number.levds_dimmer_e6e1_on_level-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.levds_dimmer_e6e1_on_level',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'On level',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'On level',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'on_level',
+    'unique_id': '00000000000004D2-00000000000003EF-MatterNodeDevice-1-on_level-8-17',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_numbers[leviton_d26hd][number.levds_dimmer_e6e1_on_level-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'LEVDS-Dimmer-E6E1 On level',
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.levds_dimmer_e6e1_on_level',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '254',
+  })
+# ---
+# name: test_numbers[leviton_d26hd][number.levds_dimmer_e6e1_on_off_transition_time-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 65534,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 0.1,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.levds_dimmer_e6e1_on_off_transition_time',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'On/Off transition time',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'On/Off transition time',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'on_off_transition_time',
+    'unique_id': '00000000000004D2-00000000000003EF-MatterNodeDevice-1-on_off_transition_time-8-16',
+    'unit_of_measurement': <UnitOfTime.SECONDS: 's'>,
+  })
+# ---
+# name: test_numbers[leviton_d26hd][number.levds_dimmer_e6e1_on_off_transition_time-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'LEVDS-Dimmer-E6E1 On/Off transition time',
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 65534,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 0.1,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfTime.SECONDS: 's'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.levds_dimmer_e6e1_on_off_transition_time',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
+  })
+# ---
+# name: test_numbers[leviton_d26hd][number.levds_dimmer_e6e1_power_on_level-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.levds_dimmer_e6e1_power_on_level',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Power-on level',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Power-on level',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'power_on_level',
+    'unique_id': '00000000000004D2-00000000000003EF-MatterNodeDevice-1-power_on_level-8-16384',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_numbers[leviton_d26hd][number.levds_dimmer_e6e1_power_on_level-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'LEVDS-Dimmer-E6E1 Power-on level',
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.levds_dimmer_e6e1_power_on_level',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '255',
+  })
+# ---
 # name: test_numbers[mock_dimmable_light][number.mock_dimmable_light_off_transition_time-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
