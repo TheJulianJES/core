@@ -52,6 +52,7 @@ FIXTURES = [
     "cync_paddle_dimmer",
     "dewenwils_3_zone_transformer",
     "dreame_r2449a",
+    "ductech_smartwings_levitate",
     "eberle_ute3000",
     "ecovacs_deebot",
     "eufy_vacuum_omni_e28",
