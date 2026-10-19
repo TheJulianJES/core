@@ -204,6 +204,7 @@ FIXTURES = [
     "roborock_robotic_vacuum_cleaner_259",
     "roborock_saros_10",
     "rollease_acmeda_pulse_pro",
+    "schneider_square_d_wifi_switch",
     "secuyou_smart_lock",
     "silabs_dishwasher",
     "silabs_evse_charging",
