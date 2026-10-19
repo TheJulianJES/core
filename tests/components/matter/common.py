@@ -128,6 +128,7 @@ FIXTURES = [
     "meross_smart_presence_sensor",
     "meross_smart_thermostat_57345",
     "meross_smart_thermostat_57346",
+    "midea_air_conditioner",
     "mock_air_purifier",
     "mock_battery_storage",
     "mock_chime",
