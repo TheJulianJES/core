@@ -262,6 +262,7 @@ FIXTURES = [
     "wiz_a19",
     "wiz_a21_e26",
     "yandex_smart_socket",
+    "yankon_pmecl9985",
     "zemismart_mt25b",
 ]
 
