@@ -76,6 +76,7 @@ FIXTURES = [
     "localizedtech_presence_one",
     "longan_link_thermostat",
     "matterbridge_aggregator",
+    "meross_smart_presence_sensor",
     "mock_air_purifier",
     "mock_battery_storage",
     "mock_chime",
