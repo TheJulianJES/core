@@ -88,6 +88,7 @@ FIXTURES = [
     "hoorii_technology_hoorii_window_covering",
     "ikea_air_quality_monitor",
     "ikea_bilresa_dual_button",
+    "ikea_dirigera",
     "ikea_scroll_wheel",
     "inovelli_vtm30",
     "inovelli_vtm31",
