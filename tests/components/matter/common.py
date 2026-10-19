@@ -64,6 +64,7 @@ FIXTURES = [
     "eve_energy_20ecn4101",
     "eve_energy_plug",
     "eve_energy_plug_patched",
+    "eve_light_switch_20ece4101",
     "eve_shutter",
     "eve_thermo_v4",
     "eve_thermo_v5",
