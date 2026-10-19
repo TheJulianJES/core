@@ -1,4 +1,331 @@
 # serializer version: 1
+# name: test_multi_endpoint_device_topology[aqara_door_window_p2]
+  dict({
+    '00000000000004D2-000000000000005B-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_door_and_window_sensor_p2_battery': 'Battery',
+        'binary_sensor.aqara_door_and_window_sensor_p2_door': 'Door',
+        'binary_sensor.aqara_door_and_window_sensor_p2_hardware_faults': 'Hardware faults',
+        'button.aqara_door_and_window_sensor_p2_identify': 'Identify',
+        'number.aqara_door_and_window_sensor_p2_sensitivity': 'Sensitivity',
+        'select.aqara_door_and_window_sensor_p2_sensitivity': 'Sensitivity',
+        'sensor.aqara_door_and_window_sensor_p2_battery': 'Battery',
+        'sensor.aqara_door_and_window_sensor_p2_battery_type': 'Battery type',
+        'sensor.aqara_door_and_window_sensor_p2_battery_voltage': 'Battery voltage',
+        'sensor.aqara_door_and_window_sensor_p2_boot_reason': 'Boot reason',
+        'sensor.aqara_door_and_window_sensor_p2_reboot_count': 'Reboot count',
+        'sensor.aqara_door_and_window_sensor_p2_uptime': 'Uptime',
+        'update.aqara_door_and_window_sensor_p2_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Door and Window Sensor P2',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_hub_m3]
+  dict({
+    '00000000000004D2-000000000000009F-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.air_conditioner_identify': 'Identify',
+        'climate.air_conditioner': None,
+        'sensor.air_conditioner_temperature': 'Temperature',
+      }),
+      'name': 'Air Conditioner',
+      'via_device': '00000000000004D2-000000000000009F-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000009F-20': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_temp_humidity_sensor_battery': 'Battery',
+        'button.aqara_temp_humidity_sensor_identify': 'Identify',
+        'button.aqara_temp_humidity_sensor_identify_2': 'Identify',
+        'sensor.aqara_temp_humidity_sensor_battery': 'Battery',
+        'sensor.aqara_temp_humidity_sensor_battery_type': 'Battery type',
+        'sensor.aqara_temp_humidity_sensor_battery_voltage': 'Battery voltage',
+        'sensor.aqara_temp_humidity_sensor_humidity': 'Humidity',
+        'sensor.aqara_temp_humidity_sensor_temperature': 'Temperature',
+      }),
+      'name': 'Aqara Temp/Humidity Sensor',
+      'via_device': '00000000000004D2-000000000000009F-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000009F-23': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.soft_human_presence_sensor_occupancy': 'Occupancy',
+        'button.soft_human_presence_sensor_identify': 'Identify',
+      }),
+      'name': 'Soft Human Presence Sensor',
+      'via_device': '00000000000004D2-000000000000009F-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000009F-24': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.soft_human_presence_sensor_occupancy_2': 'Occupancy',
+        'button.soft_human_presence_sensor_identify_2': 'Identify',
+      }),
+      'name': 'Soft Human Presence Sensor',
+      'via_device': '00000000000004D2-000000000000009F-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000009F-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.aqara_hub_m3_identify': 'Identify',
+        'sensor.aqara_hub_m3_boot_reason': 'Boot reason',
+        'sensor.aqara_hub_m3_reboot_count': 'Reboot count',
+        'sensor.aqara_hub_m3_uptime': 'Uptime',
+        'sensor.aqara_hub_m3_wi_fi_rssi': 'Wi-Fi RSSI',
+        'update.aqara_hub_m3_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Hub M3',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_light_switch_h2_us_4099]
+  dict({
+    '00000000000004D2-00000000000003F6-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_smart_wall_switch_hardware_faults': 'Hardware faults',
+        'button.aqara_smart_wall_switch_identify_1': 'Identify (1)',
+        'button.aqara_smart_wall_switch_identify_4': 'Identify (4)',
+        'button.aqara_smart_wall_switch_identify_5': 'Identify (5)',
+        'event.aqara_smart_wall_switch_button_4': 'Button (4)',
+        'event.aqara_smart_wall_switch_button_5': 'Button (5)',
+        'light.aqara_smart_wall_switch': None,
+        'select.aqara_smart_wall_switch_power_on_behavior': 'Power-on behavior',
+        'sensor.aqara_smart_wall_switch_active_current': 'Active current',
+        'sensor.aqara_smart_wall_switch_boot_reason': 'Boot reason',
+        'sensor.aqara_smart_wall_switch_current_switch_position_4': 'Current switch position (4)',
+        'sensor.aqara_smart_wall_switch_current_switch_position_5': 'Current switch position (5)',
+        'sensor.aqara_smart_wall_switch_energy': 'Energy',
+        'sensor.aqara_smart_wall_switch_power': 'Power',
+        'sensor.aqara_smart_wall_switch_reboot_count': 'Reboot count',
+        'sensor.aqara_smart_wall_switch_thread_channel': 'Thread channel',
+        'sensor.aqara_smart_wall_switch_thread_network_name': 'Thread network name',
+        'sensor.aqara_smart_wall_switch_thread_routing_role': 'Thread routing role',
+        'sensor.aqara_smart_wall_switch_uptime': 'Uptime',
+        'update.aqara_smart_wall_switch_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Smart Wall Switch',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_light_switch_h2_us_4100]
+  dict({
+    '00000000000004D2-00000000000003F7-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_smart_wall_switch_hardware_faults': 'Hardware faults',
+        'button.aqara_smart_wall_switch_identify_1': 'Identify (1)',
+        'button.aqara_smart_wall_switch_identify_2': 'Identify (2)',
+        'button.aqara_smart_wall_switch_identify_4': 'Identify (4)',
+        'button.aqara_smart_wall_switch_identify_5': 'Identify (5)',
+        'event.aqara_smart_wall_switch_button_4': 'Button (4)',
+        'event.aqara_smart_wall_switch_button_5': 'Button (5)',
+        'light.aqara_smart_wall_switch_light_1': 'Light (1)',
+        'light.aqara_smart_wall_switch_light_2': 'Light (2)',
+        'select.aqara_smart_wall_switch_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.aqara_smart_wall_switch_power_on_behavior_2': 'Power-on behavior (2)',
+        'sensor.aqara_smart_wall_switch_active_current': 'Active current',
+        'sensor.aqara_smart_wall_switch_boot_reason': 'Boot reason',
+        'sensor.aqara_smart_wall_switch_current_switch_position_4': 'Current switch position (4)',
+        'sensor.aqara_smart_wall_switch_current_switch_position_5': 'Current switch position (5)',
+        'sensor.aqara_smart_wall_switch_energy': 'Energy',
+        'sensor.aqara_smart_wall_switch_power': 'Power',
+        'sensor.aqara_smart_wall_switch_reboot_count': 'Reboot count',
+        'sensor.aqara_smart_wall_switch_thread_channel': 'Thread channel',
+        'sensor.aqara_smart_wall_switch_thread_network_name': 'Thread network name',
+        'sensor.aqara_smart_wall_switch_thread_routing_role': 'Thread routing role',
+        'sensor.aqara_smart_wall_switch_uptime': 'Uptime',
+        'update.aqara_smart_wall_switch_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Smart Wall Switch',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_light_switch_h2_us_4101]
+  dict({
+    '00000000000004D2-00000000000003F8-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_smart_wall_switch_hardware_faults': 'Hardware faults',
+        'button.aqara_smart_wall_switch_identify_1': 'Identify (1)',
+        'button.aqara_smart_wall_switch_identify_2': 'Identify (2)',
+        'button.aqara_smart_wall_switch_identify_3': 'Identify (3)',
+        'button.aqara_smart_wall_switch_identify_4': 'Identify (4)',
+        'button.aqara_smart_wall_switch_identify_5': 'Identify (5)',
+        'button.aqara_smart_wall_switch_identify_6': 'Identify (6)',
+        'button.aqara_smart_wall_switch_identify_7': 'Identify (7)',
+        'event.aqara_smart_wall_switch_button_4': 'Button (4)',
+        'event.aqara_smart_wall_switch_button_5': 'Button (5)',
+        'event.aqara_smart_wall_switch_button_6': 'Button (6)',
+        'event.aqara_smart_wall_switch_button_7': 'Button (7)',
+        'light.aqara_smart_wall_switch_light_1': 'Light (1)',
+        'light.aqara_smart_wall_switch_light_2': 'Light (2)',
+        'light.aqara_smart_wall_switch_light_3': 'Light (3)',
+        'select.aqara_smart_wall_switch_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.aqara_smart_wall_switch_power_on_behavior_2': 'Power-on behavior (2)',
+        'select.aqara_smart_wall_switch_power_on_behavior_3': 'Power-on behavior (3)',
+        'sensor.aqara_smart_wall_switch_active_current': 'Active current',
+        'sensor.aqara_smart_wall_switch_boot_reason': 'Boot reason',
+        'sensor.aqara_smart_wall_switch_current_switch_position_4': 'Current switch position (4)',
+        'sensor.aqara_smart_wall_switch_current_switch_position_5': 'Current switch position (5)',
+        'sensor.aqara_smart_wall_switch_current_switch_position_6': 'Current switch position (6)',
+        'sensor.aqara_smart_wall_switch_current_switch_position_7': 'Current switch position (7)',
+        'sensor.aqara_smart_wall_switch_energy': 'Energy',
+        'sensor.aqara_smart_wall_switch_power': 'Power',
+        'sensor.aqara_smart_wall_switch_reboot_count': 'Reboot count',
+        'sensor.aqara_smart_wall_switch_thread_channel': 'Thread channel',
+        'sensor.aqara_smart_wall_switch_thread_network_name': 'Thread network name',
+        'sensor.aqara_smart_wall_switch_thread_routing_role': 'Thread routing role',
+        'sensor.aqara_smart_wall_switch_uptime': 'Uptime',
+        'update.aqara_smart_wall_switch_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Smart Wall Switch',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_motion_p2]
+  dict({
+    '00000000000004D2-0000000000000053-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_motion_and_light_sensor_p2_battery': 'Battery',
+        'binary_sensor.aqara_motion_and_light_sensor_p2_occupancy': 'Occupancy',
+        'button.aqara_motion_and_light_sensor_p2_identify_1': 'Identify (1)',
+        'button.aqara_motion_and_light_sensor_p2_identify_2': 'Identify (2)',
+        'number.aqara_motion_and_light_sensor_p2_hold_time': 'Hold time',
+        'number.aqara_motion_and_light_sensor_p2_sensitivity': 'Sensitivity',
+        'select.aqara_motion_and_light_sensor_p2_sensitivity': 'Sensitivity',
+        'sensor.aqara_motion_and_light_sensor_p2_battery': 'Battery',
+        'sensor.aqara_motion_and_light_sensor_p2_battery_type': 'Battery type',
+        'sensor.aqara_motion_and_light_sensor_p2_battery_voltage': 'Battery voltage',
+        'sensor.aqara_motion_and_light_sensor_p2_boot_reason': 'Boot reason',
+        'sensor.aqara_motion_and_light_sensor_p2_illuminance': 'Illuminance',
+        'sensor.aqara_motion_and_light_sensor_p2_reboot_count': 'Reboot count',
+        'sensor.aqara_motion_and_light_sensor_p2_uptime': 'Uptime',
+        'update.aqara_motion_and_light_sensor_p2_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Motion and Light Sensor P2',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_multi_state_p100]
+  dict({
+    '00000000000004D2-000000000000016C-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.multi_state_sensor_p100_battery': 'Battery',
+        'binary_sensor.multi_state_sensor_p100_door': 'Door',
+        'binary_sensor.multi_state_sensor_p100_hardware_faults': 'Hardware faults',
+        'button.multi_state_sensor_p100_identify': 'Identify',
+        'number.multi_state_sensor_p100_sensitivity': 'Sensitivity',
+        'sensor.multi_state_sensor_p100_battery': 'Battery',
+        'sensor.multi_state_sensor_p100_battery_type': 'Battery type',
+        'sensor.multi_state_sensor_p100_battery_voltage': 'Battery voltage',
+        'sensor.multi_state_sensor_p100_boot_reason': 'Boot reason',
+        'sensor.multi_state_sensor_p100_reboot_count': 'Reboot count',
+        'sensor.multi_state_sensor_p100_thread_channel': 'Thread channel',
+        'sensor.multi_state_sensor_p100_thread_network_name': 'Thread network name',
+        'sensor.multi_state_sensor_p100_thread_routing_role': 'Thread routing role',
+        'sensor.multi_state_sensor_p100_uptime': 'Uptime',
+        'update.multi_state_sensor_p100_firmware': 'Firmware',
+      }),
+      'name': 'Multi-State Sensor P100',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_presence_fp300]
+  dict({
+    '00000000000004D2-00000000000000CD-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.presence_multi_sensor_fp300_1_battery': 'Battery',
+        'binary_sensor.presence_multi_sensor_fp300_1_hardware_faults': 'Hardware faults',
+        'binary_sensor.presence_multi_sensor_fp300_1_occupancy': 'Occupancy',
+        'button.presence_multi_sensor_fp300_1_identify_1': 'Identify (1)',
+        'button.presence_multi_sensor_fp300_1_identify_2': 'Identify (2)',
+        'button.presence_multi_sensor_fp300_1_identify_3': 'Identify (3)',
+        'button.presence_multi_sensor_fp300_1_identify_4': 'Identify (4)',
+        'number.presence_multi_sensor_fp300_1_hold_time': 'Hold time',
+        'number.presence_multi_sensor_fp300_1_sensitivity': 'Sensitivity',
+        'select.presence_multi_sensor_fp300_1_sensitivity': 'Sensitivity',
+        'sensor.presence_multi_sensor_fp300_1_battery': 'Battery',
+        'sensor.presence_multi_sensor_fp300_1_battery_type': 'Battery type',
+        'sensor.presence_multi_sensor_fp300_1_battery_voltage': 'Battery voltage',
+        'sensor.presence_multi_sensor_fp300_1_boot_reason': 'Boot reason',
+        'sensor.presence_multi_sensor_fp300_1_humidity': 'Humidity',
+        'sensor.presence_multi_sensor_fp300_1_illuminance': 'Illuminance',
+        'sensor.presence_multi_sensor_fp300_1_reboot_count': 'Reboot count',
+        'sensor.presence_multi_sensor_fp300_1_temperature': 'Temperature',
+        'sensor.presence_multi_sensor_fp300_1_thread_channel': 'Thread channel',
+        'sensor.presence_multi_sensor_fp300_1_thread_network_name': 'Thread network name',
+        'sensor.presence_multi_sensor_fp300_1_thread_routing_role': 'Thread routing role',
+        'sensor.presence_multi_sensor_fp300_1_uptime': 'Uptime',
+        'update.presence_multi_sensor_fp300_1_firmware': 'Firmware',
+      }),
+      'name': 'Presence Multi-Sensor FP300 1',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_sensor_w100]
+  dict({
+    '00000000000004D2-000000000000004B-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.climate_sensor_w100_battery': 'Battery',
+        'binary_sensor.climate_sensor_w100_hardware_faults': 'Hardware faults',
+        'button.climate_sensor_w100_identify_1': 'Identify (1)',
+        'button.climate_sensor_w100_identify_2': 'Identify (2)',
+        'button.climate_sensor_w100_identify_3': 'Identify (3)',
+        'button.climate_sensor_w100_identify_4': 'Identify (4)',
+        'button.climate_sensor_w100_identify_5': 'Identify (5)',
+        'event.climate_sensor_w100_button_3': 'Button (3)',
+        'event.climate_sensor_w100_button_4': 'Button (4)',
+        'event.climate_sensor_w100_button_5': 'Button (5)',
+        'sensor.climate_sensor_w100_battery': 'Battery',
+        'sensor.climate_sensor_w100_battery_type': 'Battery type',
+        'sensor.climate_sensor_w100_battery_voltage': 'Battery voltage',
+        'sensor.climate_sensor_w100_boot_reason': 'Boot reason',
+        'sensor.climate_sensor_w100_current_switch_position_3': 'Current switch position (3)',
+        'sensor.climate_sensor_w100_current_switch_position_4': 'Current switch position (4)',
+        'sensor.climate_sensor_w100_current_switch_position_5': 'Current switch position (5)',
+        'sensor.climate_sensor_w100_humidity': 'Humidity',
+        'sensor.climate_sensor_w100_reboot_count': 'Reboot count',
+        'sensor.climate_sensor_w100_temperature': 'Temperature',
+        'sensor.climate_sensor_w100_thread_channel': 'Thread channel',
+        'sensor.climate_sensor_w100_thread_network_name': 'Thread network name',
+        'sensor.climate_sensor_w100_thread_routing_role': 'Thread routing role',
+        'sensor.climate_sensor_w100_uptime': 'Uptime',
+        'update.climate_sensor_w100_firmware': 'Firmware',
+      }),
+      'name': 'Climate Sensor W100',
+      'via_device': None,
+    }),
+  })
+# ---
 # name: test_multi_endpoint_device_topology[aqara_shutter_switch_h2]
   dict({
     '00000000000004D2-00000000000000C1-MatterNodeDevice': dict({
@@ -30,6 +357,393 @@
         'update.aqara_shutter_switch_h2_eu_firmware': 'Firmware',
       }),
       'name': 'Aqara Shutter Switch H2 EU',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_smart_lock_u300]
+  dict({
+    '00000000000004D2-00000000000003F4-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_smart_lock_u300_actuator': 'Actuator',
+        'binary_sensor.aqara_smart_lock_u300_battery': 'Battery',
+        'binary_sensor.aqara_smart_lock_u300_hardware_faults': 'Hardware faults',
+        'binary_sensor.aqara_smart_lock_u300_network_faults': 'Network faults',
+        'binary_sensor.aqara_smart_lock_u300_radio_faults': 'Radio faults',
+        'button.aqara_smart_lock_u300_identify': 'Identify',
+        'lock.aqara_smart_lock_u300': None,
+        'number.aqara_smart_lock_u300_user_code_temporary_disable_time': 'User code temporary disable time',
+        'number.aqara_smart_lock_u300_wrong_code_limit': 'Wrong code limit',
+        'select.aqara_smart_lock_u300_operating_mode': 'Operating mode',
+        'sensor.aqara_smart_lock_u300_battery': 'Battery',
+        'sensor.aqara_smart_lock_u300_battery_voltage': 'Battery voltage',
+        'sensor.aqara_smart_lock_u300_boot_reason': 'Boot reason',
+        'sensor.aqara_smart_lock_u300_reboot_count': 'Reboot count',
+        'sensor.aqara_smart_lock_u300_thread_channel': 'Thread channel',
+        'sensor.aqara_smart_lock_u300_thread_network_name': 'Thread network name',
+        'sensor.aqara_smart_lock_u300_thread_routing_role': 'Thread routing role',
+        'sensor.aqara_smart_lock_u300_uptime': 'Uptime',
+        'switch.aqara_smart_lock_u300_one_touch_locking': 'One-touch locking',
+        'update.aqara_smart_lock_u300_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Smart Lock U300',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_smart_video_doorbell_g410]
+  dict({
+    '00000000000004D2-00000000000003F5-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.gezichts_detectie_occupancy': 'Occupancy',
+        'button.gezichts_detectie_identify': 'Identify',
+      }),
+      'name': 'Gezichts Detectie',
+      'via_device': '00000000000004D2-00000000000003F5-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003F5-3': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.deurbel_rinkelt_occupancy': 'Occupancy',
+        'button.deurbel_rinkelt_identify': 'Identify',
+      }),
+      'name': 'Deurbel Rinkelt',
+      'via_device': '00000000000004D2-00000000000003F5-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003F5-4': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.tamper_alarm_occupancy': 'Occupancy',
+        'button.tamper_alarm_identify': 'Identify',
+      }),
+      'name': 'Tamper Alarm',
+      'via_device': '00000000000004D2-00000000000003F5-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003F5-5': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.hanger_detectie_occupancy': 'Occupancy',
+        'button.hanger_detectie_identify': 'Identify',
+      }),
+      'name': 'Hanger Detectie',
+      'via_device': '00000000000004D2-00000000000003F5-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003F5-6': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.record_video_identify': 'Identify',
+        'switch.record_video': None,
+      }),
+      'name': 'Record Video',
+      'via_device': '00000000000004D2-00000000000003F5-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003F5-7': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.onbekend_persoon_gedetecteerd_occupancy': 'Occupancy',
+        'button.onbekend_persoon_gedetecteerd_identify': 'Identify',
+      }),
+      'name': 'Onbekend persoon gedetecteerd',
+      'via_device': '00000000000004D2-00000000000003F5-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003F5-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.aqara_smart_video_doorbell_g410_identify': 'Identify',
+        'sensor.aqara_smart_video_doorbell_g410_reboot_count': 'Reboot count',
+        'sensor.aqara_smart_video_doorbell_g410_uptime': 'Uptime',
+      }),
+      'name': 'Aqara Smart Video Doorbell G410',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_thermostat_w500]
+  dict({
+    '00000000000004D2-0000000000000064-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.floor_heating_thermostat_hardware_faults': 'Hardware faults',
+        'button.floor_heating_thermostat_identify_1': 'Identify (1)',
+        'button.floor_heating_thermostat_identify_2': 'Identify (2)',
+        'climate.floor_heating_thermostat': None,
+        'number.floor_heating_thermostat_occupied_setback': 'Occupied setback',
+        'number.floor_heating_thermostat_temperature_offset': 'Temperature offset',
+        'select.floor_heating_thermostat_temperature_display_mode': 'Temperature display mode',
+        'sensor.floor_heating_thermostat_active_current': 'Active current',
+        'sensor.floor_heating_thermostat_boot_reason': 'Boot reason',
+        'sensor.floor_heating_thermostat_energy': 'Energy',
+        'sensor.floor_heating_thermostat_humidity': 'Humidity',
+        'sensor.floor_heating_thermostat_reboot_count': 'Reboot count',
+        'sensor.floor_heating_thermostat_temperature': 'Temperature',
+        'sensor.floor_heating_thermostat_thread_channel': 'Thread channel',
+        'sensor.floor_heating_thermostat_thread_network_name': 'Thread network name',
+        'sensor.floor_heating_thermostat_thread_routing_role': 'Thread routing role',
+        'sensor.floor_heating_thermostat_uptime': 'Uptime',
+        'update.floor_heating_thermostat_firmware': 'Firmware',
+      }),
+      'name': 'Floor Heating Thermostat',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_thermostat_w500_presets]
+  dict({
+    '00000000000004D2-0000000000000041-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.floor_heating_thermostat_hardware_faults': 'Hardware faults',
+        'button.floor_heating_thermostat_identify_1': 'Identify (1)',
+        'button.floor_heating_thermostat_identify_2': 'Identify (2)',
+        'climate.floor_heating_thermostat': None,
+        'number.floor_heating_thermostat_occupied_setback': 'Occupied setback',
+        'number.floor_heating_thermostat_temperature_offset': 'Temperature offset',
+        'select.floor_heating_thermostat_temperature_display_mode': 'Temperature display mode',
+        'sensor.floor_heating_thermostat_active_current_0': 'Active current (0)',
+        'sensor.floor_heating_thermostat_active_current_3': 'Active current (3)',
+        'sensor.floor_heating_thermostat_boot_reason': 'Boot reason',
+        'sensor.floor_heating_thermostat_energy_0': 'Energy (0)',
+        'sensor.floor_heating_thermostat_energy_3': 'Energy (3)',
+        'sensor.floor_heating_thermostat_humidity': 'Humidity',
+        'sensor.floor_heating_thermostat_power_3': 'Power (3)',
+        'sensor.floor_heating_thermostat_reboot_count': 'Reboot count',
+        'sensor.floor_heating_thermostat_temperature': 'Temperature',
+        'sensor.floor_heating_thermostat_thread_channel': 'Thread channel',
+        'sensor.floor_heating_thermostat_thread_network_name': 'Thread network name',
+        'sensor.floor_heating_thermostat_thread_routing_role': 'Thread routing role',
+        'sensor.floor_heating_thermostat_uptime': 'Uptime',
+        'update.floor_heating_thermostat_firmware': 'Firmware',
+      }),
+      'name': 'Floor Heating Thermostat',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[aqara_u200]
+  dict({
+    '00000000000004D2-0000000000000014-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.aqara_smart_lock_u200_actuator': 'Actuator',
+        'binary_sensor.aqara_smart_lock_u200_battery': 'Battery',
+        'binary_sensor.aqara_smart_lock_u200_hardware_faults': 'Hardware faults',
+        'binary_sensor.aqara_smart_lock_u200_network_faults': 'Network faults',
+        'binary_sensor.aqara_smart_lock_u200_radio_faults': 'Radio faults',
+        'button.aqara_smart_lock_u200_identify': 'Identify',
+        'lock.aqara_smart_lock_u200': None,
+        'number.aqara_smart_lock_u200_user_code_temporary_disable_time': 'User code temporary disable time',
+        'number.aqara_smart_lock_u200_wrong_code_limit': 'Wrong code limit',
+        'select.aqara_smart_lock_u200_operating_mode': 'Operating mode',
+        'sensor.aqara_smart_lock_u200_battery': 'Battery',
+        'sensor.aqara_smart_lock_u200_battery_voltage': 'Battery voltage',
+        'sensor.aqara_smart_lock_u200_boot_reason': 'Boot reason',
+        'sensor.aqara_smart_lock_u200_reboot_count': 'Reboot count',
+        'sensor.aqara_smart_lock_u200_uptime': 'Uptime',
+        'switch.aqara_smart_lock_u200_one_touch_locking': 'One-touch locking',
+        'update.aqara_smart_lock_u200_firmware': 'Firmware',
+      }),
+      'name': 'Aqara Smart Lock U200',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[atios_ade_r12]
+  dict({
+    '00000000000004D2-000000000000044B-4': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.fan_identify': 'Identify',
+        'fan.fan': None,
+      }),
+      'name': 'Fan',
+      'via_device': '00000000000004D2-000000000000044B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000044B-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.atios_smartcore_reboot_count': 'Reboot count',
+        'sensor.atios_smartcore_uptime': 'Uptime',
+      }),
+      'name': 'Atios SmartCore',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[atios_knx_bridge]
+  dict({
+    '00000000000004D2-000000000000003E-29': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.electricity_monitor_ac_energy': 'Energy',
+        'sensor.electricity_monitor_ac_power': 'Power',
+      }),
+      'name': 'Electricity Monitor (AC)',
+      'via_device': '00000000000004D2-000000000000003E-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000003E-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.atios_knx_bridge_reboot_count': 'Reboot count',
+        'sensor.atios_knx_bridge_uptime': 'Uptime',
+      }),
+      'name': 'Atios KNX Bridge',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[cync_keypad_dimmer]
+  dict({
+    '00000000000004D2-000000000000041B-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.cync_keypad_dimmer_identify_1': 'Identify (1)',
+        'event.cync_keypad_dimmer_button_2': 'Button (2)',
+        'event.cync_keypad_dimmer_button_3': 'Button (3)',
+        'light.cync_keypad_dimmer': None,
+        'number.cync_keypad_dimmer_on_level': 'On level',
+        'number.cync_keypad_dimmer_power_on_level': 'Power-on level',
+        'select.cync_keypad_dimmer_power_on_behavior': 'Power-on behavior',
+        'sensor.cync_keypad_dimmer_boot_reason': 'Boot reason',
+        'sensor.cync_keypad_dimmer_current_switch_position_2': 'Current switch position (2)',
+        'sensor.cync_keypad_dimmer_current_switch_position_3': 'Current switch position (3)',
+        'sensor.cync_keypad_dimmer_reboot_count': 'Reboot count',
+        'sensor.cync_keypad_dimmer_uptime': 'Uptime',
+        'sensor.cync_keypad_dimmer_wi_fi_rssi': 'Wi-Fi RSSI',
+        'update.cync_keypad_dimmer_firmware': 'Firmware',
+      }),
+      'name': 'Cync Keypad Dimmer',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[dewenwils_3_zone_transformer]
+  dict({
+    '00000000000004D2-0000000000000459-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'select.dewenwils_3_zone_transformer_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.dewenwils_3_zone_transformer_power_on_behavior_2': 'Power-on behavior (2)',
+        'select.dewenwils_3_zone_transformer_power_on_behavior_3': 'Power-on behavior (3)',
+        'sensor.dewenwils_3_zone_transformer_reboot_count': 'Reboot count',
+        'sensor.dewenwils_3_zone_transformer_uptime': 'Uptime',
+        'sensor.dewenwils_3_zone_transformer_wi_fi_rssi': 'Wi-Fi RSSI',
+        'switch.dewenwils_3_zone_transformer_switch_1': 'Switch (1)',
+        'switch.dewenwils_3_zone_transformer_switch_2': 'Switch (2)',
+        'switch.dewenwils_3_zone_transformer_switch_3': 'Switch (3)',
+        'update.dewenwils_3_zone_transformer_firmware': 'Firmware',
+      }),
+      'name': 'DEWENWILS 3 -Zone Transformer',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ductech_smartwings_levitate]
+  dict({
+    '00000000000004D2-0000000000000057-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.smartwings_levitate_with_ductech_battery_1': 'Battery (1)',
+        'binary_sensor.smartwings_levitate_with_ductech_battery_2': 'Battery (2)',
+        'binary_sensor.smartwings_levitate_with_ductech_configuration_status_1': 'Configuration status (1)',
+        'binary_sensor.smartwings_levitate_with_ductech_configuration_status_2': 'Configuration status (2)',
+        'button.smartwings_levitate_with_ductech_identify_1': 'Identify (1)',
+        'button.smartwings_levitate_with_ductech_identify_2': 'Identify (2)',
+        'cover.smartwings_levitate_with_ductech': None,
+        'cover.smartwings_levitate_with_ductech_2': None,
+        'sensor.smartwings_levitate_with_ductech_battery_1': 'Battery (1)',
+        'sensor.smartwings_levitate_with_ductech_battery_2': 'Battery (2)',
+        'sensor.smartwings_levitate_with_ductech_battery_charge_state_1': 'Battery charge state (1)',
+        'sensor.smartwings_levitate_with_ductech_battery_charge_state_2': 'Battery charge state (2)',
+        'sensor.smartwings_levitate_with_ductech_boot_reason': 'Boot reason',
+        'sensor.smartwings_levitate_with_ductech_reboot_count': 'Reboot count',
+        'sensor.smartwings_levitate_with_ductech_target_opening_position_1': 'Target opening position (1)',
+        'sensor.smartwings_levitate_with_ductech_target_opening_position_2': 'Target opening position (2)',
+        'sensor.smartwings_levitate_with_ductech_thread_channel': 'Thread channel',
+        'sensor.smartwings_levitate_with_ductech_thread_network_name': 'Thread network name',
+        'sensor.smartwings_levitate_with_ductech_thread_routing_role': 'Thread routing role',
+        'sensor.smartwings_levitate_with_ductech_uptime': 'Uptime',
+        'switch.smartwings_levitate_with_ductech': None,
+        'update.smartwings_levitate_with_ductech_firmware': 'Firmware',
+      }),
+      'name': 'SmartWings Levitate with DUCTECH',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[eve_energy_20ebu4101]
+  dict({
+    '00000000000004D2-0000000000000415-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.eve_energy_20ebu4101_hardware_faults': 'Hardware faults',
+        'binary_sensor.eve_energy_20ebu4101_network_faults': 'Network faults',
+        'binary_sensor.eve_energy_20ebu4101_radio_faults': 'Radio faults',
+        'button.eve_energy_20ebu4101_identify_1': 'Identify (1)',
+        'select.eve_energy_20ebu4101_power_on_behavior': 'Power-on behavior',
+        'sensor.eve_energy_20ebu4101_active_current': 'Active current',
+        'sensor.eve_energy_20ebu4101_energy': 'Energy',
+        'sensor.eve_energy_20ebu4101_power': 'Power',
+        'sensor.eve_energy_20ebu4101_reboot_count': 'Reboot count',
+        'sensor.eve_energy_20ebu4101_thread_channel': 'Thread channel',
+        'sensor.eve_energy_20ebu4101_thread_network_name': 'Thread network name',
+        'sensor.eve_energy_20ebu4101_thread_routing_role': 'Thread routing role',
+        'sensor.eve_energy_20ebu4101_uptime': 'Uptime',
+        'sensor.eve_energy_20ebu4101_voltage': 'Voltage',
+        'switch.eve_energy_20ebu4101': None,
+        'switch.eve_energy_20ebu4101_child_lock': 'Child lock',
+        'update.eve_energy_20ebu4101_firmware': 'Firmware',
+      }),
+      'name': 'Eve Energy 20EBU4101',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[eve_energy_20ecl1301]
+  dict({
+    '00000000000004D2-0000000000000414-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.eve_energy_20ecl1301_hardware_faults': 'Hardware faults',
+        'binary_sensor.eve_energy_20ecl1301_network_faults': 'Network faults',
+        'binary_sensor.eve_energy_20ecl1301_radio_faults': 'Radio faults',
+        'button.eve_energy_20ecl1301_identify_1': 'Identify (1)',
+        'select.eve_energy_20ecl1301_power_on_behavior': 'Power-on behavior',
+        'sensor.eve_energy_20ecl1301_active_current': 'Active current',
+        'sensor.eve_energy_20ecl1301_energy': 'Energy',
+        'sensor.eve_energy_20ecl1301_power': 'Power',
+        'sensor.eve_energy_20ecl1301_reboot_count': 'Reboot count',
+        'sensor.eve_energy_20ecl1301_thread_channel': 'Thread channel',
+        'sensor.eve_energy_20ecl1301_thread_network_name': 'Thread network name',
+        'sensor.eve_energy_20ecl1301_thread_routing_role': 'Thread routing role',
+        'sensor.eve_energy_20ecl1301_uptime': 'Uptime',
+        'sensor.eve_energy_20ecl1301_voltage': 'Voltage',
+        'switch.eve_energy_20ecl1301': None,
+        'switch.eve_energy_20ecl1301_child_lock': 'Child lock',
+        'update.eve_energy_20ecl1301_firmware': 'Firmware',
+      }),
+      'name': 'Eve Energy 20ECL1301',
       'via_device': None,
     }),
   })
@@ -66,6 +780,94 @@
     }),
   })
 # ---
+# name: test_multi_endpoint_device_topology[eve_energy_plug_patched]
+  dict({
+    '00000000000004D2-00000000000000B7-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.eve_energy_plug_patched_hardware_faults': 'Hardware faults',
+        'binary_sensor.eve_energy_plug_patched_network_faults': 'Network faults',
+        'binary_sensor.eve_energy_plug_patched_radio_faults': 'Radio faults',
+        'button.eve_energy_plug_patched_identify': 'Identify',
+        'select.eve_energy_plug_patched_power_on_behavior': 'Power-on behavior',
+        'sensor.eve_energy_plug_patched_active_current': 'Active current',
+        'sensor.eve_energy_plug_patched_energy': 'Energy',
+        'sensor.eve_energy_plug_patched_power': 'Power',
+        'sensor.eve_energy_plug_patched_reboot_count': 'Reboot count',
+        'sensor.eve_energy_plug_patched_thread_channel': 'Thread channel',
+        'sensor.eve_energy_plug_patched_thread_network_name': 'Thread network name',
+        'sensor.eve_energy_plug_patched_thread_routing_role': 'Thread routing role',
+        'sensor.eve_energy_plug_patched_uptime': 'Uptime',
+        'sensor.eve_energy_plug_patched_voltage': 'Voltage',
+        'switch.eve_energy_plug_patched': None,
+        'switch.eve_energy_plug_patched_child_lock': 'Child lock',
+        'update.eve_energy_plug_patched_firmware': 'Firmware',
+      }),
+      'name': 'Eve Energy Plug Patched',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[eve_motion_20eby9901]
+  dict({
+    '00000000000004D2-000000000000004D-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.eve_motion_20eby9901_battery': 'Battery',
+        'binary_sensor.eve_motion_20eby9901_hardware_faults': 'Hardware faults',
+        'binary_sensor.eve_motion_20eby9901_network_faults': 'Network faults',
+        'binary_sensor.eve_motion_20eby9901_occupancy': 'Occupancy',
+        'binary_sensor.eve_motion_20eby9901_radio_faults': 'Radio faults',
+        'button.eve_motion_20eby9901_identify_1': 'Identify (1)',
+        'number.eve_motion_20eby9901_hold_time': 'Hold time',
+        'sensor.eve_motion_20eby9901_battery': 'Battery',
+        'sensor.eve_motion_20eby9901_battery_voltage': 'Battery voltage',
+        'sensor.eve_motion_20eby9901_illuminance': 'Illuminance',
+        'sensor.eve_motion_20eby9901_reboot_count': 'Reboot count',
+        'sensor.eve_motion_20eby9901_thread_channel': 'Thread channel',
+        'sensor.eve_motion_20eby9901_thread_network_name': 'Thread network name',
+        'sensor.eve_motion_20eby9901_thread_routing_role': 'Thread routing role',
+        'sensor.eve_motion_20eby9901_uptime': 'Uptime',
+        'update.eve_motion_20eby9901_firmware': 'Firmware',
+      }),
+      'name': 'Eve Motion 20EBY9901',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[eve_weather_sensor]
+  dict({
+    '00000000000004D2-000000000000001D-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.eve_weather_battery': 'Battery',
+        'binary_sensor.eve_weather_hardware_faults': 'Hardware faults',
+        'binary_sensor.eve_weather_network_faults': 'Network faults',
+        'binary_sensor.eve_weather_radio_faults': 'Radio faults',
+        'button.eve_weather_identify_1': 'Identify (1)',
+        'button.eve_weather_identify_2': 'Identify (2)',
+        'number.eve_weather_altitude_above_sea_level': 'Altitude above sea level',
+        'sensor.eve_weather_battery': 'Battery',
+        'sensor.eve_weather_battery_voltage': 'Battery voltage',
+        'sensor.eve_weather_humidity': 'Humidity',
+        'sensor.eve_weather_pressure': 'Pressure',
+        'sensor.eve_weather_reboot_count': 'Reboot count',
+        'sensor.eve_weather_temperature': 'Temperature',
+        'sensor.eve_weather_thread_channel': 'Thread channel',
+        'sensor.eve_weather_thread_network_name': 'Thread network name',
+        'sensor.eve_weather_thread_routing_role': 'Thread routing role',
+        'sensor.eve_weather_uptime': 'Uptime',
+        'sensor.eve_weather_weather_trend': 'Weather trend',
+        'update.eve_weather_firmware': 'Firmware',
+      }),
+      'name': 'Eve Weather',
+      'via_device': None,
+    }),
+  })
+# ---
 # name: test_multi_endpoint_device_topology[fritz_bridge]
   dict({
     '00000000000004D2-0000000000000001-42': dict({
@@ -90,6 +892,39 @@
         'sensor.fritz_smart_gateway_uptime': 'Uptime',
       }),
       'name': 'FRITZ!Smart Gateway',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[hager_neva]
+  dict({
+    '00000000000004D2-0000000000000465-3': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lumiere_1_identify': 'Identify',
+        'light.lumiere_1': None,
+        'number.lumiere_1_on_level': 'On level',
+        'number.lumiere_1_power_on_level': 'Power-on level',
+        'select.lumiere_1_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lumière (1)',
+      'via_device': '00000000000004D2-0000000000000465-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000465-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.domovea_matter_bridge_hardware_faults': 'Hardware faults',
+        'binary_sensor.domovea_matter_bridge_network_faults': 'Network faults',
+        'binary_sensor.domovea_matter_bridge_radio_faults': 'Radio faults',
+        'button.domovea_matter_bridge_identify': 'Identify',
+        'button.domovea_matter_bridge_identify_2': 'Identify',
+        'sensor.domovea_matter_bridge_boot_reason': 'Boot reason',
+        'sensor.domovea_matter_bridge_reboot_count': 'Reboot count',
+        'sensor.domovea_matter_bridge_uptime': 'Uptime',
+      }),
+      'name': 'Domovea Matter Bridge',
       'via_device': None,
     }),
   })
@@ -124,6 +959,756 @@
         'update.hjmt_6b_firmware': 'Firmware',
       }),
       'name': 'HJMT-6B',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[heiman_motion_sensor_m1]
+  dict({
+    '00000000000004D2-0000000000000058-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.smart_motion_sensor_battery': 'Battery',
+        'binary_sensor.smart_motion_sensor_occupancy': 'Occupancy',
+        'button.smart_motion_sensor_identify_1': 'Identify (1)',
+        'number.smart_motion_sensor_hold_time': 'Hold time',
+        'number.smart_motion_sensor_sensitivity': 'Sensitivity',
+        'select.smart_motion_sensor_sensitivity': 'Sensitivity',
+        'sensor.smart_motion_sensor_battery': 'Battery',
+        'sensor.smart_motion_sensor_battery_type': 'Battery type',
+        'sensor.smart_motion_sensor_battery_voltage': 'Battery voltage',
+        'sensor.smart_motion_sensor_illuminance': 'Illuminance',
+        'sensor.smart_motion_sensor_reboot_count': 'Reboot count',
+        'sensor.smart_motion_sensor_thread_channel': 'Thread channel',
+        'sensor.smart_motion_sensor_thread_network_name': 'Thread network name',
+        'sensor.smart_motion_sensor_thread_routing_role': 'Thread routing role',
+        'sensor.smart_motion_sensor_time_remaining': 'Time remaining',
+        'sensor.smart_motion_sensor_uptime': 'Uptime',
+        'update.smart_motion_sensor_firmware': 'Firmware',
+      }),
+      'name': 'Smart motion sensor',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ikea_bilresa_dual_button]
+  dict({
+    '00000000000004D2-0000000000000089-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.bilresa_dual_button_battery': 'Battery',
+        'event.bilresa_dual_button_button_1': 'Button (1)',
+        'event.bilresa_dual_button_button_2': 'Button (2)',
+        'sensor.bilresa_dual_button_battery': 'Battery',
+        'sensor.bilresa_dual_button_battery_type': 'Battery type',
+        'sensor.bilresa_dual_button_battery_voltage': 'Battery voltage',
+        'sensor.bilresa_dual_button_current_switch_position_1': 'Current switch position (1)',
+        'sensor.bilresa_dual_button_current_switch_position_2': 'Current switch position (2)',
+        'sensor.bilresa_dual_button_reboot_count': 'Reboot count',
+        'sensor.bilresa_dual_button_thread_channel': 'Thread channel',
+        'sensor.bilresa_dual_button_thread_network_name': 'Thread network name',
+        'sensor.bilresa_dual_button_thread_routing_role': 'Thread routing role',
+        'sensor.bilresa_dual_button_uptime': 'Uptime',
+        'update.bilresa_dual_button_firmware': 'Firmware',
+      }),
+      'name': 'BILRESA dual button',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ikea_dirigera]
+  dict({
+    '00000000000004D2-00000000000003FE-128': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_battery': 'Battery',
+        'event.telecommande_button': 'Button',
+        'event.telecommande_button_2': 'Button',
+        'event.telecommande_button_3': 'Button',
+        'event.telecommande_button_4': 'Button',
+        'event.telecommande_button_5': 'Button',
+        'sensor.telecommande_battery': 'Battery',
+        'sensor.telecommande_current_switch_position': 'Current switch position',
+        'sensor.telecommande_current_switch_position_2': 'Current switch position',
+        'sensor.telecommande_current_switch_position_3': 'Current switch position',
+        'sensor.telecommande_current_switch_position_4': 'Current switch position',
+        'sensor.telecommande_current_switch_position_5': 'Current switch position',
+      }),
+      'name': 'Télécommande',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-134': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.plafond_identify': 'Identify',
+        'light.plafond': None,
+        'number.plafond_on_level': 'On level',
+        'number.plafond_power_on_level': 'Power-on level',
+        'select.plafond_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Plafond',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-135': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lampe_sur_pied_identify': 'Identify',
+        'light.lampe_sur_pied': None,
+        'number.lampe_sur_pied_on_level': 'On level',
+        'number.lampe_sur_pied_power_on_level': 'Power-on level',
+        'select.lampe_sur_pied_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lampe sur pied',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-136': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lumiere_d_entree_identify': 'Identify',
+        'light.lumiere_d_entree': None,
+        'number.lumiere_d_entree_on_level': 'On level',
+        'number.lumiere_d_entree_power_on_level': 'Power-on level',
+        'select.lumiere_d_entree_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': "Lumière d'entrée",
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-137': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.plafond_identify_2': 'Identify',
+        'light.plafond_2': None,
+        'number.plafond_on_level_2': 'On level',
+        'number.plafond_power_on_level_2': 'Power-on level',
+        'select.plafond_power_on_behavior_2': 'Power-on behavior',
+      }),
+      'name': 'Plafond',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-138': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.portique_battery': 'Battery',
+        'binary_sensor.portique_door': 'Door',
+        'button.portique_identify': 'Identify',
+        'sensor.portique_battery': 'Battery',
+      }),
+      'name': 'Portique',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-139': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.light_5_identify': 'Identify',
+        'light.light_5': None,
+        'number.light_5_on_level': 'On level',
+        'number.light_5_power_on_level': 'Power-on level',
+        'select.light_5_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Light 5',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-140': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.light_6_identify': 'Identify',
+        'light.light_6': None,
+        'number.light_6_on_level': 'On level',
+        'number.light_6_power_on_level': 'Power-on level',
+        'select.light_6_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Light 6',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-141': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.light_7_identify': 'Identify',
+        'light.light_7': None,
+        'number.light_7_on_level': 'On level',
+        'number.light_7_power_on_level': 'Power-on level',
+        'select.light_7_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Light 7',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-142': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.store_arriere_battery': 'Battery',
+        'binary_sensor.store_arriere_configuration_status': 'Configuration status',
+        'cover.store_arriere': None,
+        'sensor.store_arriere_battery': 'Battery',
+        'sensor.store_arriere_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Store arrière',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-143': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.store_de_cote_battery': 'Battery',
+        'binary_sensor.store_de_cote_configuration_status': 'Configuration status',
+        'cover.store_de_cote': None,
+        'sensor.store_de_cote_battery': 'Battery',
+        'sensor.store_de_cote_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Store de côté',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-144': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.plafond_identify_3': 'Identify',
+        'light.plafond_3': None,
+        'number.plafond_on_level_3': 'On level',
+        'number.plafond_power_on_level_3': 'Power-on level',
+        'select.plafond_power_on_behavior_3': 'Power-on behavior',
+      }),
+      'name': 'Plafond',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-145': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lumiere_de_droite_identify': 'Identify',
+        'light.lumiere_de_droite': None,
+        'number.lumiere_de_droite_on_level': 'On level',
+        'number.lumiere_de_droite_power_on_level': 'Power-on level',
+        'select.lumiere_de_droite_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lumière de droite',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-146': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lumiere_de_gauche_identify': 'Identify',
+        'light.lumiere_de_gauche': None,
+        'number.lumiere_de_gauche_on_level': 'On level',
+        'number.lumiere_de_gauche_power_on_level': 'Power-on level',
+        'select.lumiere_de_gauche_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lumière de gauche',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-147': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.etoile_identify': 'Identify',
+        'light.etoile': None,
+        'number.etoile_on_level': 'On level',
+        'number.etoile_power_on_level': 'Power-on level',
+        'select.etoile_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Étoile',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-148': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.light_11_identify': 'Identify',
+        'light.light_11': None,
+        'number.light_11_on_level': 'On level',
+        'number.light_11_power_on_level': 'Power-on level',
+        'select.light_11_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Light 11',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-149': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.light_12_identify': 'Identify',
+        'light.light_12': None,
+        'number.light_12_on_level': 'On level',
+        'number.light_12_power_on_level': 'Power-on level',
+        'select.light_12_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Light 12',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-150': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_battery_2': 'Battery',
+        'event.telecommande_button_10': 'Button',
+        'event.telecommande_button_6': 'Button',
+        'event.telecommande_button_7': 'Button',
+        'event.telecommande_button_8': 'Button',
+        'event.telecommande_button_9': 'Button',
+        'sensor.telecommande_battery_2': 'Battery',
+        'sensor.telecommande_current_switch_position_10': 'Current switch position',
+        'sensor.telecommande_current_switch_position_6': 'Current switch position',
+        'sensor.telecommande_current_switch_position_7': 'Current switch position',
+        'sensor.telecommande_current_switch_position_8': 'Current switch position',
+        'sensor.telecommande_current_switch_position_9': 'Current switch position',
+      }),
+      'name': 'Télécommande',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-156': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.plafond_identify_4': 'Identify',
+        'light.plafond_4': None,
+        'number.plafond_on_level_4': 'On level',
+        'number.plafond_power_on_level_4': 'Power-on level',
+        'select.plafond_power_on_behavior_4': 'Power-on behavior',
+      }),
+      'name': 'Plafond',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-157': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lampe_de_lecture_identify': 'Identify',
+        'light.lampe_de_lecture': None,
+        'number.lampe_de_lecture_on_level': 'On level',
+        'number.lampe_de_lecture_power_on_level': 'Power-on level',
+        'select.lampe_de_lecture_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lampe de lecture',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-158': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.plafond_identify_5': 'Identify',
+        'light.plafond_5': None,
+        'number.plafond_on_level_5': 'On level',
+        'number.plafond_power_on_level_5': 'Power-on level',
+        'select.plafond_power_on_behavior_5': 'Power-on behavior',
+      }),
+      'name': 'Plafond',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-159': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.plafond_identify_6': 'Identify',
+        'light.plafond_6': None,
+        'number.plafond_on_level_6': 'On level',
+        'number.plafond_power_on_level_6': 'Power-on level',
+        'select.plafond_power_on_behavior_6': 'Power-on behavior',
+      }),
+      'name': 'Plafond',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-160': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.homelab_identify': 'Identify',
+        'number.homelab_on_level': 'On level',
+        'number.homelab_power_on_level': 'Power-on level',
+        'select.homelab_power_on_behavior': 'Power-on behavior',
+        'sensor.homelab_effective_current': 'Effective current',
+        'sensor.homelab_effective_voltage': 'Effective voltage',
+        'sensor.homelab_energy': 'Energy',
+        'sensor.homelab_power': 'Power',
+        'switch.homelab': None,
+      }),
+      'name': 'Homelab',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-161': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_etoile_battery': 'Battery',
+        'event.telecommande_etoile_button': 'Button',
+        'event.telecommande_etoile_button_2': 'Button',
+        'event.telecommande_etoile_button_3': 'Button',
+        'event.telecommande_etoile_button_4': 'Button',
+        'event.telecommande_etoile_button_5': 'Button',
+        'sensor.telecommande_etoile_battery': 'Battery',
+        'sensor.telecommande_etoile_current_switch_position': 'Current switch position',
+        'sensor.telecommande_etoile_current_switch_position_2': 'Current switch position',
+        'sensor.telecommande_etoile_current_switch_position_3': 'Current switch position',
+        'sensor.telecommande_etoile_current_switch_position_4': 'Current switch position',
+        'sensor.telecommande_etoile_current_switch_position_5': 'Current switch position',
+      }),
+      'name': 'Télécommande étoile',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-167': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_battery_3': 'Battery',
+        'event.telecommande_button_11': 'Button',
+        'event.telecommande_button_12': 'Button',
+        'event.telecommande_button_13': 'Button',
+        'event.telecommande_button_14': 'Button',
+        'event.telecommande_button_15': 'Button',
+        'sensor.telecommande_battery_3': 'Battery',
+        'sensor.telecommande_current_switch_position_11': 'Current switch position',
+        'sensor.telecommande_current_switch_position_12': 'Current switch position',
+        'sensor.telecommande_current_switch_position_13': 'Current switch position',
+        'sensor.telecommande_current_switch_position_14': 'Current switch position',
+        'sensor.telecommande_current_switch_position_15': 'Current switch position',
+      }),
+      'name': 'Télécommande',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-173': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_battery_4': 'Battery',
+        'event.telecommande_button_16': 'Button',
+        'event.telecommande_button_17': 'Button',
+        'event.telecommande_button_18': 'Button',
+        'event.telecommande_button_19': 'Button',
+        'event.telecommande_button_20': 'Button',
+        'sensor.telecommande_battery_4': 'Battery',
+        'sensor.telecommande_current_switch_position_16': 'Current switch position',
+        'sensor.telecommande_current_switch_position_17': 'Current switch position',
+        'sensor.telecommande_current_switch_position_18': 'Current switch position',
+        'sensor.telecommande_current_switch_position_19': 'Current switch position',
+        'sensor.telecommande_current_switch_position_20': 'Current switch position',
+      }),
+      'name': 'Télécommande',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-179': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_atelier_battery': 'Battery',
+        'event.telecommande_atelier_button': 'Button',
+        'event.telecommande_atelier_button_2': 'Button',
+        'event.telecommande_atelier_button_3': 'Button',
+        'event.telecommande_atelier_button_4': 'Button',
+        'event.telecommande_atelier_button_5': 'Button',
+        'sensor.telecommande_atelier_battery': 'Battery',
+        'sensor.telecommande_atelier_current_switch_position': 'Current switch position',
+        'sensor.telecommande_atelier_current_switch_position_2': 'Current switch position',
+        'sensor.telecommande_atelier_current_switch_position_3': 'Current switch position',
+        'sensor.telecommande_atelier_current_switch_position_4': 'Current switch position',
+        'sensor.telecommande_atelier_current_switch_position_5': 'Current switch position',
+      }),
+      'name': 'Télécommande atelier',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-185': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_battery_5': 'Battery',
+        'event.telecommande_button_21': 'Button',
+        'event.telecommande_button_22': 'Button',
+        'event.telecommande_button_23': 'Button',
+        'event.telecommande_button_24': 'Button',
+        'event.telecommande_button_25': 'Button',
+        'sensor.telecommande_battery_5': 'Battery',
+        'sensor.telecommande_current_switch_position_21': 'Current switch position',
+        'sensor.telecommande_current_switch_position_22': 'Current switch position',
+        'sensor.telecommande_current_switch_position_23': 'Current switch position',
+        'sensor.telecommande_current_switch_position_24': 'Current switch position',
+        'sensor.telecommande_current_switch_position_25': 'Current switch position',
+      }),
+      'name': 'Télécommande',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-191': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_symfonisk_battery': 'Battery',
+        'event.telecommande_symfonisk_button': 'Button',
+        'event.telecommande_symfonisk_button_2': 'Button',
+        'event.telecommande_symfonisk_button_3': 'Button',
+        'event.telecommande_symfonisk_button_4': 'Button',
+        'event.telecommande_symfonisk_button_5': 'Button',
+        'event.telecommande_symfonisk_button_6': 'Button',
+        'event.telecommande_symfonisk_button_7': 'Button',
+        'sensor.telecommande_symfonisk_battery': 'Battery',
+        'sensor.telecommande_symfonisk_current_switch_position': 'Current switch position',
+        'sensor.telecommande_symfonisk_current_switch_position_2': 'Current switch position',
+        'sensor.telecommande_symfonisk_current_switch_position_3': 'Current switch position',
+        'sensor.telecommande_symfonisk_current_switch_position_4': 'Current switch position',
+        'sensor.telecommande_symfonisk_current_switch_position_5': 'Current switch position',
+        'sensor.telecommande_symfonisk_current_switch_position_6': 'Current switch position',
+        'sensor.telecommande_symfonisk_current_switch_position_7': 'Current switch position',
+      }),
+      'name': 'Télécommande Symfonisk',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-199': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.telecommande_entree_battery': 'Battery',
+        'event.telecommande_entree_button': 'Button',
+        'event.telecommande_entree_button_2': 'Button',
+        'sensor.telecommande_entree_battery': 'Battery',
+        'sensor.telecommande_entree_current_switch_position': 'Current switch position',
+        'sensor.telecommande_entree_current_switch_position_2': 'Current switch position',
+      }),
+      'name': 'Télécommande entrée',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-205': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lampe_de_causeuse_identify': 'Identify',
+        'light.lampe_de_causeuse': None,
+        'number.lampe_de_causeuse_on_level': 'On level',
+        'number.lampe_de_causeuse_power_on_level': 'Power-on level',
+        'select.lampe_de_causeuse_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lampe de causeuse',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-206': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lampe_de_fauteuil_identify': 'Identify',
+        'light.lampe_de_fauteuil': None,
+        'number.lampe_de_fauteuil_on_level': 'On level',
+        'number.lampe_de_fauteuil_power_on_level': 'Power-on level',
+        'select.lampe_de_fauteuil_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lampe de fauteuil',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-207': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.lampe_noire_identify': 'Identify',
+        'light.lampe_noire': None,
+        'number.lampe_noire_on_level': 'On level',
+        'number.lampe_noire_power_on_level': 'Power-on level',
+        'select.lampe_noire_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Lampe noire',
+      'via_device': '00000000000004D2-00000000000003FE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000003FE-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.dirigera_identify': 'Identify',
+        'sensor.dirigera_reboot_count': 'Reboot count',
+        'sensor.dirigera_uptime': 'Uptime',
+      }),
+      'name': 'DIRIGERA',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ikea_grillplats_plug]
+  dict({
+    '00000000000004D2-0000000000000043-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.grillplats_plug_identify': 'Identify',
+        'select.grillplats_plug_power_on_behavior': 'Power-on behavior',
+        'sensor.grillplats_plug_active_current': 'Active current',
+        'sensor.grillplats_plug_apparent_current': 'Apparent current',
+        'sensor.grillplats_plug_apparent_power': 'Apparent power',
+        'sensor.grillplats_plug_effective_current': 'Effective current',
+        'sensor.grillplats_plug_effective_voltage': 'Effective voltage',
+        'sensor.grillplats_plug_energy': 'Energy',
+        'sensor.grillplats_plug_frequency': 'Frequency',
+        'sensor.grillplats_plug_power': 'Power',
+        'sensor.grillplats_plug_power_factor': 'Power factor',
+        'sensor.grillplats_plug_reactive_current': 'Reactive current',
+        'sensor.grillplats_plug_reactive_power': 'Reactive power',
+        'sensor.grillplats_plug_reboot_count': 'Reboot count',
+        'sensor.grillplats_plug_thread_channel': 'Thread channel',
+        'sensor.grillplats_plug_thread_network_name': 'Thread network name',
+        'sensor.grillplats_plug_thread_routing_role': 'Thread routing role',
+        'sensor.grillplats_plug_uptime': 'Uptime',
+        'sensor.grillplats_plug_voltage': 'Voltage',
+        'switch.grillplats_plug': None,
+        'update.grillplats_plug_firmware': 'Firmware',
+      }),
+      'name': 'GRILLPLATS Plug',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ikea_myggspray_wrlss_mtn_sensor]
+  dict({
+    '00000000000004D2-00000000000003FD-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.myggspray_wrlss_mtn_sensor_battery': 'Battery',
+        'binary_sensor.myggspray_wrlss_mtn_sensor_hardware_faults': 'Hardware faults',
+        'binary_sensor.myggspray_wrlss_mtn_sensor_network_faults': 'Network faults',
+        'binary_sensor.myggspray_wrlss_mtn_sensor_occupancy': 'Occupancy',
+        'binary_sensor.myggspray_wrlss_mtn_sensor_radio_faults': 'Radio faults',
+        'button.myggspray_wrlss_mtn_sensor_identify_1': 'Identify (1)',
+        'button.myggspray_wrlss_mtn_sensor_identify_2': 'Identify (2)',
+        'sensor.myggspray_wrlss_mtn_sensor_battery': 'Battery',
+        'sensor.myggspray_wrlss_mtn_sensor_battery_type': 'Battery type',
+        'sensor.myggspray_wrlss_mtn_sensor_battery_voltage': 'Battery voltage',
+        'sensor.myggspray_wrlss_mtn_sensor_boot_reason': 'Boot reason',
+        'sensor.myggspray_wrlss_mtn_sensor_illuminance': 'Illuminance',
+        'sensor.myggspray_wrlss_mtn_sensor_reboot_count': 'Reboot count',
+        'sensor.myggspray_wrlss_mtn_sensor_thread_channel': 'Thread channel',
+        'sensor.myggspray_wrlss_mtn_sensor_thread_network_name': 'Thread network name',
+        'sensor.myggspray_wrlss_mtn_sensor_thread_routing_role': 'Thread routing role',
+        'sensor.myggspray_wrlss_mtn_sensor_uptime': 'Uptime',
+        'update.myggspray_wrlss_mtn_sensor_firmware': 'Firmware',
+      }),
+      'name': 'MYGGSPRAY wrlss mtn sensor',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ikea_scroll_wheel]
+  dict({
+    '00000000000004D2-0000000000000002-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.bilresa_scroll_wheel_battery': 'Battery',
+        'event.bilresa_scroll_wheel_button_1': 'Button (1)',
+        'event.bilresa_scroll_wheel_button_2': 'Button (2)',
+        'event.bilresa_scroll_wheel_button_3': 'Button (3)',
+        'event.bilresa_scroll_wheel_button_4': 'Button (4)',
+        'event.bilresa_scroll_wheel_button_5': 'Button (5)',
+        'event.bilresa_scroll_wheel_button_6': 'Button (6)',
+        'event.bilresa_scroll_wheel_button_7': 'Button (7)',
+        'event.bilresa_scroll_wheel_button_8': 'Button (8)',
+        'event.bilresa_scroll_wheel_button_9': 'Button (9)',
+        'sensor.bilresa_scroll_wheel_battery': 'Battery',
+        'sensor.bilresa_scroll_wheel_battery_type': 'Battery type',
+        'sensor.bilresa_scroll_wheel_battery_voltage': 'Battery voltage',
+        'sensor.bilresa_scroll_wheel_current_switch_position_1': 'Current switch position (1)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_2': 'Current switch position (2)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_3': 'Current switch position (3)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_4': 'Current switch position (4)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_5': 'Current switch position (5)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_6': 'Current switch position (6)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_7': 'Current switch position (7)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_8': 'Current switch position (8)',
+        'sensor.bilresa_scroll_wheel_current_switch_position_9': 'Current switch position (9)',
+        'sensor.bilresa_scroll_wheel_reboot_count': 'Reboot count',
+        'sensor.bilresa_scroll_wheel_thread_channel': 'Thread channel',
+        'sensor.bilresa_scroll_wheel_thread_network_name': 'Thread network name',
+        'sensor.bilresa_scroll_wheel_thread_routing_role': 'Thread routing role',
+        'sensor.bilresa_scroll_wheel_uptime': 'Uptime',
+        'update.bilresa_scroll_wheel_firmware': 'Firmware',
+      }),
+      'name': 'BILRESA scroll wheel',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ikea_timmerflotte_temp_hmd_sensor]
+  dict({
+    '00000000000004D2-00000000000003FF-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.timmerflotte_temp_hmd_sensor_battery': 'Battery',
+        'binary_sensor.timmerflotte_temp_hmd_sensor_hardware_faults': 'Hardware faults',
+        'binary_sensor.timmerflotte_temp_hmd_sensor_network_faults': 'Network faults',
+        'binary_sensor.timmerflotte_temp_hmd_sensor_radio_faults': 'Radio faults',
+        'button.timmerflotte_temp_hmd_sensor_identify_1': 'Identify (1)',
+        'button.timmerflotte_temp_hmd_sensor_identify_2': 'Identify (2)',
+        'sensor.timmerflotte_temp_hmd_sensor_battery': 'Battery',
+        'sensor.timmerflotte_temp_hmd_sensor_battery_type': 'Battery type',
+        'sensor.timmerflotte_temp_hmd_sensor_battery_voltage': 'Battery voltage',
+        'sensor.timmerflotte_temp_hmd_sensor_boot_reason': 'Boot reason',
+        'sensor.timmerflotte_temp_hmd_sensor_humidity': 'Humidity',
+        'sensor.timmerflotte_temp_hmd_sensor_reboot_count': 'Reboot count',
+        'sensor.timmerflotte_temp_hmd_sensor_temperature': 'Temperature',
+        'sensor.timmerflotte_temp_hmd_sensor_thread_channel': 'Thread channel',
+        'sensor.timmerflotte_temp_hmd_sensor_thread_network_name': 'Thread network name',
+        'sensor.timmerflotte_temp_hmd_sensor_thread_routing_role': 'Thread routing role',
+        'sensor.timmerflotte_temp_hmd_sensor_uptime': 'Uptime',
+        'update.timmerflotte_temp_hmd_sensor_firmware': 'Firmware',
+      }),
+      'name': 'TIMMERFLOTTE temp/hmd sensor',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[inovelli_vtm30]
+  dict({
+    '00000000000004D2-0000000000000100-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.white_series_onoff_switch_identify_load_control': 'Identify (Load Control)',
+        'event.white_series_onoff_switch_button_config': 'Button (Config)',
+        'event.white_series_onoff_switch_button_down': 'Button (Down)',
+        'event.white_series_onoff_switch_button_up': 'Button (Up)',
+        'light.white_series_onoff_switch_light_rgb_indicator': 'Light (RGB Indicator)',
+        'number.white_series_onoff_switch_led_off_intensity_load_control': 'LED off intensity (Load Control)',
+        'number.white_series_onoff_switch_led_on_intensity_load_control': 'LED on intensity (Load Control)',
+        'number.white_series_onoff_switch_off_transition_time_load_control': 'Off transition time (Load Control)',
+        'number.white_series_onoff_switch_on_level_load_control': 'On level (Load Control)',
+        'number.white_series_onoff_switch_on_level_rgb_indicator': 'On level (RGB Indicator)',
+        'number.white_series_onoff_switch_on_off_transition_time_load_control': 'On/Off transition time (Load Control)',
+        'number.white_series_onoff_switch_on_off_transition_time_rgb_indicator': 'On/Off transition time (RGB Indicator)',
+        'number.white_series_onoff_switch_on_transition_time_load_control': 'On transition time (Load Control)',
+        'number.white_series_onoff_switch_power_on_level_load_control': 'Power-on level (Load Control)',
+        'number.white_series_onoff_switch_power_on_level_rgb_indicator': 'Power-on level (RGB Indicator)',
+        'select.white_series_onoff_switch_button_press_delay': 'Button Press Delay',
+        'select.white_series_onoff_switch_dimming_speed': 'Dimming Speed',
+        'select.white_series_onoff_switch_led_color': 'LED Color',
+        'select.white_series_onoff_switch_led_effect': 'LED Effect',
+        'select.white_series_onoff_switch_local_protection': 'Local Protection',
+        'select.white_series_onoff_switch_local_timer': 'Local Timer',
+        'select.white_series_onoff_switch_power_on_behavior_load_control': 'Power-on behavior (Load Control)',
+        'select.white_series_onoff_switch_power_on_behavior_rgb_indicator': 'Power-on behavior (RGB Indicator)',
+        'select.white_series_onoff_switch_smart_bulb_mode': 'Smart Bulb Mode',
+        'select.white_series_onoff_switch_switch_mode': 'Switch Mode',
+        'sensor.white_series_onoff_switch_active_current': 'Active current',
+        'sensor.white_series_onoff_switch_boot_reason': 'Boot reason',
+        'sensor.white_series_onoff_switch_current_switch_position_config': 'Current switch position (Config)',
+        'sensor.white_series_onoff_switch_current_switch_position_down': 'Current switch position (Down)',
+        'sensor.white_series_onoff_switch_current_switch_position_up': 'Current switch position (Up)',
+        'sensor.white_series_onoff_switch_energy': 'Energy',
+        'sensor.white_series_onoff_switch_humidity': 'Humidity',
+        'sensor.white_series_onoff_switch_power': 'Power',
+        'sensor.white_series_onoff_switch_reboot_count': 'Reboot count',
+        'sensor.white_series_onoff_switch_temperature': 'Temperature',
+        'sensor.white_series_onoff_switch_thread_channel': 'Thread channel',
+        'sensor.white_series_onoff_switch_thread_network_name': 'Thread network name',
+        'sensor.white_series_onoff_switch_thread_routing_role': 'Thread routing role',
+        'sensor.white_series_onoff_switch_uptime': 'Uptime',
+        'sensor.white_series_onoff_switch_voltage': 'Voltage',
+        'switch.white_series_onoff_switch_switch_load_control': 'Switch (Load Control)',
+        'update.white_series_onoff_switch_firmware': 'Firmware',
+      }),
+      'name': 'White Series OnOff Switch',
       'via_device': None,
     }),
   })
@@ -175,6 +1760,264 @@
         'update.inovelli_firmware': 'Firmware',
       }),
       'name': 'Inovelli',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[inovelli_vtm36]
+  dict({
+    '00000000000004D2-0000000000000429-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.white_series_lightfan_module_hardware_faults': 'Hardware faults',
+        'binary_sensor.white_series_lightfan_module_network_faults': 'Network faults',
+        'binary_sensor.white_series_lightfan_module_radio_faults': 'Radio faults',
+        'button.white_series_lightfan_module_identify_1': 'Identify (1)',
+        'button.white_series_lightfan_module_identify_2': 'Identify (2)',
+        'fan.white_series_lightfan_module': None,
+        'light.white_series_lightfan_module_light_1': 'Light (1)',
+        'number.white_series_lightfan_module_off_transition_time': 'Off transition time',
+        'number.white_series_lightfan_module_on_level_1': 'On level (1)',
+        'number.white_series_lightfan_module_on_level_2': 'On level (2)',
+        'number.white_series_lightfan_module_on_off_transition_time_1': 'On/Off transition time (1)',
+        'number.white_series_lightfan_module_on_off_transition_time_2': 'On/Off transition time (2)',
+        'number.white_series_lightfan_module_on_transition_time': 'On transition time',
+        'number.white_series_lightfan_module_power_on_level_1': 'Power-on level (1)',
+        'number.white_series_lightfan_module_power_on_level_2': 'Power-on level (2)',
+        'select.white_series_lightfan_module_fan_mode': 'Fan Mode',
+        'select.white_series_lightfan_module_light_mode': 'Light Mode',
+        'select.white_series_lightfan_module_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.white_series_lightfan_module_power_on_behavior_2': 'Power-on behavior (2)',
+        'sensor.white_series_lightfan_module_boot_reason': 'Boot reason',
+        'sensor.white_series_lightfan_module_reboot_count': 'Reboot count',
+        'sensor.white_series_lightfan_module_thread_channel': 'Thread channel',
+        'sensor.white_series_lightfan_module_thread_network_name': 'Thread network name',
+        'sensor.white_series_lightfan_module_thread_routing_role': 'Thread routing role',
+        'sensor.white_series_lightfan_module_uptime': 'Uptime',
+        'update.white_series_lightfan_module_firmware': 'Firmware',
+      }),
+      'name': 'White Series LightFan Module',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[lifx_switch_115]
+  dict({
+    '00000000000004D2-0000000000000446-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.kitchen_switch_identify_21': 'Identify (21)',
+        'button.kitchen_switch_identify_22': 'Identify (22)',
+        'button.kitchen_switch_identify_23': 'Identify (23)',
+        'button.kitchen_switch_identify_24': 'Identify (24)',
+        'button.kitchen_switch_identify_31': 'Identify (31)',
+        'button.kitchen_switch_identify_32': 'Identify (32)',
+        'button.kitchen_switch_identify_33': 'Identify (33)',
+        'button.kitchen_switch_identify_34': 'Identify (34)',
+        'button.kitchen_switch_identify_41': 'Identify (41)',
+        'button.kitchen_switch_identify_42': 'Identify (42)',
+        'button.kitchen_switch_identify_43': 'Identify (43)',
+        'button.kitchen_switch_identify_44': 'Identify (44)',
+        'event.kitchen_switch_button_31': 'Button (31)',
+        'event.kitchen_switch_button_32': 'Button (32)',
+        'event.kitchen_switch_button_33': 'Button (33)',
+        'event.kitchen_switch_button_34': 'Button (34)',
+        'select.kitchen_switch_power_on_behavior_41': 'Power-on behavior (41)',
+        'select.kitchen_switch_power_on_behavior_42': 'Power-on behavior (42)',
+        'select.kitchen_switch_power_on_behavior_43': 'Power-on behavior (43)',
+        'select.kitchen_switch_power_on_behavior_44': 'Power-on behavior (44)',
+        'sensor.kitchen_switch_boot_reason': 'Boot reason',
+        'sensor.kitchen_switch_current_switch_position_31': 'Current switch position (31)',
+        'sensor.kitchen_switch_current_switch_position_32': 'Current switch position (32)',
+        'sensor.kitchen_switch_current_switch_position_33': 'Current switch position (33)',
+        'sensor.kitchen_switch_current_switch_position_34': 'Current switch position (34)',
+        'sensor.kitchen_switch_reboot_count': 'Reboot count',
+        'sensor.kitchen_switch_uptime': 'Uptime',
+        'sensor.kitchen_switch_wi_fi_rssi': 'Wi-Fi RSSI',
+        'switch.kitchen_switch_switch_41': 'Switch (41)',
+        'switch.kitchen_switch_switch_42': 'Switch (42)',
+        'switch.kitchen_switch_switch_43': 'Switch (43)',
+        'switch.kitchen_switch_switch_44': 'Switch (44)',
+      }),
+      'name': 'Kitchen Switch',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[lifx_switch_89]
+  dict({
+    '00000000000004D2-0000000000000448-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.kitchen_identify_21': 'Identify (21)',
+        'button.kitchen_identify_22': 'Identify (22)',
+        'button.kitchen_identify_23': 'Identify (23)',
+        'button.kitchen_identify_24': 'Identify (24)',
+        'button.kitchen_identify_31': 'Identify (31)',
+        'button.kitchen_identify_32': 'Identify (32)',
+        'button.kitchen_identify_33': 'Identify (33)',
+        'button.kitchen_identify_34': 'Identify (34)',
+        'button.kitchen_identify_41': 'Identify (41)',
+        'event.kitchen_button_31': 'Button (31)',
+        'event.kitchen_button_32': 'Button (32)',
+        'event.kitchen_button_33': 'Button (33)',
+        'event.kitchen_button_34': 'Button (34)',
+        'select.kitchen_power_on_behavior': 'Power-on behavior',
+        'sensor.kitchen_boot_reason': 'Boot reason',
+        'sensor.kitchen_current_switch_position_31': 'Current switch position (31)',
+        'sensor.kitchen_current_switch_position_32': 'Current switch position (32)',
+        'sensor.kitchen_current_switch_position_33': 'Current switch position (33)',
+        'sensor.kitchen_current_switch_position_34': 'Current switch position (34)',
+        'sensor.kitchen_reboot_count': 'Reboot count',
+        'sensor.kitchen_uptime': 'Uptime',
+        'sensor.kitchen_wi_fi_rssi': 'Wi-Fi RSSI',
+        'switch.kitchen': None,
+      }),
+      'name': 'Kitchen',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[localizedtech_presence_one]
+  dict({
+    '00000000000004D2-000000000000045E-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.presence_one_occupancy': 'Occupancy',
+        'number.presence_one_hold_time': 'Hold time',
+        'number.presence_one_on_level_2': 'On level (2)',
+        'number.presence_one_on_level_4': 'On level (4)',
+        'number.presence_one_on_level_5': 'On level (5)',
+        'sensor.presence_one_battery_voltage': 'Battery voltage',
+        'sensor.presence_one_boot_reason': 'Boot reason',
+        'sensor.presence_one_reboot_count': 'Reboot count',
+        'sensor.presence_one_uptime': 'Uptime',
+        'switch.presence_one': None,
+        'update.presence_one_firmware': 'Firmware',
+      }),
+      'name': 'Presence One',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[matterbridge_aggregator]
+  dict({
+    '00000000000004D2-000000000000004A-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+      }),
+      'name': 'Garage Door',
+      'via_device': '00000000000004D2-000000000000004A-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000004A-3': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+      }),
+      'name': 'Venetian Blind',
+      'via_device': '00000000000004D2-000000000000004A-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000004A-31': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.thermostat_auto_battery': 'Battery',
+        'climate.thermostat_auto': None,
+        'sensor.thermostat_auto_battery': 'Battery',
+        'sensor.thermostat_auto_battery_charge_state': 'Battery charge state',
+        'sensor.thermostat_auto_battery_voltage': 'Battery voltage',
+        'sensor.thermostat_auto_flow': 'Flow',
+        'sensor.thermostat_auto_humidity': 'Humidity',
+        'sensor.thermostat_auto_temperature': 'Temperature',
+        'sensor.thermostat_auto_temperature_2': 'Temperature',
+      }),
+      'name': 'Thermostat (Auto)',
+      'via_device': '00000000000004D2-000000000000004A-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000004A-35': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.thermostat_heat_battery': 'Battery',
+        'climate.thermostat_heat': None,
+        'sensor.thermostat_heat_battery': 'Battery',
+        'sensor.thermostat_heat_battery_type': 'Battery type',
+        'sensor.thermostat_heat_battery_voltage': 'Battery voltage',
+        'sensor.thermostat_heat_temperature': 'Temperature',
+        'sensor.thermostat_heat_temperature_2': 'Temperature',
+        'sensor.thermostat_heat_temperature_3': 'Temperature',
+      }),
+      'name': 'Thermostat (Heat)',
+      'via_device': '00000000000004D2-000000000000004A-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000004A-38': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.thermostat_cool_battery': 'Battery',
+        'climate.thermostat_cool': None,
+        'sensor.thermostat_cool_battery': 'Battery',
+        'sensor.thermostat_cool_battery_type': 'Battery type',
+        'sensor.thermostat_cool_battery_voltage': 'Battery voltage',
+        'sensor.thermostat_cool_temperature': 'Temperature',
+      }),
+      'name': 'Thermostat (Cool)',
+      'via_device': '00000000000004D2-000000000000004A-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000004A-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.matterbridge_example_dynamic_reboot_count': 'Reboot count',
+        'sensor.matterbridge_example_dynamic_uptime': 'Uptime',
+      }),
+      'name': 'matterbridge-example-dynamic',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[meross_smart_presence_sensor]
+  dict({
+    '00000000000004D2-000000000000041E-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.smart_presence_sensor_occupancy': 'Occupancy',
+        'button.smart_presence_sensor_identify_0': 'Identify (0)',
+        'button.smart_presence_sensor_identify_1': 'Identify (1)',
+        'sensor.smart_presence_sensor_boot_reason': 'Boot reason',
+        'sensor.smart_presence_sensor_illuminance': 'Illuminance',
+        'sensor.smart_presence_sensor_reboot_count': 'Reboot count',
+        'sensor.smart_presence_sensor_uptime': 'Uptime',
+        'sensor.smart_presence_sensor_wi_fi_rssi': 'Wi-Fi RSSI',
+      }),
+      'name': 'Smart Presence Sensor',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[meross_smart_thermostat_57346]
+  dict({
+    '00000000000004D2-0000000000000422-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.smart_thermostat_identify_1': 'Identify (1)',
+        'climate.smart_thermostat': None,
+        'sensor.smart_thermostat_boot_reason': 'Boot reason',
+        'sensor.smart_thermostat_humidity': 'Humidity',
+        'sensor.smart_thermostat_reboot_count': 'Reboot count',
+        'sensor.smart_thermostat_temperature': 'Temperature',
+        'sensor.smart_thermostat_temperature_2': 'Temperature',
+        'sensor.smart_thermostat_uptime': 'Uptime',
+        'sensor.smart_thermostat_wi_fi_rssi': 'Wi-Fi RSSI',
+      }),
+      'name': 'Smart Thermostat',
       'via_device': None,
     }),
   })
@@ -246,6 +2089,673 @@
     }),
   })
 # ---
+# name: test_multi_endpoint_device_topology[mock_dimmable_light]
+  dict({
+    '00000000000004D2-000000000000000D-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.mock_dimmable_light_hardware_faults': 'Hardware faults',
+        'binary_sensor.mock_dimmable_light_network_faults': 'Network faults',
+        'binary_sensor.mock_dimmable_light_radio_faults': 'Radio faults',
+        'light.mock_dimmable_light': None,
+        'number.mock_dimmable_light_off_transition_time': 'Off transition time',
+        'number.mock_dimmable_light_on_level': 'On level',
+        'number.mock_dimmable_light_on_off_transition_time': 'On/Off transition time',
+        'number.mock_dimmable_light_on_transition_time': 'On transition time',
+        'number.mock_dimmable_light_power_on_level': 'Power-on level',
+        'select.mock_dimmable_light_led_color': 'LED Color',
+        'select.mock_dimmable_light_power_on_behavior': 'Power-on behavior',
+        'sensor.mock_dimmable_light_boot_reason': 'Boot reason',
+        'sensor.mock_dimmable_light_reboot_count': 'Reboot count',
+        'sensor.mock_dimmable_light_uptime': 'Uptime',
+        'sensor.mock_dimmable_light_wi_fi_rssi': 'Wi-Fi RSSI',
+        'update.mock_dimmable_light_firmware': 'Firmware',
+      }),
+      'name': 'Mock Dimmable Light',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[mock_generic_switch_multi]
+  dict({
+    '00000000000004D2-0000000000000012-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'event.mock_generic_switch_button_1': 'Button (1)',
+        'event.mock_generic_switch_button_fancy_button': 'Button (Fancy Button)',
+        'sensor.mock_generic_switch_current_switch_position_1': 'Current switch position (1)',
+        'sensor.mock_generic_switch_current_switch_position_fancy_button': 'Current switch position (Fancy Button)',
+      }),
+      'name': 'Mock Generic Switch',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[mock_leak_sensor]
+  dict({
+    '00000000000004D2-0000000000000020-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.water_leak_detector_water_leak': 'Water leak',
+        'sensor.water_leak_detector_reboot_count': 'Reboot count',
+        'sensor.water_leak_detector_uptime': 'Uptime',
+      }),
+      'name': 'Water Leak Detector',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[nanoleaf_nl77k1]
+  dict({
+    '00000000000004D2-00000000000003F3-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.multicolor_ceiling_light_identify_1': 'Identify (1)',
+        'button.multicolor_ceiling_light_identify_2': 'Identify (2)',
+        'light.multicolor_ceiling_light_light_1': 'Light (1)',
+        'light.multicolor_ceiling_light_light_2': 'Light (2)',
+        'number.multicolor_ceiling_light_on_level_1': 'On level (1)',
+        'number.multicolor_ceiling_light_on_level_2': 'On level (2)',
+        'number.multicolor_ceiling_light_power_on_level_1': 'Power-on level (1)',
+        'number.multicolor_ceiling_light_power_on_level_2': 'Power-on level (2)',
+        'select.multicolor_ceiling_light_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.multicolor_ceiling_light_power_on_behavior_2': 'Power-on behavior (2)',
+        'sensor.multicolor_ceiling_light_reboot_count': 'Reboot count',
+        'sensor.multicolor_ceiling_light_uptime': 'Uptime',
+        'update.multicolor_ceiling_light_firmware': 'Firmware',
+      }),
+      'name': 'Multicolor Ceiling Light',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[nature_remo_nano]
+  dict({
+    '00000000000004D2-000000000000042E-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'climate.split_ac': None,
+      }),
+      'name': 'Split AC',
+      'via_device': '00000000000004D2-000000000000042E-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000042E-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.nature_remo_nano_reboot_count': 'Reboot count',
+      }),
+      'name': 'Nature Remo nano',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[neo_smart_blinds_c_br300]
+  dict({
+    '00000000000004D2-0000000000000458-3': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.living_room_east_battery': 'Battery',
+        'binary_sensor.living_room_east_configuration_status': 'Configuration status',
+        'cover.living_room_east': None,
+        'sensor.living_room_east_battery': 'Battery',
+        'sensor.living_room_east_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Living Room East',
+      'via_device': '00000000000004D2-0000000000000458-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000458-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.c_br300_hardware_faults': 'Hardware faults',
+        'binary_sensor.c_br300_network_faults': 'Network faults',
+        'binary_sensor.c_br300_radio_faults': 'Radio faults',
+        'sensor.c_br300_boot_reason': 'Boot reason',
+        'sensor.c_br300_reboot_count': 'Reboot count',
+        'sensor.c_br300_uptime': 'Uptime',
+      }),
+      'name': 'C-BR300',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[ohf_zigbee_dali_bridge]
+  dict({
+    '00000000000004D2-00000000000000EE-10': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.patio_light_identify': 'Identify',
+        'light.patio_light': None,
+        'number.patio_light_on_level': 'On level',
+        'number.patio_light_power_on_level': 'Power-on level',
+        'select.patio_light_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Patio Light',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-11': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.entrance_light_identify': 'Identify',
+        'light.entrance_light': None,
+        'number.entrance_light_on_level': 'On level',
+        'number.entrance_light_power_on_level': 'Power-on level',
+        'select.entrance_light_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Entrance Light',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+      }),
+      'name': 'Ground Floor',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-3': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+      }),
+      'name': 'First Floor',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-4': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+      }),
+      'name': 'Outdoor',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-5': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.main_light_identify': 'Identify',
+        'light.main_light': None,
+        'number.main_light_on_level': 'On level',
+        'number.main_light_power_on_level': 'Power-on level',
+        'select.main_light_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Main Light',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-6': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.sofa_light_identify': 'Identify',
+        'light.sofa_light': None,
+        'number.sofa_light_on_level': 'On level',
+        'number.sofa_light_power_on_level': 'Power-on level',
+        'select.sofa_light_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Sofa Light',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-7': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.desk_light_identify': 'Identify',
+        'light.desk_light': None,
+        'number.desk_light_on_level': 'On level',
+        'number.desk_light_power_on_level': 'Power-on level',
+        'select.desk_light_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Desk Light',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-8': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.bedroom_main_identify': 'Identify',
+        'light.bedroom_main': None,
+        'number.bedroom_main_on_level': 'On level',
+        'number.bedroom_main_power_on_level': 'Power-on level',
+        'select.bedroom_main_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Bedroom Main',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-9': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.bedroom_bedside_identify': 'Identify',
+        'light.bedroom_bedside': None,
+        'number.bedroom_bedside_on_level': 'On level',
+        'number.bedroom_bedside_power_on_level': 'Power-on level',
+        'select.bedroom_bedside_power_on_behavior': 'Power-on behavior',
+      }),
+      'name': 'Bedroom Bedside',
+      'via_device': '00000000000004D2-00000000000000EE-MatterNodeDevice',
+    }),
+    '00000000000004D2-00000000000000EE-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.zigbee_dali_bridge_reboot_count': 'Reboot count',
+        'sensor.zigbee_dali_bridge_uptime': 'Uptime',
+        'sensor.zigbee_dali_bridge_wi_fi_rssi': 'Wi-Fi RSSI',
+      }),
+      'name': 'Zigbee-DALI Bridge',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[pergolux_pergola_controller]
+  dict({
+    '00000000000004D2-000000000000045D-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.pergola_controller_configuration_status': 'Configuration status',
+        'cover.pergola_controller': None,
+        'light.pergola_controller_light_3': 'Light (3)',
+        'number.pergola_controller_on_level': 'On level',
+        'number.pergola_controller_power_on_level': 'Power-on level',
+        'select.pergola_controller_power_on_behavior_2': 'Power-on behavior (2)',
+        'select.pergola_controller_power_on_behavior_3': 'Power-on behavior (3)',
+        'sensor.pergola_controller_reboot_count': 'Reboot count',
+        'sensor.pergola_controller_target_opening_position': 'Target opening position',
+        'sensor.pergola_controller_thread_channel': 'Thread channel',
+        'sensor.pergola_controller_thread_network_name': 'Thread network name',
+        'sensor.pergola_controller_thread_routing_role': 'Thread routing role',
+        'sensor.pergola_controller_uptime': 'Uptime',
+        'switch.pergola_controller_switch_2': 'Switch (2)',
+      }),
+      'name': 'Pergola Controller',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[rollease_acmeda_pulse_pro]
+  dict({
+    '00000000000004D2-0000000000000423-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.media_back_configuration_status': 'Configuration status',
+        'button.media_back_identify': 'Identify',
+        'cover.media_back': None,
+        'sensor.media_back_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Media Back',
+      'via_device': '00000000000004D2-0000000000000423-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000423-3': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.media_side_configuration_status': 'Configuration status',
+        'button.media_side_identify': 'Identify',
+        'cover.media_side': None,
+        'sensor.media_side_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Media Side',
+      'via_device': '00000000000004D2-0000000000000423-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000423-4': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.bedroom_left_privacy_configuration_status': 'Configuration status',
+        'button.bedroom_left_privacy_identify': 'Identify',
+        'cover.bedroom_left_privacy': None,
+        'sensor.bedroom_left_privacy_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Bedroom Left Privacy',
+      'via_device': '00000000000004D2-0000000000000423-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000423-5': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.bedroom_left_blockout_configuration_status': 'Configuration status',
+        'button.bedroom_left_blockout_identify': 'Identify',
+        'cover.bedroom_left_blockout': None,
+        'sensor.bedroom_left_blockout_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Bedroom Left Blockout',
+      'via_device': '00000000000004D2-0000000000000423-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000423-6': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.bedroom_right_privacy_configuration_status': 'Configuration status',
+        'button.bedroom_right_privacy_identify': 'Identify',
+        'cover.bedroom_right_privacy': None,
+        'sensor.bedroom_right_privacy_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Bedroom Right Privacy',
+      'via_device': '00000000000004D2-0000000000000423-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000423-7': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.bedroom_right_blockout_configuration_status': 'Configuration status',
+        'button.bedroom_right_blockout_identify': 'Identify',
+        'cover.bedroom_right_blockout': None,
+        'sensor.bedroom_right_blockout_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Bedroom Right Blockout',
+      'via_device': '00000000000004D2-0000000000000423-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000423-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.pulse_pro_reboot_count': 'Reboot count',
+        'sensor.pulse_pro_uptime': 'Uptime',
+      }),
+      'name': 'Pulse Pro',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[selve_home_server_3]
+  dict({
+    '00000000000004D2-000000000000045B-13': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_bad_configuration_status': 'Configuration status',
+        'cover.rollladen_bad': None,
+        'sensor.rollladen_bad_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Bad',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-14': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_alex_osten_configuration_status': 'Configuration status',
+        'cover.rollladen_alex_osten': None,
+        'sensor.rollladen_alex_osten_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Alex Osten',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-15': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_alex_suden_configuration_status': 'Configuration status',
+        'cover.rollladen_alex_suden': None,
+        'sensor.rollladen_alex_suden_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Alex Süden',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-16': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_annalena_westen_configuration_status': 'Configuration status',
+        'cover.rollladen_annalena_westen': None,
+        'sensor.rollladen_annalena_westen_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Annalena Westen',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-17': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_annalena_suden_configuration_status': 'Configuration status',
+        'cover.rollladen_annalena_suden': None,
+        'sensor.rollladen_annalena_suden_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Annalena Süden',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-18': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_eltern_configuration_status': 'Configuration status',
+        'cover.rollladen_eltern': None,
+        'sensor.rollladen_eltern_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Eltern',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-19': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_hwr_configuration_status': 'Configuration status',
+        'cover.rollladen_hwr': None,
+        'sensor.rollladen_hwr_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen HWR',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-20': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_kuche_osten_configuration_status': 'Configuration status',
+        'cover.rollladen_kuche_osten': None,
+        'sensor.rollladen_kuche_osten_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Küche Osten',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-21': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_kuche_suden_configuration_status': 'Configuration status',
+        'cover.rollladen_kuche_suden': None,
+        'sensor.rollladen_kuche_suden_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Küche Süden',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-22': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_wohnen_suden_gross_configuration_status': 'Configuration status',
+        'cover.rollladen_wohnen_suden_gross': None,
+        'sensor.rollladen_wohnen_suden_gross_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Wohnen Süden gross',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-23': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_wohnen_suden_klein_configuration_status': 'Configuration status',
+        'cover.rollladen_wohnen_suden_klein': None,
+        'sensor.rollladen_wohnen_suden_klein_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Wohnen Süden klein',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-24': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_wohnen_westen_configuration_status': 'Configuration status',
+        'cover.rollladen_wohnen_westen': None,
+        'sensor.rollladen_wohnen_westen_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Wohnen Westen',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-25': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_buro_configuration_status': 'Configuration status',
+        'cover.rollladen_buro': None,
+        'sensor.rollladen_buro_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen Büro',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-26': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.rollladen_wc_configuration_status': 'Configuration status',
+        'cover.rollladen_wc': None,
+        'sensor.rollladen_wc_target_opening_position': 'Target opening position',
+      }),
+      'name': 'Rollladen WC',
+      'via_device': '00000000000004D2-000000000000045B-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000045B-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.selve_home_server_3_reboot_count': 'Reboot count',
+        'sensor.selve_home_server_3_uptime': 'Uptime',
+      }),
+      'name': 'SELVE Home Server 3',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[silabs_dishwasher]
+  dict({
+    '00000000000004D2-0000000000000036-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.dishwasher_door_alarm': 'Door alarm',
+        'binary_sensor.dishwasher_hardware_faults': 'Hardware faults',
+        'binary_sensor.dishwasher_inflow_alarm': 'Inflow alarm',
+        'binary_sensor.dishwasher_network_faults': 'Network faults',
+        'binary_sensor.dishwasher_radio_faults': 'Radio faults',
+        'button.dishwasher_identify': 'Identify',
+        'button.dishwasher_pause': 'Pause',
+        'button.dishwasher_start': 'Start',
+        'button.dishwasher_stop': 'Stop',
+        'sensor.dishwasher_boot_reason': 'Boot reason',
+        'sensor.dishwasher_effective_current': 'Effective current',
+        'sensor.dishwasher_effective_voltage': 'Effective voltage',
+        'sensor.dishwasher_energy': 'Energy',
+        'sensor.dishwasher_operational_error': 'Operational error',
+        'sensor.dishwasher_operational_state': 'Operational state',
+        'sensor.dishwasher_power': 'Power',
+        'sensor.dishwasher_reboot_count': 'Reboot count',
+        'sensor.dishwasher_thread_channel': 'Thread channel',
+        'sensor.dishwasher_thread_network_name': 'Thread network name',
+        'sensor.dishwasher_thread_routing_role': 'Thread routing role',
+        'sensor.dishwasher_uptime': 'Uptime',
+        'update.dishwasher_firmware': 'Firmware',
+      }),
+      'name': 'Dishwasher',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[silabs_laundrywasher]
+  dict({
+    '00000000000004D2-0000000000000038-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.laundrywasher_hardware_faults': 'Hardware faults',
+        'binary_sensor.laundrywasher_network_faults': 'Network faults',
+        'binary_sensor.laundrywasher_radio_faults': 'Radio faults',
+        'button.laundrywasher_identify': 'Identify',
+        'button.laundrywasher_pause': 'Pause',
+        'button.laundrywasher_resume': 'Resume',
+        'button.laundrywasher_start': 'Start',
+        'button.laundrywasher_stop': 'Stop',
+        'number.laundrywasher_temperature_setpoint': 'Temperature setpoint',
+        'select.laundrywasher_number_of_rinses': 'Number of rinses',
+        'select.laundrywasher_spin_speed': 'Spin speed',
+        'select.laundrywasher_temperature_level': 'Temperature level',
+        'sensor.laundrywasher_boot_reason': 'Boot reason',
+        'sensor.laundrywasher_current_phase': 'Current phase',
+        'sensor.laundrywasher_effective_current': 'Effective current',
+        'sensor.laundrywasher_effective_voltage': 'Effective voltage',
+        'sensor.laundrywasher_energy': 'Energy',
+        'sensor.laundrywasher_operational_error': 'Operational error',
+        'sensor.laundrywasher_operational_state': 'Operational state',
+        'sensor.laundrywasher_power': 'Power',
+        'sensor.laundrywasher_reboot_count': 'Reboot count',
+        'sensor.laundrywasher_thread_channel': 'Thread channel',
+        'sensor.laundrywasher_thread_network_name': 'Thread network name',
+        'sensor.laundrywasher_thread_routing_role': 'Thread routing role',
+        'sensor.laundrywasher_uptime': 'Uptime',
+        'update.laundrywasher_firmware': 'Firmware',
+      }),
+      'name': 'LaundryWasher',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[silabs_light_switch]
+  dict({
+    '00000000000004D2-000000000000008E-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.light_switch_example_identify_1': 'Identify (1)',
+        'event.light_switch_example_button': 'Button',
+        'sensor.light_switch_example_boot_reason': 'Boot reason',
+        'sensor.light_switch_example_current_switch_position': 'Current switch position',
+        'sensor.light_switch_example_reboot_count': 'Reboot count',
+        'sensor.light_switch_example_thread_channel': 'Thread channel',
+        'sensor.light_switch_example_thread_network_name': 'Thread network name',
+        'sensor.light_switch_example_thread_routing_role': 'Thread routing role',
+        'sensor.light_switch_example_uptime': 'Uptime',
+        'update.light_switch_example_firmware': 'Firmware',
+      }),
+      'name': 'Light switch example',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[silabs_range_hood]
+  dict({
+    '00000000000004D2-0000000000000072-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.sl_rangehood_hardware_faults': 'Hardware faults',
+        'binary_sensor.sl_rangehood_network_faults': 'Network faults',
+        'binary_sensor.sl_rangehood_radio_faults': 'Radio faults',
+        'button.sl_rangehood_identify': 'Identify',
+        'fan.sl_rangehood': None,
+        'light.sl_rangehood': None,
+        'select.sl_rangehood_power_on_behavior': 'Power-on behavior',
+        'sensor.sl_rangehood_boot_reason': 'Boot reason',
+        'sensor.sl_rangehood_reboot_count': 'Reboot count',
+        'sensor.sl_rangehood_thread_channel': 'Thread channel',
+        'sensor.sl_rangehood_thread_network_name': 'Thread network name',
+        'sensor.sl_rangehood_thread_routing_role': 'Thread routing role',
+        'sensor.sl_rangehood_uptime': 'Uptime',
+        'update.sl_rangehood_firmware': 'Firmware',
+      }),
+      'name': 'SL-RangeHood',
+      'via_device': None,
+    }),
+  })
+# ---
 # name: test_multi_endpoint_device_topology[silabs_refrigerator]
   dict({
     '00000000000004D2-000000000000003A-MatterNodeDevice': dict({
@@ -270,6 +2780,489 @@
         'update.refrigerator_firmware': 'Firmware',
       }),
       'name': 'Refrigerator',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[switchbot_air_purifier_2033]
+  dict({
+    '00000000000004D2-000000000000043F-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.switchbot_air_purifier_identify_1': 'Identify (1)',
+        'fan.switchbot_air_purifier': None,
+        'sensor.switchbot_air_purifier_air_quality': 'Air quality',
+        'sensor.switchbot_air_purifier_reboot_count': 'Reboot count',
+        'sensor.switchbot_air_purifier_uptime': 'Uptime',
+        'sensor.switchbot_air_purifier_wi_fi_rssi': 'Wi-Fi RSSI',
+      }),
+      'name': 'SwitchBot Air Purifier',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[switchbot_air_purifier_2036]
+  dict({
+    '00000000000004D2-0000000000000440-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.switchbot_air_purifier_identify_1': 'Identify (1)',
+        'fan.switchbot_air_purifier': None,
+        'sensor.switchbot_air_purifier_air_quality': 'Air quality',
+        'sensor.switchbot_air_purifier_reboot_count': 'Reboot count',
+        'sensor.switchbot_air_purifier_uptime': 'Uptime',
+        'sensor.switchbot_air_purifier_wi_fi_rssi': 'Wi-Fi RSSI',
+      }),
+      'name': 'SwitchBot Air Purifier',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[switchbot_hub_mini]
+  dict({
+    '00000000000004D2-000000000000043D-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.doorlock_actuator': 'Actuator',
+        'lock.doorlock': None,
+        'select.doorlock_operating_mode': 'Operating mode',
+      }),
+      'name': 'DoorLock',
+      'via_device': '00000000000004D2-000000000000043D-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000043D-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.switchbot_hub_mini_reboot_count': 'Reboot count',
+        'sensor.switchbot_hub_mini_wi_fi_rssi': 'Wi-Fi RSSI',
+      }),
+      'name': 'SwitchBot Hub Mini',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[switchbot_relay_switch_2pm]
+  dict({
+    '00000000000004D2-000000000000043E-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'switch.relay_switch_2pm_o1': None,
+      }),
+      'name': 'Relay Switch 2PM O1',
+      'via_device': '00000000000004D2-000000000000043E-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000043E-3': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'switch.relay_switch_2pm_o2': None,
+      }),
+      'name': 'Relay Switch 2PM O2',
+      'via_device': '00000000000004D2-000000000000043E-MatterNodeDevice',
+    }),
+    '00000000000004D2-000000000000043E-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.switchbot_relay_switch_2pm_identify': 'Identify',
+        'sensor.switchbot_relay_switch_2pm_reboot_count': 'Reboot count',
+        'sensor.switchbot_relay_switch_2pm_wi_fi_rssi': 'Wi-Fi RSSI',
+      }),
+      'name': 'SwitchBot Relay Switch 2PM',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[tapo_smart_outdoor_plug_in_dimmer]
+  dict({
+    '00000000000004D2-0000000000000438-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'light.smart_outdoor_plug_in_dimmer': None,
+        'number.smart_outdoor_plug_in_dimmer_off_transition_time': 'Off transition time',
+        'number.smart_outdoor_plug_in_dimmer_on_level': 'On level',
+        'number.smart_outdoor_plug_in_dimmer_on_transition_time': 'On transition time',
+        'number.smart_outdoor_plug_in_dimmer_power_on_level': 'Power-on level',
+        'select.smart_outdoor_plug_in_dimmer_power_on_behavior': 'Power-on behavior',
+        'sensor.smart_outdoor_plug_in_dimmer_boot_reason': 'Boot reason',
+        'sensor.smart_outdoor_plug_in_dimmer_effective_current': 'Effective current',
+        'sensor.smart_outdoor_plug_in_dimmer_effective_voltage': 'Effective voltage',
+        'sensor.smart_outdoor_plug_in_dimmer_energy': 'Energy',
+        'sensor.smart_outdoor_plug_in_dimmer_energy_exported': 'Energy exported',
+        'sensor.smart_outdoor_plug_in_dimmer_power': 'Power',
+        'sensor.smart_outdoor_plug_in_dimmer_reboot_count': 'Reboot count',
+        'sensor.smart_outdoor_plug_in_dimmer_uptime': 'Uptime',
+        'update.smart_outdoor_plug_in_dimmer_firmware': 'Firmware',
+      }),
+      'name': 'Smart Outdoor Plug-In Dimmer',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[tapo_smart_wi_fi_outlet]
+  dict({
+    '00000000000004D2-000000000000008A-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'select.tapo_smart_wi_fi_outlet_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.tapo_smart_wi_fi_outlet_power_on_behavior_2': 'Power-on behavior (2)',
+        'sensor.tapo_smart_wi_fi_outlet_boot_reason': 'Boot reason',
+        'sensor.tapo_smart_wi_fi_outlet_reboot_count': 'Reboot count',
+        'sensor.tapo_smart_wi_fi_outlet_uptime': 'Uptime',
+        'switch.tapo_smart_wi_fi_outlet_switch_1': 'Switch (1)',
+        'switch.tapo_smart_wi_fi_outlet_switch_2': 'Switch (2)',
+        'update.tapo_smart_wi_fi_outlet_firmware': 'Firmware',
+      }),
+      'name': 'Tapo Smart Wi-Fi Outlet',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[tapo_smart_wi_fi_plug_265]
+  dict({
+    '00000000000004D2-0000000000000436-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.smart_wi_fi_plug_identify': 'Identify',
+        'sensor.smart_wi_fi_plug_boot_reason': 'Boot reason',
+        'sensor.smart_wi_fi_plug_effective_current': 'Effective current',
+        'sensor.smart_wi_fi_plug_effective_voltage': 'Effective voltage',
+        'sensor.smart_wi_fi_plug_energy': 'Energy',
+        'sensor.smart_wi_fi_plug_energy_exported': 'Energy exported',
+        'sensor.smart_wi_fi_plug_power': 'Power',
+        'sensor.smart_wi_fi_plug_reboot_count': 'Reboot count',
+        'sensor.smart_wi_fi_plug_uptime': 'Uptime',
+        'switch.smart_wi_fi_plug': None,
+        'update.smart_wi_fi_plug_firmware': 'Firmware',
+      }),
+      'name': 'Smart Wi-Fi Plug',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[tapo_smart_wi_fi_power_strip]
+  dict({
+    '00000000000004D2-0000000000000437-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'select.smart_wi_fi_power_strip_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.smart_wi_fi_power_strip_power_on_behavior_2': 'Power-on behavior (2)',
+        'select.smart_wi_fi_power_strip_power_on_behavior_3': 'Power-on behavior (3)',
+        'select.smart_wi_fi_power_strip_power_on_behavior_4': 'Power-on behavior (4)',
+        'select.smart_wi_fi_power_strip_power_on_behavior_5': 'Power-on behavior (5)',
+        'select.smart_wi_fi_power_strip_power_on_behavior_6': 'Power-on behavior (6)',
+        'sensor.smart_wi_fi_power_strip_boot_reason': 'Boot reason',
+        'sensor.smart_wi_fi_power_strip_effective_current_10': 'Effective current (10)',
+        'sensor.smart_wi_fi_power_strip_effective_current_11': 'Effective current (11)',
+        'sensor.smart_wi_fi_power_strip_effective_current_12': 'Effective current (12)',
+        'sensor.smart_wi_fi_power_strip_effective_current_7': 'Effective current (7)',
+        'sensor.smart_wi_fi_power_strip_effective_current_8': 'Effective current (8)',
+        'sensor.smart_wi_fi_power_strip_effective_current_9': 'Effective current (9)',
+        'sensor.smart_wi_fi_power_strip_effective_voltage_10': 'Effective voltage (10)',
+        'sensor.smart_wi_fi_power_strip_effective_voltage_11': 'Effective voltage (11)',
+        'sensor.smart_wi_fi_power_strip_effective_voltage_12': 'Effective voltage (12)',
+        'sensor.smart_wi_fi_power_strip_effective_voltage_7': 'Effective voltage (7)',
+        'sensor.smart_wi_fi_power_strip_effective_voltage_8': 'Effective voltage (8)',
+        'sensor.smart_wi_fi_power_strip_effective_voltage_9': 'Effective voltage (9)',
+        'sensor.smart_wi_fi_power_strip_energy_10': 'Energy (10)',
+        'sensor.smart_wi_fi_power_strip_energy_11': 'Energy (11)',
+        'sensor.smart_wi_fi_power_strip_energy_12': 'Energy (12)',
+        'sensor.smart_wi_fi_power_strip_energy_7': 'Energy (7)',
+        'sensor.smart_wi_fi_power_strip_energy_8': 'Energy (8)',
+        'sensor.smart_wi_fi_power_strip_energy_9': 'Energy (9)',
+        'sensor.smart_wi_fi_power_strip_energy_exported_10': 'Energy exported (10)',
+        'sensor.smart_wi_fi_power_strip_energy_exported_11': 'Energy exported (11)',
+        'sensor.smart_wi_fi_power_strip_energy_exported_12': 'Energy exported (12)',
+        'sensor.smart_wi_fi_power_strip_energy_exported_7': 'Energy exported (7)',
+        'sensor.smart_wi_fi_power_strip_energy_exported_8': 'Energy exported (8)',
+        'sensor.smart_wi_fi_power_strip_energy_exported_9': 'Energy exported (9)',
+        'sensor.smart_wi_fi_power_strip_power_10': 'Power (10)',
+        'sensor.smart_wi_fi_power_strip_power_11': 'Power (11)',
+        'sensor.smart_wi_fi_power_strip_power_12': 'Power (12)',
+        'sensor.smart_wi_fi_power_strip_power_7': 'Power (7)',
+        'sensor.smart_wi_fi_power_strip_power_8': 'Power (8)',
+        'sensor.smart_wi_fi_power_strip_power_9': 'Power (9)',
+        'sensor.smart_wi_fi_power_strip_reboot_count': 'Reboot count',
+        'sensor.smart_wi_fi_power_strip_uptime': 'Uptime',
+        'switch.smart_wi_fi_power_strip_switch_1': 'Switch (1)',
+        'switch.smart_wi_fi_power_strip_switch_2': 'Switch (2)',
+        'switch.smart_wi_fi_power_strip_switch_3': 'Switch (3)',
+        'switch.smart_wi_fi_power_strip_switch_4': 'Switch (4)',
+        'switch.smart_wi_fi_power_strip_switch_5': 'Switch (5)',
+        'switch.smart_wi_fi_power_strip_switch_6': 'Switch (6)',
+        'update.smart_wi_fi_power_strip_firmware': 'Firmware',
+      }),
+      'name': 'Smart Wi-Fi Power Strip',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[tasmota_generic]
+  dict({
+    '00000000000004D2-0000000000000462-2': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.waterleak_water_leak': 'Water leak',
+      }),
+      'name': 'Waterleak',
+      'via_device': '00000000000004D2-0000000000000462-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000462-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.tasmota_reboot_count': 'Reboot count',
+        'sensor.tasmota_uptime': 'Uptime',
+      }),
+      'name': 'Tasmota',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[thirdreality_smart_color_night_light]
+  dict({
+    '00000000000004D2-0000000000000444-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.smart_night_light_w_hardware_faults': 'Hardware faults',
+        'binary_sensor.smart_night_light_w_network_faults': 'Network faults',
+        'binary_sensor.smart_night_light_w_occupancy': 'Occupancy',
+        'binary_sensor.smart_night_light_w_radio_faults': 'Radio faults',
+        'light.smart_night_light_w': None,
+        'number.smart_night_light_w_off_transition_time': 'Off transition time',
+        'number.smart_night_light_w_on_level': 'On level',
+        'number.smart_night_light_w_on_off_transition_time': 'On/Off transition time',
+        'number.smart_night_light_w_on_transition_time': 'On transition time',
+        'number.smart_night_light_w_power_on_level': 'Power-on level',
+        'select.smart_night_light_w_power_on_behavior': 'Power-on behavior',
+        'sensor.smart_night_light_w_boot_reason': 'Boot reason',
+        'sensor.smart_night_light_w_current_switch_position': 'Current switch position',
+        'sensor.smart_night_light_w_illuminance': 'Illuminance',
+        'sensor.smart_night_light_w_reboot_count': 'Reboot count',
+        'sensor.smart_night_light_w_uptime': 'Uptime',
+        'sensor.smart_night_light_w_wi_fi_rssi': 'Wi-Fi RSSI',
+        'update.smart_night_light_w_firmware': 'Firmware',
+      }),
+      'name': 'Smart Night Light-W',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[tp_link_smart_outdoor_plug]
+  dict({
+    '00000000000004D2-000000000000040A-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'sensor.smart_outdoor_plug_boot_reason': 'Boot reason',
+        'sensor.smart_outdoor_plug_reboot_count': 'Reboot count',
+        'sensor.smart_outdoor_plug_uptime': 'Uptime',
+        'switch.smart_outdoor_plug_switch_1': 'Switch (1)',
+        'switch.smart_outdoor_plug_switch_2': 'Switch (2)',
+        'update.smart_outdoor_plug_firmware': 'Firmware',
+      }),
+      'name': 'Smart Outdoor Plug',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[tuya_smart_wired_gateway_pro]
+  dict({
+    '00000000000004D2-0000000000000411-4': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'light.ka_extended_color_light': None,
+        'number.ka_extended_color_light_on_level': 'On level',
+        'number.ka_extended_color_light_power_on_level': 'Power-on level',
+      }),
+      'name': 'KA Extended Color Light',
+      'via_device': '00000000000004D2-0000000000000411-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000411-5': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.water_leak_sensor_door': 'Door',
+      }),
+      'name': 'Water leak sensor',
+      'via_device': '00000000000004D2-0000000000000411-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000411-6': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.water_leak_sensor_door_2': 'Door',
+      }),
+      'name': 'Water leak sensor',
+      'via_device': '00000000000004D2-0000000000000411-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000411-7': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.water_leak_sensor_door_3': 'Door',
+      }),
+      'name': 'Water leak sensor',
+      'via_device': '00000000000004D2-0000000000000411-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000411-8': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.water_leak_sensor_door_4': 'Door',
+      }),
+      'name': 'Water leak sensor',
+      'via_device': '00000000000004D2-0000000000000411-MatterNodeDevice',
+    }),
+    '00000000000004D2-0000000000000411-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.smart_wired_gateway_pro_hardware_faults': 'Hardware faults',
+        'binary_sensor.smart_wired_gateway_pro_network_faults': 'Network faults',
+        'binary_sensor.smart_wired_gateway_pro_radio_faults': 'Radio faults',
+        'sensor.smart_wired_gateway_pro_boot_reason': 'Boot reason',
+        'sensor.smart_wired_gateway_pro_reboot_count': 'Reboot count',
+        'sensor.smart_wired_gateway_pro_reboot_count_2': 'Reboot count',
+        'sensor.smart_wired_gateway_pro_uptime': 'Uptime',
+        'update.smart_wired_gateway_pro_firmware': 'Firmware',
+      }),
+      'name': 'Smart Wired Gateway Pro',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[uascent_smart_switch]
+  dict({
+    '00000000000004D2-0000000000000443-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'select.smart_switch_power_on_behavior_1': 'Power-on behavior (1)',
+        'select.smart_switch_power_on_behavior_2': 'Power-on behavior (2)',
+        'sensor.smart_switch_reboot_count': 'Reboot count',
+        'sensor.smart_switch_wi_fi_rssi': 'Wi-Fi RSSI',
+        'switch.smart_switch_switch_1': 'Switch (1)',
+        'switch.smart_switch_switch_2': 'Switch (2)',
+        'update.smart_switch_firmware': 'Firmware',
+      }),
+      'name': 'Smart Switch',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[v1_ir_blaster]
+  dict({
+    '00000000000004D2-0000000000000464-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.ir_blaster_identify_1': 'Identify (1)',
+        'button.ir_blaster_identify_2': 'Identify (2)',
+        'button.ir_blaster_identify_3': 'Identify (3)',
+        'button.ir_blaster_identify_4': 'Identify (4)',
+        'climate.ir_blaster': None,
+        'event.ir_blaster_button': 'Button',
+        'fan.ir_blaster': None,
+        'light.ir_blaster_light_2': 'Light (2)',
+        'light.ir_blaster_light_3': 'Light (3)',
+        'select.ir_blaster_power_on_behavior_2': 'Power-on behavior (2)',
+        'select.ir_blaster_power_on_behavior_3': 'Power-on behavior (3)',
+        'sensor.ir_blaster_current_switch_position': 'Current switch position',
+        'sensor.ir_blaster_reboot_count': 'Reboot count',
+        'sensor.ir_blaster_thread_channel': 'Thread channel',
+        'sensor.ir_blaster_thread_network_name': 'Thread network name',
+        'sensor.ir_blaster_thread_routing_role': 'Thread routing role',
+        'sensor.ir_blaster_uptime': 'Uptime',
+        'switch.ir_blaster_power_1': 'Power (1)',
+        'update.ir_blaster_firmware': 'Firmware',
+      }),
+      'name': 'IR Blaster',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[wago_home_blind_control]
+  dict({
+    '00000000000004D2-0000000000000157-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.home_blind_wi_fi_configuration_status': 'Configuration status',
+        'button.home_blind_wi_fi_identify_1': 'Identify (1)',
+        'cover.home_blind_wi_fi': None,
+        'event.home_blind_wi_fi_button_2': 'Button (2)',
+        'event.home_blind_wi_fi_button_3': 'Button (3)',
+        'number.home_blind_wi_fi_slat_rotation_time': 'Slat rotation time',
+        'number.home_blind_wi_fi_travel_time_down': 'Travel time down',
+        'number.home_blind_wi_fi_travel_time_up': 'Travel time up',
+        'select.home_blind_wi_fi_connection_mode': 'Connection mode',
+        'select.home_blind_wi_fi_switch_type': 'Switch type',
+        'sensor.home_blind_wi_fi_current_switch_position_2': 'Current switch position (2)',
+        'sensor.home_blind_wi_fi_current_switch_position_3': 'Current switch position (3)',
+        'sensor.home_blind_wi_fi_reboot_count': 'Reboot count',
+        'sensor.home_blind_wi_fi_target_opening_position': 'Target opening position',
+        'sensor.home_blind_wi_fi_uptime': 'Uptime',
+        'sensor.home_blind_wi_fi_wi_fi_rssi': 'Wi-Fi RSSI',
+        'update.home_blind_wi_fi_firmware': 'Firmware',
+      }),
+      'name': 'Home Blind Wi-Fi',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[wago_home_relay_16a]
+  dict({
+    '00000000000004D2-0000000000000106-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'button.home_relay_16a_thread_identify_1': 'Identify (1)',
+        'event.home_relay_16a_thread_button': 'Button',
+        'select.home_relay_16a_thread_connection_mode': 'Connection mode',
+        'select.home_relay_16a_thread_switch_type': 'Switch type',
+        'sensor.home_relay_16a_thread_current_switch_position': 'Current switch position',
+        'sensor.home_relay_16a_thread_reboot_count': 'Reboot count',
+        'sensor.home_relay_16a_thread_thread_channel': 'Thread channel',
+        'sensor.home_relay_16a_thread_thread_network_name': 'Thread network name',
+        'sensor.home_relay_16a_thread_thread_routing_role': 'Thread routing role',
+        'sensor.home_relay_16a_thread_uptime': 'Uptime',
+        'switch.home_relay_16a_thread': None,
+        'update.home_relay_16a_thread_firmware': 'Firmware',
+      }),
+      'name': 'Home Relay 16A Thread',
+      'via_device': None,
+    }),
+  })
+# ---
+# name: test_multi_endpoint_device_topology[zemismart_m1_hub]
+  dict({
+    '00000000000004D2-0000000000000442-MatterNodeDevice': dict({
+      'children': dict({
+      }),
+      'entities': dict({
+        'binary_sensor.zemismart_m1_hub_hardware_faults': 'Hardware faults',
+        'binary_sensor.zemismart_m1_hub_network_faults': 'Network faults',
+        'binary_sensor.zemismart_m1_hub_radio_faults': 'Radio faults',
+        'button.zemismart_m1_hub_identify': 'Identify',
+        'sensor.zemismart_m1_hub_boot_reason': 'Boot reason',
+        'sensor.zemismart_m1_hub_reboot_count': 'Reboot count',
+        'sensor.zemismart_m1_hub_uptime': 'Uptime',
+        'update.zemismart_m1_hub_firmware': 'Firmware',
+      }),
+      'name': 'Zemismart M1 Hub',
       'via_device': None,
     }),
   })
