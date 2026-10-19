@@ -129,6 +129,7 @@ FIXTURES = [
     "nanoleaf_nl77k1",
     "nature_remo_nano",
     "neo_smart_blinds_c_br300",
+    "ohf_zigbee_dali_bridge",
     "onoff_light_with_levelcontrol_present",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
