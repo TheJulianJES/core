@@ -134,6 +134,7 @@ FIXTURES = [
     "pergolux_pergola_controller",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
+    "rollease_acmeda_pulse_pro",
     "secuyou_smart_lock",
     "silabs_dishwasher",
     "silabs_evse_charging",
