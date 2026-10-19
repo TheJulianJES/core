@@ -194,6 +194,7 @@ FIXTURES = [
     "onoff_light_with_levelcontrol_present",
     "onvis_s4",
     "panasonic_cs_cu_eu18aky5xfm",
+    "panasonic_cs_cu_ez18ckyxfm",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
     "secuyou_smart_lock",
