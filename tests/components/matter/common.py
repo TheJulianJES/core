@@ -136,6 +136,7 @@ FIXTURES = [
     "roborock_saros_10",
     "rollease_acmeda_pulse_pro",
     "secuyou_smart_lock",
+    "selve_home_server_3",
     "silabs_dishwasher",
     "silabs_evse_charging",
     "silabs_fan",
