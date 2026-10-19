@@ -56,6 +56,7 @@ FIXTURES = [
     "eve_thermo_v5",
     "eve_weather_sensor",
     "extended_color_light",
+    "hager_neva",
     "haojai_switch",
     "heiman_co_sensor",
     "heiman_motion_sensor_m1",
