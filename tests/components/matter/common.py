@@ -186,6 +186,7 @@ FIXTURES = [
     "nanoleaf_squb03",
     "nature_remo_nano",
     "neo_matter_plug",
+    "neo_smart_blinds_c_br300",
     "onoff_light_with_levelcontrol_present",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
