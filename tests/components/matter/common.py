@@ -93,6 +93,7 @@ FIXTURES = [
     "ikea_kajplats_e14_ws_globe_806lm",
     "ikea_kajplats_e26_ws_globe_450lm",
     "ikea_kajplats_e27_cws_globe_1055lm",
+    "ikea_kajplats_e27_ws_g60_clear_470lm",
     "ikea_scroll_wheel",
     "inovelli_vtm30",
     "inovelli_vtm31",
