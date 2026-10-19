@@ -253,6 +253,7 @@ FIXTURES = [
     "tp_link_smart_wi_fi_dimmer_switch",
     "tp_link_smart_wi_fi_lamp_dimmer",
     "tp_link_smart_wi_fi_switch",
+    "tuya_smart_wired_gateway_pro",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
