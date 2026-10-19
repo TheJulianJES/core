@@ -114,6 +114,7 @@ FIXTURES = [
     "leedarson_smart_rgbtw_bulb_1002",
     "leedarson_smart_rgbtw_bulb_1007",
     "level_lock_matter",
+    "level_lock_pro",
     "longan_link_thermostat",
     "mock_air_purifier",
     "mock_battery_storage",
