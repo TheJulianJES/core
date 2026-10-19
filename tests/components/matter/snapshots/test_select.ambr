@@ -2560,6 +2560,146 @@
     'state': 'previous',
   })
 # ---
+# name: test_selects[govee_h61e1][select.h61e1_music-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Energic',
+        'Rhythm',
+        'Spectrum',
+        'Rolling',
+        'Separation',
+        'Hopping',
+        'PianoKeys',
+        'Fountain',
+        'DayAndNight',
+        'Sprouting',
+        'Shiny',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.h61e1_music',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Music',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Music',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'mode',
+    'unique_id': '00000000000004D2-000000000000042B-MatterNodeDevice-1-MatterModeSelect-80-3',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_selects[govee_h61e1][select.h61e1_music-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'H61E1 Music',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Energic',
+        'Rhythm',
+        'Spectrum',
+        'Rolling',
+        'Separation',
+        'Hopping',
+        'PianoKeys',
+        'Fountain',
+        'DayAndNight',
+        'Sprouting',
+        'Shiny',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.h61e1_music',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Energic',
+  })
+# ---
+# name: test_selects[govee_h61e1][select.h61e1_power_on_behavior-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'on',
+        'off',
+        'toggle',
+        'previous',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.h61e1_power_on_behavior',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Power-on behavior',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Power-on behavior',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'startup_on_off',
+    'unique_id': '00000000000004D2-000000000000042B-MatterNodeDevice-1-MatterStartUpOnOff-6-16387',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_selects[govee_h61e1][select.h61e1_power_on_behavior-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'H61E1 Power-on behavior',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'on',
+        'off',
+        'toggle',
+        'previous',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.h61e1_power_on_behavior',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'previous',
+  })
+# ---
 # name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_button_press_delay-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([

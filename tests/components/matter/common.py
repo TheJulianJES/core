@@ -76,6 +76,7 @@ FIXTURES = [
     "google_nest_learning_thermostat_4th_gen",
     "google_nest_thermostat",
     "govee_h1401",
+    "govee_h61e1",
     "haojai_switch",
     "heiman_co_sensor",
     "heiman_motion_sensor_m1",
