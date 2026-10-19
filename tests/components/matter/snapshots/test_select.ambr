@@ -11532,6 +11532,67 @@
     'state': 'previous',
   })
 # ---
+# name: test_selects[sensereo_ms1_smoke_alarm][select.sensereo_ms1_smoke_alarm_sensitivity-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'high',
+        'standard',
+        'low',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.sensereo_ms1_smoke_alarm_sensitivity',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Sensitivity',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Sensitivity',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'sensitivity_level',
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-SmokeCOSmokeSensitivityLevel-92-11',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_selects[sensereo_ms1_smoke_alarm][select.sensereo_ms1_smoke_alarm_sensitivity-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm Sensitivity',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'high',
+        'standard',
+        'low',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.sensereo_ms1_smoke_alarm_sensitivity',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'low',
+  })
+# ---
 # name: test_selects[silabs_evse_charging][select.evse_energy_management_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([

@@ -8192,6 +8192,362 @@
     'state': 'on',
   })
 # ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Battery',
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-BatteryChargeLevel-47-14',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm Battery',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_battery_alert-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_battery_alert',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Battery alert',
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery alert',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'battery_alert',
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-SmokeCoAlarmBatteryAlertSensor-92-3',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_battery_alert-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm Battery alert',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_battery_alert',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_end_of_service-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_end_of_service',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'End of service',
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PROBLEM: 'problem'>,
+    'original_icon': None,
+    'original_name': 'End of service',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'end_of_service',
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-SmokeCoAlarmEndfOfServiceSensor-92-7',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_end_of_service-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'problem',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm End of service',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_end_of_service',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_hardware_fault-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_hardware_fault',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Hardware fault',
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PROBLEM: 'problem'>,
+    'original_icon': None,
+    'original_name': 'Hardware fault',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'hardware_fault',
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-SmokeCoAlarmHardwareFaultAlertSensor-92-6',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_hardware_fault-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'problem',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm Hardware fault',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_hardware_fault',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_muted-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_muted',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Muted',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Muted',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'muted',
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-SmokeCoAlarmDeviceMutedSensor-92-4',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_muted-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm Muted',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_muted',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_smoke-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_smoke',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Smoke',
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.SMOKE: 'smoke'>,
+    'original_icon': None,
+    'original_name': 'Smoke',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-SmokeCoAlarmSmokeStateSensor-92-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_smoke-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'smoke',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm Smoke',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_smoke',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_test_in_progress-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_test_in_progress',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Test in progress',
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.RUNNING: 'running'>,
+    'original_icon': None,
+    'original_name': 'Test in progress',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'test_in_progress',
+    'unique_id': '00000000000004D2-000000000000045C-MatterNodeDevice-1-SmokeCoAlarmTestInProgressSensor-92-5',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_binary_sensors[sensereo_ms1_smoke_alarm][binary_sensor.sensereo_ms1_smoke_alarm_test_in_progress-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'running',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Sensereo MS1 Smoke Alarm Test in progress',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.sensereo_ms1_smoke_alarm_test_in_progress',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_binary_sensors[silabs_dishwasher][binary_sensor.dishwasher_door_alarm-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
