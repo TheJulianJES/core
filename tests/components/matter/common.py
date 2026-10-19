@@ -123,6 +123,7 @@ FIXTURES = [
     "longan_link_thermostat",
     "martin_renz_zsm",
     "matterbridge_aggregator",
+    "meross_smart_plug_mini_40961",
     "mock_air_purifier",
     "mock_battery_storage",
     "mock_chime",
