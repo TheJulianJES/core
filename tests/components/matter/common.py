@@ -260,6 +260,7 @@ FIXTURES = [
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "wiz_a19",
+    "wiz_a21_e26",
     "yandex_smart_socket",
     "zemismart_mt25b",
 ]
