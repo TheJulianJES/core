@@ -35,6 +35,7 @@ FIXTURES = [
     "aqara_presence_fp300",
     "aqara_sensor_w100",
     "aqara_shutter_switch_h2",
+    "aqara_smart_lock_u300",
     "aqara_thermostat_w500",
     "aqara_thermostat_w500_presets",
     "aqara_u200",

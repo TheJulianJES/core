@@ -150,6 +150,56 @@
     'state': 'off',
   })
 # ---
+# name: test_switches[aqara_smart_lock_u300][switch.aqara_smart_lock_u300_one_touch_locking-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'switch.aqara_smart_lock_u300_one_touch_locking',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'One-touch locking',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'One-touch locking',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'one_touch_locking',
+    'unique_id': '00000000000004D2-00000000000003F4-MatterNodeDevice-1-DoorLockEnableOneTouchLocking-257-41',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_switches[aqara_smart_lock_u300][switch.aqara_smart_lock_u300_one_touch_locking-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Lock U300 One-touch locking',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.aqara_smart_lock_u300_one_touch_locking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_switches[aqara_u200][switch.aqara_smart_lock_u200_one_touch_locking-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
