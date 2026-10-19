@@ -259,6 +259,7 @@ FIXTURES = [
     "v1_ir_blaster",
     "wago_home_blind_control",
     "wago_home_relay_16a",
+    "wiz_a19",
     "yandex_smart_socket",
     "zemismart_mt25b",
 ]
