@@ -51,6 +51,7 @@ FIXTURES = [
     "cync_keypad_dimmer",
     "cync_paddle_dimmer",
     "dewenwils_3_zone_transformer",
+    "dreame_r2449a",
     "eberle_ute3000",
     "ecovacs_deebot",
     "eufy_vacuum_omni_e28",

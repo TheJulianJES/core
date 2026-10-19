@@ -1552,6 +1552,73 @@
     'state': 'off',
   })
 # ---
+# name: test_selects[dreame_r2449a][select.r2449a_clean_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Quick',
+        'Auto',
+        'Deep Clean',
+        'Quiet',
+        'Low Energy',
+        'AutoMop',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': None,
+    'entity_id': 'select.r2449a_clean_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Clean mode',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Clean mode',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'clean_mode',
+    'unique_id': '00000000000004D2-0000000000000457-MatterNodeDevice-1-MatterRvcCleanMode-85-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_selects[dreame_r2449a][select.r2449a_clean_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'R2449A Clean mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Quick',
+        'Auto',
+        'Deep Clean',
+        'Quiet',
+        'Low Energy',
+        'AutoMop',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.r2449a_clean_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Auto',
+  })
+# ---
 # name: test_selects[ecovacs_deebot][select.ecodeebot_clean_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([

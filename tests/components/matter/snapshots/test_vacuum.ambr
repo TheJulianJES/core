@@ -1,4 +1,55 @@
 # serializer version: 1
+# name: test_vacuum[dreame_r2449a][vacuum.r2449a-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'vacuum',
+    'entity_category': None,
+    'entity_id': 'vacuum.r2449a',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': <VacuumEntityFeature: 28700>,
+    'translation_key': 'vacuum',
+    'unique_id': '00000000000004D2-0000000000000457-MatterNodeDevice-1-MatterVacuumCleaner-84-1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_vacuum[dreame_r2449a][vacuum.r2449a-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'R2449A',
+      <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <VacuumEntityFeature: 28700>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'vacuum.r2449a',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'docked',
+  })
+# ---
 # name: test_vacuum[ecovacs_deebot][vacuum.ecodeebot-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
