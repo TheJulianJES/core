@@ -248,6 +248,7 @@ FIXTURES = [
     "tcl_portable_ac",
     "thirdreality_smart_color_night_light",
     "thirdreality_smart_wifi_plug",
+    "tp_link_mini_smart_wi_fi_plug",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
