@@ -198,6 +198,7 @@ FIXTURES = [
     "panasonic_cs_cu_nu12zky5w",
     "pergolux_pergola_controller",
     "philips_hue_essential_spot",
+    "realwe_smart_plug",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
     "secuyou_smart_lock",
