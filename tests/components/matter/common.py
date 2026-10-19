@@ -208,6 +208,7 @@ FIXTURES = [
     "secuyou_smart_lock",
     "selve_home_server_3",
     "sengled_w20_ubea",
+    "sengled_w41_n15a",
     "silabs_dishwasher",
     "silabs_evse_charging",
     "silabs_fan",
