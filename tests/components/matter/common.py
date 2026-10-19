@@ -49,6 +49,7 @@ FIXTURES = [
     "cync_full_color_undercabinet_24",
     "cync_indoor_light_strip_32ft",
     "cync_keypad_dimmer",
+    "cync_paddle_dimmer",
     "eberle_ute3000",
     "ecovacs_deebot",
     "eufy_vacuum_omni_e28",
