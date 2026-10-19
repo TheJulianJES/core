@@ -91,6 +91,7 @@ FIXTURES = [
     "ikea_dirigera",
     "ikea_grillplats_plug",
     "ikea_kajplats_e14_ws_globe_806lm",
+    "ikea_kajplats_e26_ws_globe_450lm",
     "ikea_scroll_wheel",
     "inovelli_vtm30",
     "inovelli_vtm31",
