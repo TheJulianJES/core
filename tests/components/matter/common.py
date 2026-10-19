@@ -65,6 +65,7 @@ FIXTURES = [
     "ikea_bilresa_dual_button",
     "ikea_dirigera",
     "ikea_grillplats_plug",
+    "ikea_myggspray_wrlss_mtn_sensor",
     "ikea_scroll_wheel",
     "inovelli_vtm30",
     "inovelli_vtm31",
