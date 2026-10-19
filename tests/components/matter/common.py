@@ -223,6 +223,7 @@ FIXTURES = [
     "smartwings_window_covering",
     "smpl_sw01",
     "sonoff_smart_plug_in_unit",
+    "sunricher_mt_cct",
     "switchbot_k11_plus",
     "tado_smart_radiator_thermostat_x",
     "wago_home_blind_control",
