@@ -74,6 +74,7 @@ FIXTURES = [
     "eve_weather_sensor",
     "extended_color_light",
     "google_nest_learning_thermostat_4th_gen",
+    "google_nest_thermostat",
     "haojai_switch",
     "heiman_co_sensor",
     "heiman_motion_sensor_m1",
