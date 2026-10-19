@@ -377,7 +377,7 @@
     'state': 'previous',
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_power_on_behavior_1-entry]
+# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_endpoint_1_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -398,7 +398,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_1',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_1_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -406,12 +406,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (1)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (1)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -421,10 +421,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_power_on_behavior_1-state]
+# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_endpoint_1_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Power-on behavior (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -433,14 +433,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_1',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_1_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_power_on_behavior_2-entry]
+# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_endpoint_2_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -461,7 +461,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_2',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_2_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -469,12 +469,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -484,10 +484,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_power_on_behavior_2-state]
+# name: test_selects[aqara_light_switch_h2_us_4100][select.aqara_smart_wall_switch_endpoint_2_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -496,14 +496,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_2',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_2_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_power_on_behavior_1_2-entry]
+# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_endpoint_1_power_on_behavior_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -524,7 +524,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_1_2',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_1_power_on_behavior_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -532,12 +532,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (1)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (1)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -547,10 +547,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_power_on_behavior_1_2-state]
+# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_endpoint_1_power_on_behavior_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Power-on behavior (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -559,14 +559,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_1_2',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_1_power_on_behavior_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_power_on_behavior_2_2-entry]
+# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_endpoint_2_power_on_behavior_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -587,7 +587,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_2_2',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_2_power_on_behavior_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -595,12 +595,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -610,10 +610,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_power_on_behavior_2_2-state]
+# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_endpoint_2_power_on_behavior_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -622,14 +622,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_2_2',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_2_power_on_behavior_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_power_on_behavior_3-entry]
+# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_endpoint_3_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -650,7 +650,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_3',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_3_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -658,12 +658,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (3)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (3)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -673,10 +673,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_power_on_behavior_3-state]
+# name: test_selects[aqara_light_switch_h2_us_4101][select.aqara_smart_wall_switch_endpoint_3_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Power-on behavior (3)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 3 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -685,7 +685,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.aqara_smart_wall_switch_power_on_behavior_3',
+    'entity_id': 'select.aqara_smart_wall_switch_endpoint_3_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -9539,7 +9539,7 @@
     'state': 'on',
   })
 # ---
-# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_power_on_behavior_1-entry]
+# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_endpoint_1_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -9560,7 +9560,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.multicolor_ceiling_light_power_on_behavior_1',
+    'entity_id': 'select.multicolor_ceiling_light_endpoint_1_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -9568,12 +9568,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (1)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (1)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -9583,10 +9583,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_power_on_behavior_1-state]
+# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_endpoint_1_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Multicolor Ceiling Light Power-on behavior (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -9595,14 +9595,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.multicolor_ceiling_light_power_on_behavior_1',
+    'entity_id': 'select.multicolor_ceiling_light_endpoint_1_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'previous',
   })
 # ---
-# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_power_on_behavior_2-entry]
+# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_endpoint_2_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -9623,7 +9623,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.multicolor_ceiling_light_power_on_behavior_2',
+    'entity_id': 'select.multicolor_ceiling_light_endpoint_2_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -9631,12 +9631,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -9646,10 +9646,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_power_on_behavior_2-state]
+# name: test_selects[nanoleaf_nl77k1][select.multicolor_ceiling_light_endpoint_2_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Multicolor Ceiling Light Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -9658,7 +9658,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.multicolor_ceiling_light_power_on_behavior_2',
+    'entity_id': 'select.multicolor_ceiling_light_endpoint_2_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -13453,7 +13453,7 @@
     'state': 'silent',
   })
 # ---
-# name: test_selects[v1_ir_blaster][select.ir_blaster_power_on_behavior_2-entry]
+# name: test_selects[v1_ir_blaster][select.ir_blaster_endpoint_2_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -13474,7 +13474,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.ir_blaster_power_on_behavior_2',
+    'entity_id': 'select.ir_blaster_endpoint_2_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -13482,12 +13482,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -13497,10 +13497,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[v1_ir_blaster][select.ir_blaster_power_on_behavior_2-state]
+# name: test_selects[v1_ir_blaster][select.ir_blaster_endpoint_2_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'IR Blaster Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -13509,14 +13509,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.ir_blaster_power_on_behavior_2',
+    'entity_id': 'select.ir_blaster_endpoint_2_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[v1_ir_blaster][select.ir_blaster_power_on_behavior_3-entry]
+# name: test_selects[v1_ir_blaster][select.ir_blaster_endpoint_3_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -13537,7 +13537,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.ir_blaster_power_on_behavior_3',
+    'entity_id': 'select.ir_blaster_endpoint_3_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -13545,12 +13545,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (3)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (3)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -13560,10 +13560,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[v1_ir_blaster][select.ir_blaster_power_on_behavior_3-state]
+# name: test_selects[v1_ir_blaster][select.ir_blaster_endpoint_3_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'IR Blaster Power-on behavior (3)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 3 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -13572,7 +13572,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.ir_blaster_power_on_behavior_3',
+    'entity_id': 'select.ir_blaster_endpoint_3_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
