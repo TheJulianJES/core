@@ -23,6 +23,7 @@ FIXTURES = [
     "antela_smart_plug_matter",
     "aqara_door_window_p2",
     "aqara_hub_m3",
+    "aqara_led_bulb_t2_e26_cct",
     "aqara_motion_p2",
     "aqara_multi_state_p100",
     "aqara_presence_fp300",
