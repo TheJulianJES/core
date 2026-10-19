@@ -235,6 +235,7 @@ FIXTURES = [
     "tado_wireless_temperature_sensor_x",
     "tapo_mini_smart_wi_fi_plug",
     "tapo_smart_iot_hub",
+    "tapo_smart_multicolor_bulb",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
