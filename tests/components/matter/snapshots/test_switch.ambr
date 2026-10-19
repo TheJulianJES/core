@@ -2073,7 +2073,7 @@
     'state': 'on',
   })
 # ---
-# name: test_switches[localizedtech_presence_one][switch.presence_one-entry]
+# name: test_switches[localizedtech_presence_one][switch.presence_one_endpoint_3-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -2087,7 +2087,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': None,
-    'entity_id': 'switch.presence_one',
+    'entity_id': 'switch.presence_one_endpoint_3',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -2110,14 +2110,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_switches[localizedtech_presence_one][switch.presence_one-state]
+# name: test_switches[localizedtech_presence_one][switch.presence_one_endpoint_3-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'outlet',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Presence One',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 3',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.presence_one',
+    'entity_id': 'switch.presence_one_endpoint_3',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -5380,7 +5380,7 @@
     'state': 'off',
   })
 # ---
-# name: test_switches[uascent_smart_switch][switch.smart_switch_switch_1-entry]
+# name: test_switches[uascent_smart_switch][switch.smart_switch_endpoint_1-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5394,7 +5394,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': None,
-    'entity_id': 'switch.smart_switch_switch_1',
+    'entity_id': 'switch.smart_switch_endpoint_1',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5402,12 +5402,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Switch (1)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <SwitchDeviceClass.OUTLET: 'outlet'>,
     'original_icon': None,
-    'original_name': 'Switch (1)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -5417,21 +5417,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_switches[uascent_smart_switch][switch.smart_switch_switch_1-state]
+# name: test_switches[uascent_smart_switch][switch.smart_switch_endpoint_1-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'outlet',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Switch Switch (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.smart_switch_switch_1',
+    'entity_id': 'switch.smart_switch_endpoint_1',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_switches[uascent_smart_switch][switch.smart_switch_switch_2-entry]
+# name: test_switches[uascent_smart_switch][switch.smart_switch_endpoint_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5445,7 +5445,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': None,
-    'entity_id': 'switch.smart_switch_switch_2',
+    'entity_id': 'switch.smart_switch_endpoint_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5453,12 +5453,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Switch (2)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': <SwitchDeviceClass.OUTLET: 'outlet'>,
     'original_icon': None,
-    'original_name': 'Switch (2)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -5468,14 +5468,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_switches[uascent_smart_switch][switch.smart_switch_switch_2-state]
+# name: test_switches[uascent_smart_switch][switch.smart_switch_endpoint_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'outlet',
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Switch Switch (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.smart_switch_switch_2',
+    'entity_id': 'switch.smart_switch_endpoint_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

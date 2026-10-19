@@ -4911,7 +4911,7 @@
     'state': 'on',
   })
 # ---
-# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_button_press_delay-entry]
+# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_config_button_press_delay-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -4936,7 +4936,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.white_series_onoff_switch_button_press_delay',
+    'entity_id': 'select.white_series_onoff_switch_config_button_press_delay',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -4959,10 +4959,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_button_press_delay-state]
+# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_config_button_press_delay-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'White Series OnOff Switch Button Press Delay',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Config Button Press Delay',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'No Delay',
         '300ms',
@@ -4975,14 +4975,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.white_series_onoff_switch_button_press_delay',
+    'entity_id': 'select.white_series_onoff_switch_config_button_press_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '300ms',
   })
 # ---
-# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_dimming_speed-entry]
+# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_down_dimming_speed-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5014,7 +5014,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.white_series_onoff_switch_dimming_speed',
+    'entity_id': 'select.white_series_onoff_switch_down_dimming_speed',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5037,10 +5037,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_dimming_speed-state]
+# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_down_dimming_speed-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'White Series OnOff Switch Dimming Speed',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Down Dimming Speed',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'Instant',
         '500ms',
@@ -5060,7 +5060,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.white_series_onoff_switch_dimming_speed',
+    'entity_id': 'select.white_series_onoff_switch_down_dimming_speed',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -5294,65 +5294,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'Local Protection Disable',
-  })
-# ---
-# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_local_timer-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': dict({
-      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
-        'Local Timer Disable',
-        'Local Timer Enable',
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.white_series_onoff_switch_local_timer',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Local Timer',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Local Timer',
-    'platform': 'matter',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'mode',
-    'unique_id': '00000000000004D2-0000000000000100-MatterNodeDevice-3-MatterModeSelect-80-3',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_local_timer-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'White Series OnOff Switch Local Timer',
-      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
-        'Local Timer Disable',
-        'Local Timer Enable',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.white_series_onoff_switch_local_timer',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'Local Timer Disable',
   })
 # ---
 # name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_power_on_behavior_load_control-entry]
@@ -5603,7 +5544,7 @@
     'state': 'On/Off+Single',
   })
 # ---
-# name: test_selects[inovelli_vtm31][select.inovelli_dimming_edge-entry]
+# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_up_local_timer-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5611,8 +5552,8 @@
     'area_id': None,
     'capabilities': dict({
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
-        'Leading',
-        'Trailing',
+        'Local Timer Disable',
+        'Local Timer Enable',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -5622,7 +5563,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.inovelli_dimming_edge',
+    'entity_id': 'select.white_series_onoff_switch_up_local_timer',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5630,39 +5571,98 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Dimming Edge',
+    'object_id_base': 'Local Timer',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Dimming Edge',
+    'original_name': 'Local Timer',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': 'mode',
-    'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-3-MatterModeSelect-80-3',
+    'unique_id': '00000000000004D2-0000000000000100-MatterNodeDevice-3-MatterModeSelect-80-3',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[inovelli_vtm31][select.inovelli_dimming_edge-state]
+# name: test_selects[inovelli_vtm30][select.white_series_onoff_switch_up_local_timer-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Inovelli Dimming Edge',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Up Local Timer',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
-        'Leading',
-        'Trailing',
+        'Local Timer Disable',
+        'Local Timer Enable',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.inovelli_dimming_edge',
+    'entity_id': 'select.white_series_onoff_switch_up_local_timer',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'Leading',
+    'state': 'Local Timer Disable',
   })
 # ---
-# name: test_selects[inovelli_vtm31][select.inovelli_dimming_speed-entry]
+# name: test_selects[inovelli_vtm31][select.inovelli_config_relay-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Relay Click Enable',
+        'Relay Click Disable',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.inovelli_config_relay',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Relay',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Relay',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'mode',
+    'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-5-MatterModeSelect-80-3',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_selects[inovelli_vtm31][select.inovelli_config_relay-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Config Relay',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Relay Click Enable',
+        'Relay Click Disable',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.inovelli_config_relay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Relay Click Disable',
+  })
+# ---
+# name: test_selects[inovelli_vtm31][select.inovelli_down_dimming_speed-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5694,7 +5694,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.inovelli_dimming_speed',
+    'entity_id': 'select.inovelli_down_dimming_speed',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5717,10 +5717,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[inovelli_vtm31][select.inovelli_dimming_speed-state]
+# name: test_selects[inovelli_vtm31][select.inovelli_down_dimming_speed-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Inovelli Dimming Speed',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Down Dimming Speed',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'Instant',
         '500ms',
@@ -5740,7 +5740,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.inovelli_dimming_speed',
+    'entity_id': 'select.inovelli_down_dimming_speed',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -5954,65 +5954,6 @@
     'state': 'off',
   })
 # ---
-# name: test_selects[inovelli_vtm31][select.inovelli_relay-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': dict({
-      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
-        'Relay Click Enable',
-        'Relay Click Disable',
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.inovelli_relay',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Relay',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Relay',
-    'platform': 'matter',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'mode',
-    'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-5-MatterModeSelect-80-3',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_selects[inovelli_vtm31][select.inovelli_relay-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Inovelli Relay',
-      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
-        'Relay Click Enable',
-        'Relay Click Disable',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.inovelli_relay',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'Relay Click Disable',
-  })
-# ---
 # name: test_selects[inovelli_vtm31][select.inovelli_smart_bulb_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -6139,6 +6080,65 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'Dimmer+Single',
+  })
+# ---
+# name: test_selects[inovelli_vtm31][select.inovelli_up_dimming_edge-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Leading',
+        'Trailing',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.inovelli_up_dimming_edge',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Dimming Edge',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Dimming Edge',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'mode',
+    'unique_id': '00000000000004D2-00000000000000C5-MatterNodeDevice-3-MatterModeSelect-80-3',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_selects[inovelli_vtm31][select.inovelli_up_dimming_edge-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Up Dimming Edge',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
+        'Leading',
+        'Trailing',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.inovelli_up_dimming_edge',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Leading',
   })
 # ---
 # name: test_selects[inovelli_vtm36][select.white_series_lightfan_module_fan_mode-entry]
@@ -13205,7 +13205,7 @@
     'state': 'previous',
   })
 # ---
-# name: test_selects[uascent_smart_switch][select.smart_switch_power_on_behavior_1-entry]
+# name: test_selects[uascent_smart_switch][select.smart_switch_endpoint_1_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -13226,7 +13226,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_switch_power_on_behavior_1',
+    'entity_id': 'select.smart_switch_endpoint_1_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -13234,12 +13234,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (1)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (1)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -13249,10 +13249,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[uascent_smart_switch][select.smart_switch_power_on_behavior_1-state]
+# name: test_selects[uascent_smart_switch][select.smart_switch_endpoint_1_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Switch Power-on behavior (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -13261,14 +13261,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_switch_power_on_behavior_1',
+    'entity_id': 'select.smart_switch_endpoint_1_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_selects[uascent_smart_switch][select.smart_switch_power_on_behavior_2-entry]
+# name: test_selects[uascent_smart_switch][select.smart_switch_endpoint_2_power_on_behavior-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -13289,7 +13289,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.smart_switch_power_on_behavior_2',
+    'entity_id': 'select.smart_switch_endpoint_2_power_on_behavior',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -13297,12 +13297,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Power-on behavior (2)',
+    'object_id_base': 'Power-on behavior',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Power-on behavior (2)',
+    'original_name': 'Power-on behavior',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -13312,10 +13312,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_selects[uascent_smart_switch][select.smart_switch_power_on_behavior_2-state]
+# name: test_selects[uascent_smart_switch][select.smart_switch_endpoint_2_power_on_behavior-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Smart Switch Power-on behavior (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2 Power-on behavior',
       <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'on',
         'off',
@@ -13324,7 +13324,7 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.smart_switch_power_on_behavior_2',
+    'entity_id': 'select.smart_switch_endpoint_2_power_on_behavior',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
