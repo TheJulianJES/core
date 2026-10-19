@@ -44,6 +44,7 @@ FIXTURES = [
     "assa_abloy_terraforma",
     "atios_ade_r12",
     "atios_knx_bridge",
+    "bosch_climate_series_7000i",
     "color_temperature_light",
     "eberle_ute3000",
     "ecovacs_deebot",
