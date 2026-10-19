@@ -222,6 +222,7 @@ FIXTURES = [
     "silabs_water_heater",
     "smartwings_window_covering",
     "smpl_sw01",
+    "sonoff_smart_plug_in_unit",
     "switchbot_k11_plus",
     "tado_smart_radiator_thermostat_x",
     "wago_home_blind_control",
