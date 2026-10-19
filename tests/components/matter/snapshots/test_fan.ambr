@@ -66,6 +66,75 @@
     'state': 'on',
   })
 # ---
+# name: test_fans[inovelli_vtm36][fan.white_series_lightfan_module-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <FanEntityCapabilityAttribute.PRESET_MODES: 'preset_modes'>: list([
+        'low',
+        'medium',
+        'high',
+        'natural_wind',
+        'sleep_wind',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'fan',
+    'entity_category': None,
+    'entity_id': 'fan.white_series_lightfan_module',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': <FanEntityFeature: 57>,
+    'translation_key': 'fan',
+    'unique_id': '00000000000004D2-0000000000000429-MatterNodeDevice-2-MatterFan-514-0',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_fans[inovelli_vtm36][fan.white_series_lightfan_module-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'White Series LightFan Module',
+      <FanEntityStateAttribute.PERCENTAGE: 'percentage'>: 33,
+      <FanEntityStateAttribute.PERCENTAGE_STEP: 'percentage_step'>: 33.333333333333336,
+      <FanEntityStateAttribute.PRESET_MODE: 'preset_mode'>: 'low',
+      <FanEntityCapabilityAttribute.PRESET_MODES: 'preset_modes'>: list([
+        'low',
+        'medium',
+        'high',
+        'natural_wind',
+        'sleep_wind',
+      ]),
+      <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <FanEntityFeature: 57>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'fan.white_series_lightfan_module',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
 # name: test_fans[longan_link_thermostat][fan.longan_link_hvac-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([

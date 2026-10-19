@@ -70,6 +70,7 @@ FIXTURES = [
     "ikea_timmerflotte_temp_hmd_sensor",
     "inovelli_vtm30",
     "inovelli_vtm31",
+    "inovelli_vtm36",
     "longan_link_thermostat",
     "mock_air_purifier",
     "mock_battery_storage",
