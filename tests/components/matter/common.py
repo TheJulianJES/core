@@ -251,6 +251,7 @@ FIXTURES = [
     "tp_link_mini_smart_wi_fi_plug",
     "tp_link_smart_outdoor_plug",
     "tp_link_smart_wi_fi_dimmer_switch",
+    "tp_link_smart_wi_fi_lamp_dimmer",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
