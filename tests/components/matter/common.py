@@ -210,6 +210,7 @@ FIXTURES = [
     "sengled_w20_ubea",
     "sengled_w41_n15a",
     "sensereo_ms1_smoke_alarm",
+    "shelly_1pm_mini_gen3",
     "silabs_dishwasher",
     "silabs_evse_charging",
     "silabs_fan",
