@@ -41,6 +41,7 @@ FIXTURES = [
     "aqara_thermostat_w500_presets",
     "aqara_u200",
     "arre_smart_button",
+    "assa_abloy_terraforma",
     "atios_knx_bridge",
     "color_temperature_light",
     "eberle_ute3000",
