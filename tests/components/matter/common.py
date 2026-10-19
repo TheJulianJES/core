@@ -126,6 +126,7 @@ FIXTURES = [
     "meross_smart_plug_mini_40961",
     "meross_smart_plug_mini_40962",
     "meross_smart_presence_sensor",
+    "meross_smart_thermostat_57345",
     "mock_air_purifier",
     "mock_battery_storage",
     "mock_chime",
