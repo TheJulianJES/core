@@ -35,6 +35,7 @@ FIXTURES = [
     "aqara_thermostat_w500",
     "aqara_thermostat_w500_presets",
     "aqara_u200",
+    "atios_ade_r12",
     "atios_knx_bridge",
     "color_temperature_light",
     "eberle_ute3000",
