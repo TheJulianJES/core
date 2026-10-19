@@ -84,6 +84,7 @@ FIXTURES = [
     "heiman_motion_sensor_m1",
     "heiman_smoke_detector",
     "hisense_airconditioner_13825",
+    "hisense_airconditioner_257",
     "ikea_air_quality_monitor",
     "ikea_bilresa_dual_button",
     "ikea_scroll_wheel",
