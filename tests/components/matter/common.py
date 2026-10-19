@@ -227,6 +227,7 @@ FIXTURES = [
     "sunricher_mt_sl_dim",
     "switchbot_air_purifier_2033",
     "switchbot_air_purifier_2036",
+    "switchbot_hub_mini",
     "switchbot_k11_plus",
     "tado_smart_radiator_thermostat_x",
     "wago_home_blind_control",
