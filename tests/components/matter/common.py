@@ -78,6 +78,7 @@ FIXTURES = [
     "govee_h1401",
     "govee_h61e1",
     "govee_h7075",
+    "hager_neva",
     "haojai_switch",
     "heiman_co_sensor",
     "heiman_motion_sensor_m1",
