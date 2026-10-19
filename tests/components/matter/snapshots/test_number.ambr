@@ -355,6 +355,125 @@
     'state': '1',
   })
 # ---
+# name: test_numbers[aqara_smart_lock_u300][number.aqara_smart_lock_u300_user_code_temporary_disable_time-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 1,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.aqara_smart_lock_u300_user_code_temporary_disable_time',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'User code temporary disable time',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'User code temporary disable time',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'user_code_temporary_disable_time',
+    'unique_id': '00000000000004D2-00000000000003F4-MatterNodeDevice-1-DoorLockUserCodeTemporaryDisableTime-257-49',
+    'unit_of_measurement': <UnitOfTime.SECONDS: 's'>,
+  })
+# ---
+# name: test_numbers[aqara_smart_lock_u300][number.aqara_smart_lock_u300_user_code_temporary_disable_time-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Lock U300 User code temporary disable time',
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 1,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfTime.SECONDS: 's'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.aqara_smart_lock_u300_user_code_temporary_disable_time',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '60',
+  })
+# ---
+# name: test_numbers[aqara_smart_lock_u300][number.aqara_smart_lock_u300_wrong_code_limit-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 1,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.aqara_smart_lock_u300_wrong_code_limit',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Wrong code limit',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Wrong code limit',
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'wrong_code_entry_limit',
+    'unique_id': '00000000000004D2-00000000000003F4-MatterNodeDevice-1-DoorLockWrongCodeEntryLimit-257-48',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_numbers[aqara_smart_lock_u300][number.aqara_smart_lock_u300_wrong_code_limit-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Lock U300 Wrong code limit',
+      <NumberEntityCapabilityAttribute.MAX: 'max'>: 255,
+      <NumberEntityCapabilityAttribute.MIN: 'min'>: 1,
+      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.BOX: 'box'>,
+      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.aqara_smart_lock_u300_wrong_code_limit',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '10',
+  })
+# ---
 # name: test_numbers[aqara_thermostat_w500][number.floor_heating_thermostat_occupied_setback-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
