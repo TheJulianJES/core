@@ -247,6 +247,7 @@ FIXTURES = [
     "tasmota_xiao_esp32c3",
     "tcl_portable_ac",
     "thirdreality_smart_color_night_light",
+    "thirdreality_smart_wifi_plug",
     "wago_home_blind_control",
     "wago_home_relay_16a",
     "yandex_smart_socket",
