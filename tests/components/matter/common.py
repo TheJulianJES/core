@@ -207,6 +207,7 @@ FIXTURES = [
     "schneider_square_d_wifi_switch",
     "secuyou_smart_lock",
     "selve_home_server_3",
+    "sengled_w20_ubea",
     "silabs_dishwasher",
     "silabs_evse_charging",
     "silabs_fan",
