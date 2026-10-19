@@ -192,6 +192,7 @@ FIXTURES = [
     "nuki_smart_lock_ultra",
     "ohf_zigbee_dali_bridge",
     "onoff_light_with_levelcontrol_present",
+    "onvis_s4",
     "resideo_x2s_thermostat",
     "roborock_saros_10",
     "secuyou_smart_lock",
