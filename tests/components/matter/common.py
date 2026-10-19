@@ -109,6 +109,7 @@ FIXTURES = [
     "kasa_smart_wi_fi_light_switch",
     "launray_smart_led_bulb",
     "ledvance_matter_plug_eu_wh",
+    "leedarson_air_purifier",
     "longan_link_thermostat",
     "mock_air_purifier",
     "mock_battery_storage",
