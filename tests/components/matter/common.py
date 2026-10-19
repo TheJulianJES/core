@@ -67,6 +67,7 @@ FIXTURES = [
     "eve_light_switch_20ece4101",
     "eve_motion_20eby9901",
     "eve_motionblinds_20caa9901",
+    "eve_motionblinds_20cab9901",
     "eve_shutter",
     "eve_thermo_v4",
     "eve_thermo_v5",
