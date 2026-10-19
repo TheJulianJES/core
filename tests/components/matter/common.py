@@ -90,6 +90,7 @@ FIXTURES = [
     "ikea_bilresa_dual_button",
     "ikea_dirigera",
     "ikea_grillplats_plug",
+    "ikea_kajplats_e14_ws_globe_806lm",
     "ikea_scroll_wheel",
     "inovelli_vtm30",
     "inovelli_vtm31",
