@@ -156,7 +156,7 @@ def endpoint_requires_child_device(endpoint: MatterEndpoint) -> bool:
     """
     if not _endpoint_maps_to_node_device(endpoint):
         return False
-    splittable_types = CHILD_DEVICE_TYPES & endpoint.device_types
+    splittable_types = endpoint.device_types
     if not splittable_types:
         return False
     return any(
