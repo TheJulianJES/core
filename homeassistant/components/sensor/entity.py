@@ -775,6 +775,12 @@ class SensorEntity(Entity, cached_properties=CACHED_PROPERTIES_WITH_ATTR_):
         if display_precision is not None:
             if default_unit_of_measurement == unit_of_measurement:
                 return display_precision
+            converter = UNIT_CONVERTERS.get(device_class)
+            # A constant ratio can't scale the precision of a reciprocal conversion
+            if converter is not None and converter.are_unit_inverses(
+                default_unit_of_measurement, unit_of_measurement
+            ):
+                return display_precision
             precision = _calculate_precision_from_ratio(
                 device_class,
                 default_unit_of_measurement,

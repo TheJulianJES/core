@@ -2076,6 +2076,30 @@ async def test_suggested_precision_option(
             SensorDeviceClass.POWER_FACTOR,
             {},
         ),
+        # Energy distance, reciprocal conversion keeps the suggested precision
+        (
+            METRIC_SYSTEM,
+            UnitOfEnergyDistance.WATT_HOUR_PER_KM,
+            UnitOfEnergyDistance.KM_PER_KILO_WATT_HOUR,
+            0,
+            1,
+            1,
+            20.1,
+            SensorDeviceClass.ENERGY_DISTANCE,
+            {},
+        ),
+        # Energy distance, reciprocal conversion in the other direction
+        (
+            METRIC_SYSTEM,
+            UnitOfEnergyDistance.KM_PER_KILO_WATT_HOUR,
+            UnitOfEnergyDistance.WATT_HOUR_PER_KM,
+            0,
+            1,
+            1,
+            49.8,
+            SensorDeviceClass.ENERGY_DISTANCE,
+            {},
+        ),
     ],
 )
 async def test_suggested_precision_option_update(

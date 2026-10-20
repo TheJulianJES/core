@@ -134,7 +134,7 @@ class BaseUnitConverter:
         if from_unit == to_unit:
             return lambda value: value
         from_ratio, to_ratio = cls._get_from_to_ratio(from_unit, to_unit)
-        if cls._are_unit_inverses(from_unit, to_unit):
+        if cls.are_unit_inverses(from_unit, to_unit):
             return lambda val: to_ratio / (val / from_ratio)
         return lambda val: (val / from_ratio) * to_ratio
 
@@ -163,7 +163,7 @@ class BaseUnitConverter:
         if from_unit == to_unit:
             return lambda value: value
         from_ratio, to_ratio = cls._get_from_to_ratio(from_unit, to_unit)
-        if cls._are_unit_inverses(from_unit, to_unit):
+        if cls.are_unit_inverses(from_unit, to_unit):
             return lambda val: (
                 None if val is None or val == 0 else to_ratio / (val / from_ratio)
             )
@@ -187,7 +187,7 @@ class BaseUnitConverter:
 
     @classmethod
     @lru_cache
-    def _are_unit_inverses(cls, from_unit: str | None, to_unit: str | None) -> bool:
+    def are_unit_inverses(cls, from_unit: str | None, to_unit: str | None) -> bool:
         """Return true if one unit is an inverse but not the other."""
         return (from_unit in cls._UNIT_INVERSES) != (to_unit in cls._UNIT_INVERSES)
 
