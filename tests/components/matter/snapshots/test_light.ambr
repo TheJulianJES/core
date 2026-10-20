@@ -348,7 +348,7 @@
     'state': 'off',
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_light_1-entry]
+# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_endpoint_1-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -366,7 +366,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.aqara_smart_wall_switch_light_1',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_1',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -374,12 +374,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (1)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (1)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -389,25 +389,25 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_light_1-state]
+# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_endpoint_1-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: None,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Light (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1',
       <LightEntityCapabilityAttribute.SUPPORTED_COLOR_MODES: 'supported_color_modes'>: list([
         <ColorMode.ONOFF: 'onoff'>,
       ]),
       <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LightEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'light.aqara_smart_wall_switch_light_1',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_1',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_light_2-entry]
+# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_endpoint_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -425,7 +425,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.aqara_smart_wall_switch_light_2',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -433,12 +433,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (2)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (2)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -448,25 +448,25 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_light_2-state]
+# name: test_lights[aqara_light_switch_h2_us_4100][light.aqara_smart_wall_switch_endpoint_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: <ColorMode.ONOFF: 'onoff'>,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Light (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2',
       <LightEntityCapabilityAttribute.SUPPORTED_COLOR_MODES: 'supported_color_modes'>: list([
         <ColorMode.ONOFF: 'onoff'>,
       ]),
       <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LightEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'light.aqara_smart_wall_switch_light_2',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'on',
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_light_1_2-entry]
+# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_endpoint_1_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -484,7 +484,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.aqara_smart_wall_switch_light_1_2',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_1_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -492,12 +492,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (1)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (1)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -507,25 +507,25 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_light_1_2-state]
+# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_endpoint_1_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: None,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Light (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1',
       <LightEntityCapabilityAttribute.SUPPORTED_COLOR_MODES: 'supported_color_modes'>: list([
         <ColorMode.ONOFF: 'onoff'>,
       ]),
       <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LightEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'light.aqara_smart_wall_switch_light_1_2',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_1_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_light_2_2-entry]
+# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_endpoint_2_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -543,7 +543,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.aqara_smart_wall_switch_light_2_2',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_2_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -551,12 +551,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (2)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (2)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -566,25 +566,25 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_light_2_2-state]
+# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_endpoint_2_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: <ColorMode.ONOFF: 'onoff'>,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Light (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2',
       <LightEntityCapabilityAttribute.SUPPORTED_COLOR_MODES: 'supported_color_modes'>: list([
         <ColorMode.ONOFF: 'onoff'>,
       ]),
       <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LightEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'light.aqara_smart_wall_switch_light_2_2',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_2_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'on',
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_light_3-entry]
+# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_endpoint_3-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -602,7 +602,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.aqara_smart_wall_switch_light_3',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_3',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -610,12 +610,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (3)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (3)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -625,18 +625,18 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_light_3-state]
+# name: test_lights[aqara_light_switch_h2_us_4101][light.aqara_smart_wall_switch_endpoint_3-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: None,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Wall Switch Light (3)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 3',
       <LightEntityCapabilityAttribute.SUPPORTED_COLOR_MODES: 'supported_color_modes'>: list([
         <ColorMode.ONOFF: 'onoff'>,
       ]),
       <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LightEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'light.aqara_smart_wall_switch_light_3',
+    'entity_id': 'light.aqara_smart_wall_switch_endpoint_3',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -5070,7 +5070,7 @@
     'state': 'off',
   })
 # ---
-# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_light_1-entry]
+# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_endpoint_1-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5092,7 +5092,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.multicolor_ceiling_light_light_1',
+    'entity_id': 'light.multicolor_ceiling_light_endpoint_1',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5100,12 +5100,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (1)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (1)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -5115,13 +5115,13 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_light_1-state]
+# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_endpoint_1-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.BRIGHTNESS: 'brightness'>: None,
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: None,
       <LightEntityStateAttribute.COLOR_TEMP_KELVIN: 'color_temp_kelvin'>: None,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Multicolor Ceiling Light Light (1)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 1',
       <LightEntityStateAttribute.HS_COLOR: 'hs_color'>: None,
       <LightEntityCapabilityAttribute.MAX_COLOR_TEMP_KELVIN: 'max_color_temp_kelvin'>: 6535,
       <LightEntityCapabilityAttribute.MIN_COLOR_TEMP_KELVIN: 'min_color_temp_kelvin'>: 2702,
@@ -5135,14 +5135,14 @@
       <LightEntityStateAttribute.XY_COLOR: 'xy_color'>: None,
     }),
     'context': <ANY>,
-    'entity_id': 'light.multicolor_ceiling_light_light_1',
+    'entity_id': 'light.multicolor_ceiling_light_endpoint_1',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_light_2-entry]
+# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_endpoint_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5164,7 +5164,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.multicolor_ceiling_light_light_2',
+    'entity_id': 'light.multicolor_ceiling_light_endpoint_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5172,12 +5172,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (2)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (2)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -5187,13 +5187,13 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_light_2-state]
+# name: test_lights[nanoleaf_nl77k1][light.multicolor_ceiling_light_endpoint_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.BRIGHTNESS: 'brightness'>: 30,
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: <ColorMode.HS: 'hs'>,
       <LightEntityStateAttribute.COLOR_TEMP_KELVIN: 'color_temp_kelvin'>: None,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Multicolor Ceiling Light Light (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2',
       <LightEntityStateAttribute.HS_COLOR: 'hs_color'>: tuple(
         0.0,
         100.0,
@@ -5217,7 +5217,7 @@
       ),
     }),
     'context': <ANY>,
-    'entity_id': 'light.multicolor_ceiling_light_light_2',
+    'entity_id': 'light.multicolor_ceiling_light_endpoint_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -6790,7 +6790,7 @@
     'state': 'on',
   })
 # ---
-# name: test_lights[v1_ir_blaster][light.ir_blaster_light_2-entry]
+# name: test_lights[v1_ir_blaster][light.ir_blaster_endpoint_2-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -6808,7 +6808,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.ir_blaster_light_2',
+    'entity_id': 'light.ir_blaster_endpoint_2',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -6816,12 +6816,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (2)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (2)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -6831,25 +6831,25 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[v1_ir_blaster][light.ir_blaster_light_2-state]
+# name: test_lights[v1_ir_blaster][light.ir_blaster_endpoint_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: None,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'IR Blaster Light (2)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 2',
       <LightEntityCapabilityAttribute.SUPPORTED_COLOR_MODES: 'supported_color_modes'>: list([
         <ColorMode.ONOFF: 'onoff'>,
       ]),
       <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LightEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'light.ir_blaster_light_2',
+    'entity_id': 'light.ir_blaster_endpoint_2',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_lights[v1_ir_blaster][light.ir_blaster_light_3-entry]
+# name: test_lights[v1_ir_blaster][light.ir_blaster_endpoint_3-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -6867,7 +6867,7 @@
     'disabled_by': None,
     'domain': 'light',
     'entity_category': None,
-    'entity_id': 'light.ir_blaster_light_3',
+    'entity_id': 'light.ir_blaster_endpoint_3',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -6875,12 +6875,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Light (3)',
+    'object_id_base': None,
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Light (3)',
+    'original_name': None,
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -6890,18 +6890,18 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_lights[v1_ir_blaster][light.ir_blaster_light_3-state]
+# name: test_lights[v1_ir_blaster][light.ir_blaster_endpoint_3-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <LightEntityStateAttribute.COLOR_MODE: 'color_mode'>: None,
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'IR Blaster Light (3)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Endpoint 3',
       <LightEntityCapabilityAttribute.SUPPORTED_COLOR_MODES: 'supported_color_modes'>: list([
         <ColorMode.ONOFF: 'onoff'>,
       ]),
       <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LightEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'light.ir_blaster_light_3',
+    'entity_id': 'light.ir_blaster_endpoint_3',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

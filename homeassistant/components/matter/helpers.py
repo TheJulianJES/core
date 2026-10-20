@@ -4,7 +4,17 @@ import asyncio
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
-from matter_server.client.models.device_types import OnOffPlugInUnit
+from matter_server.client.models.device_types import (
+    ColorTemperatureLight,
+    DimmableLight,
+    DimmablePlugInUnit,
+    ExtendedColorLight,
+    MountedDimmableLoadControl,
+    MountedOnOffControl,
+    OnOffLight,
+    OnOffPlugInUnit,
+    WindowCovering,
+)
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
@@ -28,10 +38,16 @@ if TYPE_CHECKING:
 # its own child device instead of collapsing onto the node device with a numeric
 # entity name suffix. Stateless controls (Generic Switch) and utility endpoints
 # (Power Source, Electrical Sensor, ...) are deliberately excluded.
-# The allowlist is intentionally limited to device types we have test fixtures
-# for; it can be extended (e.g. lights, covers) as fixtures become available.
 CHILD_DEVICE_TYPES: set[type[DeviceType]] = {
+    ColorTemperatureLight,
+    DimmableLight,
+    DimmablePlugInUnit,
+    ExtendedColorLight,
+    MountedDimmableLoadControl,
+    MountedOnOffControl,
+    OnOffLight,
     OnOffPlugInUnit,
+    WindowCovering,
 }
 
 
