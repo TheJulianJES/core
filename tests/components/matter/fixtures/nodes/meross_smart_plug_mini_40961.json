@@ -1,0 +1,297 @@
+{
+  "node_id": 1055,
+  "date_commissioned": "2023-05-20T16:18:17.213492",
+  "last_interview": "2023-05-20T16:18:17.213494",
+  "interview_version": 3,
+  "available": true,
+  "is_bridge": false,
+  "attributes": {
+    "0/4/0": 128,
+    "0/4/65532": 1,
+    "0/4/65533": 4,
+    "0/4/65528": [0, 1, 2, 3],
+    "0/4/65529": [0, 1, 2, 3, 4, 5],
+    "0/4/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "0/29/0": [
+      {
+        "type": 22,
+        "revision": 1
+      }
+    ],
+    "0/29/1": [4, 29, 31, 40, 48, 49, 51, 54, 60, 62, 63, 64, 65],
+    "0/29/2": [],
+    "0/29/3": [1],
+    "0/29/65532": 0,
+    "0/29/65533": 1,
+    "0/29/65528": [],
+    "0/29/65529": [],
+    "0/29/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "0/31/0": [
+      {
+        "privilege": 0,
+        "authMode": 0,
+        "subjects": null,
+        "targets": null,
+        "fabricIndex": 1
+      },
+      {
+        "privilege": 5,
+        "authMode": 2,
+        "subjects": [112233],
+        "targets": null,
+        "fabricIndex": 2
+      }
+    ],
+    "0/31/1": [],
+    "0/31/2": 4,
+    "0/31/3": 3,
+    "0/31/4": 3,
+    "0/31/65532": 0,
+    "0/31/65533": 1,
+    "0/31/65528": [],
+    "0/31/65529": [],
+    "0/31/65531": [0, 1, 2, 3, 4, 65528, 65529, 65531, 65532, 65533],
+    "0/40/0": 1,
+    "0/40/1": "Meross",
+    "0/40/2": 4933,
+    "0/40/3": "Smart Plug Mini",
+    "0/40/4": 40961,
+    "0/40/5": "",
+    "0/40/6": "**REDACTED**",
+    "0/40/7": 0,
+    "0/40/8": "9.0",
+    "0/40/9": 0,
+    "0/40/10": "9.3.26",
+    "0/40/11": "20200101",
+    "0/40/12": "",
+    "0/40/13": "",
+    "0/40/14": "",
+    "0/40/15": "55B7169BAADADDC",
+    "0/40/16": false,
+    "0/40/17": true,
+    "0/40/18": "4814474D0B3526A4",
+    "0/40/19": {
+      "caseSessionsPerFabric": 3,
+      "subscriptionsPerFabric": 3
+    },
+    "0/40/65532": 0,
+    "0/40/65533": 1,
+    "0/40/65528": [],
+    "0/40/65529": [],
+    "0/40/65531": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+      65528, 65529, 65531, 65532, 65533
+    ],
+    "0/48/0": 0,
+    "0/48/1": {
+      "failSafeExpiryLengthSeconds": 60,
+      "maxCumulativeFailsafeSeconds": 900
+    },
+    "0/48/2": 0,
+    "0/48/3": 0,
+    "0/48/4": true,
+    "0/48/65532": 0,
+    "0/48/65533": 1,
+    "0/48/65528": [1, 3, 5],
+    "0/48/65529": [0, 2, 4],
+    "0/48/65531": [0, 1, 2, 3, 4, 65528, 65529, 65531, 65532, 65533],
+    "0/49/0": 1,
+    "0/49/1": [
+      {
+        "networkID": "Q2x1YkhvdXNl",
+        "connected": true
+      }
+    ],
+    "0/49/2": 10,
+    "0/49/3": 20,
+    "0/49/4": true,
+    "0/49/5": 0,
+    "0/49/6": "Q2x1YkhvdXNl",
+    "0/49/7": null,
+    "0/49/65532": 1,
+    "0/49/65533": 1,
+    "0/49/65528": [1, 5, 7],
+    "0/49/65529": [0, 2, 4, 6, 8],
+    "0/49/65531": [0, 1, 2, 3, 4, 5, 6, 7, 65528, 65529, 65531, 65532, 65533],
+    "0/51/0": [
+      {
+        "name": "r0",
+        "isOperational": true,
+        "offPremiseServicesReachableIPv4": null,
+        "offPremiseServicesReachableIPv6": null,
+        "hardwareAddress": "SOHptqsx",
+        "IPv4Addresses": ["wKgoBw=="],
+        "IPv6Addresses": ["/oAAAAAAAABK4en//rarMQ=="],
+        "type": 1
+      }
+    ],
+    "0/51/1": 2,
+    "0/51/2": 66,
+    "0/51/3": 0,
+    "0/51/4": 0,
+    "0/51/5": [],
+    "0/51/6": [],
+    "0/51/7": [],
+    "0/51/8": false,
+    "0/51/65532": 0,
+    "0/51/65533": 1,
+    "0/51/65528": [],
+    "0/51/65529": [0],
+    "0/51/65531": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 65528, 65529, 65531, 65532, 65533
+    ],
+    "0/54/0": "aNeaNQLa",
+    "0/54/1": 5,
+    "0/54/2": 3,
+    "0/54/3": 1,
+    "0/54/4": -60,
+    "0/54/5": 0,
+    "0/54/6": null,
+    "0/54/7": 0,
+    "0/54/8": 0,
+    "0/54/9": 0,
+    "0/54/10": 0,
+    "0/54/11": 0,
+    "0/54/12": 0,
+    "0/54/65532": 3,
+    "0/54/65533": 1,
+    "0/54/65528": [],
+    "0/54/65529": [0],
+    "0/54/65531": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 65528, 65529, 65531, 65532,
+      65533
+    ],
+    "0/60/0": 0,
+    "0/60/1": null,
+    "0/60/2": null,
+    "0/60/65532": 0,
+    "0/60/65533": 1,
+    "0/60/65528": [],
+    "0/60/65529": [0, 1, 2],
+    "0/60/65531": [0, 1, 2, 65528, 65529, 65531, 65532, 65533],
+    "0/62/0": [
+      {
+        "noc": "",
+        "icac": null,
+        "fabricIndex": 1
+      },
+      {
+        "noc": "FTABAQEkAgE3AyQTAhgmBIAigScmBYAlTTo3BiQVAiQRBhgkBwEkCAEwCUEECSZEPh71yFaK3wKrDiceAMeokIhw0Vsx2PbyOuf6m0M880C9wclU4kRyvX0IwN/4XaimfZBG+ThtN1TCPRhGAzcKNQEoARgkAgE2AwQCBAEYMAQUflioU19T3sOypkSnGieWnoNlmyowBRT+VAz+XE+UIfwlcjiDQP1gTDEWdhgwC0C5ULGih1o2lAfFl50NJ6g2vPxJUaVKOYJDa633MNEwmk9N2pPs3OUEbHQT/3ACK5F9BUPWKdDmA8+B8W9+QIVSGA==",
+        "icac": "FTABAQEkAgE3AyQUARgmBIAigScmBYAlTTo3BiQTAhgkBwEkCAEwCUEEvJL3qHzGj0N27rBP41JU9FDD5psuyv+GGvEKxDtCDAjIX67kCwk+Mf/XqnPlSjh9/fT3UpoWXJLqv8CTPqL9MDcKNQEpARgkAmAwBBT+VAz+XE+UIfwlcjiDQP1gTDEWdjAFFPUOW/ES8Ur6t5QCMFbGC3RRe0FQGDALQK4iLOMgmOCLwl59O8fTd4C1uzS5PHcP+oNFygCsDa0r3BEtN0w0Q1CLOMRn8B1KhK7gKVa8+EpArXbVYOfy7VQY",
+        "fabricIndex": 2
+      }
+    ],
+    "0/62/1": [
+      {
+        "rootPublicKey": "BLa7jB+WPz9PgZCCJ1TMEAvOy5nzXB1OslxigeMkiVRBV7oOL3l91jrduLhUTyK/oUbUw2sR+m2kRls9q3PiJCI=",
+        "vendorId": 4996,
+        "fabricId": 2,
+        "nodeId": 2192945980,
+        "label": "",
+        "fabricIndex": 1
+      },
+      {
+        "rootPublicKey": "BOrbdQ/99mIvQjS6MQ0wsINoKwqweh0BjZGK63tUDZb8nmh/ZW/b0ARS5QCPhuj9gQqV9ueLOESP6117ouFBC3c=",
+        "vendorId": 4939,
+        "fabricId": 2,
+        "nodeId": 6,
+        "label": "",
+        "fabricIndex": 2
+      }
+    ],
+    "0/62/2": 5,
+    "0/62/3": 2,
+    "0/62/4": [
+      "FTABAQAkAgE3AycUT1ycUIzSH/MkFQIYJgT4icArJgV4vaEtNwYnFE9cnFCM0h/zJBUCGCQHASQIATAJQQS2u4wflj8/T4GQgidUzBALzsuZ81wdTrJcYoHjJIlUQVe6Di95fdY63bi4VE8iv6FG1MNrEfptpEZbPatz4iQiNwo1ASkBGCQCYDAEFHvWRWirxOesUbiuIMchOP8kbI5SMAUUe9ZFaKvE56xRuK4gxyE4/yRsjlIYMAtAvT9ZRCsp3GoVPbSZiD/pnhZrpXPTJZnEYGUi4cpqpZt35E3e16YLji4A2EG04+3edQ4CYIKZz3PM5sDYerda4xg=",
+      "FTABAQEkAgE3AyQUARgmBIAigScmBYAlTTo3BiQUARgkBwEkCAEwCUEE6tt1D/32Yi9CNLoxDTCwg2grCrB6HQGNkYrre1QNlvyeaH9lb9vQBFLlAI+G6P2BCpX254s4RI/rXXui4UELdzcKNQEpARgkAmAwBBT1DlvxEvFK+reUAjBWxgt0UXtBUDAFFPUOW/ES8Ur6t5QCMFbGC3RRe0FQGDALQAKBHKnYmMPhSa8XLuroR42A0VaXjGlsM0mIMuoGV0Az3pxbBRgPd68LW+gS8Q4l3ALWzvn0/LyaQGY+pMjqsjcY"
+    ],
+    "0/62/5": 2,
+    "0/62/65532": 0,
+    "0/62/65533": 1,
+    "0/62/65528": [1, 3, 5, 8],
+    "0/62/65529": [0, 2, 4, 6, 7, 9, 10, 11],
+    "0/62/65531": [0, 1, 2, 3, 4, 5, 65528, 65529, 65531, 65532, 65533],
+    "0/63/0": [],
+    "0/63/1": [],
+    "0/63/2": 3,
+    "0/63/3": 3,
+    "0/63/65532": 0,
+    "0/63/65533": 1,
+    "0/63/65528": [2, 5],
+    "0/63/65529": [0, 1, 3, 4],
+    "0/63/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "0/64/0": [
+      {
+        "label": "room",
+        "value": "bedroom 2"
+      },
+      {
+        "label": "orientation",
+        "value": "North"
+      },
+      {
+        "label": "floor",
+        "value": "2"
+      },
+      {
+        "label": "direction",
+        "value": "up"
+      }
+    ],
+    "0/64/65532": 0,
+    "0/64/65533": 1,
+    "0/64/65528": [],
+    "0/64/65529": [],
+    "0/64/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "0/65/0": [],
+    "0/65/65532": 0,
+    "0/65/65533": 1,
+    "0/65/65528": [],
+    "0/65/65529": [],
+    "0/65/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "1/3/0": 0,
+    "1/3/1": 2,
+    "1/3/65532": 0,
+    "1/3/65533": 4,
+    "1/3/65528": [],
+    "1/3/65529": [0],
+    "1/3/65531": [0, 1, 65528, 65529, 65531, 65532, 65533],
+    "1/4/0": 128,
+    "1/4/65532": 1,
+    "1/4/65533": 4,
+    "1/4/65528": [0, 1, 2, 3],
+    "1/4/65529": [0, 1, 2, 3, 4, 5],
+    "1/4/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "1/5/0": 0,
+    "1/5/1": 0,
+    "1/5/2": 0,
+    "1/5/3": false,
+    "1/5/4": 0,
+    "1/5/65532": 0,
+    "1/5/65533": 4,
+    "1/5/65528": [0, 1, 2, 3, 4, 6, 64, 65, 66],
+    "1/5/65529": [0, 1, 2, 3, 4, 5, 6, 64, 65, 66],
+    "1/5/65531": [0, 1, 2, 3, 4, 65528, 65529, 65531, 65532, 65533],
+    "1/6/0": true,
+    "1/6/65532": 0,
+    "1/6/65533": 4,
+    "1/6/65528": [],
+    "1/6/65529": [0, 1, 2],
+    "1/6/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "1/29/0": [
+      {
+        "type": 266,
+        "revision": 1
+      }
+    ],
+    "1/29/1": [3, 4, 5, 6, 29],
+    "1/29/2": [],
+    "1/29/3": [],
+    "1/29/65532": 0,
+    "1/29/65533": 1,
+    "1/29/65528": [],
+    "1/29/65529": [],
+    "1/29/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533]
+  },
+  "attribute_subscriptions": []
+}

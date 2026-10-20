@@ -1,0 +1,424 @@
+{
+  "node_id": 1062,
+  "date_commissioned": "2023-10-11T03:10:05.790470",
+  "last_interview": "2023-10-11T03:10:05.790473",
+  "interview_version": 4,
+  "available": true,
+  "is_bridge": false,
+  "attributes": {
+    "0/48/65529": [0, 2, 4],
+    "0/48/65532": 0,
+    "0/48/0": 0,
+    "0/48/2": 0,
+    "0/48/65531": [0, 1, 2, 3, 4, 65528, 65529, 65531, 65532, 65533],
+    "0/48/4": true,
+    "0/48/1": {
+      "failSafeExpiryLengthSeconds": 60,
+      "maxCumulativeFailsafeSeconds": 900
+    },
+    "0/48/65528": [1, 3, 5],
+    "0/48/65533": 1,
+    "0/48/3": 0,
+    "0/40/7": 1,
+    "0/40/10": "1.0.0",
+    "0/40/65529": [],
+    "0/40/0": 1,
+    "0/40/1": "HooRii Technology",
+    "0/40/65532": 0,
+    "0/40/2": 4945,
+    "0/40/9": 1,
+    "0/40/65531": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 19, 65528, 65529, 65531, 65532,
+      65533
+    ],
+    "0/40/6": "**REDACTED**",
+    "0/40/5": "",
+    "0/40/19": {
+      "caseSessionsPerFabric": 3,
+      "subscriptionsPerFabric": 3
+    },
+    "0/40/65533": 1,
+    "0/40/4": 65531,
+    "0/40/65528": [],
+    "0/40/3": "HooRii Window Covering",
+    "0/40/8": "1.0.0",
+    "0/40/16": false,
+    "0/51/1": 2,
+    "0/51/65532": 0,
+    "0/51/0": [
+      {
+        "name": "ieee802154",
+        "isOperational": true,
+        "offPremiseServicesReachableIPv4": null,
+        "offPremiseServicesReachableIPv6": null,
+        "hardwareAddress": "+nBjqkiOrHg=",
+        "IPv4Addresses": [],
+        "IPv6Addresses": [
+          "/V1EO5nvAACM+kAQ2IYqyA==",
+          "/oAAAAAAAAD4cGOqSI6seA==",
+          "/RysaSl2AABYGgSw5FSGAA=="
+        ],
+        "type": 4
+      }
+    ],
+    "0/51/8": false,
+    "0/51/65528": [],
+    "0/51/65531": [0, 1, 8, 65528, 65529, 65531, 65532, 65533],
+    "0/51/65533": 1,
+    "0/51/65529": [0],
+    "0/53/61": {
+      "activeTimestampPresent": true,
+      "pendingTimestampPresent": false,
+      "masterKeyPresent": true,
+      "networkNamePresent": true,
+      "extendedPanIdPresent": true,
+      "meshLocalPrefixPresent": true,
+      "delayPresent": false,
+      "panIdPresent": true,
+      "channelPresent": true,
+      "pskcPresent": true,
+      "securityPolicyPresent": true,
+      "channelMaskPresent": true
+    },
+    "0/53/13": 45,
+    "0/53/3": 59300,
+    "0/53/0": 25,
+    "0/53/59": {
+      "rotationTime": 672,
+      "flags": 8335
+    },
+    "0/53/65531": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 58, 59, 60, 61, 62, 65528,
+      65529, 65531, 65532, 65533
+    ],
+    "0/53/11": 234,
+    "0/53/60": "AB//wA==",
+    "0/53/9": 1049657438,
+    "0/53/65532": 2,
+    "0/53/1": 2,
+    "0/53/7": [
+      {
+        "extAddress": 13991368896654875218,
+        "age": 1382,
+        "rloc16": 22528,
+        "linkFrameCounter": 1473562,
+        "mleFrameCounter": 64363,
+        "lqi": 3,
+        "averageRssi": -60,
+        "lastRssi": -62,
+        "frameErrorRate": 36,
+        "messageErrorRate": 1,
+        "rxOnWhenIdle": true,
+        "fullThreadDevice": true,
+        "fullNetworkData": true,
+        "isChild": false
+      }
+    ],
+    "0/53/12": 111,
+    "0/53/8": [
+      {
+        "extAddress": 13991368896654875218,
+        "rloc16": 22528,
+        "routerId": 22,
+        "nextHop": 0,
+        "pathCost": 0,
+        "LQIIn": 3,
+        "LQIOut": 3,
+        "age": 102,
+        "allocated": true,
+        "linkEstablished": true
+      }
+    ],
+    "0/53/4": 2066141955866970014,
+    "0/53/5": "QP0crGkpdgAA",
+    "0/53/65529": [0],
+    "0/53/58": 0,
+    "0/53/2": "MyHome696658963",
+    "0/53/65533": 1,
+    "0/53/62": [0, 0, 0, 0],
+    "0/53/10": 68,
+    "0/53/65528": [],
+    "0/53/6": 0,
+    "0/43/65531": [0, 1, 65528, 65529, 65531, 65532, 65533],
+    "0/43/1": [
+      "en-US",
+      "de-DE",
+      "fr-FR",
+      "en-GB",
+      "es-ES",
+      "zh-CN",
+      "it-IT",
+      "ja-JP"
+    ],
+    "0/43/0": "en-US",
+    "0/43/65529": [],
+    "0/43/65533": 1,
+    "0/43/65532": 0,
+    "0/43/65528": [],
+    "0/62/4": [
+      "FTABAQAkAgE3AycUfrA5U0L7SEQkFQIYJgToO+wrJAUANwYnFH6wOVNC+0hEJBUCGCQHASQIATAJQQTIqSVm2HFnKr3gFGOa+M9BdigrXwLL3nPmH+Vf/kGaYv6Wo6FSIU1679akzWVbZIGZgGo456zfEOb4hdgfAvepNwo1ASkBGCQCYDAEFKGF4HnSV62qvPtCnnHgjPWemREVMAUUoYXgedJXraq8+0KeceCM9Z6ZERUYMAtA9fVeZvF5B+Y7o6gIJX3Nipfyk2shUg2at4gdbXDyrkVBfI4KG5q6PUuRoFdx5/6uRqytrUPutD3bVO25YWCsoRg=",
+      "FTABAQAkAgE3AycUyAIvFk7NXb4kFQEYJgT9O+wrJAUANwYnFMgCLxZOzV2+JBUBGCQHASQIATAJQQQESwZiRNKrfDPqS0qtWZfPL7lMrwDB5DTTkRY78mPZsxQSqOb/VqSMuXLPfohUn4iTadosm+Ui89mY9uBvZ7AbNwo1ASkBGCQCYDAEFF1kxguTAOlAnscwc4tFmQn2PIhsMAUUXWTGC5MA6UCexzBzi0WZCfY8iGwYMAtA5gwnqjDWVwPLfaZoaggKNKMNVnV7rGMY+auxLmz8vVTjfaVpODddzRNDsLCPhNiO9Su3HuwEt/PVWqN0cgEChxg=",
+      "FTABAQEkAgE3AyQUARgmBIAigScmBYAlTTo3BiQUARgkBwEkCAEwCUEEm36Uz53zmlQmLCYL2bS7b6Sbo02x8M6Sxigc6729DwAC63Fqn0YvP3E1/Xz3giI4sVMn9GihbV7UhlnRklnpvTcKNQEpARgkAmAwBBQXgps962+jT1Sj6Bmo1tAEiqHGQDAFFBeCmz3rb6NPVKPoGajW0ASKocZAGDALQFU0gSCNGYT1za/ZKoihfDq9ynG4oDRPc6aaMyYpj1TSuemVr4gRuv7/C0Z7ztNnvV4aqz9swszf0VKHc2J6jO4Y"
+    ],
+    "0/62/0": [
+      {
+        "noc": "",
+        "icac": null,
+        "fabricIndex": 1
+      },
+      {
+        "noc": "",
+        "icac": null,
+        "fabricIndex": 2
+      },
+      {
+        "noc": "FTABAQEkAgE3AyQTAhgmBIAigScmBYAlTTo3BiQVAiQRMxgkBwEkCAEwCUEEFvNVCI4i+y0xqj6u/0gwWv2mnEsIfbMO3k7ePi0+Egy6sGs2zwBAvdsPSXKmvhbXM1dGyuIchl23CgU9aEHCGDcKNQEoARgkAgE2AwQCBAEYMAQU/KmdL0m0rz+SqH4RMQ/XKvHUS28wBRQ1Uu+0OHF8PYujTYwy4owxh5M5KxgwC0CraARGY1n4pbWPHjdxIccw9SXaQjW9UjW6lCkTJ+nv5RH6rKHuzQ6HSnmSNmWItemd9d1XcIujkK8HoThGOZyLGA==",
+        "icac": "FTABAQEkAgE3AyQUARgmBIAigScmBYAlTTo3BiQTAhgkBwEkCAEwCUEE4oghjvawzNroD0NNjUjDV+2Gns22FVMtGVjZ4H7jVCZQ22vKsK3zId3yAUhkkhLWLwICPgbUvBBLuwtKb/DgnDcKNQEpARgkAmAwBBQ1Uu+0OHF8PYujTYwy4owxh5M5KzAFFBeCmz3rb6NPVKPoGajW0ASKocZAGDALQJdU92xk5CAF8+YpIU4WXMGllv16VSAj6Nre6EQPfW7asEAnKXp+oXbW9hBZoVkbhex+dGtH7IyJd9AE4/zZVp4Y",
+        "fabricIndex": 3
+      }
+    ],
+    "0/62/65532": 0,
+    "0/62/2": 5,
+    "0/62/1": [
+      {
+        "rootPublicKey": "BMipJWbYcWcqveAUY5r4z0F2KCtfAsvec+Yf5V/+QZpi/pajoVIhTXrv1qTNZVtkgZmAajjnrN8Q5viF2B8C96k=",
+        "vendorID": 4937,
+        "fabricID": 2,
+        "nodeID": 3432595232,
+        "label": "My Home",
+        "fabricIndex": 1
+      },
+      {
+        "rootPublicKey": "BARLBmJE0qt8M+pLSq1Zl88vuUyvAMHkNNORFjvyY9mzFBKo5v9WpIy5cs9+iFSfiJNp2iyb5SLz2Zj24G9nsBs=",
+        "vendorID": 4996,
+        "fabricID": 1,
+        "nodeID": 3899675973,
+        "label": "",
+        "fabricIndex": 2
+      },
+      {
+        "rootPublicKey": "BJt+lM+d85pUJiwmC9m0u2+km6NNsfDOksYoHOu9vQ8AAutxap9GLz9xNf1894IiOLFTJ/RooW1e1IZZ0ZJZ6b0=",
+        "vendorID": 4939,
+        "fabricID": 2,
+        "nodeID": 51,
+        "label": "",
+        "fabricIndex": 3
+      }
+    ],
+    "0/62/65528": [1, 3, 5, 8],
+    "0/62/3": 3,
+    "0/62/65533": 1,
+    "0/62/5": 3,
+    "0/62/65531": [0, 1, 2, 3, 4, 5, 65528, 65529, 65531, 65532, 65533],
+    "0/62/65529": [0, 2, 4, 6, 7, 9, 10, 11],
+    "0/42/3": null,
+    "0/42/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "0/42/0": [
+      {
+        "providerNodeID": 8886825531331700530,
+        "endpoint": 0,
+        "fabricIndex": 1
+      }
+    ],
+    "0/42/1": true,
+    "0/42/65529": [0],
+    "0/42/65533": 1,
+    "0/42/2": 1,
+    "0/42/65528": [],
+    "0/42/65532": 0,
+    "0/44/65533": 1,
+    "0/44/65528": [],
+    "0/44/65529": [],
+    "0/44/65532": 0,
+    "0/44/0": 0,
+    "0/44/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "0/29/1": [29, 31, 40, 42, 43, 44, 45, 46, 48, 49, 51, 53, 60, 62, 63],
+    "0/29/65533": 1,
+    "0/29/3": [1],
+    "0/29/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "0/29/65529": [],
+    "0/29/2": [41],
+    "0/29/0": [
+      {
+        "deviceType": 22,
+        "revision": 1
+      }
+    ],
+    "0/29/65528": [],
+    "0/29/65532": 0,
+    "0/31/65532": 0,
+    "0/31/65533": 1,
+    "0/31/0": [
+      {
+        "privilege": 0,
+        "authMode": 0,
+        "subjects": null,
+        "targets": null,
+        "fabricIndex": 1
+      },
+      {
+        "privilege": 0,
+        "authMode": 0,
+        "subjects": null,
+        "targets": null,
+        "fabricIndex": 2
+      },
+      {
+        "privilege": 5,
+        "authMode": 2,
+        "subjects": [112233],
+        "targets": null,
+        "fabricIndex": 3
+      }
+    ],
+    "0/31/65529": [],
+    "0/31/2": 4,
+    "0/31/3": 3,
+    "0/31/65528": [],
+    "0/31/65531": [0, 1, 2, 3, 4, 65528, 65529, 65531, 65532, 65533],
+    "0/31/1": [],
+    "0/31/4": 4,
+    "0/60/0": 0,
+    "0/60/65529": [0, 1, 2],
+    "0/60/65528": [],
+    "0/60/65532": 0,
+    "0/60/2": null,
+    "0/60/1": null,
+    "0/60/65533": 1,
+    "0/60/65531": [0, 1, 2, 65528, 65529, 65531, 65532, 65533],
+    "0/45/65532": 0,
+    "0/45/65529": [],
+    "0/45/65528": [],
+    "0/45/65531": [65528, 65529, 65531, 65532, 65533],
+    "0/45/65533": 1,
+    "0/46/0": [1],
+    "0/46/65532": 0,
+    "0/46/65528": [],
+    "0/46/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "0/46/65533": 1,
+    "0/46/65529": [],
+    "0/63/65529": [0, 1, 3, 4],
+    "0/63/1": [],
+    "0/63/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "0/63/2": 4,
+    "0/63/65532": 0,
+    "0/63/3": 3,
+    "0/63/65533": 1,
+    "0/63/65528": [2, 5],
+    "0/63/0": [],
+    "0/49/2": 10,
+    "0/49/6": null,
+    "0/49/7": null,
+    "0/49/0": 1,
+    "0/49/65532": 2,
+    "0/49/3": 20,
+    "0/49/65531": [0, 1, 2, 3, 4, 5, 6, 7, 65528, 65529, 65531, 65532, 65533],
+    "0/49/1": [
+      {
+        "networkID": "HKxpKXb7R54=",
+        "connected": true
+      }
+    ],
+    "0/49/5": 0,
+    "0/49/4": true,
+    "0/49/65529": [0, 3, 4, 6, 8],
+    "0/49/65533": 1,
+    "0/49/65528": [1, 5, 7],
+    "1/3/65528": [],
+    "1/3/65529": [0],
+    "1/3/65531": [0, 1, 65528, 65529, 65531, 65532, 65533],
+    "1/3/0": 0,
+    "1/3/1": 0,
+    "1/3/65532": 0,
+    "1/3/65533": 4,
+    "1/65/65528": [],
+    "1/65/65532": 0,
+    "1/65/65529": [],
+    "1/65/65533": 1,
+    "1/65/0": [],
+    "1/65/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "1/29/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "1/29/65529": [],
+    "1/29/3": [],
+    "1/29/65533": 1,
+    "1/29/1": [3, 4, 29, 47, 64, 65, 258],
+    "1/29/0": [
+      {
+        "deviceType": 514,
+        "revision": 2
+      }
+    ],
+    "1/29/65532": 0,
+    "1/29/65528": [],
+    "1/29/2": [],
+    "1/47/65533": 1,
+    "1/47/1": 1,
+    "1/47/65529": [],
+    "1/47/12": 186,
+    "1/47/15": false,
+    "1/47/28": true,
+    "1/47/65528": [],
+    "1/47/0": 1,
+    "1/47/2": "Rechargeable Battery",
+    "1/47/14": 0,
+    "1/47/65532": 6,
+    "1/47/65531": [
+      0, 1, 2, 11, 12, 14, 15, 16, 26, 28, 65528, 65529, 65531, 65532, 65533
+    ],
+    "1/47/11": 7109,
+    "1/47/26": 3,
+    "1/47/16": 1,
+    "1/258/65532": 13,
+    "1/258/14": 9088,
+    "1/258/7": 9,
+    "1/258/65533": 5,
+    "1/258/26": 0,
+    "1/258/17": 65535,
+    "1/258/16": 0,
+    "1/258/65529": [0, 1, 2, 5],
+    "1/258/13": 0,
+    "1/258/23": 0,
+    "1/258/65531": [
+      0, 7, 10, 11, 13, 14, 16, 17, 23, 26, 65528, 65529, 65531, 65532, 65533
+    ],
+    "1/258/65528": [],
+    "1/258/0": 0,
+    "1/258/11": 8044,
+    "1/258/10": 0,
+    "1/4/65533": 4,
+    "1/4/65528": [0, 1, 2, 3],
+    "1/4/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "1/4/65529": [0, 1, 2, 3, 4, 5],
+    "1/4/0": 128,
+    "1/4/65532": 1,
+    "1/64/65529": [],
+    "1/64/65528": [],
+    "1/64/0": [
+      {
+        "label": "room",
+        "value": "bedroom 2"
+      },
+      {
+        "label": "orientation",
+        "value": "North"
+      },
+      {
+        "label": "floor",
+        "value": "2"
+      },
+      {
+        "label": "direction",
+        "value": "up"
+      }
+    ],
+    "1/64/65533": 1,
+    "1/64/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "1/64/65532": 0
+  },
+  "attribute_subscriptions": [
+    [1, 258, 0],
+    [1, 47, 12],
+    [1, 258, 10],
+    [1, 258, 14]
+  ]
+}

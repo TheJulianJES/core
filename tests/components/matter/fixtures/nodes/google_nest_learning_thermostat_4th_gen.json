@@ -1,0 +1,233 @@
+{
+  "node_id": 1004,
+  "date_commissioned": "2024-11-06T21:54:55.757067",
+  "last_interview": "2024-11-06T22:25:05.601560",
+  "interview_version": 6,
+  "available": true,
+  "is_bridge": false,
+  "attributes": {
+    "0/29/0": [
+      {
+        "0": 22,
+        "1": 1
+      }
+    ],
+    "0/29/1": [29, 31, 40, 48, 51, 60, 62, 63],
+    "0/29/2": [],
+    "0/29/3": [1],
+    "0/29/65532": 0,
+    "0/29/65533": 2,
+    "0/29/65528": [],
+    "0/29/65529": [],
+    "0/29/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "0/31/0": [
+      {
+        "254": 1
+      },
+      {
+        "254": 2
+      },
+      {
+        "254": 3
+      },
+      {
+        "1": 5,
+        "2": 2,
+        "3": [112233],
+        "4": null,
+        "254": 4
+      }
+    ],
+    "0/31/2": 4,
+    "0/31/3": 3,
+    "0/31/4": 4,
+    "0/31/65532": 0,
+    "0/31/65533": 1,
+    "0/31/65528": [],
+    "0/31/65529": [],
+    "0/31/65531": [0, 2, 3, 4, 65528, 65529, 65531, 65532, 65533],
+    "0/40/0": 17,
+    "0/40/1": "Google LLC",
+    "0/40/2": 24582,
+    "0/40/3": "Nest Learning Thermostat 4th gen",
+    "0/40/4": 13,
+    "0/40/5": "",
+    "0/40/6": "**REDACTED**",
+    "0/40/7": 68,
+    "0/40/8": "6.8",
+    "0/40/9": 2100,
+    "0/40/10": "2.1",
+    "0/40/18": "12A762D92FB37425",
+    "0/40/19": {
+      "0": 3,
+      "1": 3
+    },
+    "0/40/65532": 0,
+    "0/40/65533": 2,
+    "0/40/65528": [],
+    "0/40/65529": [],
+    "0/40/65531": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 19, 65528, 65529, 65531, 65532,
+      65533
+    ],
+    "0/48/0": 0,
+    "0/48/1": {
+      "0": 60,
+      "1": 900
+    },
+    "0/48/2": 0,
+    "0/48/3": 0,
+    "0/48/4": true,
+    "0/48/65532": 0,
+    "0/48/65533": 1,
+    "0/48/65528": [1, 3, 5],
+    "0/48/65529": [0, 2, 4],
+    "0/48/65531": [0, 1, 2, 3, 4, 65528, 65529, 65531, 65532, 65533],
+    "0/51/0": [
+      {
+        "0": "WS_IoT",
+        "1": true,
+        "2": true,
+        "3": false,
+        "4": "PDF03VG/",
+        "5": ["wKgKZA=="],
+        "6": ["/oAAAAAAAAA+MXT//t1Rvw=="],
+        "7": 1
+      }
+    ],
+    "0/51/1": 5,
+    "0/51/4": 5,
+    "0/51/8": false,
+    "0/51/65532": 0,
+    "0/51/65533": 1,
+    "0/51/65528": [],
+    "0/51/65529": [0],
+    "0/51/65531": [0, 1, 4, 8, 65528, 65529, 65531, 65532, 65533],
+    "0/60/0": 0,
+    "0/60/1": null,
+    "0/60/2": null,
+    "0/60/65532": 1,
+    "0/60/65533": 1,
+    "0/60/65528": [],
+    "0/60/65529": [0, 1, 2],
+    "0/60/65531": [0, 1, 2, 65528, 65529, 65531, 65532, 65533],
+    "0/62/0": [
+      {
+        "254": 1
+      },
+      {
+        "254": 2
+      },
+      {
+        "254": 3
+      },
+      {
+        "1": "FTABAQEkAgE3AyQTAhgmBIAigScmBYAlTTo3BiQVAiQRBBgkBwEkCAEwCUEE61t8tFgoi6SELubQzW/VI2NGWKG95eHM84Bz5C7Ojog0sb4uS8gPEzesT4ZrwspuKj3oQPHcnrsVsYtRDaK1SzcKNQEoARgkAgE2AwQCBAEYMAQUp64WTngIRbylbZOEJ0BybQqYgMowBRSmI/CsKsz+Ts3iIHn190qXEkjd+RgwC0Djhox02RJGFJNEyGx03rtfmO+4frwgR3ty+kFmhaMy0E9m3swpZ20gRri6K8gWYeYWug8ACFV5PM2lFE/rroMVGA==",
+        "2": "FTABAQEkAgE3AyQUARgmBIAigScmBYAlTTo3BiQTAhgkBwEkCAEwCUEEZsNkBmNE1GiEp+6jVeZbhbZT6mc8OsLpk0r1iy61tdoDtZFNP0HFPDpLI1QpnEkO7xxbzLfn20/JDyqlCVapgTcKNQEpARgkAmAwBBSmI/CsKsz+Ts3iIHn190qXEkjd+TAFFP10O0Wnjb7fAjO/nb0TTS3HPNI3GDALQNDoqhCmxPmlgFr2sBefzGGiDoqyfBkPGwLaZsXckvE0HEDVl1CPO4ND4EoqiFWyDhXIdBRh5GiVu6wkN5Px7mAY",
+        "254": 4
+      }
+    ],
+    "0/62/1": [
+      {
+        "1": "BFs332VJwg3I1yKmuKy2YKinZM57r2xsIk9+6ENJaErX2An/ZQAz0VJ9zx+6rGqcOti0HtrJCfe1x2D9VCyJI3U=",
+        "2": 24582,
+        "3": 17391107721947912580,
+        "4": 4168724522,
+        "5": "",
+        "254": 1
+      },
+      {
+        "1": "BHk5HELLOcyXaD8UgeM4jfiD39aH71ezkSn4kov32oDeyjUq911dL1BYrWpHLso2K8gPdTCUMaLx/7B2vQJOEBM=",
+        "2": 4937,
+        "3": 2,
+        "4": 2807743082,
+        "5": "Clinton Ave",
+        "254": 2
+      },
+      {
+        "1": "BLNkcDNcFjDvm1+pXaRal5ZE76Z4SgE4UWFiziPnxapnhknuNp2HjBxVkvGtUEvbAsKnejh1wM4A+RUovpCTJo8=",
+        "2": 4996,
+        "3": 1,
+        "4": 1094929925,
+        "5": "",
+        "254": 3
+      },
+      {
+        "1": "BE+haVBekTx8gBYBRDFravhyA38LqkF4bs4s4Nouq5Bo7cuF2RNc1AMqVZ0pkFI8FKTd+h9c/xgJM9aC2hPuU1U=",
+        "2": 4939,
+        "3": 2,
+        "4": 4,
+        "5": "",
+        "254": 4
+      }
+    ],
+    "0/62/2": 5,
+    "0/62/3": 4,
+    "0/62/4": [
+      "FTABAQEkAgE3AyyEAlVTLAcGR29vZ2xlLAELTWF0dGVyIFJvb3QnFAEAAAD+////GCYEf9JDKSYFf5Rb5TcGLIQCVVMsBwZHb29nbGUsAQtNYXR0ZXIgUm9vdCcUAQAAAP7///8YJAcBJAgBMAlBBFs332VJwg3I1yKmuKy2YKinZM57r2xsIk9+6ENJaErX2An/ZQAz0VJ9zx+6rGqcOti0HtrJCfe1x2D9VCyJI3U3CjUBKQEkAgEYJAJgMAQUcsIB91cZE7NIygDKe0X0d0ZoyX4wBRRywgH3VxkTs0jKAMp7RfR3RmjJfhgwC0BlFksWat/xjBVhCozpG9cD6cH2d7cRzhM1BRUt8NoVERZ1rFWRzueGhRzdnv2tKWZ0vryyo6Mgm83nswnbVSxvGA==",
+      "FTABAQAkAgE3AycUoMZvLxctskYkFQIYJgSnqyorJAUANwYnFKDGby8XLbJGJBUCGCQHASQIATAJQQR5ORxCyznMl2g/FIHjOI34g9/Wh+9Xs5Ep+JKL99qA3so1KvddXS9QWK1qRy7KNivID3UwlDGi8f+wdr0CThATNwo1ASkBGCQCYDAEFLik2L7d4MPohyr3A6ixx9bcDALeMAUUuKTYvt3gw+iHKvcDqLHH1twMAt4YMAtA3VftezOBtjROBYg0tgT9vG7Q/wV+XQu1lhvcwX/fnS1QFGt2NTwdcl0PhOQ5LQO4dMCaS+Rj28cbiypjaBxJbRg=",
+      "FTABAQAkAgE3AycUNp4qDT/Kb0MkFQEYJgS1qyorJgU13wstNwYnFDaeKg0/ym9DJBUBGCQHASQIATAJQQSzZHAzXBYw75tfqV2kWpeWRO+meEoBOFFhYs4j58WqZ4ZJ7jadh4wcVZLxrVBL2wLCp3o4dcDOAPkVKL6QkyaPNwo1ASkBGCQCYDAEFLCwAghj5N8PQCBGwPPKjsnwnXEpMAUUsLACCGPk3w9AIEbA88qOyfCdcSkYMAtAhDMBkWffdnf1iA6P5dwL+Nsh96iPtk+/MpjSudzQWXKoC51qSL+gKhLISjgRqS0+mO4KsLRiOzjummryQf65Jxg=",
+      "FTABAQEkAgE3AyQUARgmBIAigScmBYAlTTo3BiQUARgkBwEkCAEwCUEET6FpUF6RPHyAFgFEMWtq+HIDfwuqQXhuzizg2i6rkGjty4XZE1zUAypVnSmQUjwUpN36H1z/GAkz1oLaE+5TVTcKNQEpARgkAmAwBBT9dDtFp42+3wIzv529E00txzzSNzAFFP10O0Wnjb7fAjO/nb0TTS3HPNI3GDALQDZ1b8a4a2BC4J00qCPblu5VCATTuPEZlGvFNVzhwDK355139UxW8xB5a+zYPrQmW7XQHf5+/WYJ27dbORoCN3cY"
+    ],
+    "0/62/5": 4,
+    "0/62/65532": 0,
+    "0/62/65533": 1,
+    "0/62/65528": [1, 3, 5, 8],
+    "0/62/65529": [0, 2, 4, 6, 7, 9, 10, 11],
+    "0/62/65531": [0, 1, 2, 3, 4, 5, 65528, 65529, 65531, 65532, 65533],
+    "0/63/0": [],
+    "0/63/1": [],
+    "0/63/2": 0,
+    "0/63/3": 1,
+    "0/63/65532": 0,
+    "0/63/65533": 2,
+    "0/63/65528": [2, 5],
+    "0/63/65529": [0, 1, 3, 4],
+    "0/63/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "1/3/0": 0,
+    "1/3/1": 4,
+    "1/3/65532": 0,
+    "1/3/65533": 4,
+    "1/3/65528": [],
+    "1/3/65529": [0],
+    "1/3/65531": [0, 1, 65528, 65529, 65531, 65532, 65533],
+    "1/6/0": true,
+    "1/6/65532": 0,
+    "1/6/65533": 5,
+    "1/6/65528": [],
+    "1/6/65529": [0, 1, 2],
+    "1/6/65531": [0, 65528, 65529, 65531, 65532, 65533],
+    "1/29/0": [
+      {
+        "0": 769,
+        "1": 1
+      }
+    ],
+    "1/29/1": [3, 6, 29, 513],
+    "1/29/2": [],
+    "1/29/3": [],
+    "1/29/65532": 0,
+    "1/29/65533": 2,
+    "1/29/65528": [],
+    "1/29/65529": [],
+    "1/29/65531": [0, 1, 2, 3, 65528, 65529, 65531, 65532, 65533],
+    "1/513/0": 2169,
+    "1/513/3": 1000,
+    "1/513/4": 3222,
+    "1/513/5": 1000,
+    "1/513/6": 3222,
+    "1/513/17": 2166,
+    "1/513/18": 1900,
+    "1/513/25": 0,
+    "1/513/27": 2,
+    "1/513/28": 4,
+    "1/513/65532": 1,
+    "1/513/65533": 6,
+    "1/513/65528": [],
+    "1/513/65529": [0],
+    "1/513/65531": [
+      0, 3, 4, 5, 6, 17, 18, 25, 27, 28, 65528, 65529, 65531, 65532, 65533
+    ]
+  },
+  "attribute_subscriptions": []
+}

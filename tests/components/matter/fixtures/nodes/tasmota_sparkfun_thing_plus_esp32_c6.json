@@ -1,0 +1,506 @@
+{
+  "node_id": 1121,
+  "date_commissioned": "2024-01-15T17:54:01.803619",
+  "last_interview": "2024-01-15T17:54:01.803624",
+  "interview_version": 6,
+  "available": true,
+  "is_bridge": false,
+  "attributes": {
+    "0/29/0": [
+      {
+        "0": 22,
+        "1": 1
+      }
+    ],
+    "0/29/1": [60, 31, 62, 48, 49, 50, 51, 52, 29, 63, 40, 56, 57, 43, 44],
+    "0/29/2": [],
+    "0/29/3": [65280, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "0/29/65532": 0,
+    "0/29/65533": 1,
+    "0/40/0": 1,
+    "0/40/1": "Tasmota",
+    "0/40/2": 65521,
+    "0/40/3": "Sparkfun THING PLUS ESP32-C6",
+    "0/40/4": 32768,
+    "0/40/5": "ESP32-C6 Relay",
+    "0/40/6": "**REDACTED**",
+    "0/40/7": 0,
+    "0/40/8": "ESP32-C6FH4 v0.0",
+    "0/40/9": 1,
+    "0/40/10": "13.3.0.3",
+    "0/40/15": "3D1EBCD5CB65E0EC",
+    "0/40/17": true,
+    "0/40/18": "3D1EBCD5CB65E0EC",
+    "0/40/19": {
+      "0": 3,
+      "1": 3
+    },
+    "0/43/0": "en",
+    "0/43/1": ["en"],
+    "0/44/0": 1,
+    "0/44/1": 4,
+    "0/44/2": [],
+    "0/48/0": 0,
+    "0/48/1": {
+      "0": 60,
+      "1": 900
+    },
+    "0/48/2": 2,
+    "0/48/3": 2,
+    "0/48/4": false,
+    "0/49/3": 30,
+    "0/49/65532": 4,
+    "0/51/0": [
+      {
+        "0": "wifi",
+        "1": true,
+        "2": true,
+        "3": null,
+        "4": "QEzKRyNY",
+        "5": ["wKgBng=="],
+        "6": ["/oAAAAAAAABCTMr//kcjWA==", "KgEOCgKzOZBCTMr//kcjWA=="],
+        "7": 1
+      }
+    ],
+    "0/51/1": 61,
+    "0/51/2": 83,
+    "0/51/8": false,
+    "0/56/0": 1705341246000000,
+    "0/56/1": 3,
+    "0/56/7": 1705344846000000,
+    "0/57/17": true,
+    "0/60/0": 0,
+    "0/60/1": null,
+    "0/60/2": null,
+    "0/62/0": [
+      {
+        "1": "FTABAQEkAgE3AyYUyakYCSYVj6gLsxgmBKrKDC0kBQA3BiYVj6gLsyYRnbMQjRgkBwEkCAEwCUEEX/oG0AH1LIHEx4/ReriRVkV5TB7Ssq6OUK39kSBV/G1X8iDmSei/cs0n216Bcx+fMAsMW3DWE/qnR+Bei+srPjcKNQEoARgkAgE2AwQCBAEYMAQU3S+p19OKrN119UQTQQPXP7Lf+e8wBRS3BS9aJzt+p6i28Nj+trB2Uu+vdxgwC0Ba1oexOKZVrAcy3m7LFjyx3tA8p8RzLfmkfVgyfmNxDqF7fqMGbgshR17rPV2Aekhx+NzEVIc6g5GD4Pp/UGKQGA==",
+        "254": 1
+      },
+      {
+        "1": "FTABAQEkAgE3AycUQhmZbaIbYjokFQIYJgSuygwtJAUANwYkFQImEcQfBHUYJAcBJAgBMAlBBF/6BtAB9SyBxMeP0Xq4kVZFeUwe0rKujlCt/ZEgVfxtV/Ig5knov3LNJ9tegXMfnzALDFtw1hP6p0fgXovrKz43CjUBKAEYJAIBNgMEAgQBGDAEFN0vqdfTiqzddfVEE0ED1z+y3/nvMAUU44yTXdJwwq5PaGVrJ2LXIQmeFOoYMAtAElVvvwsvimYG2V/lRCfXbLLmElrQ0gQgQtIypVX5qzDLZZPr2UWIcjl6X2em1Yoq1EDFNBK43jU0/58AV+enhxg=",
+        "254": 2
+      },
+      {
+        "1": "FTABAQEkAgE3AycUQhmZbaIbYjokFQIYJgRqywwtJAUANwYkFQImEXcKnbAYJAcBJAgBMAlBBGN4FdhnAycOe399xLtpk9cL974oY9A+94aXSkclnjxt5ycWtJuFEpmsRkZjJjVCy2wDJT+XuuCLcP9m4HDCvBE3CjUBKAEYJAIBNgMEAgQBGDAEFFhFGtPNXWnzc3uvatvgr9UVU8XXMAUU44yTXdJwwq5PaGVrJ2LXIQmeFOoYMAtAAT3Z3z0q5RyZ1Vder6o1uP1+x5X4hNzk4jZ6ZWzXjajC9KQXmQc+ny+YYpcaMQo8mChvVML4gGr70Fps5rKmUhg=",
+        "254": 3
+      },
+      {
+        "1": "FTABAQEkAgE3AycUQhmZbaIbYjokFQIYJgRxKTgtJAUANwYkFQImEZEmSVYYJAcBJAgBMAlBBKanwKZIs+iS56+lgUQ12AXX2XtmkvUm2VFw2Q9M2w+131QdFF7HgN2729N51JvnUDvTdZfmL9lRLzd5eHwd8Po3CjUBKAEYJAIBNgMEAgQBGDAEFMmenbnunQzDtGGMoQXxzYQVkFBZMAUU44yTXdJwwq5PaGVrJ2LXIQmeFOoYMAtASQfHakwwjQb0Bba4rYLc+3ZOMxnF4xuULHPF9HBKc3YY3kxXz/CtlS41Pd/afl+Eh2BuMm0NT9Pew0qcgFXFFRg=",
+        "254": 4
+      },
+      {
+        "1": "FTABAQEkAgE3AycUQhmZbaIbYjokFQIYJgSYLTgtJAUANwYkFQImEQ7qFysYJAcBJAgBMAlBBGpVCfRBCJxg1+PqfaZ2MrAZgDxmssuVjf5gTbXBRH7YViUJnJAPG0oaN7jr8VzrB+JTQ6Tk0QGd5Z9eylfvfG03CjUBKAEYJAIBNgMEAgQBGDAEFOdUFEWSE+MAZizdqGF2BWBzMo9/MAUU44yTXdJwwq5PaGVrJ2LXIQmeFOoYMAtAfIhF0bj70S7jVVhyKsaKMWyUbxBuuwqbKdCXOVWZDyqVD7dz/MQieUgfiDzi1pr6ENanFKzZtpVHSDyySHE2mRg=",
+        "254": 5
+      },
+      {
+        "1": "FTABAQEkAgE3AyQTAhgmBIAigScmBYAlTTo3BiQVAiQREBgkBwEkCAEwCUEEEdQFixCn0fewBw02IlrVtcwqSTS3l8H3a+vUmvcUVwFlGraLNB/zNU2gyI3kGAtrzLKVkf/2Ycg1fK607YR2BDcKNQEoARgkAgE2AwQCBAEYMAQU9cAdItQ7lExL0o05loNc8SsJfH8wBRSTxG/IZwUO10nZihwq1vzoh1u+7xgwC0CMuzDfLamIYWpacPfabhx9oB73Iibm/o5bbcBR5g/1yFfUpru784aJIN7ukg9zr4lva5/NpwVXYoinlVJZgiEkGA==",
+        "2": "FTABAQEkAgE3AyQUARgmBIAigScmBYAlTTo3BiQTAhgkBwEkCAEwCUEE5ec1gG139RFSVoLIT2OpL1TAU4YJGbsfdM1rkXyZ+2UNxuyE8KBzVDnqTmRsbIO/FMniiqormWWE1/dwKRn7ETcKNQEpARgkAmAwBBSTxG/IZwUO10nZihwq1vzoh1u+7zAFFMPNQoPvJ6LnnkDUvZTo3WhlKPhmGDALQCAfpFZjubGU6TCZq/EjehcFsuj+ST+R8cFPpWW5hd6Nk6myUrxwWdhVzcbAvblcPN8FYIYX+OubPrIG9mgeY0cY",
+        "254": 6
+      }
+    ],
+    "0/62/1": [
+      {
+        "1": "BIGMMa0wfrcohBn60cI5V0xt+DIkLSV24OUKndKIXUVuzH8GGO72Yl/9IfYSPDKlK2pRWlT3J4IQD9DEiZtWK6k=",
+        "2": 4937,
+        "3": 3003885711,
+        "4": 2366682013,
+        "5": "Maison Plessis",
+        "254": 1
+      },
+      {
+        "1": "BPYCUoZb+Q4yOprLN47SZ3nbf9+6GuEYRRT3W5ClOIqjQjvBw+kqeavB9A09fqDSQRCX5UZpdrd7baXN+7lPOnQ=",
+        "2": 4996,
+        "3": 2,
+        "4": 1963204548,
+        "5": "",
+        "254": 2
+      },
+      {
+        "1": "BPYCUoZb+Q4yOprLN47SZ3nbf9+6GuEYRRT3W5ClOIqjQjvBw+kqeavB9A09fqDSQRCX5UZpdrd7baXN+7lPOnQ=",
+        "2": 4996,
+        "3": 2,
+        "4": 2963081847,
+        "5": "",
+        "254": 3
+      },
+      {
+        "1": "BPYCUoZb+Q4yOprLN47SZ3nbf9+6GuEYRRT3W5ClOIqjQjvBw+kqeavB9A09fqDSQRCX5UZpdrd7baXN+7lPOnQ=",
+        "2": 4996,
+        "3": 2,
+        "4": 1447634577,
+        "5": "",
+        "254": 4
+      },
+      {
+        "1": "BPYCUoZb+Q4yOprLN47SZ3nbf9+6GuEYRRT3W5ClOIqjQjvBw+kqeavB9A09fqDSQRCX5UZpdrd7baXN+7lPOnQ=",
+        "2": 4996,
+        "3": 2,
+        "4": 722987534,
+        "5": "",
+        "254": 5
+      },
+      {
+        "1": "BAoULOyeU2Cbpz9COzg8EJYTO7MpzEZgiOuWGFSEVrLQq+KpVrxHNhrTQq26IqFWDPkIAwvzlHoercpUERBmVdY=",
+        "2": 4939,
+        "3": 2,
+        "4": 16,
+        "5": "",
+        "254": 6
+      }
+    ],
+    "0/62/2": 5,
+    "0/62/3": 6,
+    "0/62/5": 6,
+    "1/3/0": 0,
+    "1/3/1": 0,
+    "1/3/65532": 0,
+    "1/3/65533": 4,
+    "1/4/65532": 0,
+    "1/4/65533": 4,
+    "1/5/65532": 0,
+    "1/5/65533": 4,
+    "1/6/0": true,
+    "1/6/65532": 0,
+    "1/6/65533": 4,
+    "1/29/0": [
+      {
+        "0": 266,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "1/29/1": [6, 5, 57, 3, 4, 29],
+    "1/29/2": [],
+    "1/29/3": [],
+    "1/29/65532": 0,
+    "1/29/65533": 1,
+    "1/57/3": "Sparkfun THING PLUS ESP32-C6",
+    "1/57/5": "Relay",
+    "1/57/10": "13.3.0.3",
+    "1/57/15": "3D1EBCD5CB65E0EC",
+    "1/57/17": true,
+    "1/57/18": "3D1EBCD5CB65E0EC",
+    "2/3/0": 0,
+    "2/3/1": 0,
+    "2/3/65532": 0,
+    "2/3/65533": 4,
+    "2/4/65532": 0,
+    "2/4/65533": 4,
+    "2/5/65532": 0,
+    "2/5/65533": 4,
+    "2/29/0": [
+      {
+        "0": 21,
+        "1": 1
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "2/29/1": [5, 3, 57, 69, 4, 29],
+    "2/29/2": [],
+    "2/29/3": [],
+    "2/29/65532": 0,
+    "2/29/65533": 1,
+    "2/57/3": "Sparkfun THING PLUS ESP32-C6",
+    "2/57/5": "Contact",
+    "2/57/10": "13.3.0.3",
+    "2/57/15": "3D1EBCD5CB65E0EC",
+    "2/57/17": true,
+    "2/57/18": "3D1EBCD5CB65E0EC",
+    "2/69/0": false,
+    "2/69/65532": 0,
+    "2/69/65533": 1,
+    "3/3/0": 0,
+    "3/3/1": 0,
+    "3/3/65532": 0,
+    "3/3/65533": 4,
+    "3/4/65532": 0,
+    "3/4/65533": 4,
+    "3/5/65532": 0,
+    "3/5/65533": 4,
+    "3/29/0": [
+      {
+        "0": 770,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "3/29/1": [1026, 5, 57, 3, 4, 29],
+    "3/29/2": [],
+    "3/29/3": [],
+    "3/29/65532": 0,
+    "3/29/65533": 1,
+    "3/57/3": "Sparkfun THING PLUS ESP32-C6",
+    "3/57/5": "BMP280 Temp",
+    "3/57/10": "13.3.0.3",
+    "3/57/15": "3D1EBCD5CB65E0EC",
+    "3/57/17": true,
+    "3/57/18": "3D1EBCD5CB65E0EC",
+    "3/1026/0": 2320,
+    "3/1026/1": -5000,
+    "3/1026/2": 15000,
+    "3/1026/65532": 0,
+    "3/1026/65533": 4,
+    "4/3/0": 0,
+    "4/3/1": 0,
+    "4/3/65532": 0,
+    "4/3/65533": 4,
+    "4/4/65532": 0,
+    "4/4/65533": 4,
+    "4/5/65532": 0,
+    "4/5/65533": 4,
+    "4/29/0": [
+      {
+        "0": 773,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "4/29/1": [5, 1027, 57, 3, 4, 29],
+    "4/29/2": [],
+    "4/29/3": [],
+    "4/29/65532": 0,
+    "4/29/65533": 1,
+    "4/57/3": "Sparkfun THING PLUS ESP32-C6",
+    "4/57/5": "BMP280 Pressure",
+    "4/57/10": "13.3.0.3",
+    "4/57/15": "3D1EBCD5CB65E0EC",
+    "4/57/17": true,
+    "4/57/18": "3D1EBCD5CB65E0EC",
+    "4/1027/0": 1003,
+    "4/1027/1": 500,
+    "4/1027/2": 1500,
+    "4/1027/65532": 0,
+    "4/1027/65533": 3,
+    "5/3/0": 0,
+    "5/3/1": 0,
+    "5/3/65532": 0,
+    "5/3/65533": 4,
+    "5/4/65532": 0,
+    "5/4/65533": 4,
+    "5/5/65532": 0,
+    "5/5/65533": 4,
+    "5/6/0": true,
+    "5/6/65532": 0,
+    "5/6/65533": 4,
+    "5/29/0": [
+      {
+        "0": 256,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "5/29/1": [6, 5, 57, 3, 4, 29],
+    "5/29/2": [],
+    "5/29/3": [],
+    "5/29/65532": 0,
+    "5/29/65533": 1,
+    "5/57/3": "Sparkfun THING PLUS ESP32-C6",
+    "5/57/5": "LED",
+    "5/57/10": "13.3.0.3",
+    "5/57/15": "3D1EBCD5CB65E0EC",
+    "5/57/17": true,
+    "5/57/18": "3D1EBCD5CB65E0EC",
+    "6/3/0": 0,
+    "6/3/1": 0,
+    "6/3/65532": 0,
+    "6/3/65533": 4,
+    "6/4/65532": 0,
+    "6/4/65533": 4,
+    "6/5/65532": 0,
+    "6/5/65533": 4,
+    "6/29/0": [
+      {
+        "0": 263,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "6/29/1": [5, 4, 57, 3, 1030, 29],
+    "6/29/2": [],
+    "6/29/3": [],
+    "6/29/65532": 0,
+    "6/29/65533": 1,
+    "6/57/3": "Sparkfun THING PLUS ESP32-C6",
+    "6/57/5": "Occupancy",
+    "6/57/10": "13.3.0.3",
+    "6/57/15": "3D1EBCD5CB65E0EC",
+    "6/57/17": true,
+    "6/57/18": "3D1EBCD5CB65E0EC",
+    "6/1030/0": 0,
+    "6/1030/1": 3,
+    "6/1030/2": 0,
+    "6/1030/65532": 0,
+    "6/1030/65533": 3,
+    "7/3/0": 0,
+    "7/3/1": 0,
+    "7/3/65532": 0,
+    "7/3/65533": 4,
+    "7/4/65532": 0,
+    "7/4/65533": 4,
+    "7/5/65532": 0,
+    "7/5/65533": 4,
+    "7/6/0": true,
+    "7/6/65532": 0,
+    "7/6/65533": 4,
+    "7/29/0": [
+      {
+        "0": 266,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "7/29/1": [6, 5, 57, 3, 4, 29],
+    "7/29/2": [],
+    "7/29/3": [],
+    "7/29/65532": 0,
+    "7/29/65533": 1,
+    "7/57/3": "Multiprise NOUS A5T",
+    "7/57/5": "Relay1",
+    "7/57/10": "13.0.0",
+    "7/57/15": "F5A58738530A97D6",
+    "7/57/17": true,
+    "7/57/18": "F5A58738530A97D6",
+    "8/3/0": 0,
+    "8/3/1": 0,
+    "8/3/65532": 0,
+    "8/3/65533": 4,
+    "8/4/65532": 0,
+    "8/4/65533": 4,
+    "8/5/65532": 0,
+    "8/5/65533": 4,
+    "8/6/0": true,
+    "8/6/65532": 0,
+    "8/6/65533": 4,
+    "8/29/0": [
+      {
+        "0": 266,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "8/29/1": [6, 5, 57, 3, 4, 29],
+    "8/29/2": [],
+    "8/29/3": [],
+    "8/29/65532": 0,
+    "8/29/65533": 1,
+    "8/57/3": "Multiprise NOUS A5T",
+    "8/57/5": "Relay2",
+    "8/57/10": "13.0.0",
+    "8/57/15": "F5A58738530A97D6",
+    "8/57/17": true,
+    "8/57/18": "F5A58738530A97D6",
+    "9/3/0": 0,
+    "9/3/1": 0,
+    "9/3/65532": 0,
+    "9/3/65533": 4,
+    "9/4/65532": 0,
+    "9/4/65533": 4,
+    "9/5/65532": 0,
+    "9/5/65533": 4,
+    "9/6/0": true,
+    "9/6/65532": 0,
+    "9/6/65533": 4,
+    "9/29/0": [
+      {
+        "0": 266,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "9/29/1": [6, 5, 57, 3, 4, 29],
+    "9/29/2": [],
+    "9/29/3": [],
+    "9/29/65532": 0,
+    "9/29/65533": 1,
+    "9/57/3": "Multiprise NOUS A5T",
+    "9/57/5": "Relay3",
+    "9/57/10": "13.0.0",
+    "9/57/15": "F5A58738530A97D6",
+    "9/57/17": true,
+    "9/57/18": "F5A58738530A97D6",
+    "10/3/0": 0,
+    "10/3/1": 0,
+    "10/3/65532": 0,
+    "10/3/65533": 4,
+    "10/4/65532": 0,
+    "10/4/65533": 4,
+    "10/5/65532": 0,
+    "10/5/65533": 4,
+    "10/6/0": true,
+    "10/6/65532": 0,
+    "10/6/65533": 4,
+    "10/29/0": [
+      {
+        "0": 266,
+        "1": 2
+      },
+      {
+        "0": 19,
+        "1": 1
+      }
+    ],
+    "10/29/1": [6, 5, 57, 3, 4, 29],
+    "10/29/2": [],
+    "10/29/3": [],
+    "10/29/65532": 0,
+    "10/29/65533": 1,
+    "10/57/3": "Multiprise NOUS A5T",
+    "10/57/5": "Relay4",
+    "10/57/10": "13.0.0",
+    "10/57/15": "F5A58738530A97D6",
+    "10/57/17": true,
+    "10/57/18": "F5A58738530A97D6",
+    "65280/29/0": [
+      {
+        "0": 14,
+        "1": 1
+      }
+    ],
+    "65280/29/1": [29, 57],
+    "65280/29/2": [],
+    "65280/29/3": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "65280/29/65532": 0,
+    "65280/29/65533": 1,
+    "65280/57/17": true
+  },
+  "attribute_subscriptions": [
+    [8, 6, 0],
+    [2, 69, 0],
+    [1, 6, 0],
+    [10, 6, 0],
+    [3, 1026, 0],
+    [9, 6, 0],
+    [7, 6, 0],
+    [4, 1027, 0],
+    [6, 1030, 0],
+    [5, 6, 0]
+  ]
+}
