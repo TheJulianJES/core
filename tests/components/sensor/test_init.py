@@ -2028,6 +2028,54 @@ async def test_suggested_precision_option(
             SensorDeviceClass.ATMOSPHERIC_PRESSURE,
             {"sensor.private": {"suggested_unit_of_measurement": "inHg"}},
         ),
+        # Power, converted precision is reduced to 0
+        (
+            METRIC_SYSTEM,
+            UnitOfPower.KILO_WATT,
+            UnitOfPower.WATT,
+            0,
+            2,
+            0,
+            1.5,
+            SensorDeviceClass.POWER,
+            {},
+        ),
+        # Power, converted precision is reduced, but not to 0
+        (
+            METRIC_SYSTEM,
+            UnitOfPower.KILO_WATT,
+            UnitOfPower.WATT,
+            0,
+            4,
+            1,
+            1.5,
+            SensorDeviceClass.POWER,
+            {},
+        ),
+        # Power factor, unitless native unit displayed as percentage
+        (
+            METRIC_SYSTEM,
+            None,
+            UnitOfRatio.PERCENTAGE,
+            0,
+            2,
+            0,
+            0.66,
+            SensorDeviceClass.POWER_FACTOR,
+            {},
+        ),
+        # Power factor, percentage native unit displayed as unitless
+        (
+            METRIC_SYSTEM,
+            UnitOfRatio.PERCENTAGE,
+            None,
+            0,
+            0,
+            2,
+            66,
+            SensorDeviceClass.POWER_FACTOR,
+            {},
+        ),
     ],
 )
 async def test_suggested_precision_option_update(

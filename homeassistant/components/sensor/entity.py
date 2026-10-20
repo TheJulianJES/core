@@ -79,7 +79,10 @@ def _numeric_state_expected(
 
 
 def _calculate_precision_from_ratio(
-    device_class: SensorDeviceClass, from_unit: str, to_unit: str, base_precision: int
+    device_class: SensorDeviceClass,
+    from_unit: str | None,
+    to_unit: str | None,
+    base_precision: int,
 ) -> int | None:
     """Calculate the precision for a unit conversion.
 
@@ -767,25 +770,18 @@ class SensorEntity(Entity, cached_properties=CACHED_PROPERTIES_WITH_ATTR_):
             self.suggested_unit_of_measurement
             or self.__native_unit_of_measurement_compat
         )
-        if default_unit_of_measurement is None:
-            return display_precision
-
         unit_of_measurement = self.unit_of_measurement
-        if unit_of_measurement is None:
-            return display_precision
 
         if display_precision is not None:
-            if default_unit_of_measurement != unit_of_measurement:
-                return (
-                    _calculate_precision_from_ratio(
-                        device_class,
-                        default_unit_of_measurement,
-                        unit_of_measurement,
-                        display_precision,
-                    )
-                    or display_precision
-                )
-            return display_precision
+            if default_unit_of_measurement == unit_of_measurement:
+                return display_precision
+            precision = _calculate_precision_from_ratio(
+                device_class,
+                default_unit_of_measurement,
+                unit_of_measurement,
+                display_precision,
+            )
+            return display_precision if precision is None else precision
 
         # Get the base unit and precision for the device class so we can use it to infer
         # the display precision for the current unit
