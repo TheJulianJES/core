@@ -1,4 +1,56 @@
 # serializer version: 1
+# name: test_locks[aqara_smart_lock_u300][lock.aqara_smart_lock_u300-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'lock',
+    'entity_category': None,
+    'entity_id': 'lock.aqara_smart_lock_u300',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'lock',
+    'unique_id': '00000000000004D2-00000000000003F4-MatterNodeDevice-1-MatterLock-257-0',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_locks[aqara_smart_lock_u300][lock.aqara_smart_lock_u300-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <LockEntityStateAttribute.CHANGED_BY: 'changed_by'>: 'Unknown',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Aqara Smart Lock U300',
+      <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.aqara_smart_lock_u300',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'locked',
+  })
+# ---
 # name: test_locks[aqara_u200][lock.aqara_smart_lock_u200-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -253,6 +305,58 @@
     }),
     'context': <ANY>,
     'entity_id': 'lock.secuyou_smart_lock',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_locks[switchbot_hub_mini][lock.doorlock-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'lock',
+    'entity_category': None,
+    'entity_id': 'lock.doorlock',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'matter',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'lock',
+    'unique_id': '00000000000004D2-000000000000043D-2-2-MatterLock-257-0',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_locks[switchbot_hub_mini][lock.doorlock-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      <LockEntityStateAttribute.CHANGED_BY: 'changed_by'>: 'Unknown',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'DoorLock',
+      <EntityStateAttribute.SUPPORTED_FEATURES: 'supported_features'>: <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.doorlock',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
