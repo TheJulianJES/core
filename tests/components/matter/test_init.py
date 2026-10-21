@@ -183,6 +183,24 @@ async def test_set_default_fabric_label_failed(
     assert entry.state is ConfigEntryState.SETUP_RETRY
 
 
+async def test_set_default_fabric_label_truncated(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+) -> None:
+    """Test that a location name too long for a Matter fabric label is truncated."""
+    hass.config.location_name = "Bauer Straße 111, 12345 Oberbaumhaus"
+    entry = MockConfigEntry(domain=DOMAIN, data={"url": "ws://localhost:5580/ws"})
+    entry.add_to_hass(hass)
+
+    await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert entry.state is ConfigEntryState.LOADED
+    matter_client.set_default_fabric_label.assert_called_once_with(
+        "Bauer Straße 111, 12345 Oberbau"
+    )
+
+
 async def test_connect_timeout(
     hass: HomeAssistant,
     matter_client: MagicMock,

@@ -50,6 +50,7 @@ from .helpers import (
 )
 from .models import MatterDeviceInfo
 from .services import async_setup_services
+from .util import FABRIC_LABEL_MAX_BYTES, truncate_fabric_label
 
 if TYPE_CHECKING:
     from matter_ble_proxy import MatterBleProxy
@@ -168,10 +169,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: MatterConfigEntry) -> No
         raise ConfigEntryNotReady("Matter client not ready") from err
 
     # Set default fabric
-    try:
-        await matter_client.set_default_fabric_label(
-            hass.config.location_name or "Home"
+    location_name = hass.config.location_name or "Home"
+    fabric_label = truncate_fabric_label(location_name)
+    if fabric_label != location_name:
+        LOGGER.debug(
+            "Truncated fabric label %r to %r to fit the Matter limit of %s bytes",
+            location_name,
+            fabric_label,
+            FABRIC_LABEL_MAX_BYTES,
         )
+    try:
+        await matter_client.set_default_fabric_label(fabric_label)
     except (NotConnected, MatterError) as err:
         listen_task.cancel()
         raise ConfigEntryNotReady("Failed to set default fabric label") from err
