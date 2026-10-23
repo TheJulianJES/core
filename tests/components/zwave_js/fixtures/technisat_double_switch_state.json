@@ -1,0 +1,1256 @@
+{
+  "nodeId": 24,
+  "index": 0,
+  "installerIcon": 1792,
+  "userIcon": 1792,
+  "status": 4,
+  "ready": true,
+  "isListening": true,
+  "isFrequentListening": false,
+  "isRouting": true,
+  "maxBaudRate": 40000,
+  "isSecure": false,
+  "version": 4,
+  "isBeaming": true,
+  "manufacturerId": 665,
+  "productId": 6801,
+  "productType": 3,
+  "firmwareVersion": "2.0",
+  "zwavePlusVersion": 1,
+  "nodeType": 0,
+  "roleType": 5,
+  "deviceConfig": {
+    "filename": "/usr/src/app/node_modules/@zwave-js/config/config/devices/0x0299/1a91.json",
+    "manufacturerId": 665,
+    "manufacturer": "TechniSat",
+    "label": "Double-Switch",
+    "description": "Flush Series Switch",
+    "devices": [
+      {
+        "productType": "0x0003",
+        "productId": "0x1a91"
+      }
+    ],
+    "firmwareVersion": {
+      "min": "0.0",
+      "max": "255.255"
+    },
+    "paramInformation": {
+      "_map": {}
+    }
+  },
+  "label": "Double-Switch",
+  "endpointCountIsDynamic": false,
+  "endpointsHaveIdenticalCapabilities": true,
+  "individualEndpointCount": 2,
+  "aggregatedEndpointCount": 0,
+  "interviewAttempts": 1,
+  "interviewStage": 7,
+  "endpoints": [
+    {
+      "nodeId": 24,
+      "index": 0,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 4,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 90,
+          "name": "Device Reset Locally",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 91,
+          "name": "Central Scene",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 112,
+          "name": "Configuration",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 113,
+          "name": "Notification",
+          "version": 8,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 122,
+          "name": "Firmware Update Meta Data",
+          "version": 4,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 96,
+          "name": "Multi Channel",
+          "version": 4,
+          "isSecure": false
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": null
+    },
+    {
+      "nodeId": 24,
+      "index": 1,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 113,
+          "name": "Notification",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Switch 1"
+    },
+    {
+      "nodeId": 24,
+      "index": 2,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 113,
+          "name": "Notification",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Switch 2"
+    }
+  ],
+  "values": [
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "slowRefresh",
+      "propertyName": "slowRefresh",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Send held down notifications at a slow rate",
+        "description": "When this is true, KeyHeldDown notifications are sent every 55s. When this is false, the notifications are sent every 200ms."
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "001",
+      "propertyName": "scene",
+      "propertyKeyName": "001",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Scene 001",
+        "states": {
+          "3": "KeyPressed2x",
+          "4": "KeyPressed3x",
+          "5": "KeyPressed4x",
+          "6": "KeyPressed5x"
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "002",
+      "propertyName": "scene",
+      "propertyKeyName": "002",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Scene 002",
+        "states": {
+          "3": "KeyPressed2x",
+          "4": "KeyPressed3x",
+          "5": "KeyPressed4x",
+          "6": "KeyPressed5x"
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "003",
+      "propertyName": "scene",
+      "propertyKeyName": "003",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Scene 003",
+        "states": {
+          "3": "KeyPressed2x",
+          "4": "KeyPressed3x",
+          "5": "KeyPressed4x",
+          "6": "KeyPressed5x"
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "004",
+      "propertyName": "scene",
+      "propertyKeyName": "004",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Scene 004",
+        "states": {
+          "3": "KeyPressed2x",
+          "4": "KeyPressed3x",
+          "5": "KeyPressed4x",
+          "6": "KeyPressed5x"
+        }
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 1,
+      "propertyName": "Central Scene notifications",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 1,
+        "default": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "Disable Central Scene",
+          "1": "Enable Central Scene"
+        },
+        "label": "Central Scene notifications",
+        "description": "Enable/disable Central Scene notifications for 2x-5x button presses.",
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 2,
+      "propertyName": "Report interval",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 8640,
+        "default": 3,
+        "unit": "10s",
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Report interval",
+        "description": "3 to 8640 - Interval of unsolicited reports in 10s increments, a value of 3 means 30 seconds (30 seconds - 1 day) 0 - Disable unsolicited meter reports of current wattage.",
+        "isFromConfig": true
+      },
+      "value": 3
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 3,
+      "propertyName": "Energy meter report interval",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 30240,
+        "default": 60,
+        "unit": "minutes",
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Energy meter report interval",
+        "description": "Interval of active energy meter reports in minutes. - 10 to 30240 - Interval of active energy meter unsolicited reports in minutes (10 minutes - 3 weeks) - 0 - Disable unsolicited meter reports of active energy.",
+        "isFromConfig": true
+      },
+      "value": 60
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 4,
+      "propertyName": "Button mode",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 1,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "T1 and T3 switch the output on, T2 and T4 switch output off.",
+          "1": "T1 ... T4 switch the output on and off."
+        },
+        "label": "Button mode",
+        "description": "Switching mode of the push buttons T1 ... T4",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 65535,
+        "label": "Manufacturer ID"
+      },
+      "value": 665
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 65535,
+        "label": "Product type"
+      },
+      "value": 3
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 65535,
+        "label": "Product ID"
+      },
+      "value": 6801
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      },
+      "value": 3
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      },
+      "value": "6.8"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      },
+      "value": ["2.0"]
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hardwareVersion",
+      "propertyName": "hardwareVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip hardware version"
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "sdkVersion",
+      "propertyName": "sdkVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "6.82.0"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationFrameworkAPIVersion",
+      "propertyName": "applicationFrameworkAPIVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "4.4.0"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationFrameworkBuildNumber",
+      "propertyName": "applicationFrameworkBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 52445
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hostInterfaceVersion",
+      "propertyName": "hostInterfaceVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "unused"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hostInterfaceBuildNumber",
+      "propertyName": "hostInterfaceBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "zWaveProtocolVersion",
+      "propertyName": "zWaveProtocolVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "6.8.0"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "zWaveProtocolBuildNumber",
+      "propertyName": "zWaveProtocolBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 101
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationVersion",
+      "propertyName": "applicationVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "2.0.14"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationBuildNumber",
+      "propertyName": "applicationBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 4516
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh]",
+        "unit": "kWh",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        }
+      },
+      "value": 0.05
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 65537,
+      "propertyName": "previousValue",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh] (prev. value)",
+        "unit": "kWh",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        }
+      },
+      "value": 0.05
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65537,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh] (prev. time delta)",
+        "unit": "s",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        }
+      },
+      "value": 3600
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W]",
+        "unit": "W",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        }
+      },
+      "value": 17.4
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66049,
+      "propertyName": "previousValue",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. value)",
+        "unit": "W",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        }
+      },
+      "value": 17.8
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66049,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. time delta)",
+        "unit": "s",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        }
+      },
+      "value": 31
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmType",
+      "propertyName": "alarmType",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Alarm Type"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmLevel",
+      "propertyName": "alarmLevel",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Alarm Level"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "Power Management",
+      "propertyKey": "Over-load status",
+      "propertyName": "Power Management",
+      "propertyKeyName": "Over-load status",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Over-load status",
+        "states": {
+          "0": "idle",
+          "8": "Over-load detected"
+        },
+        "ccSpecific": {
+          "notificationType": 8
+        }
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh]",
+        "unit": "kWh",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        }
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 65537,
+      "propertyName": "previousValue",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh] (prev. value)",
+        "unit": "kWh",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        }
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65537,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh] (prev. time delta)",
+        "unit": "s",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        }
+      },
+      "value": 3600
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W]",
+        "unit": "W",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        }
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66049,
+      "propertyName": "previousValue",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. value)",
+        "unit": "W",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        }
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66049,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. time delta)",
+        "unit": "s",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        }
+      },
+      "value": 601
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmType",
+      "propertyName": "alarmType",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Alarm Type"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmLevel",
+      "propertyName": "alarmLevel",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Alarm Level"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "Power Management",
+      "propertyKey": "Over-load status",
+      "propertyName": "Power Management",
+      "propertyKeyName": "Over-load status",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Over-load status",
+        "states": {
+          "0": "idle",
+          "8": "Over-load detected"
+        },
+        "ccSpecific": {
+          "notificationType": 8
+        }
+      }
+    }
+  ],
+  "deviceClass": {
+    "basic": {
+      "key": 4,
+      "label": "Routing Slave"
+    },
+    "generic": {
+      "key": 16,
+      "label": "Binary Switch"
+    },
+    "specific": {
+      "key": 1,
+      "label": "Binary Power Switch"
+    },
+    "mandatorySupportedCCs": [32, 37, 39],
+    "mandatoryControlledCCs": []
+  },
+  "commandClasses": [
+    {
+      "id": 37,
+      "name": "Binary Switch",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 94,
+      "name": "Z-Wave Plus Info",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 50,
+      "name": "Meter",
+      "version": 4,
+      "isSecure": false
+    },
+    {
+      "id": 89,
+      "name": "Association Group Information",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 90,
+      "name": "Device Reset Locally",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 91,
+      "name": "Central Scene",
+      "version": 3,
+      "isSecure": false
+    },
+    {
+      "id": 108,
+      "name": "Supervision",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 112,
+      "name": "Configuration",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 113,
+      "name": "Notification",
+      "version": 8,
+      "isSecure": false
+    },
+    {
+      "id": 114,
+      "name": "Manufacturer Specific",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 122,
+      "name": "Firmware Update Meta Data",
+      "version": 4,
+      "isSecure": false
+    },
+    {
+      "id": 133,
+      "name": "Association",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 134,
+      "name": "Version",
+      "version": 3,
+      "isSecure": false
+    },
+    {
+      "id": 152,
+      "name": "Security",
+      "version": 1,
+      "isSecure": true
+    },
+    {
+      "id": 96,
+      "name": "Multi Channel",
+      "version": 4,
+      "isSecure": false
+    },
+    {
+      "id": 142,
+      "name": "Multi Channel Association",
+      "version": 3,
+      "isSecure": false
+    }
+  ],
+  "isControllerNode": false,
+  "name": null,
+  "location": null
+}

@@ -1,0 +1,1003 @@
+{
+  "nodeId": 35,
+  "index": 0,
+  "installerIcon": 5888,
+  "userIcon": 5888,
+  "status": 4,
+  "ready": true,
+  "isListening": true,
+  "isRouting": true,
+  "isSecure": false,
+  "manufacturerId": 316,
+  "productId": 26,
+  "productType": 6,
+  "firmwareVersion": "1.2",
+  "zwavePlusVersion": 1,
+  "name": null,
+  "location": null,
+  "deviceConfig": {
+    "filename": "/data/db/devices/0x013c/zip-pab01.json",
+    "isEmbedded": true,
+    "manufacturer": "Philio Technology Corp",
+    "manufacturerId": 316,
+    "label": "ZIP-PAB01",
+    "description": "Zipato Micromodule Energy Meter",
+    "devices": [
+      {
+        "productType": 6,
+        "productId": 26
+      }
+    ],
+    "firmwareVersion": {
+      "min": "0.0",
+      "max": "255.255"
+    },
+    "preferred": false,
+    "paramInformation": {
+      "_map": {}
+    }
+  },
+  "label": "ZIP-PAB01",
+  "endpointCountIsDynamic": false,
+  "endpointsHaveIdenticalCapabilities": true,
+  "individualEndpointCount": 3,
+  "aggregatedEndpointCount": 0,
+  "interviewAttempts": 0,
+  "isFrequentListening": false,
+  "maxDataRate": 100000,
+  "supportedDataRates": [40000, 100000],
+  "protocolVersion": 3,
+  "supportsBeaming": true,
+  "supportsSecurity": false,
+  "nodeType": 1,
+  "zwavePlusNodeType": 0,
+  "zwavePlusRoleType": 5,
+  "deviceClass": {
+    "basic": {
+      "key": 4,
+      "label": "Routing Slave"
+    },
+    "generic": {
+      "key": 49,
+      "label": "Meter"
+    },
+    "specific": {
+      "key": 3,
+      "label": "Simple Whole Home Meter"
+    },
+    "mandatorySupportedCCs": [133, 89, 128, 114, 50, 115, 134, 132, 94],
+    "mandatoryControlledCCs": []
+  },
+  "interviewStage": "Complete",
+  "deviceDatabaseUrl": "https://devices.zwave-js.io/?jumpTo=0x013c:0x0006:0x001a:1.2",
+  "statistics": {
+    "commandsTX": 246,
+    "commandsRX": 7215,
+    "commandsDroppedRX": 0,
+    "commandsDroppedTX": 0,
+    "timeoutResponse": 4,
+    "rtt": 295.9,
+    "lastSeen": "2024-01-26T15:57:11.173Z",
+    "rssi": -53,
+    "lwr": {
+      "protocolDataRate": 1,
+      "repeaters": [11],
+      "rssi": -55,
+      "repeaterRSSI": [127]
+    },
+    "nlwr": {
+      "protocolDataRate": 3,
+      "repeaters": [22],
+      "rssi": -44,
+      "repeaterRSSI": [127]
+    }
+  },
+  "highestSecurityClass": -1,
+  "isControllerNode": false,
+  "keepAwake": false,
+  "lastSeen": "2024-01-26T15:57:11.173Z",
+  "values": [
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 1,
+      "propertyName": "Power Meter Report Period",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Power meter report period, in 5 seconds unit. 720 -> 1 hour",
+        "label": "Power Meter Report Period",
+        "default": 720,
+        "min": 1,
+        "max": 32767,
+        "unit": "5sec",
+        "valueSize": 2,
+        "format": 0,
+        "allowManualEntry": true,
+        "isFromConfig": true
+      },
+      "value": 720
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 2,
+      "propertyName": "Energy Meter Report Period",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "The accumulated power consumption report period",
+        "label": "Energy Meter Report Period",
+        "default": 720,
+        "min": 1,
+        "max": 32767,
+        "unit": "5sec",
+        "valueSize": 2,
+        "format": 0,
+        "allowManualEntry": true,
+        "isFromConfig": true
+      },
+      "value": 720
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 3,
+      "propertyName": "Selected Default Endpoint",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "1 => CT1 and CT2, 2 => CT1, 3 => CT2",
+        "label": "Selected Default Endpoint",
+        "default": 1,
+        "min": 1,
+        "max": 3,
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": true,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535,
+        "stateful": true,
+        "secret": false
+      },
+      "value": 316
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535,
+        "stateful": true,
+        "secret": false
+      },
+      "value": 6
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535,
+        "stateful": true,
+        "secret": false
+      },
+      "value": 26
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type",
+        "states": {
+          "0": "Unknown",
+          "1": "Static Controller",
+          "2": "Controller",
+          "3": "Enhanced Slave",
+          "4": "Slave",
+          "5": "Installer",
+          "6": "Routing Slave",
+          "7": "Bridge Controller",
+          "8": "Device under Test",
+          "9": "N/A",
+          "10": "AV Remote",
+          "11": "AV Device"
+        },
+        "stateful": true,
+        "secret": false
+      },
+      "value": 3
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": "4.5"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "string[]",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions",
+        "stateful": true,
+        "secret": false
+      },
+      "value": ["1.2"]
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hardwareVersion",
+      "propertyName": "hardwareVersion",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip hardware version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [kWh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 0,
+          "rateType": 1
+        },
+        "unit": "kWh",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 1964.99
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 2,
+          "rateType": 1
+        },
+        "unit": "W",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 349.6
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66561,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 4,
+          "rateType": 1
+        },
+        "unit": "V",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 237.8
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66817,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 5,
+          "rateType": 1
+        },
+        "unit": "A",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 1.58
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67073,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 6,
+          "rateType": 1
+        },
+        "unit": "Power Factor",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values",
+        "states": {
+          "true": "Reset"
+        },
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [kWh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 0,
+          "rateType": 1
+        },
+        "unit": "kWh",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 541.03
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 2,
+          "rateType": 1
+        },
+        "unit": "W",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66561,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 4,
+          "rateType": 1
+        },
+        "unit": "V",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 237.8
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66817,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 5,
+          "rateType": 1
+        },
+        "unit": "A",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0.01
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67073,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 6,
+          "rateType": 1
+        },
+        "unit": "Power Factor",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values",
+        "states": {
+          "true": "Reset"
+        },
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [kWh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 0,
+          "rateType": 1
+        },
+        "unit": "kWh",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 1423.96
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 2,
+          "rateType": 1
+        },
+        "unit": "W",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 352.5
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66561,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 4,
+          "rateType": 1
+        },
+        "unit": "V",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 238.5
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66817,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 5,
+          "rateType": 1
+        },
+        "unit": "A",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 1.59
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67073,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Consumed",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumption [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "scale": 6,
+          "rateType": 1
+        },
+        "unit": "Power Factor",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0.99
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values",
+        "states": {
+          "true": "Reset"
+        },
+        "stateful": true,
+        "secret": false
+      }
+    }
+  ],
+  "endpoints": [
+    {
+      "nodeId": 35,
+      "index": 0,
+      "installerIcon": 5888,
+      "userIcon": 5888,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 49,
+          "label": "Meter"
+        },
+        "specific": {
+          "key": 3,
+          "label": "Simple Whole Home Meter"
+        },
+        "mandatorySupportedCCs": [133, 89, 128, 114, 50, 115, 134, 132, 94],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 115,
+          "name": "Powerlevel",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 90,
+          "name": "Device Reset Locally",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 86,
+          "name": "CRC-16 Encapsulation",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 122,
+          "name": "Firmware Update Meta Data",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 96,
+          "name": "Multi Channel",
+          "version": 4,
+          "isSecure": false
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 112,
+          "name": "Configuration",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 32,
+          "name": "Basic",
+          "version": 2,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": null
+    },
+    {
+      "nodeId": 35,
+      "index": 1,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 49,
+          "label": "Meter"
+        },
+        "specific": {
+          "key": 3,
+          "label": "Simple Whole Home Meter"
+        },
+        "mandatorySupportedCCs": [133, 89, 128, 114, 50, 115, 134, 132, 94],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "CT1 + CT2"
+    },
+    {
+      "nodeId": 35,
+      "index": 2,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 49,
+          "label": "Meter"
+        },
+        "specific": {
+          "key": 3,
+          "label": "Simple Whole Home Meter"
+        },
+        "mandatorySupportedCCs": [133, 89, 128, 114, 50, 115, 134, 132, 94],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "CT1"
+    },
+    {
+      "nodeId": 35,
+      "index": 3,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 49,
+          "label": "Meter"
+        },
+        "specific": {
+          "key": 3,
+          "label": "Simple Whole Home Meter"
+        },
+        "mandatorySupportedCCs": [133, 89, 128, 114, 50, 115, 134, 132, 94],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "CT2"
+    }
+  ],
+  "endpointGroups": [
+    {
+      "id": 1,
+      "label": "Total",
+      "isMainDevice": true,
+      "endpointIndices": [1]
+    }
+  ]
+}

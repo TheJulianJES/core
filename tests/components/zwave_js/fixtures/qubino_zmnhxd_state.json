@@ -1,0 +1,4073 @@
+{
+  "nodeId": 22,
+  "index": 0,
+  "installerIcon": 5888,
+  "userIcon": 5888,
+  "status": 4,
+  "ready": true,
+  "isListening": true,
+  "isRouting": true,
+  "isSecure": true,
+  "manufacturerId": 345,
+  "productId": 84,
+  "productType": 7,
+  "firmwareVersion": "1.0",
+  "zwavePlusVersion": 1,
+  "deviceConfig": {
+    "filename": "/usr/src/app/node_modules/@zwave-js/config/config/devices/0x0159/zmnhxd.json",
+    "manufacturer": "Qubino",
+    "manufacturerId": 345,
+    "label": "ZMNHXD",
+    "description": "Qubino 3-Phase Smart Meter",
+    "devices": [
+      {
+        "productType": 7,
+        "productId": 84
+      }
+    ],
+    "firmwareVersion": {
+      "min": "0.0",
+      "max": "255.255"
+    },
+    "paramInformation": {
+      "_map": {}
+    }
+  },
+  "label": "ZMNHXD",
+  "endpointCountIsDynamic": false,
+  "endpointsHaveIdenticalCapabilities": true,
+  "individualEndpointCount": 4,
+  "aggregatedEndpointCount": 0,
+  "interviewAttempts": 0,
+  "interviewStage": 6,
+  "endpoints": [
+    {
+      "nodeId": 22,
+      "index": 0,
+      "installerIcon": 5888,
+      "userIcon": 5888,
+      "commandClasses": [
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 86,
+          "name": "CRC-16 Encapsulation",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 90,
+          "name": "Device Reset Locally",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 96,
+          "name": "Multi Channel",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 112,
+          "name": "Configuration",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 122,
+          "name": "Firmware Update Meta Data",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        }
+      ],
+      "endpointLabel": null
+    },
+    {
+      "nodeId": 22,
+      "index": 1,
+      "installerIcon": 5888,
+      "userIcon": 5888,
+      "commandClasses": [
+        {
+          "id": 128,
+          "name": "Battery",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 132,
+          "name": "Wake Up",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Total"
+    },
+    {
+      "nodeId": 22,
+      "index": 2,
+      "installerIcon": 5888,
+      "userIcon": 5888,
+      "commandClasses": [
+        {
+          "id": 128,
+          "name": "Battery",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 132,
+          "name": "Wake Up",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Phase 1"
+    },
+    {
+      "nodeId": 22,
+      "index": 3,
+      "installerIcon": 5888,
+      "userIcon": 5888,
+      "commandClasses": [
+        {
+          "id": 128,
+          "name": "Battery",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 132,
+          "name": "Wake Up",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Phase 2"
+    },
+    {
+      "nodeId": 22,
+      "index": 4,
+      "installerIcon": 5888,
+      "userIcon": 5888,
+      "commandClasses": [
+        {
+          "id": 128,
+          "name": "Battery",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 50,
+          "name": "Meter",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 132,
+          "name": "Wake Up",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Phase 3"
+    }
+  ],
+  "values": [
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 7,
+      "propertyName": "Input switch (i1) function selection",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 0,
+        "readable": true,
+        "writeable": true,
+        "description": "Available configuration parameters for input switch I1",
+        "label": "Input switch (i1) function selection",
+        "min": 0,
+        "max": 5,
+        "states": {
+          "0": "disabled",
+          "2": "IR ext relay ctrl – mono stable push btn",
+          "3": "IR external relay control – bi-stable switch",
+          "4": "External relay control – mono stable push button",
+          "5": "External relay control – bi-stable switch"
+        }
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 40,
+      "propertyName": "Reporting on power change",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 50,
+        "readable": true,
+        "writeable": true,
+        "description": "This parameter is valid for Active Powers Total, Phase1, Phase2 and Phase3.",
+        "label": "Reporting on power change",
+        "min": 0,
+        "max": 100,
+        "states": {
+          "0": "reporting disabled"
+        },
+        "unit": "%"
+      },
+      "value": 5
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 42,
+      "propertyName": "Reporting on time interval",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 600,
+        "readable": true,
+        "writeable": true,
+        "label": "Reporting on time interval",
+        "min": 0,
+        "max": 65535,
+        "states": {
+          "0": "reporting disabled"
+        },
+        "unit": "seconds"
+      },
+      "value": 60
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 43,
+      "propertyName": "Other Values - Reporting on time interval",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 600,
+        "readable": true,
+        "writeable": true,
+        "description": "Energy reports for Voltage, Current, Total Power Factor, Total Reactive Power",
+        "label": "Other Values - Reporting on time interval",
+        "min": 0,
+        "max": 65535,
+        "states": {
+          "0": "reporting disabled"
+        },
+        "unit": "seconds"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 100,
+      "propertyName": "Enable / Disable External IR relay (BICOM)",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 0,
+        "readable": true,
+        "writeable": true,
+        "label": "Enable / Disable External IR relay (BICOM)",
+        "min": 0,
+        "max": 2,
+        "states": {
+          "0": "External IR relay disabled",
+          "1": "IR relay enabled for all 3 phases",
+          "2": "IR relay enabled for Phase 1"
+        }
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 101,
+      "propertyName": "Enable / Disable External relay (IKA)",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 0,
+        "readable": true,
+        "writeable": true,
+        "label": "Enable / Disable External relay (IKA)",
+        "min": 0,
+        "max": 1,
+        "states": {
+          "0": "External relay disabled",
+          "1": "External relay enabled"
+        }
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 106,
+      "propertyName": "maximum power threshold of all phases together",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 0,
+        "readable": true,
+        "writeable": true,
+        "label": "maximum power threshold of all phases together",
+        "min": 0,
+        "max": 60000,
+        "unit": "W"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 112,
+      "propertyName": "Power threshold – Delay before power on",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "default": 0,
+        "readable": true,
+        "writeable": true,
+        "label": "Power threshold – Delay before power on",
+        "min": 0,
+        "max": 32535,
+        "states": {
+          "0": "External relay will not turn back on"
+        },
+        "unit": "seconds"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535
+      },
+      "value": 345
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535
+      },
+      "value": 7
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535
+      },
+      "value": 84
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      },
+      "value": 3
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      },
+      "value": "4.61"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      },
+      "value": ["1.0"]
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "level",
+      "propertyName": "level",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Battery level",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "isLow",
+      "propertyName": "isLow",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Low battery level"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        },
+        "unit": "kWh"
+      },
+      "value": 4642.3
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65537,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "65537",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65793,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVAh_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVAh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 1
+        },
+        "unit": "kVAh"
+      },
+      "value": 7659.4
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65793,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "65793",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVAh] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 1
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 1714.4
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66049,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67073,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67073,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67329,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVar_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVar]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 7
+        },
+        "unit": "kVar"
+      },
+      "value": 3721.7
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67329,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67329",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVar] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 7
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67585,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVarh_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVarh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 8
+        },
+        "unit": "kVarh"
+      },
+      "value": 3421.7
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67585,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67585",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVarh] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 8
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65538,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kWh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 0
+        },
+        "unit": "kWh"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65538,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "65538",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kWh] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 0
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65794,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVAh_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVAh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 1
+        },
+        "unit": "kVAh"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65794,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "65794",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVAh] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 1
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66050,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66050,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67074,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67074,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67330,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVar_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVar]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 7
+        },
+        "unit": "kVar"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67330,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67330",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVar] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 7
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67586,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVarh_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVarh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 8
+        },
+        "unit": "kVarh"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67586,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67586",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVarh] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 8
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66051,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_unknown (0x03)",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric unknown (0x03) [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 3,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 150.1
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66051,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66051",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65792,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVAh",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric [kVAh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 0,
+          "scale": 1
+        },
+        "unit": "kVAh"
+      },
+      "value": 6613.9
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65792,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "65792",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 513,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "513",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67328,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kVar",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric [kVar]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 0,
+          "scale": 7
+        },
+        "unit": "kVar"
+      },
+      "value": 3692.6
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 65537,
+      "propertyName": "previousValue",
+      "propertyKeyName": "65537",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        },
+        "unit": "kWh"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 65793,
+      "propertyName": "previousValue",
+      "propertyKeyName": "65793",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVAh] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 1
+        },
+        "unit": "kVAh"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66049,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67073,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67329,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67329",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVar] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 7
+        },
+        "unit": "kVar"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67585,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67585",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kVarh] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 8
+        },
+        "unit": "kVarh"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 65538,
+      "propertyName": "previousValue",
+      "propertyKeyName": "65538",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kWh] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 0
+        },
+        "unit": "kWh"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 65794,
+      "propertyName": "previousValue",
+      "propertyKeyName": "65794",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVAh] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 1
+        },
+        "unit": "kVAh"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66050,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67074,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67330,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67330",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVar] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 7
+        },
+        "unit": "kVar"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67586,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67586",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [kVarh] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 8
+        },
+        "unit": "kVarh"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "wakeUpInterval",
+      "propertyName": "wakeUpInterval",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "Wake Up interval",
+        "min": 0,
+        "max": 16777215
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "controllerNodeId",
+      "propertyName": "controllerNodeId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Node ID of the controller"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "level",
+      "propertyName": "level",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Battery level",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "isLow",
+      "propertyName": "isLow",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Low battery level"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 130
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66049,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66561,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "V"
+      },
+      "value": 238.2
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66561,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66561",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66817,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "A"
+      },
+      "value": 0.944
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66817,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66817",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67073,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0.5293
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67073,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66050,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66050,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66562,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "V"
+      },
+      "value": 238.2
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66562,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66562",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66818,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "A"
+      },
+      "value": 0.944
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66818,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66818",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67074,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0.5293
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67074,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        },
+        "unit": "kWh"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65537,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "65537",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66049,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66561,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66561",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "V"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66817,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66817",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "A"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67073,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66050,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66562,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66562",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "V"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66818,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66818",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "A"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67074,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "wakeUpInterval",
+      "propertyName": "wakeUpInterval",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "Wake Up interval",
+        "min": 0,
+        "max": 16777215
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "controllerNodeId",
+      "propertyName": "controllerNodeId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Node ID of the controller"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "level",
+      "propertyName": "level",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Battery level",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "isLow",
+      "propertyName": "isLow",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Low battery level"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 16.3
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66049,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66561,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "V"
+      },
+      "value": 237.9
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66561,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66561",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66817,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "A"
+      },
+      "value": 0.158
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66817,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66817",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67073,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0.4875
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67073,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66050,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 18.7
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66050,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66562,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "V"
+      },
+      "value": 237.9
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66562,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66562",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66818,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "A"
+      },
+      "value": 0.158
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66818,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66818",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67074,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0.4875
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67074,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66305,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Pulse count_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Pulse count]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 3
+        },
+        "unit": "Pulse count"
+      },
+      "value": 15.5
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66305,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66305",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66049,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66561,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66561",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "V"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66817,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66817",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "A"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67073,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66050,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66562,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66562",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "V"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66818,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66818",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "A"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67074,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "wakeUpInterval",
+      "propertyName": "wakeUpInterval",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "Wake Up interval",
+        "min": 0,
+        "max": 16777215
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "controllerNodeId",
+      "propertyName": "controllerNodeId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Node ID of the controller"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "level",
+      "propertyName": "level",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Battery level",
+        "min": 0,
+        "max": 100,
+        "unit": "%"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 128,
+      "commandClassName": "Battery",
+      "property": "isLow",
+      "propertyName": "isLow",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Low battery level"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66049,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 1579.4
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66049,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66561,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "V"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66561,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66561",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66817,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "A"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66817,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66817",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67073,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67073,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66050,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66050,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66562,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_V_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "V"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66562,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66562",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66818,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_A_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "A"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66818,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66818",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 67074,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_Power Factor_Produced",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 67074,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. time delta)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "s"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 66048,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_W",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric [W]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 0,
+          "scale": 2
+        },
+        "unit": "W"
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 66048,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "66048",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "value",
+      "propertyKey": 65537,
+      "propertyName": "value",
+      "propertyKeyName": "Electric_kWh_Consumed",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [kWh]",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 0
+        },
+        "unit": "kWh"
+      },
+      "value": 26843545.6
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "deltaTime",
+      "propertyKey": 65537,
+      "propertyName": "deltaTime",
+      "propertyKeyName": "65537",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "reset",
+      "propertyName": "reset",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Reset accumulated values"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66049,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66049",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66561,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66561",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [V] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 4
+        },
+        "unit": "V"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66817,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66817",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [A] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 5
+        },
+        "unit": "A"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67073,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67073",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Consumed [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 1,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66050,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66050",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [W] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 2
+        },
+        "unit": "W"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66562,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66562",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [V] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 4
+        },
+        "unit": "V"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 66818,
+      "propertyName": "previousValue",
+      "propertyKeyName": "66818",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [A] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 5
+        },
+        "unit": "A"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 50,
+      "commandClassName": "Meter",
+      "property": "previousValue",
+      "propertyKey": 67074,
+      "propertyName": "previousValue",
+      "propertyKeyName": "67074",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Electric Produced [Power Factor] (prev. value)",
+        "ccSpecific": {
+          "meterType": 1,
+          "rateType": 2,
+          "scale": 6
+        },
+        "unit": "Power Factor"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "wakeUpInterval",
+      "propertyName": "wakeUpInterval",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "Wake Up interval",
+        "min": 0,
+        "max": 16777215
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 132,
+      "commandClassName": "Wake Up",
+      "property": "controllerNodeId",
+      "propertyName": "controllerNodeId",
+      "ccVersion": 0,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Node ID of the controller"
+      }
+    }
+  ],
+  "isFrequentListening": null,
+  "maxBaudRate": 40000,
+  "version": 4,
+  "nodeType": 0,
+  "roleType": 5,
+  "deviceClass": {
+    "basic": {
+      "key": 4,
+      "label": "Routing Slave"
+    },
+    "generic": {
+      "key": 49,
+      "label": "Meter"
+    },
+    "specific": {
+      "key": 3,
+      "label": "Simple Whole Home Meter"
+    },
+    "mandatorySupportedCCs": [
+      32, 133, 89, 128, 86, 90, 114, 50, 115, 159, 108, 85, 134, 132, 94
+    ],
+    "mandatoryControlledCCs": []
+  },
+  "commandClasses": [
+    {
+      "id": 50,
+      "name": "Meter",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 86,
+      "name": "CRC-16 Encapsulation",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 89,
+      "name": "Association Group Information",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 90,
+      "name": "Device Reset Locally",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 94,
+      "name": "Z-Wave Plus Info",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 96,
+      "name": "Multi Channel",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 108,
+      "name": "Supervision",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 112,
+      "name": "Configuration",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 114,
+      "name": "Manufacturer Specific",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 122,
+      "name": "Firmware Update Meta Data",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 133,
+      "name": "Association",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 134,
+      "name": "Version",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 142,
+      "name": "Multi Channel Association",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 152,
+      "name": "Security",
+      "version": 1,
+      "isSecure": true
+    }
+  ],
+  "isControllerNode": false,
+  "name": null,
+  "location": null,
+  "endpointGroups": [
+    {
+      "id": 1,
+      "label": "Total",
+      "isMainDevice": true,
+      "endpointIndices": [1]
+    }
+  ]
+}

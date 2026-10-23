@@ -1,0 +1,907 @@
+{
+  "nodeId": 69,
+  "index": 0,
+  "installerIcon": 7427,
+  "userIcon": 7427,
+  "status": 4,
+  "ready": true,
+  "isListening": true,
+  "isRouting": true,
+  "isSecure": false,
+  "manufacturerId": 600,
+  "productId": 4139,
+  "productType": 512,
+  "firmwareVersion": "2.17",
+  "zwavePlusVersion": 1,
+  "deviceConfig": {
+    "filename": "/usr/src/app/node_modules/@zwave-js/config/config/devices/0x0258/eu-3.json",
+    "manufacturer": "Shenzhen Neo Electronics Co., Ltd.",
+    "manufacturerId": 600,
+    "label": "EU-3",
+    "description": "Light Switch 3 Channel",
+    "devices": [
+      {
+        "productType": 512,
+        "productId": 4139
+      }
+    ],
+    "firmwareVersion": {
+      "min": "0.0",
+      "max": "255.255"
+    },
+    "paramInformation": {
+      "_map": {}
+    },
+    "isEmbedded": true
+  },
+  "label": "EU-3",
+  "endpointCountIsDynamic": false,
+  "endpointsHaveIdenticalCapabilities": true,
+  "individualEndpointCount": 3,
+  "aggregatedEndpointCount": 0,
+  "interviewAttempts": 1,
+  "endpoints": [
+    {
+      "nodeId": 69,
+      "index": 0,
+      "installerIcon": 7427,
+      "userIcon": 7427,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 1,
+          "label": "Binary Power Switch"
+        },
+        "mandatorySupportedCCs": [32, 37, 39],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 96,
+          "name": "Multi Channel",
+          "version": 4,
+          "isSecure": false
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 90,
+          "name": "Device Reset Locally",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 112,
+          "name": "Configuration",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": null
+    },
+    {
+      "nodeId": 69,
+      "index": 1,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 1,
+          "label": "Binary Power Switch"
+        },
+        "mandatorySupportedCCs": [32, 37, 39],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Switch 1"
+    },
+    {
+      "nodeId": 69,
+      "index": 2,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 1,
+          "label": "Binary Power Switch"
+        },
+        "mandatorySupportedCCs": [32, 37, 39],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Switch 2"
+    },
+    {
+      "nodeId": 69,
+      "index": 3,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing Slave"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 1,
+          "label": "Binary Power Switch"
+        },
+        "mandatorySupportedCCs": [32, 37, 39],
+        "mandatoryControlledCCs": []
+      },
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Switch 3"
+    }
+  ],
+  "values": [
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      },
+      "value": 6
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      },
+      "value": "6.4"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      },
+      "value": ["2.17"]
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hardwareVersion",
+      "propertyName": "hardwareVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip hardware version"
+      },
+      "value": 16
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "sdkVersion",
+      "propertyName": "sdkVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "6.81.1"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationFrameworkAPIVersion",
+      "propertyName": "applicationFrameworkAPIVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "4.1.1"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationFrameworkBuildNumber",
+      "propertyName": "applicationFrameworkBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 52445
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hostInterfaceVersion",
+      "propertyName": "hostInterfaceVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "unused"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hostInterfaceBuildNumber",
+      "propertyName": "hostInterfaceBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "zWaveProtocolVersion",
+      "propertyName": "zWaveProtocolVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "6.4.0"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "zWaveProtocolBuildNumber",
+      "propertyName": "zWaveProtocolBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 91
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationVersion",
+      "propertyName": "applicationVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": "2.17.0"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationBuildNumber",
+      "propertyName": "applicationBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": 52445
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 96,
+      "commandClassName": "Multi Channel",
+      "property": "endpointIndizes",
+      "propertyName": "endpointIndizes",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": true
+      },
+      "value": [1, 2, 3]
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535
+      },
+      "value": 600
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535
+      },
+      "value": 512
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535
+      },
+      "value": 4139
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 1,
+      "propertyName": "Relay On/Off Status Saved Enable",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Restore switch status on power restore.",
+        "label": "Relay On/Off Status Saved Enable",
+        "default": 1,
+        "min": 0,
+        "max": 1,
+        "states": {
+          "0": "Do not save the On/Off status",
+          "1": "Save and restore the relay On/Off status"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 2,
+      "propertyName": "Backlight Enable",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Enable back light when Light Switch is powered on.",
+        "label": "Backlight Enable",
+        "default": 1,
+        "min": 0,
+        "max": 1,
+        "states": {
+          "0": "Disable back light LED",
+          "1": "Enable back light LED"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 3,
+      "propertyName": "Relay On/Off Indicate",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Switch on LED indicator.",
+        "label": "Relay On/Off Indicate",
+        "default": 1,
+        "min": 0,
+        "max": 1,
+        "states": {
+          "0": "Do not change LED state when on",
+          "1": "Pink LED state when on"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 4,
+      "propertyName": "Root Device Mapped Setting",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Endpoint device mapping setting for associated devices.",
+        "label": "Root Device Mapped Setting",
+        "default": 1,
+        "min": 0,
+        "max": 4,
+        "states": {
+          "0": "No endpoint",
+          "1": "Endpoint 1",
+          "2": "Endpoint 2",
+          "3": "Endpoint 3",
+          "4": "All three endpoints"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 5,
+      "propertyName": "Button Switch Function Disable",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Enables/disables button",
+        "label": "Button Switch Function Disable",
+        "default": 1,
+        "min": 0,
+        "max": 1,
+        "states": {
+          "0": "disable buttons",
+          "1": "enable buttons"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 6,
+      "propertyName": "Timer enable",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Timer to turn off the relay automatically",
+        "label": "Timer enable",
+        "default": 0,
+        "min": 0,
+        "max": 1,
+        "states": {
+          "0": "enable timer",
+          "1": "disable timer"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 7,
+      "propertyName": "Channel 1 Off Time Settings",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Delay timer to turn off the channel",
+        "label": "Channel 1 Off Time Settings",
+        "default": 0,
+        "min": 0,
+        "max": 32767,
+        "unit": "Minute",
+        "valueSize": 2,
+        "format": 0,
+        "allowManualEntry": true,
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 8,
+      "propertyName": "Channel 2 Off Time Settings",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Delay timer to turn off the channel",
+        "label": "Channel 2 Off Time Settings",
+        "default": 0,
+        "min": 0,
+        "max": 32767,
+        "unit": "minute",
+        "valueSize": 2,
+        "format": 0,
+        "allowManualEntry": true,
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 9,
+      "propertyName": "Channel 3 Off Time Settings",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Delay timer to turn off the channel",
+        "label": "Channel 3 Off Time Settings",
+        "default": 0,
+        "min": 0,
+        "max": 32767,
+        "unit": "minute",
+        "valueSize": 2,
+        "format": 0,
+        "allowManualEntry": true,
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value",
+        "valueChangeOptions": ["transitionDuration"]
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value",
+        "valueChangeOptions": ["transitionDuration"]
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value",
+        "valueChangeOptions": ["transitionDuration"]
+      }
+    }
+  ],
+  "isFrequentListening": false,
+  "maxDataRate": 100000,
+  "supportedDataRates": [40000, 100000],
+  "protocolVersion": 3,
+  "supportsBeaming": true,
+  "supportsSecurity": false,
+  "nodeType": 1,
+  "zwavePlusNodeType": 0,
+  "zwavePlusRoleType": 5,
+  "deviceClass": {
+    "basic": {
+      "key": 4,
+      "label": "Routing Slave"
+    },
+    "generic": {
+      "key": 16,
+      "label": "Binary Switch"
+    },
+    "specific": {
+      "key": 1,
+      "label": "Binary Power Switch"
+    },
+    "mandatorySupportedCCs": [32, 37, 39],
+    "mandatoryControlledCCs": []
+  },
+  "commandClasses": [
+    {
+      "id": 37,
+      "name": "Binary Switch",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 94,
+      "name": "Z-Wave Plus Info",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 134,
+      "name": "Version",
+      "version": 3,
+      "isSecure": false
+    },
+    {
+      "id": 133,
+      "name": "Association",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 96,
+      "name": "Multi Channel",
+      "version": 4,
+      "isSecure": false
+    },
+    {
+      "id": 142,
+      "name": "Multi Channel Association",
+      "version": 3,
+      "isSecure": false
+    },
+    {
+      "id": 89,
+      "name": "Association Group Information",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 114,
+      "name": "Manufacturer Specific",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 90,
+      "name": "Device Reset Locally",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 112,
+      "name": "Configuration",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 108,
+      "name": "Supervision",
+      "version": 1,
+      "isSecure": false
+    }
+  ],
+  "interviewStage": "Complete",
+  "deviceDatabaseUrl": "https://devices.zwave-js.io/?jumpTo=0x0258:0x0200:0x102b:2.17",
+  "isControllerNode": false,
+  "name": null,
+  "location": null
+}

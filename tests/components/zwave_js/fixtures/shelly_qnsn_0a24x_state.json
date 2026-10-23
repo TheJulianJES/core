@@ -1,0 +1,1606 @@
+{
+  "nodeId": 127,
+  "index": 0,
+  "installerIcon": 7428,
+  "userIcon": 7428,
+  "status": 4,
+  "ready": true,
+  "isListening": true,
+  "isRouting": true,
+  "isSecure": true,
+  "manufacturerId": 1120,
+  "productId": 129,
+  "productType": 9,
+  "firmwareVersion": "11.5.0",
+  "zwavePlusVersion": 2,
+  "name": null,
+  "location": null,
+  "deviceConfig": {
+    "filename": "/data/db/devices/0x0460/qnsn-0A24X.json",
+    "isEmbedded": true,
+    "manufacturer": "Shelly Europe Ltd.",
+    "manufacturerId": 1120,
+    "label": "QNSN-0A24X",
+    "description": "Wave I4",
+    "devices": [
+      {
+        "productType": 9,
+        "productId": 129
+      }
+    ],
+    "firmwareVersion": {
+      "min": "0.0",
+      "max": "255.255"
+    },
+    "preferred": false,
+    "paramInformation": {
+      "_map": {}
+    },
+    "metadata": {
+      "inclusion": "6.1 Adding the Device to a Z-Wave™ network (inclusion)\nNote! All Device outputs (O, O1, O2, etc. - depending on the Device type) will turn the load 1s on/1s off /1s on/1s off if the Device is successfully added to/removed from a Z-Wave™ network.\n\n6.1.1 SmartStart adding (inclusion)\nSmartStart enabled products can be added into a Z-Wave™ network by scanning the Z-Wave™ QR Code present on the Device with a gateway providing SmartStart inclusion. No further action is required, and the SmartStart device will be added automatically within 10 minutes of being switched on in the network vicinity.\n1. With the gateway application scan the QR code on the Device label and add the Security 2 (S2) Device Specific Key (DSK) to the provisioning list in the gateway.\n2. Connect the Device to a power supply.\n3. Check if the blue LED is blinking in Mode 1. If so, the Device is not added to a Z-Wave™ network.\n4. Adding will be initiated automatically within a few seconds after connecting the Device to a power supply, and the Device will be added to a Z-Wave™ network automatically.\n5. The blue LED will be blinking in Mode 2 during the adding process.\n6. The green LED will be blinking in Mode 1 if the Device is successfully added to a Z-Wave™ network.\n\n6.1.2 Adding (inclusion) with a switch/push-button\n1. Connect the Device to a power supply.\n2. Check if the blue LED is blinking in Mode 1. If so, the Device is not added to a Z-Wave™ network.\n3. Enable add/remove mode on the gateway.\n4. Toggle the switch/push-button connected to any of the SW terminals (SW, SW1, SW2, etc.) 3 times within 3 seconds (this procedure puts the Device in Learn mode*). The Device must receive on/off signal 3 times, which means pressing the momentary switch 3 times, or toggling the switch on and off 3 times.\n5. The blue LED will be blinking in Mode 2 during the adding process.\n6. The green LED will be blinking in Mode 1 if the Device is successfully added to a Z-Wave™ network.\n*Learn mode - a state that allows the Device to receive network information from the gateway.\n\n6.1.3 Adding (inclusion) with the S button\n1. Connect the Device to a power supply.\n2. Check if the blue LED is blinking in Mode 1. If so, the Device is not added to a Z-Wave™ network.\n3. Enable add/remove mode on the gateway.\n4. To enter the Setting mode, quickly press and hold the S button on the Device until the LED turns solid blue.\n5. Quickly release and then press and hold (> 2s) the S button on the Device until the blue LED starts blinking in Mode 3. Releasing the S button will start the Learn mode.\n6. The blue LED will be blinking in Mode 2 during the adding process.\n7. The green LED will be blinking in Mode 1 if the Device is successfully added to a Z-Wave™ network.\nNote! In Setting mode, the Device has a timeout of 10s before entering again into Normal mode",
+      "exclusion": "Removing the Device from a Z-Wave™ network (exclusion)\nNote! The Device will be removed from your Z-wave™ network, but any custom configuration parameters will not be erased.\nNote! All Device outputs (O, O1, O2, etc. - depending on the Device type) will turn the load 1s on/1s off /1s on/1s off if the Device is successfully added to/removed from a Z-Wave™ network.\n\n6.2.1 Removing (exclusion) with a switch/push-button\n1. Connect the Device to a power supply.\n2. Check if the green LED is blinking in Mode 1. If so, the Device is added to a Z-Wave™ network.\n3. Enable add/remove mode on the gateway.\n4. Toggle the switch/push-button connected to any of the SW terminals (SW, SW1, SW2,…) 3 times within 3 seconds (this procedure puts the Device in Learn mode). The Device must receive on/off signal 3 times, which means pressing the momentary switch 3 times, or toggling the switch on and off 3 times.\n5. The blue LED will be blinking in Mode 2 during the removing process.\n6. The blue LED will be blinking in Mode 1 if the Device is successfully removed from a Z-Wave™ network.\n\n6.2.2 Removing (exclusion) with the S button\n1. Connect the Device to a power supply.\n2. Check if the green LED is blinking in Mode 1. If so, the Device is added to a Z-Wave™ network.\n3. Enable add/remove mode on the gateway.\n4. To enter the Setting mode, quickly press and hold the S button on the Device until the LED turns solid blue.\n5. Quickly release and then press and hold (> 2s) the S button on the Device until the blue LED starts blinking in Mode 3. Releasing the S button will start the Learn mode.\n6. The blue LED will be blinking in Mode 2 during the removing process.\n7. The blue LED will be blinking in Mode 1 if the Device is successfully removed from a Z-Wave™ network.\nNote! In Setting mode, the Device has a timeout of 10s before entering again into Normal mode",
+      "reset": "6.3 Factory reset\n6.3.1 Factory reset general\nAfter Factory reset, all custom parameters and stored values (kWh, associations, routings, etc.) will return to their default state. HOME ID and NODE ID assigned to the Device will be deleted. Use this reset procedure only when the gateway is missing or otherwise inoperable.\n\n6.3.2 Factory reset with a switch/push-button\nNote! Factory reset with a switch/push-button is only possible within the first minute after the Device is connected to a power supply.\n1. Connect the Device to a power supply.\n2. Toggle the switch/push-button connected to any of the SW terminals (SW, SW1, SW2,…) 5 times within 3 seconds. The Device must receive on/off signal 5 times, which means pressing the push-button 5 times, or toggling the switch on and off 5 times.\n3. During factory reset, the LED will turn solid green for about 1s, then the blue and red LED will start blinking in Mode 3 for approx. 2s.\n4. The blue LED will be blinking in Mode 1 if the Factory reset is successful.\n\n6.3.3 Factory reset with the S button\nNote! Factory reset with the S button is possible anytime.\n1. To enter the Setting mode, quickly press and hold the S button on the Device until the LED turns solid blue.\n2. Press the S button multiple times until the LED turns solid red.\n3. Press and hold (> 2s) S button on the Device until the red LED starts blinking in Mode 3. Releasing the S button will start the factory reset.\n4. During factory reset, the LED will turn solid green for about 1s, then the blue and red LED will start blinking in Mode 3 for approx. 2s.\n5. The blue LED will be blinking in Mode 1 if the Factory reset is successful.\n\n6.3.4 Remote factory reset with parameter with the gateway\nFactory reset can be done remotely with the settings in Parameter No. 120",
+      "manual": "https://kb.shelly.cloud/knowledge-base/shelly-qubino-wave-devices"
+    }
+  },
+  "label": "QNSN-0A24X",
+  "endpointCountIsDynamic": false,
+  "endpointsHaveIdenticalCapabilities": false,
+  "individualEndpointCount": 5,
+  "aggregatedEndpointCount": 0,
+  "interviewAttempts": 0,
+  "endpoints": [
+    {
+      "nodeId": 127,
+      "index": 0,
+      "installerIcon": 7428,
+      "userIcon": 7428,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing End Node"
+        },
+        "generic": {
+          "key": 24,
+          "label": "Wall Controller"
+        },
+        "specific": {
+          "key": 0,
+          "label": "Unused"
+        }
+      },
+      "commandClasses": [
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 159,
+          "name": "Security 2",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 85,
+          "name": "Transport Service",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 115,
+          "name": "Powerlevel",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 96,
+          "name": "Multi Channel",
+          "version": 4,
+          "isSecure": true
+        },
+        {
+          "id": 135,
+          "name": "Indicator",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 122,
+          "name": "Firmware Update Meta Data",
+          "version": 5,
+          "isSecure": true
+        },
+        {
+          "id": 90,
+          "name": "Device Reset Locally",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 91,
+          "name": "Central Scene",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 113,
+          "name": "Notification",
+          "version": 8,
+          "isSecure": true
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 112,
+          "name": "Configuration",
+          "version": 4,
+          "isSecure": true
+        }
+      ],
+      "endpointLabel": null
+    },
+    {
+      "nodeId": 127,
+      "index": 1,
+      "installerIcon": 5632,
+      "userIcon": 5632,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing End Node"
+        },
+        "generic": {
+          "key": 24,
+          "label": "Wall Controller"
+        },
+        "specific": {
+          "key": 0,
+          "label": "Unused"
+        }
+      },
+      "commandClasses": [
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 159,
+          "name": "Security 2",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 3,
+          "isSecure": true
+        }
+      ],
+      "endpointLabel": null
+    },
+    {
+      "nodeId": 127,
+      "index": 2,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing End Node"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 0,
+          "label": "Unused"
+        }
+      },
+      "commandClasses": [
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 159,
+          "name": "Security 2",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 2,
+          "isSecure": true
+        }
+      ],
+      "endpointLabel": "Switch 1"
+    },
+    {
+      "nodeId": 127,
+      "index": 3,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing End Node"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 0,
+          "label": "Unused"
+        }
+      },
+      "commandClasses": [
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 159,
+          "name": "Security 2",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 2,
+          "isSecure": true
+        }
+      ],
+      "endpointLabel": "Switch 2"
+    },
+    {
+      "nodeId": 127,
+      "index": 4,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing End Node"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 0,
+          "label": "Unused"
+        }
+      },
+      "commandClasses": [
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 159,
+          "name": "Security 2",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 2,
+          "isSecure": true
+        }
+      ],
+      "endpointLabel": "Switch 3"
+    },
+    {
+      "nodeId": 127,
+      "index": 5,
+      "installerIcon": 1792,
+      "userIcon": 1792,
+      "deviceClass": {
+        "basic": {
+          "key": 4,
+          "label": "Routing End Node"
+        },
+        "generic": {
+          "key": 16,
+          "label": "Binary Switch"
+        },
+        "specific": {
+          "key": 0,
+          "label": "Unused"
+        }
+      },
+      "commandClasses": [
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 152,
+          "name": "Security",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 159,
+          "name": "Security 2",
+          "version": 1,
+          "isSecure": true
+        },
+        {
+          "id": 108,
+          "name": "Supervision",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": true
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 3,
+          "isSecure": true
+        },
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 2,
+          "isSecure": true
+        }
+      ],
+      "endpointLabel": "Switch 4"
+    }
+  ],
+  "values": [
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "001",
+      "propertyName": "scene",
+      "propertyKeyName": "001",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Scene 001",
+        "min": 0,
+        "max": 255,
+        "states": {
+          "0": "KeyPressed",
+          "1": "KeyReleased",
+          "2": "KeyHeldDown",
+          "3": "KeyPressed2x"
+        },
+        "stateful": false,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "002",
+      "propertyName": "scene",
+      "propertyKeyName": "002",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Scene 002",
+        "min": 0,
+        "max": 255,
+        "states": {
+          "0": "KeyPressed",
+          "1": "KeyReleased",
+          "2": "KeyHeldDown",
+          "3": "KeyPressed2x"
+        },
+        "stateful": false,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "003",
+      "propertyName": "scene",
+      "propertyKeyName": "003",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Scene 003",
+        "min": 0,
+        "max": 255,
+        "states": {
+          "0": "KeyPressed",
+          "1": "KeyReleased",
+          "2": "KeyHeldDown",
+          "3": "KeyPressed2x"
+        },
+        "stateful": false,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "scene",
+      "propertyKey": "004",
+      "propertyName": "scene",
+      "propertyKeyName": "004",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Scene 004",
+        "min": 0,
+        "max": 255,
+        "states": {
+          "0": "KeyPressed",
+          "1": "KeyReleased",
+          "2": "KeyHeldDown",
+          "3": "KeyPressed2x"
+        },
+        "stateful": false,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 91,
+      "commandClassName": "Central Scene",
+      "property": "slowRefresh",
+      "propertyName": "slowRefresh",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "description": "When this is true, KeyHeldDown notifications are sent every 55s. When this is false, the notifications are sent every 200ms.",
+        "label": "Send held down notifications at a slow rate",
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 1,
+      "propertyName": "SW1 Switch Type",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "SW1 Switch Type",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "states": {
+          "0": "Momentary switch",
+          "1": "Toggle switch (Follow switch)",
+          "2": "Toggle switch (Change on toggle)"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 2,
+      "propertyName": "SW2 Switch Type",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "SW2 Switch Type",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "states": {
+          "0": "Momentary switch",
+          "1": "Toggle switch (Follow switch)",
+          "2": "Toggle switch (Change on toggle)"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 3,
+      "propertyName": "SW3 Switch Type",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "SW3 Switch Type",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "states": {
+          "0": "Momentary switch",
+          "1": "Toggle switch (Follow switch)",
+          "2": "Toggle switch (Change on toggle)"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 4,
+      "propertyName": "SW4 Switch Type",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "SW4 Switch Type",
+        "default": 2,
+        "min": 0,
+        "max": 2,
+        "states": {
+          "0": "Momentary switch",
+          "1": "Toggle switch (Follow switch)",
+          "2": "Toggle switch (Change on toggle)"
+        },
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 105,
+      "propertyName": "Signal LED Intensity",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "Signal LED Intensity",
+        "default": 100,
+        "min": 0,
+        "max": 100,
+        "unit": "%",
+        "valueSize": 1,
+        "format": 0,
+        "allowManualEntry": true,
+        "isFromConfig": true
+      },
+      "value": 100
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 120,
+      "propertyName": "Factory Reset",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Reset to factory default settings and remove from the Z-Wave network.",
+        "label": "Factory Reset",
+        "default": 0,
+        "min": 0,
+        "max": 1,
+        "states": {
+          "0": "Idle",
+          "1": "Factory reset"
+        },
+        "valueSize": 4,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 201,
+      "propertyName": "Serial Number: Part 1",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Serial Number: Part 1",
+        "min": 0,
+        "max": 2147483647,
+        "valueSize": 4,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 2147483647
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 202,
+      "propertyName": "Serial Number: Part 2",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Serial Number: Part 2",
+        "min": 0,
+        "max": 2147483647,
+        "valueSize": 4,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 2147483647
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 203,
+      "propertyName": "Serial Number: Part 3",
+      "ccVersion": 4,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Serial Number: Part 3",
+        "min": 0,
+        "max": 2147483647,
+        "valueSize": 4,
+        "format": 0,
+        "allowManualEntry": false,
+        "isFromConfig": true
+      },
+      "value": 2147483647
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmType",
+      "propertyName": "alarmType",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Alarm Type",
+        "min": 0,
+        "max": 255,
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmLevel",
+      "propertyName": "alarmLevel",
+      "ccVersion": 8,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Alarm Level",
+        "min": 0,
+        "max": 255,
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product ID",
+        "min": 0,
+        "max": 65535,
+        "stateful": true,
+        "secret": false
+      },
+      "value": 129
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Product type",
+        "min": 0,
+        "max": 65535,
+        "stateful": true,
+        "secret": false
+      },
+      "value": 9
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Manufacturer ID",
+        "min": 0,
+        "max": 65535,
+        "stateful": true,
+        "secret": false
+      },
+      "value": 1120
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hardwareVersion",
+      "propertyName": "hardwareVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip hardware version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string[]",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions",
+        "stateful": true,
+        "secret": false
+      },
+      "value": ["11.5", "2.2"]
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": "7.20"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type",
+        "states": {
+          "0": "Unknown",
+          "1": "Static Controller",
+          "2": "Controller",
+          "3": "Enhanced Slave",
+          "4": "Slave",
+          "5": "Installer",
+          "6": "Routing Slave",
+          "7": "Bridge Controller",
+          "8": "Device under Test",
+          "9": "N/A",
+          "10": "AV Remote",
+          "11": "AV Device"
+        },
+        "stateful": true,
+        "secret": false
+      },
+      "value": 3
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationBuildNumber",
+      "propertyName": "applicationBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Application build number",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 212
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationVersion",
+      "propertyName": "applicationVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Application version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": "11.5.0"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "zWaveProtocolBuildNumber",
+      "propertyName": "zWaveProtocolBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol build number",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 212
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "zWaveProtocolVersion",
+      "propertyName": "zWaveProtocolVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": "7.20.2"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hostInterfaceBuildNumber",
+      "propertyName": "hostInterfaceBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Serial API build number",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hostInterfaceVersion",
+      "propertyName": "hostInterfaceVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Serial API version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": "unused"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationFrameworkBuildNumber",
+      "propertyName": "applicationFrameworkBuildNumber",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave application framework API build number",
+        "stateful": true,
+        "secret": false
+      },
+      "value": 212
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "applicationFrameworkAPIVersion",
+      "propertyName": "applicationFrameworkAPIVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave application framework API version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": "10.20.2"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "sdkVersion",
+      "propertyName": "sdkVersion",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": false,
+        "label": "SDK version",
+        "stateful": true,
+        "secret": false
+      },
+      "value": "7.20.2"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 135,
+      "commandClassName": "Indicator",
+      "property": 80,
+      "propertyKey": 3,
+      "propertyName": "Node Identify",
+      "propertyKeyName": "On/Off Period: Duration",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\"",
+        "label": "0x50 (Node Identify) - On/Off Period: Duration",
+        "ccSpecific": {
+          "indicatorId": 80,
+          "propertyId": 3
+        },
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 135,
+      "commandClassName": "Indicator",
+      "property": 80,
+      "propertyKey": 4,
+      "propertyName": "Node Identify",
+      "propertyKeyName": "On/Off Cycle Count",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\"",
+        "label": "0x50 (Node Identify) - On/Off Cycle Count",
+        "ccSpecific": {
+          "indicatorId": 80,
+          "propertyId": 4
+        },
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 135,
+      "commandClassName": "Indicator",
+      "property": 80,
+      "propertyKey": 5,
+      "propertyName": "Node Identify",
+      "propertyKeyName": "On/Off Period: On time",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)",
+        "label": "0x50 (Node Identify) - On/Off Period: On time",
+        "ccSpecific": {
+          "indicatorId": 80,
+          "propertyId": 5
+        },
+        "stateful": true,
+        "secret": false
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 135,
+      "commandClassName": "Indicator",
+      "property": "value",
+      "propertyName": "value",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "label": "Indicator value",
+        "ccSpecific": {
+          "indicatorId": 0
+        },
+        "min": 0,
+        "max": 255,
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 135,
+      "commandClassName": "Indicator",
+      "property": "identify",
+      "propertyName": "identify",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "boolean",
+        "readable": false,
+        "writeable": true,
+        "label": "Identify",
+        "states": {
+          "true": "Identify"
+        },
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 135,
+      "commandClassName": "Indicator",
+      "property": "timeout",
+      "propertyName": "timeout",
+      "ccVersion": 3,
+      "metadata": {
+        "type": "string",
+        "readable": true,
+        "writeable": true,
+        "label": "Timeout",
+        "stateful": true,
+        "secret": false
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "duration",
+      "propertyName": "duration",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "duration",
+        "readable": true,
+        "writeable": false,
+        "label": "Remaining duration",
+        "stateful": true,
+        "secret": false
+      },
+      "value": {
+        "value": 0,
+        "unit": "seconds"
+      }
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value",
+        "valueChangeOptions": ["transitionDuration"],
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value",
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "duration",
+      "propertyName": "duration",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "duration",
+        "readable": true,
+        "writeable": false,
+        "label": "Remaining duration",
+        "stateful": true,
+        "secret": false
+      },
+      "value": {
+        "value": 0,
+        "unit": "seconds"
+      }
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value",
+        "valueChangeOptions": ["transitionDuration"],
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value",
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "duration",
+      "propertyName": "duration",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "duration",
+        "readable": true,
+        "writeable": false,
+        "label": "Remaining duration",
+        "stateful": true,
+        "secret": false
+      },
+      "value": {
+        "value": 0,
+        "unit": "seconds"
+      }
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value",
+        "valueChangeOptions": ["transitionDuration"],
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value",
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    },
+    {
+      "endpoint": 5,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "duration",
+      "propertyName": "duration",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "duration",
+        "readable": true,
+        "writeable": false,
+        "label": "Remaining duration",
+        "stateful": true,
+        "secret": false
+      },
+      "value": {
+        "value": 0,
+        "unit": "seconds"
+      }
+    },
+    {
+      "endpoint": 5,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value",
+        "valueChangeOptions": ["transitionDuration"],
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    },
+    {
+      "endpoint": 5,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value",
+        "stateful": true,
+        "secret": false
+      },
+      "value": false
+    }
+  ],
+  "isFrequentListening": false,
+  "maxDataRate": 100000,
+  "supportedDataRates": [40000, 100000],
+  "protocolVersion": 3,
+  "supportsBeaming": true,
+  "supportsSecurity": false,
+  "nodeType": 1,
+  "zwavePlusNodeType": 0,
+  "zwavePlusRoleType": 5,
+  "deviceClass": {
+    "basic": {
+      "key": 4,
+      "label": "Routing End Node"
+    },
+    "generic": {
+      "key": 24,
+      "label": "Wall Controller"
+    },
+    "specific": {
+      "key": 0,
+      "label": "Unused"
+    }
+  },
+  "interviewStage": "Complete",
+  "deviceDatabaseUrl": "https://devices.zwave-js.io/?jumpTo=0x0460:0x0009:0x0081:11.5.0",
+  "statistics": {
+    "commandsTX": 3,
+    "commandsRX": 30,
+    "commandsDroppedRX": 7,
+    "commandsDroppedTX": 0,
+    "timeoutResponse": 0,
+    "rtt": 67.3,
+    "lastSeen": "2025-04-14T02:31:47.925Z",
+    "rssi": -103,
+    "lwr": {
+      "protocolDataRate": 3,
+      "repeaters": [],
+      "rssi": -105,
+      "repeaterRSSI": []
+    }
+  },
+  "highestSecurityClass": 1,
+  "isControllerNode": false,
+  "keepAwake": false,
+  "lastSeen": "2025-04-14T02:31:47.925Z",
+  "protocol": 0
+}

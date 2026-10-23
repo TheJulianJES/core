@@ -8,7 +8,7 @@ integration groups endpoints into devices and entities.
 from unittest.mock import MagicMock
 
 import pytest
-from pytest_homeassistant.common import MockConfigEntry
+from pytest_homeassistant.common import MockConfigEntry, load_json_object_fixture
 from syrupy.assertion import SnapshotAssertion
 from zwave_js_server.model.node import Node
 
@@ -156,6 +156,75 @@ async def test_device_tree(
     """Snapshot the device tree for a multi-endpoint Z-Wave device."""
     node_device = device_registry.async_get_device_by_identifier(
         get_device_id(client.driver, node), integration.entry_id
+    )
+    assert node_device
+    assert (
+        _snapshot_device_tree(device_registry, entity_registry, node_device) == snapshot
+    )
+
+
+# Real-device node states from Home Assistant and Z-Wave JS issue diagnostics, with
+# the endpoint labels and endpoint groups of the current Z-Wave JS device database
+# applied, so the snapshot shows the device tree these devices get today.
+REAL_DEVICE_FIXTURES = [
+    "aeotec_zw164_siren_db_config_state.json",
+    "fortrezz_mimo2_state.json",
+    "ge_28177_zw4105_state.json",
+    "heatit_z_relay_state.json",
+    "heltun_he_rs01_state.json",
+    "intermatic_pe653_state.json",
+    "logic_zhc5010_state.json",
+    "mcohome_mh_s512_state.json",
+    "nie_nzw37_2_state.json",
+    "nie_nzw37_state.json",
+    "philio_pan04_state.json",
+    "philio_zip_pab01_state.json",
+    "qubino_zmnhad_2_state.json",
+    "qubino_zmnhad_state.json",
+    "qubino_zmnhnd_2_state.json",
+    "qubino_zmnhnd_state.json",
+    "qubino_zmnhod_2_state.json",
+    "qubino_zmnhod_state.json",
+    "qubino_zmnhtd_2_state.json",
+    "qubino_zmnhtd_state.json",
+    "qubino_zmnhwd_state.json",
+    "qubino_zmnhxd_state.json",
+    "shelly_qlsh_001p10eu_state.json",
+    "shelly_qnsn_0a24x_state.json",
+    "shelly_qnsn_0d24x_state.json",
+    "shenzhen_eu_3_state.json",
+    "steinel_is140_2_state.json",
+    "steinel_xled_home_2_state.json",
+    "technisat_double_switch_state.json",
+    "thermofloor_heatit_z_trm_2_state.json",
+    "tkb_tz74_state.json",
+    "vemmio_ds100_state.json",
+    "willis_nzw37_state.json",
+    "zooz_zen20_state.json",
+    "zooz_zen25_state.json",
+]
+
+
+@pytest.fixture
+def real_device_node(client: MagicMock, request: pytest.FixtureRequest) -> Node:
+    """Load a real-device node state and add it to the controller."""
+    node = Node(client, load_json_object_fixture(request.param, DOMAIN))
+    client.driver.controller.nodes[node.node_id] = node
+    return node
+
+
+@pytest.mark.parametrize("real_device_node", REAL_DEVICE_FIXTURES, indirect=True)
+async def test_device_tree_real_devices(
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    client: MagicMock,
+    real_device_node: Node,
+    integration: MockConfigEntry,
+    snapshot: SnapshotAssertion,
+) -> None:
+    """Snapshot the device tree for a real multi-endpoint Z-Wave device."""
+    node_device = device_registry.async_get_device_by_identifier(
+        get_device_id(client.driver, real_device_node), integration.entry_id
     )
     assert node_device
     assert (

@@ -1,0 +1,981 @@
+{
+  "nodeId": 57,
+  "index": 0,
+  "installerIcon": 3583,
+  "userIcon": 3583,
+  "status": 4,
+  "ready": true,
+  "deviceClass": {
+    "basic": {
+      "key": 4,
+      "label": "Routing Slave"
+    },
+    "generic": {
+      "key": 33,
+      "label": "Multilevel Sensor"
+    },
+    "specific": {
+      "key": 0,
+      "label": "Unused"
+    },
+    "mandatorySupportedCCs": [32, 49],
+    "mandatoryControlledCCs": []
+  },
+  "isListening": true,
+  "isFrequentListening": false,
+  "isRouting": true,
+  "maxBaudRate": 40000,
+  "isSecure": false,
+  "version": 4,
+  "isBeaming": true,
+  "manufacturerId": 132,
+  "productId": 520,
+  "productType": 1123,
+  "firmwareVersion": "2.8",
+  "zwavePlusVersion": 1,
+  "nodeType": 0,
+  "roleType": 5,
+  "deviceConfig": {
+    "filename": "/usr/src/app/node_modules/@zwave-js/config/config/devices/0x0084/mimo2.json",
+    "manufacturerId": 132,
+    "manufacturer": "FortrezZ LLC",
+    "label": "MIMO2+",
+    "description": "Dual Digital or Analog Voltage input and Dual Contact Relay",
+    "devices": [
+      {
+        "productType": "0x0463",
+        "productId": "0x0207"
+      },
+      {
+        "productType": "0x0463",
+        "productId": "0x0208"
+      }
+    ],
+    "firmwareVersion": {
+      "min": "0.0",
+      "max": "255.255"
+    },
+    "paramInformation": {
+      "_map": {}
+    }
+  },
+  "label": "MIMO2+",
+  "endpointCountIsDynamic": false,
+  "endpointsHaveIdenticalCapabilities": false,
+  "individualEndpointCount": 4,
+  "aggregatedEndpointCount": 0,
+  "interviewAttempts": 1,
+  "interviewStage": 7,
+  "commandClasses": [
+    {
+      "id": 37,
+      "name": "Binary Switch",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 49,
+      "name": "Multilevel Sensor",
+      "version": 9,
+      "isSecure": false
+    },
+    {
+      "id": 89,
+      "name": "Association Group Information",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 90,
+      "name": "Device Reset Locally",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 94,
+      "name": "Z-Wave Plus Info",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 96,
+      "name": "Multi Channel",
+      "version": 4,
+      "isSecure": false
+    },
+    {
+      "id": 112,
+      "name": "Configuration",
+      "version": 1,
+      "isSecure": false
+    },
+    {
+      "id": 113,
+      "name": "Notification",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 114,
+      "name": "Manufacturer Specific",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 122,
+      "name": "Firmware Update Meta Data",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 133,
+      "name": "Association",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 134,
+      "name": "Version",
+      "version": 2,
+      "isSecure": false
+    },
+    {
+      "id": 142,
+      "name": "Multi Channel Association",
+      "version": 3,
+      "isSecure": false
+    }
+  ],
+  "endpoints": [
+    {
+      "nodeId": 57,
+      "index": 0,
+      "installerIcon": 3583,
+      "userIcon": 3583,
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 49,
+          "name": "Multilevel Sensor",
+          "version": 9,
+          "isSecure": false
+        },
+        {
+          "id": 89,
+          "name": "Association Group Information",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 90,
+          "name": "Device Reset Locally",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 94,
+          "name": "Z-Wave Plus Info",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 96,
+          "name": "Multi Channel",
+          "version": 4,
+          "isSecure": false
+        },
+        {
+          "id": 112,
+          "name": "Configuration",
+          "version": 1,
+          "isSecure": false
+        },
+        {
+          "id": 113,
+          "name": "Notification",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 114,
+          "name": "Manufacturer Specific",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 122,
+          "name": "Firmware Update Meta Data",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 133,
+          "name": "Association",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 134,
+          "name": "Version",
+          "version": 2,
+          "isSecure": false
+        },
+        {
+          "id": 142,
+          "name": "Multi Channel Association",
+          "version": 3,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": null
+    },
+    {
+      "nodeId": 57,
+      "index": 1,
+      "commandClasses": [
+        {
+          "id": 49,
+          "name": "Multilevel Sensor",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Input 1"
+    },
+    {
+      "nodeId": 57,
+      "index": 2,
+      "commandClasses": [
+        {
+          "id": 49,
+          "name": "Multilevel Sensor",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Input 2"
+    },
+    {
+      "nodeId": 57,
+      "index": 3,
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Relay 1"
+    },
+    {
+      "nodeId": 57,
+      "index": 4,
+      "commandClasses": [
+        {
+          "id": 37,
+          "name": "Binary Switch",
+          "version": 1,
+          "isSecure": false
+        }
+      ],
+      "endpointLabel": "Relay 2"
+    }
+  ],
+  "values": [
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 4,
+      "propertyName": "Sensor 1 Lower Threshold High",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 1 Lower Threshold High",
+        "isFromConfig": true
+      },
+      "value": 272
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 5,
+      "propertyName": "Sensor 1 Lower Threshold Low",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 1 Lower Threshold Low",
+        "isFromConfig": true
+      },
+      "value": 128
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 6,
+      "propertyName": "Sensor 1 Upper Threshold High",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 1 Upper Threshold High",
+        "isFromConfig": true
+      },
+      "value": 4016
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 7,
+      "propertyName": "Sensor 1 Upper Threshold Low",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 1 Upper Threshold Low",
+        "isFromConfig": true
+      },
+      "value": 4000
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 10,
+      "propertyName": "Sensor 2 Lower Threshold High",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 2 Lower Threshold High",
+        "isFromConfig": true
+      },
+      "value": 160
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 11,
+      "propertyName": "Sensor 2 Lower Threshold Low",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 2 Lower Threshold Low",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 12,
+      "propertyName": "Sensor 2 Upper Threshold High",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 2 Upper Threshold High",
+        "isFromConfig": true
+      },
+      "value": 4080
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 13,
+      "propertyName": "Sensor 2 Upper Threshold Low",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 2,
+        "min": 0,
+        "max": 4095,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 2 Upper Threshold Low",
+        "isFromConfig": true
+      },
+      "value": 4000
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 1,
+      "propertyKey": 31,
+      "propertyName": "Relay 1 Trigger Interval",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 31,
+        "default": 0,
+        "unit": "100 ms",
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Relay 1 Trigger Interval",
+        "description": "Momentary trigger time in 100ms intervals, 10=1s, 0=disable",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 1,
+      "propertyKey": 224,
+      "propertyName": "Relay 1 Trigger Configuration on Sensor Input",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 7,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "Disabled",
+          "1": "Trigger on Sensor 1",
+          "2": "Trigger on Sensor 2",
+          "3": "Trigger on Sensor 1 or Sensor 2",
+          "4": "Trigger on Sensor 1 and Sensor 2",
+          "7": "Trigger on Sensor 1 and/or Sensor 2"
+        },
+        "label": "Relay 1 Trigger Configuration on Sensor Input",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 2,
+      "propertyKey": 31,
+      "propertyName": "Relay 2 Trigger Interval",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 31,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Relay 2 Trigger Interval",
+        "description": "Momentary trigger time in 100ms intervals, 10=1s, 0=disable",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 2,
+      "propertyKey": 224,
+      "propertyName": "Relay 2 Trigger on Sensor Input",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 7,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "Disabled",
+          "1": "Trigger on Sensor 1",
+          "2": "Trigger on Sensor 2",
+          "3": "Trigger on Sensor 1 or Sensor 2",
+          "4": "Trigger on Sensor 1 and Sensor 2",
+          "7": "Trigger on Sensor 1 and/or Sensor 2"
+        },
+        "label": "Relay 2 Trigger on Sensor Input",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 3,
+      "propertyKey": 63,
+      "propertyName": "Sensor 1 Report Interval",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 63,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 1 Report Interval",
+        "description": "Report sensor state every (30s resolution, 0=none, 1=30s, 10=5m, 63=31.5m)",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 3,
+      "propertyKey": 64,
+      "propertyName": "Sensor 1 Report Mode",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 1,
+        "default": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "Periodically",
+          "1": "On Change"
+        },
+        "label": "Sensor 1 Report Mode",
+        "description": "Report state periodically or on change",
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 3,
+      "propertyKey": 128,
+      "propertyName": "Sensor 1 Trigger Mode",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 1,
+        "default": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "Outside",
+          "1": "Inside"
+        },
+        "label": "Sensor 1 Trigger Mode",
+        "description": "Trigger Inside or Outside Low/High Thresholds",
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 9,
+      "propertyKey": 63,
+      "propertyName": "Sensor 2 Report Interval",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 63,
+        "default": 0,
+        "format": 0,
+        "allowManualEntry": true,
+        "label": "Sensor 2 Report Interval",
+        "description": "Report sensor state every (30s resolution, 0=none, 1=30s, 10=5m, 63=31.5m)",
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 9,
+      "propertyKey": 64,
+      "propertyName": "Sensor 2 Report Mode",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 1,
+        "default": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "Periodically",
+          "1": "On Change"
+        },
+        "label": "Sensor 2 Report Mode",
+        "description": "Report state periodically or on change",
+        "isFromConfig": true
+      },
+      "value": 0
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 112,
+      "commandClassName": "Configuration",
+      "property": 9,
+      "propertyKey": 128,
+      "propertyName": "Sensor 2 Trigger Mode",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": true,
+        "valueSize": 1,
+        "min": 0,
+        "max": 1,
+        "default": 1,
+        "format": 0,
+        "allowManualEntry": false,
+        "states": {
+          "0": "Outside",
+          "1": "Inside"
+        },
+        "label": "Sensor 2 Trigger Mode",
+        "description": "Trigger Inside or Outside Low/High Thresholds",
+        "isFromConfig": true
+      },
+      "value": 1
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmType",
+      "propertyName": "alarmType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Alarm Type"
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 113,
+      "commandClassName": "Notification",
+      "property": "alarmLevel",
+      "propertyName": "alarmLevel",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 255,
+        "label": "Alarm Level"
+      }
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "manufacturerId",
+      "propertyName": "manufacturerId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 65535,
+        "label": "Manufacturer ID"
+      },
+      "value": 132
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productType",
+      "propertyName": "productType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 65535,
+        "label": "Product type"
+      },
+      "value": 1123
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 114,
+      "commandClassName": "Manufacturer Specific",
+      "property": "productId",
+      "propertyName": "productId",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "min": 0,
+        "max": 65535,
+        "label": "Product ID"
+      },
+      "value": 520
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "libraryType",
+      "propertyName": "libraryType",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Library type"
+      },
+      "value": 3
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "protocolVersion",
+      "propertyName": "protocolVersion",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave protocol version"
+      },
+      "value": "4.34"
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "firmwareVersions",
+      "propertyName": "firmwareVersions",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip firmware versions"
+      },
+      "value": ["2.8"]
+    },
+    {
+      "endpoint": 0,
+      "commandClass": 134,
+      "commandClassName": "Version",
+      "property": "hardwareVersion",
+      "propertyName": "hardwareVersion",
+      "ccVersion": 2,
+      "metadata": {
+        "type": "any",
+        "readable": true,
+        "writeable": false,
+        "label": "Z-Wave chip hardware version"
+      }
+    },
+    {
+      "endpoint": 1,
+      "commandClass": 49,
+      "commandClassName": "Multilevel Sensor",
+      "property": "General purpose",
+      "propertyName": "General purpose",
+      "ccVersion": 9,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "General purpose",
+        "ccSpecific": {
+          "sensorType": 2,
+          "scale": 1
+        }
+      },
+      "value": 4095
+    },
+    {
+      "endpoint": 2,
+      "commandClass": 49,
+      "commandClassName": "Multilevel Sensor",
+      "property": "General purpose",
+      "propertyName": "General purpose",
+      "ccVersion": 9,
+      "metadata": {
+        "type": "number",
+        "readable": true,
+        "writeable": false,
+        "label": "General purpose",
+        "ccSpecific": {
+          "sensorType": 2,
+          "scale": 1
+        }
+      },
+      "value": 3165
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 3,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "currentValue",
+      "propertyName": "currentValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": false,
+        "label": "Current value"
+      },
+      "value": false
+    },
+    {
+      "endpoint": 4,
+      "commandClass": 37,
+      "commandClassName": "Binary Switch",
+      "property": "targetValue",
+      "propertyName": "targetValue",
+      "ccVersion": 1,
+      "metadata": {
+        "type": "boolean",
+        "readable": true,
+        "writeable": true,
+        "label": "Target value"
+      }
+    }
+  ],
+  "isControllerNode": false,
+  "name": null,
+  "location": null
+}
