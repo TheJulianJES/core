@@ -13,6 +13,7 @@ import pytest
 from pytest_homeassistant.common import MockConfigEntry, MockUser
 from pytest_homeassistant.typing import MockHAClientWebSocket, WebSocketGenerator
 from zha.application.const import (
+    ATTR_ATTRIBUTE,
     ATTR_CLUSTER_ID,
     ATTR_CLUSTER_TYPE,
     ATTR_ENDPOINT_ID,
@@ -30,12 +31,14 @@ from zha.zigbee.device import (
     Device,
     DeviceConfiguredEvent,
 )
+from zhaquirks.clusters import CustomCluster
 import zigpy.backups
 from zigpy.const import SIG_EP_INPUT, SIG_EP_OUTPUT, SIG_EP_PROFILE, SIG_EP_TYPE
 import zigpy.profiles.zha
 import zigpy.types
 from zigpy.types.named import EUI64
 import zigpy.util
+from zigpy.zcl import Cluster, foundation
 from zigpy.zcl.clusters import closures, general, security
 from zigpy.zcl.clusters.general import Groups
 import zigpy.zdo.types as zdo_types
@@ -62,6 +65,7 @@ from homeassistant.components.zha.helpers import (
 )
 from homeassistant.components.zha.services import SERVICE_PERMIT
 from homeassistant.components.zha.websocket_api import (
+    ATTR_MANUFACTURER_CODE,
     ATTR_TARGET_IEEE,
     BINDINGS,
     GROUP_ID,
@@ -80,6 +84,27 @@ from .data import BASE_CUSTOM_CONFIGURATION, CONFIG_WITH_ALARM_OPTIONS
 
 IEEE_SWITCH_DEVICE = "01:2d:6f:00:0a:90:69:e7"
 IEEE_GROUPABLE_DEVICE = "01:2d:6f:00:0a:90:69:e8"
+
+MANUFACTURER_CODE = 0x1166
+
+
+class _SharedAttributeIdCluster(CustomCluster, general.OnOff):
+    """OnOff cluster with a manufacturer-specific attribute sharing `on_off`'s ID.
+
+    This is what a quirk legitimately does, and what zigpy's ID-keyed
+    `Cluster.attributes` cannot represent.
+    """
+
+    class AttributeDefs(general.OnOff.AttributeDefs):
+        """Attribute definitions."""
+
+        mfg_on_off = foundation.ZCLAttributeDef(
+            id=general.OnOff.AttributeDefs.on_off.id,
+            type=zigpy.types.Bool,
+            access="rw",
+            manufacturer_code=MANUFACTURER_CODE,
+        )
+
 
 if TYPE_CHECKING:
     from zigpy.application import ControllerApplication
@@ -168,6 +193,16 @@ async def zha_client(
     return await hass_ws_client(hass)
 
 
+@pytest.fixture
+def on_off_cluster(hass: HomeAssistant, zha_client: MockHAClientWebSocket) -> Cluster:
+    """Return the switch device's OnOff cluster."""
+    zha_device = get_zha_gateway(hass).get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+    assert zha_device is not None
+    return zha_device.async_get_cluster(
+        1, general.OnOff.cluster_id, cluster_type=CLUSTER_TYPE_IN
+    )
+
+
 async def test_device_clusters(hass: HomeAssistant, zha_client) -> None:
     """Test getting device cluster info."""
     await zha_client.send_json(
@@ -212,6 +247,111 @@ async def test_device_cluster_attributes(zha_client) -> None:
     for attribute in attributes:
         assert attribute[ID] is not None
         assert attribute[ATTR_NAME] is not None
+        # No ZCL attribute of `OnOff` is manufacturer-specific
+        assert attribute[ATTR_MANUFACTURER_CODE] is None
+
+
+async def test_device_cluster_attributes_sharing_an_id(
+    zha_client: MockHAClientWebSocket, on_off_cluster: Cluster
+) -> None:
+    """Test that attributes sharing an ID are all listed, with their own codes."""
+    # `Cluster.attributes` is keyed by ID, so it only holds one of the two
+    with (
+        patch.object(
+            on_off_cluster, "attributes", _SharedAttributeIdCluster.attributes
+        ),
+        patch.object(
+            on_off_cluster,
+            "attributes_by_name",
+            _SharedAttributeIdCluster.attributes_by_name,
+        ),
+    ):
+        await zha_client.send_json(
+            {
+                ID: 5,
+                TYPE: "zha/devices/clusters/attributes",
+                ATTR_ENDPOINT_ID: 1,
+                ATTR_IEEE: IEEE_SWITCH_DEVICE,
+                ATTR_CLUSTER_ID: general.OnOff.cluster_id,
+                ATTR_CLUSTER_TYPE: CLUSTER_TYPE_IN,
+            }
+        )
+
+        msg = await zha_client.receive_json()
+
+    attribute_id = general.OnOff.AttributeDefs.on_off.id
+    shared = [attribute for attribute in msg["result"] if attribute[ID] == attribute_id]
+
+    assert sorted(shared, key=lambda attribute: attribute[ATTR_NAME]) == [
+        {
+            ID: attribute_id,
+            ATTR_NAME: "mfg_on_off",
+            ATTR_MANUFACTURER_CODE: MANUFACTURER_CODE,
+        },
+        {
+            ID: attribute_id,
+            ATTR_NAME: "on_off",
+            ATTR_MANUFACTURER_CODE: None,
+        },
+    ]
+
+
+async def test_read_cluster_attribute_by_name(
+    zha_client: MockHAClientWebSocket, on_off_cluster: Cluster
+) -> None:
+    """Test reading an attribute by name, which is unambiguous for a shared ID."""
+    attribute_name = _SharedAttributeIdCluster.AttributeDefs.mfg_on_off.name
+
+    with patch.object(
+        on_off_cluster,
+        "read_attributes",
+        AsyncMock(return_value=({attribute_name: True}, {})),
+    ) as read_attributes_mock:
+        await zha_client.send_json(
+            {
+                ID: 5,
+                TYPE: "zha/devices/clusters/attributes/value",
+                ATTR_ENDPOINT_ID: 1,
+                ATTR_IEEE: IEEE_SWITCH_DEVICE,
+                ATTR_CLUSTER_ID: general.OnOff.cluster_id,
+                ATTR_CLUSTER_TYPE: CLUSTER_TYPE_IN,
+                ATTR_ATTRIBUTE: attribute_name,
+            }
+        )
+
+        msg = await zha_client.receive_json()
+
+    assert read_attributes_mock.await_args.args[0] == [attribute_name]
+    assert msg["result"] == "True"
+
+
+async def test_read_cluster_attribute_by_id(
+    zha_client: MockHAClientWebSocket, on_off_cluster: Cluster
+) -> None:
+    """Test reading an attribute by ID still works."""
+    attribute_id = general.OnOff.AttributeDefs.on_off.id
+
+    with patch.object(
+        on_off_cluster,
+        "read_attributes",
+        AsyncMock(return_value=({attribute_id: True}, {})),
+    ) as read_attributes_mock:
+        await zha_client.send_json(
+            {
+                ID: 5,
+                TYPE: "zha/devices/clusters/attributes/value",
+                ATTR_ENDPOINT_ID: 1,
+                ATTR_IEEE: IEEE_SWITCH_DEVICE,
+                ATTR_CLUSTER_ID: general.OnOff.cluster_id,
+                ATTR_CLUSTER_TYPE: CLUSTER_TYPE_IN,
+                ATTR_ATTRIBUTE: attribute_id,
+            }
+        )
+
+        msg = await zha_client.receive_json()
+
+    assert read_attributes_mock.await_args.args[0] == [attribute_id]
+    assert msg["result"] == "True"
 
 
 async def test_device_cluster_commands(zha_client) -> None:

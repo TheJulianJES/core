@@ -86,6 +86,7 @@ CLIENT = "client"
 ID = "id"
 DEVICE_INFO = "device_info"
 
+ATTR_MANUFACTURER_CODE = "manufacturer_code"
 ATTR_NEW_CHANNEL = "new_channel"
 ATTR_TARGET_IEEE = "target_ieee"
 
@@ -598,14 +599,25 @@ async def websocket_device_cluster_attributes(
     cluster_type: str = msg[ATTR_CLUSTER_TYPE]
     cluster_attributes: list[dict[str, Any]] = []
     zha_device = zha_gateway.get_device(ieee)
-    attributes = None
     if zha_device is not None:
-        attributes = zha_device.async_get_cluster_attributes(
-            endpoint_id, cluster_id, cluster_type
+        cluster = zha_device.async_get_cluster(
+            endpoint_id, cluster_id, cluster_type=cluster_type
         )
-        if attributes is not None:
-            for attr_id, attr in attributes.items():
-                cluster_attributes.append({ID: attr_id, ATTR_NAME: attr.name})
+        # Not `Cluster.attributes`: that is keyed by attribute ID, which drops a
+        # quirk's manufacturer-specific attribute sharing a ZCL attribute's ID
+        cluster_attributes = [
+            {
+                ID: attribute.id,
+                ATTR_NAME: attribute.name,
+                # The code the definition declares, if it declares one
+                ATTR_MANUFACTURER_CODE: (
+                    None
+                    if attribute.manufacturer_code is ZIGPY_UNDEFINED
+                    else attribute.manufacturer_code
+                ),
+            }
+            for attribute in cluster.attributes_by_name.values()
+        ]
     _LOGGER.debug(
         "Requested attributes for: %s: %s, %s: '%s', %s: %s, %s: %s",
         ATTR_CLUSTER_ID,
@@ -699,7 +711,7 @@ async def websocket_device_cluster_commands(
         probatio.Required(ATTR_ENDPOINT_ID): int,
         probatio.Required(ATTR_CLUSTER_ID): int,
         probatio.Required(ATTR_CLUSTER_TYPE): str,
-        probatio.Required(ATTR_ATTRIBUTE): int,
+        probatio.Required(ATTR_ATTRIBUTE): probatio.Any(cv.positive_int, str),
         probatio.Optional(ATTR_MANUFACTURER): cv.positive_int,
     }
 )
@@ -713,7 +725,7 @@ async def websocket_read_zigbee_cluster_attributes(
     endpoint_id: int = msg[ATTR_ENDPOINT_ID]
     cluster_id: int = msg[ATTR_CLUSTER_ID]
     cluster_type: str = msg[ATTR_CLUSTER_TYPE]
-    attribute: int = msg[ATTR_ATTRIBUTE]
+    attribute: int | str = msg[ATTR_ATTRIBUTE]
     manufacturer: int | ZigpyUndefinedType = msg.get(ATTR_MANUFACTURER, ZIGPY_UNDEFINED)
     zha_device = zha_gateway.get_device(ieee)
     success = {}
