@@ -268,27 +268,29 @@ def endpoint_devices(
     Values that belong on the main node device are absent from the result. Only
     endpoints that the device config explicitly describes produce child devices:
 
-    - If the node defines endpoint groups, every value on an endpoint that belongs
-      to a non-main group is placed on a single child device for that group (so, for
-      example, the import and export endpoints of one meter clamp share one device).
-      Values on endpoints in a main-device group, or in no group, stay on the node.
-    - Otherwise, values on a labeled non-root endpoint are placed on a per-endpoint
-      child device, but only when that endpoint has a value whose signature (command
-      class, property, property key) also appears on another endpoint. The collision
-      is determined from discovered (non-suppressed) values, so a suppressed endpoint
-      value does not trigger a split.
+    - Every value on an endpoint that belongs to a non-main endpoint group is placed
+      on a single child device for that group (so, for example, the import and
+      export endpoints of one meter clamp share one device). Values on endpoints in
+      a main-device group stay on the node.
+    - Values on a labeled non-root endpoint that is in no group are placed on a
+      per-endpoint child device, but only when that endpoint has a value whose
+      signature (command class, property, property key) also appears on another
+      endpoint. The collision is determined from discovered (non-suppressed)
+      values, so a suppressed endpoint value does not trigger a split.
     """
     result: dict[str, Endpoint | EndpointGroup] = {}
 
-    if node.endpoint_groups:
-        for info in disc_infos:
-            endpoint_index = info.primary_value.endpoint
-            if not endpoint_index:
-                continue
-            group = node.get_endpoint_group(endpoint_index)
-            if group is not None and not group.is_main_device:
-                result[info.primary_value.value_id] = group
-        return result
+    grouped_endpoints: set[int] = set()
+    for info in disc_infos:
+        endpoint_index = info.primary_value.endpoint
+        if (
+            not endpoint_index
+            or (group := node.get_endpoint_group(endpoint_index)) is None
+        ):
+            continue
+        grouped_endpoints.add(endpoint_index)
+        if not group.is_main_device:
+            result[info.primary_value.value_id] = group
 
     endpoints_by_signature: dict[tuple, set[int]] = defaultdict(set)
     for info in disc_infos:
@@ -309,6 +311,7 @@ def endpoint_devices(
         endpoint_index = info.primary_value.endpoint
         if (
             endpoint_index
+            and endpoint_index not in grouped_endpoints
             and endpoint_index in colliding_endpoints
             and (endpoint := node.endpoints[endpoint_index]).endpoint_label
         ):
@@ -333,11 +336,8 @@ def endpoint_device_for_late_value(
     endpoint_index = primary_value.endpoint
     if not endpoint_index:
         return None
-    if node.endpoint_groups:
-        group = node.get_endpoint_group(endpoint_index)
-        if group is not None and not group.is_main_device:
-            return group
-        return None
+    if (group := node.get_endpoint_group(endpoint_index)) is not None:
+        return None if group.is_main_device else group
     return next(
         (
             endpoint_device
