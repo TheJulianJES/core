@@ -264,6 +264,9 @@ async def _set_zigbee_cluster_attributes(service: ServiceCall) -> None:
     manufacturer: int | ZigpyUndefinedType = service.data.get(
         ATTR_MANUFACTURER, ZIGPY_UNDEFINED
     )
+    # Legacy -1 ("no manufacturer code"): zigpy derives the code from the definition
+    if manufacturer == -1:
+        manufacturer = ZIGPY_UNDEFINED
     zha_device = _get_zigbee_device(zha_gateway, ieee)
     response = await zha_device.write_zigbee_attribute(
         endpoint_id,

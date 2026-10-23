@@ -125,6 +125,20 @@ async def test_service_without_gateway_raises(
             id="set_zigbee_cluster_attribute",
         ),
         pytest.param(
+            SERVICE_SET_ZIGBEE_CLUSTER_ATTRIBUTE,
+            {**SET_ATTRIBUTE_DATA, "manufacturer": 0x1234},
+            "write_zigbee_attribute",
+            call(1, 6, 0, 1, cluster_type="in", manufacturer=0x1234),
+            id="set_zigbee_cluster_attribute_manufacturer",
+        ),
+        pytest.param(
+            SERVICE_SET_ZIGBEE_CLUSTER_ATTRIBUTE,
+            {**SET_ATTRIBUTE_DATA, "manufacturer": -1},
+            "write_zigbee_attribute",
+            call(1, 6, 0, 1, cluster_type="in", manufacturer=ZIGPY_UNDEFINED),
+            id="set_zigbee_cluster_attribute_legacy_no_manufacturer",
+        ),
+        pytest.param(
             SERVICE_ISSUE_ZIGBEE_CLUSTER_COMMAND,
             {**CLUSTER_COMMAND_DATA, "manufacturer": 0x1234},
             "issue_cluster_command",
