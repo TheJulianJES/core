@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 import probatio
 import pytest
-from pytest_homeassistant.common import MockConfigEntry
+from pytest_homeassistant.common import MockConfigEntry, load_json_object_fixture
 from zwave_js_server.const import SecurityClass
 from zwave_js_server.model.controller import ProvisioningEntry
 from zwave_js_server.model.endpoint import Endpoint
@@ -318,6 +318,116 @@ async def test_endpoint_device_for_late_value(
     assert isinstance(clamp1, EndpointGroup)
     assert clamp1.label == "Clamp 1"
     assert endpoint_device_for_late_value(group_node, {}, total_value) is None
+
+
+def _load_node(client: MagicMock, fixture: str) -> Node:
+    """Load a node state fixture and add the node to the controller."""
+    node = Node(client, load_json_object_fixture(fixture, DOMAIN))
+    client.driver.controller.nodes[node.node_id] = node
+    return node
+
+
+async def test_endpoint_devices_main_group_with_labeled_endpoints(
+    client: MagicMock,
+) -> None:
+    """Test labeled endpoints outside a main-device group get per-endpoint children."""
+    # DS100: "Relay 1" and "Relay 2" are labeled and in no group, while the combined
+    # "Both Relays" endpoint 3 is in the main-device group.
+    node = _load_node(client, "vemmio_ds100_state.json")
+    relay1, relay2, both = (
+        _find_value(node, 37, endpoint, "currentValue") for endpoint in (1, 2, 3)
+    )
+
+    result = endpoint_devices(
+        node, [_make_disc_info(node, value) for value in (relay1, relay2, both)]
+    )
+
+    assert isinstance(result[relay1.value_id], Endpoint)
+    assert result[relay1.value_id].endpoint_label == "Relay 1"
+    assert result[relay2.value_id].endpoint_label == "Relay 2"
+    # The main-device group endpoint stays on the node device.
+    assert both.value_id not in result
+
+
+async def test_endpoint_devices_child_group_with_labeled_endpoints(
+    client: MagicMock,
+) -> None:
+    """Test a non-main group and labeled ungrouped endpoints on the same node."""
+    # PE653: endpoints 16-19 form the "Variable Speed Pump" group, endpoints 1-5 and
+    # 39 are labeled and in no group, and endpoint 6 is neither labeled nor grouped.
+    node = _load_node(client, "intermatic_pe653_state.json")
+    circuit1, circuit2, unlabeled, pump1, pump2, pool_spa = (
+        _find_value(node, 37, endpoint, "currentValue")
+        for endpoint in (1, 2, 6, 16, 17, 39)
+    )
+
+    result = endpoint_devices(
+        node,
+        [
+            _make_disc_info(node, value)
+            for value in (circuit1, circuit2, unlabeled, pump1, pump2, pool_spa)
+        ],
+    )
+
+    # The grouped endpoints share one child device for their group.
+    pump = result[pump1.value_id]
+    assert isinstance(pump, EndpointGroup)
+    assert pump.label == "Variable Speed Pump"
+    assert result[pump2.value_id] is pump
+    # Labeled endpoints in no group get their own child device.
+    assert result[circuit1.value_id].endpoint_label == "Circuit 1"
+    assert result[circuit2.value_id].endpoint_label == "Circuit 2"
+    assert result[pool_spa.value_id].endpoint_label == "P5043ME Pool/Spa Mode"
+    # An endpoint without a label or group stays on the node device.
+    assert unlabeled.value_id not in result
+
+
+async def test_endpoint_devices_child_group_collisions(client: MagicMock) -> None:
+    """Test which collisions split a labeled ungrouped endpoint on a grouped node."""
+    node = _load_node(client, "intermatic_pe653_state.json")
+    pump1, pump2, pool_spa = (
+        _find_value(node, 37, endpoint, "currentValue") for endpoint in (16, 17, 39)
+    )
+    # Circuit 1's setpoint exists on no other endpoint.
+    circuit1_setpoint = _find_value(node, 67, 1, "setpoint", 1)
+
+    result = endpoint_devices(
+        node,
+        [
+            _make_disc_info(node, value)
+            for value in (pump1, pump2, pool_spa, circuit1_setpoint)
+        ],
+    )
+
+    # A labeled ungrouped endpoint without a colliding value stays on the node device.
+    assert circuit1_setpoint.value_id not in result
+    # A collision with grouped endpoints counts too: the Pool/Spa Mode switch shares
+    # its signature only with the pump's switches and still gets its own child.
+    assert result[pool_spa.value_id].endpoint_label == "P5043ME Pool/Spa Mode"
+
+
+async def test_endpoint_device_for_late_value_main_group_with_labeled_endpoints(
+    client: MagicMock,
+) -> None:
+    """Test late values on a node with a main group and labeled endpoints."""
+    node = _load_node(client, "vemmio_ds100_state.json")
+    switches = [
+        _find_value(node, 37, endpoint, "currentValue") for endpoint in (1, 2, 3)
+    ]
+    placements = endpoint_devices(
+        node, [_make_disc_info(node, value) for value in switches]
+    )
+    relay1_meter = _find_value(node, 50, 1, "value", 65537)
+    both_meter = _find_value(node, 50, 3, "value", 65537)
+
+    # A value on a labeled endpoint that already has a child device goes to that child.
+    result = endpoint_device_for_late_value(node, placements, relay1_meter)
+    assert isinstance(result, Endpoint)
+    assert result.index == 1
+    # A value on the main-device group endpoint stays on the node device.
+    assert endpoint_device_for_late_value(node, placements, both_meter) is None
+    # Without a cached placement for the endpoint, the value stays on the node device.
+    assert endpoint_device_for_late_value(node, {}, relay1_meter) is None
 
 
 async def test_get_home_and_node_id_from_device_entry(
