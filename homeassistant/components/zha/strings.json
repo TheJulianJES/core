@@ -2668,7 +2668,7 @@
           "name": "[%key:component::zha::services::permit::fields::ieee::name%]"
         },
         "manufacturer": {
-          "description": "Manufacturer code. Use a value of \"-1\" to force no code to be set.",
+          "description": "Manufacturer code. Normally left empty: the code is derived from the attribute or command definition.",
           "name": "Manufacturer"
         },
         "value": {

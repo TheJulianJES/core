@@ -247,6 +247,10 @@ async def _set_zigbee_cluster_attributes(service: ServiceCall) -> None:
     manufacturer: int | ZigpyUndefinedType = service.data.get(
         ATTR_MANUFACTURER, ZIGPY_UNDEFINED
     )
+    # -1 is a legacy sentinel for "no manufacturer code", which zigpy cannot
+    # express: it derives the code from the attribute definition. Treat it as not given
+    if manufacturer == -1:
+        manufacturer = ZIGPY_UNDEFINED
     zha_device = zha_gateway.get_device(ieee)
     response = None
     if zha_device is not None:

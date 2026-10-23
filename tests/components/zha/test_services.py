@@ -1,8 +1,20 @@
 """Tests for the ZHA services."""
 
+from collections.abc import Callable, Coroutine
+from unittest.mock import AsyncMock, patch
+
 import pytest
+from zha.zigbee.device import Device
+from zigpy.const import SIG_EP_INPUT, SIG_EP_OUTPUT, SIG_EP_PROFILE, SIG_EP_TYPE
+import zigpy.profiles.zha
+from zigpy.typing import (
+    UNDEFINED as ZIGPY_UNDEFINED,
+    UndefinedType as ZigpyUndefinedType,
+)
+from zigpy.zcl.clusters import general
 
 from homeassistant.components.zha.const import DOMAIN
+from homeassistant.components.zha.helpers import get_zha_gateway
 from homeassistant.components.zha.services import (
     SERVICE_ISSUE_ZIGBEE_CLUSTER_COMMAND,
     SERVICE_ISSUE_ZIGBEE_GROUP_COMMAND,
@@ -17,6 +29,33 @@ from homeassistant.exceptions import ServiceValidationError
 from homeassistant.setup import async_setup_component
 
 IEEE_SWITCH_DEVICE = "01:2d:6f:00:0a:90:69:e7"
+
+
+@pytest.fixture
+async def zha_switch_device(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[None]],
+    zigpy_device_mock: Callable[..., Device],
+) -> None:
+    """Set up ZHA with a single switch device."""
+    await setup_zha()
+    gateway = get_zha_gateway(hass)
+
+    zigpy_device = zigpy_device_mock(
+        {
+            1: {
+                SIG_EP_INPUT: [general.OnOff.cluster_id, general.Basic.cluster_id],
+                SIG_EP_OUTPUT: [],
+                SIG_EP_TYPE: zigpy.profiles.zha.DeviceType.ON_OFF_SWITCH,
+                SIG_EP_PROFILE: zigpy.profiles.zha.PROFILE_ID,
+            }
+        },
+        ieee=IEEE_SWITCH_DEVICE,
+    )
+
+    gateway.get_or_create_device(zigpy_device)
+    await gateway.async_device_initialized(zigpy_device)
+    await hass.async_block_till_done(wait_background_tasks=True)
 
 
 async def test_services_registered_without_gateway(hass: HomeAssistant) -> None:
@@ -93,3 +132,40 @@ async def test_service_without_gateway_raises(
 
     assert err.value.translation_domain == DOMAIN
     assert err.value.translation_key == "no_gateway"
+
+
+@pytest.mark.parametrize(
+    ("service_manufacturer", "expected_manufacturer"),
+    [
+        pytest.param({}, ZIGPY_UNDEFINED, id="omitted"),
+        pytest.param({"manufacturer": -1}, ZIGPY_UNDEFINED, id="minus_one"),
+        pytest.param({"manufacturer": 0x1166}, 0x1166, id="explicit_code"),
+    ],
+)
+@pytest.mark.usefixtures("zha_switch_device")
+async def test_set_zigbee_cluster_attribute_manufacturer(
+    hass: HomeAssistant,
+    service_manufacturer: dict[str, int],
+    expected_manufacturer: int | ZigpyUndefinedType,
+) -> None:
+    """Test the legacy -1 manufacturer sentinel no longer reaches zigpy."""
+    with patch.object(
+        Device, "write_zigbee_attribute", AsyncMock()
+    ) as write_attribute_mock:
+        await hass.services.async_call(
+            DOMAIN,
+            SERVICE_SET_ZIGBEE_CLUSTER_ATTRIBUTE,
+            {
+                "ieee": IEEE_SWITCH_DEVICE,
+                "endpoint_id": 1,
+                "cluster_id": general.OnOff.cluster_id,
+                "attribute": general.OnOff.AttributeDefs.on_off.name,
+                "value": 1,
+            }
+            | service_manufacturer,
+            blocking=True,
+        )
+
+    assert (
+        write_attribute_mock.await_args.kwargs["manufacturer"] == expected_manufacturer
+    )
