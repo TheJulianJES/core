@@ -3,45 +3,108 @@
   dict({
     '3245146787-39': dict({
       'children': dict({
+        '3245146787-39-g1': dict({
+          'entities': dict({
+            'button.home_energy_meter_8_clamp_1_reset_accumulated_values_consumption': 'Reset accumulated values Consumption',
+            'button.home_energy_meter_8_clamp_1_reset_accumulated_values_production': 'Reset accumulated values Production',
+            'button.home_energy_meter_8_clamp_1_reset_electric_consumption_kvah': 'Reset Electric Consumption [kVAh]',
+            'button.home_energy_meter_8_clamp_1_reset_electric_consumption_kvarh': 'Reset Electric Consumption [kVarh]',
+            'button.home_energy_meter_8_clamp_1_reset_electric_consumption_kwh': 'Reset Electric Consumption [kWh]',
+            'button.home_energy_meter_8_clamp_1_reset_electric_production_kvah': 'Reset Electric Production [kVAh]',
+            'button.home_energy_meter_8_clamp_1_reset_electric_production_kvarh': 'Reset Electric Production [kVarh]',
+            'button.home_energy_meter_8_clamp_1_reset_electric_production_kwh': 'Reset Electric Production [kWh]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_kvah': 'Electric Consumption [kVAh]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_kvar': 'Electric Consumption [kVar]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_kvarh': 'Electric Consumption [kVarh]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_power_factor': 'Electric Consumption [Power Factor]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.home_energy_meter_8_clamp_1_electric_consumption_w': 'Electric Consumption [W]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_a': 'Electric Production [A]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_kvah': 'Electric Production [kVAh]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_kvar': 'Electric Production [kVar]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_kvarh': 'Electric Production [kVarh]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_kwh': 'Electric Production [kWh]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_power_factor': 'Electric Production [Power Factor]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_v': 'Electric Production [V]',
+            'sensor.home_energy_meter_8_clamp_1_electric_production_w': 'Electric Production [W]',
+          }),
+          'name': 'Clamp 1',
+        }),
+        '3245146787-39-g2': dict({
+          'entities': dict({
+            'button.home_energy_meter_8_clamp_2_reset_accumulated_values_consumption': 'Reset accumulated values Consumption',
+            'button.home_energy_meter_8_clamp_2_reset_accumulated_values_production': 'Reset accumulated values Production',
+            'button.home_energy_meter_8_clamp_2_reset_electric_consumption_kvah': 'Reset Electric Consumption [kVAh]',
+            'button.home_energy_meter_8_clamp_2_reset_electric_consumption_kvarh': 'Reset Electric Consumption [kVarh]',
+            'button.home_energy_meter_8_clamp_2_reset_electric_consumption_kwh': 'Reset Electric Consumption [kWh]',
+            'button.home_energy_meter_8_clamp_2_reset_electric_production_kvah': 'Reset Electric Production [kVAh]',
+            'button.home_energy_meter_8_clamp_2_reset_electric_production_kvarh': 'Reset Electric Production [kVarh]',
+            'button.home_energy_meter_8_clamp_2_reset_electric_production_kwh': 'Reset Electric Production [kWh]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_kvah': 'Electric Consumption [kVAh]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_kvar': 'Electric Consumption [kVar]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_kvarh': 'Electric Consumption [kVarh]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_power_factor': 'Electric Consumption [Power Factor]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.home_energy_meter_8_clamp_2_electric_consumption_w': 'Electric Consumption [W]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_a': 'Electric Production [A]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_kvah': 'Electric Production [kVAh]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_kvar': 'Electric Production [kVar]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_kvarh': 'Electric Production [kVarh]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_kwh': 'Electric Production [kWh]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_power_factor': 'Electric Production [Power Factor]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_v': 'Electric Production [V]',
+            'sensor.home_energy_meter_8_clamp_2_electric_production_w': 'Electric Production [W]',
+          }),
+          'name': 'Clamp 2',
+        }),
+        '3245146787-39-g3': dict({
+          'entities': dict({
+            'button.home_energy_meter_8_clamp_3_reset_accumulated_values_consumption': 'Reset accumulated values Consumption',
+            'button.home_energy_meter_8_clamp_3_reset_accumulated_values_production': 'Reset accumulated values Production',
+            'button.home_energy_meter_8_clamp_3_reset_electric_consumption_kvah': 'Reset Electric Consumption [kVAh]',
+            'button.home_energy_meter_8_clamp_3_reset_electric_consumption_kvarh': 'Reset Electric Consumption [kVarh]',
+            'button.home_energy_meter_8_clamp_3_reset_electric_consumption_kwh': 'Reset Electric Consumption [kWh]',
+            'button.home_energy_meter_8_clamp_3_reset_electric_production_kvah': 'Reset Electric Production [kVAh]',
+            'button.home_energy_meter_8_clamp_3_reset_electric_production_kvarh': 'Reset Electric Production [kVarh]',
+            'button.home_energy_meter_8_clamp_3_reset_electric_production_kwh': 'Reset Electric Production [kWh]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_kvah': 'Electric Consumption [kVAh]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_kvar': 'Electric Consumption [kVar]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_kvarh': 'Electric Consumption [kVarh]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_power_factor': 'Electric Consumption [Power Factor]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.home_energy_meter_8_clamp_3_electric_consumption_w': 'Electric Consumption [W]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_a': 'Electric Production [A]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_kvah': 'Electric Production [kVAh]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_kvar': 'Electric Production [kVar]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_kvarh': 'Electric Production [kVarh]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_kwh': 'Electric Production [kWh]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_power_factor': 'Electric Production [Power Factor]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_v': 'Electric Production [V]',
+            'sensor.home_energy_meter_8_clamp_3_electric_production_w': 'Electric Production [W]',
+          }),
+          'name': 'Clamp 3',
+        }),
       }),
       'entities': dict({
         'button.home_energy_meter_8_identify': 'Identify',
         'button.home_energy_meter_8_ping': 'Ping',
-        'button.home_energy_meter_8_reset_accumulated_values': 'Reset accumulated values',
         'button.home_energy_meter_8_reset_accumulated_values_10': 'Reset accumulated values (10)',
-        'button.home_energy_meter_8_reset_accumulated_values_2': 'Reset accumulated values (2)',
-        'button.home_energy_meter_8_reset_accumulated_values_3': 'Reset accumulated values (3)',
-        'button.home_energy_meter_8_reset_accumulated_values_4': 'Reset accumulated values (4)',
-        'button.home_energy_meter_8_reset_accumulated_values_5': 'Reset accumulated values (5)',
-        'button.home_energy_meter_8_reset_accumulated_values_6': 'Reset accumulated values (6)',
         'button.home_energy_meter_8_reset_accumulated_values_7': 'Reset accumulated values (7)',
         'button.home_energy_meter_8_reset_accumulated_values_8': 'Reset accumulated values (8)',
         'button.home_energy_meter_8_reset_accumulated_values_9': 'Reset accumulated values (9)',
-        'button.home_energy_meter_8_reset_electric_consumption_kvah': 'Reset Electric Consumption [kVAh]',
-        'button.home_energy_meter_8_reset_electric_consumption_kvah_3': 'Reset Electric Consumption [kVAh] (3)',
-        'button.home_energy_meter_8_reset_electric_consumption_kvah_5': 'Reset Electric Consumption [kVAh] (5)',
         'button.home_energy_meter_8_reset_electric_consumption_kvah_7': 'Reset Electric Consumption [kVAh] (7)',
-        'button.home_energy_meter_8_reset_electric_consumption_kvarh': 'Reset Electric Consumption [kVarh]',
-        'button.home_energy_meter_8_reset_electric_consumption_kvarh_3': 'Reset Electric Consumption [kVarh] (3)',
-        'button.home_energy_meter_8_reset_electric_consumption_kvarh_5': 'Reset Electric Consumption [kVarh] (5)',
         'button.home_energy_meter_8_reset_electric_consumption_kvarh_7': 'Reset Electric Consumption [kVarh] (7)',
-        'button.home_energy_meter_8_reset_electric_consumption_kwh': 'Reset Electric Consumption [kWh]',
-        'button.home_energy_meter_8_reset_electric_consumption_kwh_3': 'Reset Electric Consumption [kWh] (3)',
-        'button.home_energy_meter_8_reset_electric_consumption_kwh_5': 'Reset Electric Consumption [kWh] (5)',
         'button.home_energy_meter_8_reset_electric_consumption_kwh_7': 'Reset Electric Consumption [kWh] (7)',
         'button.home_energy_meter_8_reset_electric_consumption_kwh_9': 'Reset Electric Consumption [kWh] (9)',
-        'button.home_energy_meter_8_reset_electric_production_kvah': 'Reset Electric Production [kVAh]',
-        'button.home_energy_meter_8_reset_electric_production_kvah_4': 'Reset Electric Production [kVAh] (4)',
-        'button.home_energy_meter_8_reset_electric_production_kvah_6': 'Reset Electric Production [kVAh] (6)',
         'button.home_energy_meter_8_reset_electric_production_kvah_8': 'Reset Electric Production [kVAh] (8)',
-        'button.home_energy_meter_8_reset_electric_production_kvarh': 'Reset Electric Production [kVarh]',
-        'button.home_energy_meter_8_reset_electric_production_kvarh_4': 'Reset Electric Production [kVarh] (4)',
-        'button.home_energy_meter_8_reset_electric_production_kvarh_6': 'Reset Electric Production [kVarh] (6)',
         'button.home_energy_meter_8_reset_electric_production_kvarh_8': 'Reset Electric Production [kVarh] (8)',
-        'button.home_energy_meter_8_reset_electric_production_kwh': 'Reset Electric Production [kWh]',
         'button.home_energy_meter_8_reset_electric_production_kwh_10': 'Reset Electric Production [kWh] (10)',
-        'button.home_energy_meter_8_reset_electric_production_kwh_4': 'Reset Electric Production [kWh] (4)',
-        'button.home_energy_meter_8_reset_electric_production_kwh_6': 'Reset Electric Production [kWh] (6)',
         'button.home_energy_meter_8_reset_electric_production_kwh_8': 'Reset Electric Production [kWh] (8)',
         'number.home_energy_meter_8_automatic_reporting_interval_group_1_export': 'Automatic Reporting Interval: Group 1 (Export)',
         'number.home_energy_meter_8_automatic_reporting_interval_group_1_import': 'Automatic Reporting Interval: Group 1 (Import)',
@@ -262,73 +325,25 @@
         'select.home_energy_meter_8_selective_reporting': 'Selective Reporting',
         'sensor.home_energy_meter_8_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.home_energy_meter_8_commands_dropped_tx': 'Commands dropped (TX)',
-        'sensor.home_energy_meter_8_electric_consumption_a': 'Electric Consumption [A]',
-        'sensor.home_energy_meter_8_electric_consumption_a_3': 'Electric Consumption [A] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_a_5': 'Electric Consumption [A] (5)',
         'sensor.home_energy_meter_8_electric_consumption_a_7': 'Electric Consumption [A] (7)',
-        'sensor.home_energy_meter_8_electric_consumption_kvah': 'Electric Consumption [kVAh]',
-        'sensor.home_energy_meter_8_electric_consumption_kvah_3': 'Electric Consumption [kVAh] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_kvah_5': 'Electric Consumption [kVAh] (5)',
         'sensor.home_energy_meter_8_electric_consumption_kvah_7': 'Electric Consumption [kVAh] (7)',
-        'sensor.home_energy_meter_8_electric_consumption_kvar': 'Electric Consumption [kVar]',
-        'sensor.home_energy_meter_8_electric_consumption_kvar_3': 'Electric Consumption [kVar] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_kvar_5': 'Electric Consumption [kVar] (5)',
         'sensor.home_energy_meter_8_electric_consumption_kvar_7': 'Electric Consumption [kVar] (7)',
-        'sensor.home_energy_meter_8_electric_consumption_kvarh': 'Electric Consumption [kVarh]',
-        'sensor.home_energy_meter_8_electric_consumption_kvarh_3': 'Electric Consumption [kVarh] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_kvarh_5': 'Electric Consumption [kVarh] (5)',
         'sensor.home_energy_meter_8_electric_consumption_kvarh_7': 'Electric Consumption [kVarh] (7)',
-        'sensor.home_energy_meter_8_electric_consumption_kwh': 'Electric Consumption [kWh]',
-        'sensor.home_energy_meter_8_electric_consumption_kwh_3': 'Electric Consumption [kWh] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_kwh_5': 'Electric Consumption [kWh] (5)',
         'sensor.home_energy_meter_8_electric_consumption_kwh_7': 'Electric Consumption [kWh] (7)',
         'sensor.home_energy_meter_8_electric_consumption_kwh_9': 'Electric Consumption [kWh] (9)',
-        'sensor.home_energy_meter_8_electric_consumption_power_factor': 'Electric Consumption [Power Factor]',
-        'sensor.home_energy_meter_8_electric_consumption_power_factor_3': 'Electric Consumption [Power Factor] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_power_factor_5': 'Electric Consumption [Power Factor] (5)',
         'sensor.home_energy_meter_8_electric_consumption_power_factor_7': 'Electric Consumption [Power Factor] (7)',
-        'sensor.home_energy_meter_8_electric_consumption_v': 'Electric Consumption [V]',
-        'sensor.home_energy_meter_8_electric_consumption_v_3': 'Electric Consumption [V] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_v_5': 'Electric Consumption [V] (5)',
         'sensor.home_energy_meter_8_electric_consumption_v_7': 'Electric Consumption [V] (7)',
-        'sensor.home_energy_meter_8_electric_consumption_w': 'Electric Consumption [W]',
-        'sensor.home_energy_meter_8_electric_consumption_w_3': 'Electric Consumption [W] (3)',
-        'sensor.home_energy_meter_8_electric_consumption_w_5': 'Electric Consumption [W] (5)',
         'sensor.home_energy_meter_8_electric_consumption_w_7': 'Electric Consumption [W] (7)',
         'sensor.home_energy_meter_8_electric_consumption_w_9': 'Electric Consumption [W] (9)',
-        'sensor.home_energy_meter_8_electric_production_a': 'Electric Production [A]',
-        'sensor.home_energy_meter_8_electric_production_a_4': 'Electric Production [A] (4)',
-        'sensor.home_energy_meter_8_electric_production_a_6': 'Electric Production [A] (6)',
         'sensor.home_energy_meter_8_electric_production_a_8': 'Electric Production [A] (8)',
-        'sensor.home_energy_meter_8_electric_production_kvah': 'Electric Production [kVAh]',
-        'sensor.home_energy_meter_8_electric_production_kvah_4': 'Electric Production [kVAh] (4)',
-        'sensor.home_energy_meter_8_electric_production_kvah_6': 'Electric Production [kVAh] (6)',
         'sensor.home_energy_meter_8_electric_production_kvah_8': 'Electric Production [kVAh] (8)',
-        'sensor.home_energy_meter_8_electric_production_kvar': 'Electric Production [kVar]',
-        'sensor.home_energy_meter_8_electric_production_kvar_4': 'Electric Production [kVar] (4)',
-        'sensor.home_energy_meter_8_electric_production_kvar_6': 'Electric Production [kVar] (6)',
         'sensor.home_energy_meter_8_electric_production_kvar_8': 'Electric Production [kVar] (8)',
-        'sensor.home_energy_meter_8_electric_production_kvarh': 'Electric Production [kVarh]',
-        'sensor.home_energy_meter_8_electric_production_kvarh_4': 'Electric Production [kVarh] (4)',
-        'sensor.home_energy_meter_8_electric_production_kvarh_6': 'Electric Production [kVarh] (6)',
         'sensor.home_energy_meter_8_electric_production_kvarh_8': 'Electric Production [kVarh] (8)',
-        'sensor.home_energy_meter_8_electric_production_kwh': 'Electric Production [kWh]',
         'sensor.home_energy_meter_8_electric_production_kwh_10': 'Electric Production [kWh] (10)',
-        'sensor.home_energy_meter_8_electric_production_kwh_4': 'Electric Production [kWh] (4)',
-        'sensor.home_energy_meter_8_electric_production_kwh_6': 'Electric Production [kWh] (6)',
         'sensor.home_energy_meter_8_electric_production_kwh_8': 'Electric Production [kWh] (8)',
-        'sensor.home_energy_meter_8_electric_production_power_factor': 'Electric Production [Power Factor]',
-        'sensor.home_energy_meter_8_electric_production_power_factor_4': 'Electric Production [Power Factor] (4)',
-        'sensor.home_energy_meter_8_electric_production_power_factor_6': 'Electric Production [Power Factor] (6)',
         'sensor.home_energy_meter_8_electric_production_power_factor_8': 'Electric Production [Power Factor] (8)',
-        'sensor.home_energy_meter_8_electric_production_v': 'Electric Production [V]',
-        'sensor.home_energy_meter_8_electric_production_v_4': 'Electric Production [V] (4)',
-        'sensor.home_energy_meter_8_electric_production_v_6': 'Electric Production [V] (6)',
         'sensor.home_energy_meter_8_electric_production_v_8': 'Electric Production [V] (8)',
-        'sensor.home_energy_meter_8_electric_production_w': 'Electric Production [W]',
         'sensor.home_energy_meter_8_electric_production_w_10': 'Electric Production [W] (10)',
-        'sensor.home_energy_meter_8_electric_production_w_4': 'Electric Production [W] (4)',
-        'sensor.home_energy_meter_8_electric_production_w_6': 'Electric Production [W] (6)',
         'sensor.home_energy_meter_8_electric_production_w_8': 'Electric Production [W] (8)',
         'sensor.home_energy_meter_8_last_seen': 'Last seen',
         'sensor.home_energy_meter_8_node_status': 'Node status',
@@ -357,7 +372,6 @@
         'button.test_location_fgr_223_test_cover_ping': 'Ping',
         'button.test_location_fgr_223_test_cover_reset_accumulated_values': 'Reset accumulated values',
         'cover.test_location_fgr_223_test_cover': '',
-        'cover.test_location_fgr_223_test_cover_2': '(2)',
         'number.test_location_fgr_223_test_cover_alarm_1_event_state_parameters': 'Alarm #1: Event/State Parameters',
         'number.test_location_fgr_223_test_cover_alarm_1_notification_status': 'Alarm #1: Notification Status',
         'number.test_location_fgr_223_test_cover_alarm_1_notification_type': 'Alarm #1: Notification Type',
@@ -480,6 +494,24 @@
   dict({
     '3245146787-24': dict({
       'children': dict({
+        '3245146787-24-2': dict({
+          'entities': dict({
+            'sensor.floor_thermostat_room_sensor_air_temperature': 'Air temperature',
+          }),
+          'name': 'Room Sensor',
+        }),
+        '3245146787-24-3': dict({
+          'entities': dict({
+            'sensor.floor_thermostat_external_sensor_air_temperature': 'Air temperature',
+          }),
+          'name': 'External Sensor',
+        }),
+        '3245146787-24-4': dict({
+          'entities': dict({
+            'sensor.floor_thermostat_floor_sensor_air_temperature': 'Air temperature',
+          }),
+          'name': 'Floor Sensor',
+        }),
       }),
       'entities': dict({
         'button.floor_thermostat_ping': 'Ping',
@@ -505,9 +537,6 @@
         'select.floor_thermostat_floor_sensor_type': 'Floor Sensor Type',
         'select.floor_thermostat_sensor_mode': 'Sensor Mode',
         'select.floor_thermostat_temperature_display': 'Temperature Display',
-        'sensor.floor_thermostat_air_temperature': 'Air temperature',
-        'sensor.floor_thermostat_air_temperature_3': 'Air temperature (3)',
-        'sensor.floor_thermostat_air_temperature_4': 'Air temperature (4)',
         'sensor.floor_thermostat_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.floor_thermostat_commands_dropped_tx': 'Commands dropped (TX)',
         'sensor.floor_thermostat_electric_consumption_kwh': 'Electric Consumption [kWh]',
@@ -717,7 +746,6 @@
         'button.wave_shutter_reset_electric': 'Reset (Electric)',
         'button.wave_shutter_reset_electric_2': 'Reset (Electric) (2)',
         'cover.wave_shutter': '',
-        'cover.wave_shutter_2': '(2)',
         'number.wave_shutter_alarm_conf_co': 'Alarm conf. - CO',
         'number.wave_shutter_alarm_conf_heat': 'Alarm conf. - Heat',
         'number.wave_shutter_alarm_conf_smoke': 'Alarm conf. - Smoke',
@@ -937,6 +965,30 @@
   dict({
     '3245146787-57': dict({
       'children': dict({
+        '3245146787-57-1': dict({
+          'entities': dict({
+            'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_input_1_general_purpose': 'General purpose',
+          }),
+          'name': 'Input 1',
+        }),
+        '3245146787-57-2': dict({
+          'entities': dict({
+            'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_input_2_general_purpose': 'General purpose',
+          }),
+          'name': 'Input 2',
+        }),
+        '3245146787-57-3': dict({
+          'entities': dict({
+            'switch.dual_digital_or_analog_voltage_input_and_dual_contact_relay_relay_1': '',
+          }),
+          'name': 'Relay 1',
+        }),
+        '3245146787-57-4': dict({
+          'entities': dict({
+            'switch.dual_digital_or_analog_voltage_input_and_dual_contact_relay_relay_2': '',
+          }),
+          'name': 'Relay 2',
+        }),
       }),
       'entities': dict({
         'button.dual_digital_or_analog_voltage_input_and_dual_contact_relay_ping': 'Ping',
@@ -962,8 +1014,6 @@
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_alarm_type': 'Alarm Type',
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_commands_dropped_tx': 'Commands dropped (TX)',
-        'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_general_purpose': 'General purpose',
-        'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_general_purpose_2': 'General purpose (2)',
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_last_seen': 'Last seen',
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_node_status': 'Node status',
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_round_trip_time': 'Round trip time',
@@ -971,8 +1021,6 @@
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_successful_commands_rx': 'Successful commands (RX)',
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_successful_commands_tx': 'Successful commands (TX)',
         'sensor.dual_digital_or_analog_voltage_input_and_dual_contact_relay_timed_out_responses': 'Timed out responses',
-        'switch.dual_digital_or_analog_voltage_input_and_dual_contact_relay': '',
-        'switch.dual_digital_or_analog_voltage_input_and_dual_contact_relay_4': '(4)',
         'update.dual_digital_or_analog_voltage_input_and_dual_contact_relay_firmware': 'Firmware',
       }),
       'name': 'Dual Digital or Analog Voltage input and Dual Contact Relay',
@@ -983,6 +1031,18 @@
   dict({
     '3245146787-81': dict({
       'children': dict({
+        '3245146787-81-1': dict({
+          'entities': dict({
+            'switch.plug_in_2_outlet_switch_with_usb_500s_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-81-2': dict({
+          'entities': dict({
+            'switch.plug_in_2_outlet_switch_with_usb_500s_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
       }),
       'entities': dict({
         'button.plug_in_2_outlet_switch_with_usb_500s_ping': 'Ping',
@@ -996,8 +1056,6 @@
         'sensor.plug_in_2_outlet_switch_with_usb_500s_successful_commands_rx': 'Successful commands (RX)',
         'sensor.plug_in_2_outlet_switch_with_usb_500s_successful_commands_tx': 'Successful commands (TX)',
         'sensor.plug_in_2_outlet_switch_with_usb_500s_timed_out_responses': 'Timed out responses',
-        'switch.plug_in_2_outlet_switch_with_usb_500s': '',
-        'switch.plug_in_2_outlet_switch_with_usb_500s_2': '(2)',
         'update.plug_in_2_outlet_switch_with_usb_500s_firmware': 'Firmware',
       }),
       'name': 'Plug-In 2-Outlet Switch with USB, 500S',
@@ -1008,6 +1066,19 @@
   dict({
     '3245146787-37': dict({
       'children': dict({
+        '3245146787-37-2': dict({
+          'entities': dict({
+            'sensor.multipurpose_relay_temperature_sensor_1_air_temperature': 'Air temperature',
+            'sensor.multipurpose_relay_temperature_sensor_1_power': 'Power',
+          }),
+          'name': 'Temperature Sensor 1',
+        }),
+        '3245146787-37-3': dict({
+          'entities': dict({
+            'sensor.multipurpose_relay_temperature_sensor_2_air_temperature': 'Air temperature',
+          }),
+          'name': 'Temperature Sensor 2',
+        }),
       }),
       'entities': dict({
         'button.multipurpose_relay_ping': 'Ping',
@@ -1029,8 +1100,6 @@
         'select.multipurpose_relay_status_led': 'Status LED',
         'select.multipurpose_relay_thermistor_type_input_1': 'Thermistor Type Input 1',
         'select.multipurpose_relay_thermistor_type_input_2': 'Thermistor Type Input 2',
-        'sensor.multipurpose_relay_air_temperature': 'Air temperature',
-        'sensor.multipurpose_relay_air_temperature_3': 'Air temperature (3)',
         'sensor.multipurpose_relay_alarm_level': 'Alarm Level',
         'sensor.multipurpose_relay_alarm_type': 'Alarm Type',
         'sensor.multipurpose_relay_commands_dropped_rx': 'Commands dropped (RX)',
@@ -1040,7 +1109,6 @@
         'sensor.multipurpose_relay_electric_consumed_w': 'Electric Consumed [W]',
         'sensor.multipurpose_relay_last_seen': 'Last seen',
         'sensor.multipurpose_relay_node_status': 'Node status',
-        'sensor.multipurpose_relay_power': 'Power',
         'sensor.multipurpose_relay_round_trip_time': 'Round trip time',
         'sensor.multipurpose_relay_signal_strength': 'Signal strength',
         'sensor.multipurpose_relay_successful_commands_rx': 'Successful commands (RX)',
@@ -1057,6 +1125,36 @@
   dict({
     '3245146787-84': dict({
       'children': dict({
+        '3245146787-84-1': dict({
+          'entities': dict({
+            'switch.relay_switch_quinto_relay_1': '',
+          }),
+          'name': 'Relay 1',
+        }),
+        '3245146787-84-2': dict({
+          'entities': dict({
+            'switch.relay_switch_quinto_relay_2': '',
+          }),
+          'name': 'Relay 2',
+        }),
+        '3245146787-84-3': dict({
+          'entities': dict({
+            'switch.relay_switch_quinto_relay_3': '',
+          }),
+          'name': 'Relay 3',
+        }),
+        '3245146787-84-4': dict({
+          'entities': dict({
+            'switch.relay_switch_quinto_relay_4': '',
+          }),
+          'name': 'Relay 4',
+        }),
+        '3245146787-84-5': dict({
+          'entities': dict({
+            'switch.relay_switch_quinto_relay_5': '',
+          }),
+          'name': 'Relay 5',
+        }),
       }),
       'entities': dict({
         'button.relay_switch_quinto_identify': 'Identify',
@@ -1124,11 +1222,6 @@
         'sensor.relay_switch_quinto_successful_commands_rx': 'Successful commands (RX)',
         'sensor.relay_switch_quinto_successful_commands_tx': 'Successful commands (TX)',
         'sensor.relay_switch_quinto_timed_out_responses': 'Timed out responses',
-        'switch.relay_switch_quinto': '',
-        'switch.relay_switch_quinto_2': '(2)',
-        'switch.relay_switch_quinto_3': '(3)',
-        'switch.relay_switch_quinto_4': '(4)',
-        'switch.relay_switch_quinto_5': '(5)',
         'update.relay_switch_quinto_firmware': 'Firmware',
       }),
       'name': 'Relay Switch Quinto',
@@ -1139,6 +1232,15 @@
   dict({
     '3245146787-19': dict({
       'children': dict({
+        '3245146787-19-g1': dict({
+          'entities': dict({
+            'switch.pool_control_variable_speed_pump_vsp_speed_1': 'VSP Speed 1',
+            'switch.pool_control_variable_speed_pump_vsp_speed_2': 'VSP Speed 2',
+            'switch.pool_control_variable_speed_pump_vsp_speed_3': 'VSP Speed 3',
+            'switch.pool_control_variable_speed_pump_vsp_speed_4': 'VSP Speed 4',
+          }),
+          'name': 'Variable Speed Pump',
+        }),
       }),
       'entities': dict({
         'binary_sensor.pool_control_sensor_state_any': 'Sensor state (Any)',
@@ -1220,10 +1322,6 @@
         'switch.pool_control_13': '(13)',
         'switch.pool_control_14': '(14)',
         'switch.pool_control_15': '(15)',
-        'switch.pool_control_16': '(16)',
-        'switch.pool_control_17': '(17)',
-        'switch.pool_control_18': '(18)',
-        'switch.pool_control_19': '(19)',
         'switch.pool_control_2': '(2)',
         'switch.pool_control_20': '(20)',
         'switch.pool_control_21': '(21)',
@@ -1261,19 +1359,43 @@
   dict({
     '3245146787-32': dict({
       'children': dict({
+        '3245146787-32-1': dict({
+          'entities': dict({
+            'light.fuga_wall_4_way_switch_with_led_relay_button_1': '',
+            'number.fuga_wall_4_way_switch_with_led_relay_button_1_indicator_value': 'Indicator value',
+            'switch.fuga_wall_4_way_switch_with_led_relay_button_1': '',
+          }),
+          'name': 'Button 1',
+        }),
+        '3245146787-32-2': dict({
+          'entities': dict({
+            'light.fuga_wall_4_way_switch_with_led_relay_button_2': '',
+            'number.fuga_wall_4_way_switch_with_led_relay_button_2_indicator_value': 'Indicator value',
+            'switch.fuga_wall_4_way_switch_with_led_relay_button_2': '',
+          }),
+          'name': 'Button 2',
+        }),
+        '3245146787-32-3': dict({
+          'entities': dict({
+            'light.fuga_wall_4_way_switch_with_led_relay_button_3': '',
+            'number.fuga_wall_4_way_switch_with_led_relay_button_3_indicator_value': 'Indicator value',
+            'switch.fuga_wall_4_way_switch_with_led_relay_button_3': '',
+          }),
+          'name': 'Button 3',
+        }),
+        '3245146787-32-4': dict({
+          'entities': dict({
+            'light.fuga_wall_4_way_switch_with_led_relay_button_4': '',
+            'number.fuga_wall_4_way_switch_with_led_relay_button_4_indicator_value': 'Indicator value',
+            'switch.fuga_wall_4_way_switch_with_led_relay_button_4': '',
+          }),
+          'name': 'Button 4',
+        }),
       }),
       'entities': dict({
         'button.fuga_wall_4_way_switch_with_led_relay_ping': 'Ping',
         'light.fuga_wall_4_way_switch_with_led_relay': '',
-        'light.fuga_wall_4_way_switch_with_led_relay_1': '(1)',
-        'light.fuga_wall_4_way_switch_with_led_relay_2': '(2)',
-        'light.fuga_wall_4_way_switch_with_led_relay_3': '(3)',
-        'light.fuga_wall_4_way_switch_with_led_relay_4': '(4)',
         'number.fuga_wall_4_way_switch_with_led_relay_indicator_value': 'Indicator value',
-        'number.fuga_wall_4_way_switch_with_led_relay_indicator_value_1': 'Indicator value (1)',
-        'number.fuga_wall_4_way_switch_with_led_relay_indicator_value_2': 'Indicator value (2)',
-        'number.fuga_wall_4_way_switch_with_led_relay_indicator_value_3': 'Indicator value (3)',
-        'number.fuga_wall_4_way_switch_with_led_relay_indicator_value_4': 'Indicator value (4)',
         'number.fuga_wall_4_way_switch_with_led_relay_lower_switch_value_button_1': 'Lower switch value - (button #1)',
         'number.fuga_wall_4_way_switch_with_led_relay_lower_switch_value_button_2': 'Lower switch value - (button #2)',
         'number.fuga_wall_4_way_switch_with_led_relay_lower_switch_value_button_3': 'Lower switch value - (button #3)',
@@ -1327,10 +1449,6 @@
         'sensor.fuga_wall_4_way_switch_with_led_relay_successful_commands_tx': 'Successful commands (TX)',
         'sensor.fuga_wall_4_way_switch_with_led_relay_timed_out_responses': 'Timed out responses',
         'switch.fuga_wall_4_way_switch_with_led_relay': '',
-        'switch.fuga_wall_4_way_switch_with_led_relay_1': '(1)',
-        'switch.fuga_wall_4_way_switch_with_led_relay_2': '(2)',
-        'switch.fuga_wall_4_way_switch_with_led_relay_3': '(3)',
-        'switch.fuga_wall_4_way_switch_with_led_relay_4': '(4)',
         'update.fuga_wall_4_way_switch_with_led_relay_firmware': 'Firmware',
       }),
       'name': 'FUGA Wall 4-way Switch with LED + Relay',
@@ -1341,6 +1459,18 @@
   dict({
     '3245146787-46': dict({
       'children': dict({
+        '3245146787-46-1': dict({
+          'entities': dict({
+            'switch.touch_panel_switch_2_way_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-46-2': dict({
+          'entities': dict({
+            'switch.touch_panel_switch_2_way_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
       }),
       'entities': dict({
         'button.touch_panel_switch_2_way_ping': 'Ping',
@@ -1373,8 +1503,6 @@
         'sensor.touch_panel_switch_2_way_successful_commands_rx': 'Successful commands (RX)',
         'sensor.touch_panel_switch_2_way_successful_commands_tx': 'Successful commands (TX)',
         'sensor.touch_panel_switch_2_way_timed_out_responses': 'Timed out responses',
-        'switch.touch_panel_switch_2_way': '',
-        'switch.touch_panel_switch_2_way_2': '(2)',
         'update.touch_panel_switch_2_way_firmware': 'Firmware',
       }),
       'name': 'Touch Panel Switch 2-Way',
@@ -1385,6 +1513,18 @@
   dict({
     '3245146787-5': dict({
       'children': dict({
+        '3245146787-5-1': dict({
+          'entities': dict({
+            'switch.2_channel_dual_smart_plug_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-5-2': dict({
+          'entities': dict({
+            'switch.2_channel_dual_smart_plug_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
       }),
       'entities': dict({
         'button.2_channel_dual_smart_plug_ping': 'Ping',
@@ -1397,8 +1537,6 @@
         'sensor.2_channel_dual_smart_plug_successful_commands_rx': 'Successful commands (RX)',
         'sensor.2_channel_dual_smart_plug_successful_commands_tx': 'Successful commands (TX)',
         'sensor.2_channel_dual_smart_plug_timed_out_responses': 'Timed out responses',
-        'switch.2_channel_dual_smart_plug': '',
-        'switch.2_channel_dual_smart_plug_2': '(2)',
       }),
       'name': '2-Channel Dual Smart Plug',
     }),
@@ -1408,6 +1546,18 @@
   dict({
     '3245146787-122': dict({
       'children': dict({
+        '3245146787-122-1': dict({
+          'entities': dict({
+            'switch.2_channel_dual_smart_plug_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-122-2': dict({
+          'entities': dict({
+            'switch.2_channel_dual_smart_plug_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
       }),
       'entities': dict({
         'binary_sensor.2_channel_dual_smart_plug_overheat_detected': 'Overheat detected',
@@ -1424,8 +1574,6 @@
         'sensor.2_channel_dual_smart_plug_successful_commands_rx': 'Successful commands (RX)',
         'sensor.2_channel_dual_smart_plug_successful_commands_tx': 'Successful commands (TX)',
         'sensor.2_channel_dual_smart_plug_timed_out_responses': 'Timed out responses',
-        'switch.2_channel_dual_smart_plug': '',
-        'switch.2_channel_dual_smart_plug_2': '(2)',
         'update.2_channel_dual_smart_plug_firmware': 'Firmware',
       }),
       'name': '2-Channel Dual Smart Plug',
@@ -1536,6 +1684,20 @@
   dict({
     '3245146787-152': dict({
       'children': dict({
+        '3245146787-152-2': dict({
+          'entities': dict({
+            'sensor.flush_1_relay_input_2_alarm_level': 'Alarm Level',
+            'sensor.flush_1_relay_input_2_alarm_type': 'Alarm Type',
+          }),
+          'name': 'Input 2',
+        }),
+        '3245146787-152-3': dict({
+          'entities': dict({
+            'sensor.flush_1_relay_input_3_alarm_level': 'Alarm Level',
+            'sensor.flush_1_relay_input_3_alarm_type': 'Alarm Type',
+          }),
+          'name': 'Input 3',
+        }),
       }),
       'entities': dict({
         'button.flush_1_relay_ping': 'Ping',
@@ -1555,10 +1717,6 @@
         'select.flush_1_relay_input_3_contact_type': 'Input 3 Contact Type',
         'select.flush_1_relay_output_switch_selection': 'Output Switch Selection',
         'select.flush_1_relay_state_after_power_failure': 'State After Power Failure',
-        'sensor.flush_1_relay_alarm_level': 'Alarm Level',
-        'sensor.flush_1_relay_alarm_level_3': 'Alarm Level (3)',
-        'sensor.flush_1_relay_alarm_type': 'Alarm Type',
-        'sensor.flush_1_relay_alarm_type_3': 'Alarm Type (3)',
         'sensor.flush_1_relay_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.flush_1_relay_commands_dropped_tx': 'Commands dropped (TX)',
         'sensor.flush_1_relay_electric_consumption_kwh': 'Electric Consumption [kWh]',
@@ -1737,14 +1895,30 @@
   dict({
     '3245146787-11': dict({
       'children': dict({
+        '3245146787-11-1': dict({
+          'entities': dict({
+            'cover.flush_shutter_dc_shutter': '',
+            'sensor.flush_shutter_dc_shutter_alarm_level': 'Alarm Level',
+            'sensor.flush_shutter_dc_shutter_alarm_type': 'Alarm Type',
+            'sensor.flush_shutter_dc_shutter_electric_consumed_kwh': 'Electric Consumed [kWh]',
+            'sensor.flush_shutter_dc_shutter_electric_consumed_w': 'Electric Consumed [W]',
+            'switch.flush_shutter_dc_shutter': '',
+          }),
+          'name': 'Shutter',
+        }),
+        '3245146787-11-2': dict({
+          'entities': dict({
+            'cover.flush_shutter_dc_temperature_sensor': '',
+            'switch.flush_shutter_dc_temperature_sensor': '',
+          }),
+          'name': 'Temperature Sensor',
+        }),
       }),
       'entities': dict({
         'binary_sensor.flush_shutter_dc_over_load_detected': 'Over-load detected',
         'button.flush_shutter_dc_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
         'button.flush_shutter_dc_ping': 'Ping',
         'button.flush_shutter_dc_reset_accumulated_values': 'Reset accumulated values',
-        'cover.flush_shutter_dc': '',
-        'cover.flush_shutter_dc_2': '(2)',
         'number.flush_shutter_dc_digital_temperature_sensor_reporting': 'Digital temperature sensor reporting',
         'number.flush_shutter_dc_motor_moving_up_down_time': 'Motor moving up/down time',
         'number.flush_shutter_dc_motor_operation_detection': 'Motor operation detection',
@@ -1759,12 +1933,8 @@
         'select.flush_shutter_dc_forced_shutter_dc_calibration': 'Forced Shutter DC calibration',
         'select.flush_shutter_dc_operating_modes': 'Operating modes',
         'select.flush_shutter_dc_slats_position': 'Slats position',
-        'sensor.flush_shutter_dc_alarm_level': 'Alarm Level',
-        'sensor.flush_shutter_dc_alarm_type': 'Alarm Type',
         'sensor.flush_shutter_dc_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.flush_shutter_dc_commands_dropped_tx': 'Commands dropped (TX)',
-        'sensor.flush_shutter_dc_electric_consumed_kwh': 'Electric Consumed [kWh]',
-        'sensor.flush_shutter_dc_electric_consumed_w': 'Electric Consumed [W]',
         'sensor.flush_shutter_dc_last_seen': 'Last seen',
         'sensor.flush_shutter_dc_node_status': 'Node status',
         'sensor.flush_shutter_dc_round_trip_time': 'Round trip time',
@@ -1772,8 +1942,6 @@
         'sensor.flush_shutter_dc_successful_commands_rx': 'Successful commands (RX)',
         'sensor.flush_shutter_dc_successful_commands_tx': 'Successful commands (TX)',
         'sensor.flush_shutter_dc_timed_out_responses': 'Timed out responses',
-        'switch.flush_shutter_dc': '',
-        'switch.flush_shutter_dc_2': '(2)',
       }),
       'name': 'Flush Shutter DC',
     }),
@@ -1884,13 +2052,33 @@
   dict({
     '3245146787-13': dict({
       'children': dict({
+        '3245146787-13-1': dict({
+          'entities': dict({
+            'light.qubino_flush_rgbw_dimmer_red': '',
+          }),
+          'name': 'Red',
+        }),
+        '3245146787-13-2': dict({
+          'entities': dict({
+            'light.qubino_flush_rgbw_dimmer_green': '',
+          }),
+          'name': 'Green',
+        }),
+        '3245146787-13-3': dict({
+          'entities': dict({
+            'light.qubino_flush_rgbw_dimmer_blue': '',
+          }),
+          'name': 'Blue',
+        }),
+        '3245146787-13-4': dict({
+          'entities': dict({
+            'light.qubino_flush_rgbw_dimmer_white': '',
+          }),
+          'name': 'White',
+        }),
       }),
       'entities': dict({
         'button.qubino_flush_rgbw_dimmer_ping': 'Ping',
-        'light.qubino_flush_rgbw_dimmer': '',
-        'light.qubino_flush_rgbw_dimmer_2': '(2)',
-        'light.qubino_flush_rgbw_dimmer_3': '(3)',
-        'light.qubino_flush_rgbw_dimmer_4': '(4)',
         'number.qubino_flush_rgbw_dimmer_auto_scene_mode': 'Auto Scene Mode',
         'number.qubino_flush_rgbw_dimmer_automatic_turning_off_output_after_set_time': 'Automatic turning off output after set time',
         'number.qubino_flush_rgbw_dimmer_automatic_turning_on_output_after_set_time': 'Automatic turning on output after set time',
@@ -2010,26 +2198,43 @@
   dict({
     '3245146787-5': dict({
       'children': dict({
+        '3245146787-5-1': dict({
+          'entities': dict({
+            'binary_sensor.shelly_fw_14_2_0_test_cover_position_over_current_detected': 'Over-current detected',
+            'binary_sensor.shelly_fw_14_2_0_test_cover_position_over_load_detected': 'Over-load detected',
+            'binary_sensor.shelly_fw_14_2_0_test_cover_position_over_voltage_detected': 'Over-voltage detected',
+            'button.shelly_fw_14_2_0_test_cover_position_idle_power_management_over_current_status': 'Idle Power Management Over-current status',
+            'button.shelly_fw_14_2_0_test_cover_position_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
+            'button.shelly_fw_14_2_0_test_cover_position_idle_power_management_over_voltage_status': 'Idle Power Management Over-voltage status',
+            'button.shelly_fw_14_2_0_test_cover_position_reset_accumulated_values': 'Reset accumulated values',
+            'button.shelly_fw_14_2_0_test_cover_position_reset_electric_consumption_kwh': 'Reset Electric Consumption [kWh]',
+            'cover.shelly_fw_14_2_0_test_cover_position': '',
+            'sensor.shelly_fw_14_2_0_test_cover_position_alarm_level': 'Alarm Level',
+            'sensor.shelly_fw_14_2_0_test_cover_position_alarm_type': 'Alarm Type',
+            'sensor.shelly_fw_14_2_0_test_cover_position_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.shelly_fw_14_2_0_test_cover_position_electric_consumption_w': 'Electric Consumption [W]',
+            'sensor.shelly_fw_14_2_0_test_cover_position_mains_status': 'Mains status',
+          }),
+          'name': 'Position',
+        }),
+        '3245146787-5-2': dict({
+          'entities': dict({
+            'binary_sensor.shelly_fw_14_2_0_test_cover_tilt_over_current_detected': 'Over-current detected',
+            'binary_sensor.shelly_fw_14_2_0_test_cover_tilt_over_load_detected': 'Over-load detected',
+            'binary_sensor.shelly_fw_14_2_0_test_cover_tilt_over_voltage_detected': 'Over-voltage detected',
+            'button.shelly_fw_14_2_0_test_cover_tilt_idle_power_management_over_current_status': 'Idle Power Management Over-current status',
+            'button.shelly_fw_14_2_0_test_cover_tilt_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
+            'button.shelly_fw_14_2_0_test_cover_tilt_idle_power_management_over_voltage_status': 'Idle Power Management Over-voltage status',
+            'sensor.shelly_fw_14_2_0_test_cover_tilt_alarm_level': 'Alarm Level',
+            'sensor.shelly_fw_14_2_0_test_cover_tilt_alarm_type': 'Alarm Type',
+            'sensor.shelly_fw_14_2_0_test_cover_tilt_mains_status': 'Mains status',
+          }),
+          'name': 'Tilt',
+        }),
       }),
       'entities': dict({
-        'binary_sensor.shelly_fw_14_2_0_test_cover_over_current_detected': 'Over-current detected',
-        'binary_sensor.shelly_fw_14_2_0_test_cover_over_current_detected_2': 'Over-current detected (2)',
-        'binary_sensor.shelly_fw_14_2_0_test_cover_over_load_detected': 'Over-load detected',
-        'binary_sensor.shelly_fw_14_2_0_test_cover_over_load_detected_2': 'Over-load detected (2)',
-        'binary_sensor.shelly_fw_14_2_0_test_cover_over_voltage_detected': 'Over-voltage detected',
-        'binary_sensor.shelly_fw_14_2_0_test_cover_over_voltage_detected_2': 'Over-voltage detected (2)',
         'button.shelly_fw_14_2_0_test_cover_identify': 'Identify',
-        'button.shelly_fw_14_2_0_test_cover_idle_power_management_over_current_status': 'Idle Power Management Over-current status',
-        'button.shelly_fw_14_2_0_test_cover_idle_power_management_over_current_status_2': 'Idle Power Management Over-current status (2)',
-        'button.shelly_fw_14_2_0_test_cover_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
-        'button.shelly_fw_14_2_0_test_cover_idle_power_management_over_load_status_2': 'Idle Power Management Over-load status (2)',
-        'button.shelly_fw_14_2_0_test_cover_idle_power_management_over_voltage_status': 'Idle Power Management Over-voltage status',
-        'button.shelly_fw_14_2_0_test_cover_idle_power_management_over_voltage_status_2': 'Idle Power Management Over-voltage status (2)',
         'button.shelly_fw_14_2_0_test_cover_ping': 'Ping',
-        'button.shelly_fw_14_2_0_test_cover_reset_accumulated_values': 'Reset accumulated values',
-        'button.shelly_fw_14_2_0_test_cover_reset_electric_consumption_kwh': 'Reset Electric Consumption [kWh]',
-        'cover.shelly_fw_14_2_0_test_cover': '',
-        'cover.shelly_fw_14_2_0_test_cover_2': '(2)',
         'event.shelly_fw_14_2_0_test_cover_scene_001': 'Scene 001',
         'event.shelly_fw_14_2_0_test_cover_scene_002': 'Scene 002',
         'number.shelly_fw_14_2_0_test_cover_calibration': 'Calibration',
@@ -2047,17 +2252,9 @@
         'number.shelly_fw_14_2_0_test_cover_switch_type': 'Switch type',
         'number.shelly_fw_14_2_0_test_cover_t': 't',
         'number.shelly_fw_14_2_0_test_cover_up_time': 'Up time',
-        'sensor.shelly_fw_14_2_0_test_cover_alarm_level': 'Alarm Level',
-        'sensor.shelly_fw_14_2_0_test_cover_alarm_level_2': 'Alarm Level (2)',
-        'sensor.shelly_fw_14_2_0_test_cover_alarm_type': 'Alarm Type',
-        'sensor.shelly_fw_14_2_0_test_cover_alarm_type_2': 'Alarm Type (2)',
         'sensor.shelly_fw_14_2_0_test_cover_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.shelly_fw_14_2_0_test_cover_commands_dropped_tx': 'Commands dropped (TX)',
-        'sensor.shelly_fw_14_2_0_test_cover_electric_consumption_kwh': 'Electric Consumption [kWh]',
-        'sensor.shelly_fw_14_2_0_test_cover_electric_consumption_w': 'Electric Consumption [W]',
         'sensor.shelly_fw_14_2_0_test_cover_last_seen': 'Last seen',
-        'sensor.shelly_fw_14_2_0_test_cover_mains_status': 'Mains status',
-        'sensor.shelly_fw_14_2_0_test_cover_mains_status_2': 'Mains status (2)',
         'sensor.shelly_fw_14_2_0_test_cover_node_status': 'Node status',
         'sensor.shelly_fw_14_2_0_test_cover_round_trip_time': 'Round trip time',
         'sensor.shelly_fw_14_2_0_test_cover_serial_number_1': 'Serial Number 1',
@@ -2085,6 +2282,30 @@
   dict({
     '3245146787-127': dict({
       'children': dict({
+        '3245146787-127-2': dict({
+          'entities': dict({
+            'switch.wave_i4_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-127-3': dict({
+          'entities': dict({
+            'switch.wave_i4_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
+        '3245146787-127-4': dict({
+          'entities': dict({
+            'switch.wave_i4_switch_3': '',
+          }),
+          'name': 'Switch 3',
+        }),
+        '3245146787-127-5': dict({
+          'entities': dict({
+            'switch.wave_i4_switch_4': '',
+          }),
+          'name': 'Switch 4',
+        }),
       }),
       'entities': dict({
         'button.wave_i4_identify': 'Identify',
@@ -2114,10 +2335,6 @@
         'sensor.wave_i4_successful_commands_rx': 'Successful commands (RX)',
         'sensor.wave_i4_successful_commands_tx': 'Successful commands (TX)',
         'sensor.wave_i4_timed_out_responses': 'Timed out responses',
-        'switch.wave_i4': '',
-        'switch.wave_i4_3': '(3)',
-        'switch.wave_i4_4': '(4)',
-        'switch.wave_i4_5': '(5)',
         'update.wave_i4_firmware': 'Firmware',
       }),
       'name': 'Wave I4',
@@ -2128,6 +2345,30 @@
   dict({
     '3245146787-109': dict({
       'children': dict({
+        '3245146787-109-2': dict({
+          'entities': dict({
+            'switch.wave_i4_dc_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-109-3': dict({
+          'entities': dict({
+            'switch.wave_i4_dc_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
+        '3245146787-109-4': dict({
+          'entities': dict({
+            'switch.wave_i4_dc_switch_3': '',
+          }),
+          'name': 'Switch 3',
+        }),
+        '3245146787-109-5': dict({
+          'entities': dict({
+            'switch.wave_i4_dc_switch_4': '',
+          }),
+          'name': 'Switch 4',
+        }),
       }),
       'entities': dict({
         'button.wave_i4_dc_identify': 'Identify',
@@ -2157,10 +2398,6 @@
         'sensor.wave_i4_dc_successful_commands_rx': 'Successful commands (RX)',
         'sensor.wave_i4_dc_successful_commands_tx': 'Successful commands (TX)',
         'sensor.wave_i4_dc_timed_out_responses': 'Timed out responses',
-        'switch.wave_i4_dc': '',
-        'switch.wave_i4_dc_3': '(3)',
-        'switch.wave_i4_dc_4': '(4)',
-        'switch.wave_i4_dc_5': '(5)',
         'update.wave_i4_dc_firmware': 'Firmware',
       }),
       'name': 'Wave I4 DC',
@@ -2171,6 +2408,24 @@
   dict({
     '3245146787-69': dict({
       'children': dict({
+        '3245146787-69-1': dict({
+          'entities': dict({
+            'switch.light_switch_3_channel_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-69-2': dict({
+          'entities': dict({
+            'switch.light_switch_3_channel_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
+        '3245146787-69-3': dict({
+          'entities': dict({
+            'switch.light_switch_3_channel_switch_3': '',
+          }),
+          'name': 'Switch 3',
+        }),
       }),
       'entities': dict({
         'button.light_switch_3_channel_ping': 'Ping',
@@ -2192,9 +2447,6 @@
         'sensor.light_switch_3_channel_successful_commands_rx': 'Successful commands (RX)',
         'sensor.light_switch_3_channel_successful_commands_tx': 'Successful commands (TX)',
         'sensor.light_switch_3_channel_timed_out_responses': 'Timed out responses',
-        'switch.light_switch_3_channel': '',
-        'switch.light_switch_3_channel_2': '(2)',
-        'switch.light_switch_3_channel_3': '(3)',
       }),
       'name': 'Light Switch 3 Channel',
     }),
@@ -2292,29 +2544,41 @@
   dict({
     '3245146787-24': dict({
       'children': dict({
+        '3245146787-24-1': dict({
+          'entities': dict({
+            'binary_sensor.flush_series_switch_switch_1_over_load_detected': 'Over-load detected',
+            'button.flush_series_switch_switch_1_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
+            'button.flush_series_switch_switch_1_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.flush_series_switch_switch_1_alarm_level': 'Alarm Level',
+            'sensor.flush_series_switch_switch_1_alarm_type': 'Alarm Type',
+            'sensor.flush_series_switch_switch_1_electric_consumed_kwh': 'Electric Consumed [kWh]',
+            'sensor.flush_series_switch_switch_1_electric_consumed_w': 'Electric Consumed [W]',
+            'switch.flush_series_switch_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-24-2': dict({
+          'entities': dict({
+            'binary_sensor.flush_series_switch_switch_2_over_load_detected': 'Over-load detected',
+            'button.flush_series_switch_switch_2_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
+            'button.flush_series_switch_switch_2_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.flush_series_switch_switch_2_alarm_level': 'Alarm Level',
+            'sensor.flush_series_switch_switch_2_alarm_type': 'Alarm Type',
+            'sensor.flush_series_switch_switch_2_electric_consumed_kwh': 'Electric Consumed [kWh]',
+            'sensor.flush_series_switch_switch_2_electric_consumed_w': 'Electric Consumed [W]',
+            'switch.flush_series_switch_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
       }),
       'entities': dict({
-        'binary_sensor.flush_series_switch_over_load_detected': 'Over-load detected',
-        'binary_sensor.flush_series_switch_over_load_detected_2': 'Over-load detected (2)',
-        'button.flush_series_switch_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
-        'button.flush_series_switch_idle_power_management_over_load_status_2': 'Idle Power Management Over-load status (2)',
         'button.flush_series_switch_ping': 'Ping',
-        'button.flush_series_switch_reset_accumulated_values': 'Reset accumulated values',
-        'button.flush_series_switch_reset_accumulated_values_2': 'Reset accumulated values (2)',
         'number.flush_series_switch_energy_meter_report_interval': 'Energy meter report interval',
         'number.flush_series_switch_report_interval': 'Report interval',
         'select.flush_series_switch_button_mode': 'Button mode',
         'select.flush_series_switch_central_scene_notifications': 'Central Scene notifications',
-        'sensor.flush_series_switch_alarm_level': 'Alarm Level',
-        'sensor.flush_series_switch_alarm_level_2': 'Alarm Level (2)',
-        'sensor.flush_series_switch_alarm_type': 'Alarm Type',
-        'sensor.flush_series_switch_alarm_type_2': 'Alarm Type (2)',
         'sensor.flush_series_switch_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.flush_series_switch_commands_dropped_tx': 'Commands dropped (TX)',
-        'sensor.flush_series_switch_electric_consumed_kwh': 'Electric Consumed [kWh]',
-        'sensor.flush_series_switch_electric_consumed_kwh_2': 'Electric Consumed [kWh] (2)',
-        'sensor.flush_series_switch_electric_consumed_w': 'Electric Consumed [W]',
-        'sensor.flush_series_switch_electric_consumed_w_2': 'Electric Consumed [W] (2)',
         'sensor.flush_series_switch_last_seen': 'Last seen',
         'sensor.flush_series_switch_node_status': 'Node status',
         'sensor.flush_series_switch_round_trip_time': 'Round trip time',
@@ -2322,8 +2586,6 @@
         'sensor.flush_series_switch_successful_commands_rx': 'Successful commands (RX)',
         'sensor.flush_series_switch_successful_commands_tx': 'Successful commands (TX)',
         'sensor.flush_series_switch_timed_out_responses': 'Timed out responses',
-        'switch.flush_series_switch': '',
-        'switch.flush_series_switch_2': '(2)',
         'update.flush_series_switch_firmware': 'Firmware',
       }),
       'name': 'Flush Series Switch',
@@ -2334,6 +2596,24 @@
   dict({
     '3245146787-18': dict({
       'children': dict({
+        '3245146787-18-2': dict({
+          'entities': dict({
+            'sensor.floor_thermostat_room_sensor_air_temperature': 'Air temperature',
+          }),
+          'name': 'Room Sensor',
+        }),
+        '3245146787-18-3': dict({
+          'entities': dict({
+            'sensor.floor_thermostat_external_sensor_air_temperature': 'Air temperature',
+          }),
+          'name': 'External Sensor',
+        }),
+        '3245146787-18-4': dict({
+          'entities': dict({
+            'sensor.floor_thermostat_floor_sensor_air_temperature': 'Air temperature',
+          }),
+          'name': 'Floor Sensor',
+        }),
       }),
       'entities': dict({
         'button.floor_thermostat_ping': 'Ping',
@@ -2363,9 +2643,6 @@
         'select.floor_thermostat_operation_mode': 'Operation Mode',
         'select.floor_thermostat_sensor_mode': 'Sensor Mode',
         'select.floor_thermostat_temperature_display': 'Temperature display',
-        'sensor.floor_thermostat_air_temperature': 'Air temperature',
-        'sensor.floor_thermostat_air_temperature_3': 'Air temperature (3)',
-        'sensor.floor_thermostat_air_temperature_4': 'Air temperature (4)',
         'sensor.floor_thermostat_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.floor_thermostat_commands_dropped_tx': 'Commands dropped (TX)',
         'sensor.floor_thermostat_electric_consumed_kwh': 'Electric Consumed [kWh]',
@@ -2389,6 +2666,18 @@
   dict({
     '3245146787-134': dict({
       'children': dict({
+        '3245146787-134-1': dict({
+          'entities': dict({
+            'switch.insert_two_channel_switch_module_switch_1': '',
+          }),
+          'name': 'Switch 1',
+        }),
+        '3245146787-134-2': dict({
+          'entities': dict({
+            'switch.insert_two_channel_switch_module_switch_2': '',
+          }),
+          'name': 'Switch 2',
+        }),
       }),
       'entities': dict({
         'button.insert_two_channel_switch_module_ping': 'Ping',
@@ -2405,8 +2694,6 @@
         'sensor.insert_two_channel_switch_module_successful_commands_rx': 'Successful commands (RX)',
         'sensor.insert_two_channel_switch_module_successful_commands_tx': 'Successful commands (TX)',
         'sensor.insert_two_channel_switch_module_timed_out_responses': 'Timed out responses',
-        'switch.insert_two_channel_switch_module': '',
-        'switch.insert_two_channel_switch_module_2': '(2)',
         'update.insert_two_channel_switch_module_firmware': 'Firmware',
       }),
       'name': 'Insert two channel switch module',
@@ -2475,6 +2762,18 @@
   dict({
     '3245146787-46': dict({
       'children': dict({
+        '3245146787-46-1': dict({
+          'entities': dict({
+            'switch.inovelli_smart_plug_2_channel_with_scene_control_outlet_1': '',
+          }),
+          'name': 'Outlet 1',
+        }),
+        '3245146787-46-2': dict({
+          'entities': dict({
+            'switch.inovelli_smart_plug_2_channel_with_scene_control_outlet_2': '',
+          }),
+          'name': 'Outlet 2',
+        }),
       }),
       'entities': dict({
         'button.inovelli_smart_plug_2_channel_with_scene_control_ping': 'Ping',
@@ -2487,8 +2786,6 @@
         'sensor.inovelli_smart_plug_2_channel_with_scene_control_successful_commands_rx': 'Successful commands (RX)',
         'sensor.inovelli_smart_plug_2_channel_with_scene_control_successful_commands_tx': 'Successful commands (TX)',
         'sensor.inovelli_smart_plug_2_channel_with_scene_control_timed_out_responses': 'Timed out responses',
-        'switch.inovelli_smart_plug_2_channel_with_scene_control': '',
-        'switch.inovelli_smart_plug_2_channel_with_scene_control_2': '(2)',
         'update.inovelli_smart_plug_2_channel_with_scene_control_firmware': 'Firmware',
       }),
       'name': 'Inovelli Smart Plug (2 Channel with Scene Control)',
@@ -2499,19 +2796,81 @@
   dict({
     '3245146787-38': dict({
       'children': dict({
+        '3245146787-38-1': dict({
+          'entities': dict({
+            'button.z_wave_plus_power_strip_outlet_1_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.z_wave_plus_power_strip_outlet_1_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.z_wave_plus_power_strip_outlet_1_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.z_wave_plus_power_strip_outlet_1_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.z_wave_plus_power_strip_outlet_1_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.z_wave_plus_power_strip_outlet_1': '',
+          }),
+          'name': 'Outlet 1',
+        }),
+        '3245146787-38-2': dict({
+          'entities': dict({
+            'button.z_wave_plus_power_strip_outlet_2_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.z_wave_plus_power_strip_outlet_2_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.z_wave_plus_power_strip_outlet_2_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.z_wave_plus_power_strip_outlet_2_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.z_wave_plus_power_strip_outlet_2_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.z_wave_plus_power_strip_outlet_2': '',
+          }),
+          'name': 'Outlet 2',
+        }),
+        '3245146787-38-3': dict({
+          'entities': dict({
+            'button.z_wave_plus_power_strip_outlet_3_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.z_wave_plus_power_strip_outlet_3_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.z_wave_plus_power_strip_outlet_3_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.z_wave_plus_power_strip_outlet_3_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.z_wave_plus_power_strip_outlet_3_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.z_wave_plus_power_strip_outlet_3': '',
+          }),
+          'name': 'Outlet 3',
+        }),
+        '3245146787-38-4': dict({
+          'entities': dict({
+            'button.z_wave_plus_power_strip_outlet_4_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.z_wave_plus_power_strip_outlet_4_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.z_wave_plus_power_strip_outlet_4_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.z_wave_plus_power_strip_outlet_4_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.z_wave_plus_power_strip_outlet_4_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.z_wave_plus_power_strip_outlet_4': '',
+          }),
+          'name': 'Outlet 4',
+        }),
+        '3245146787-38-5': dict({
+          'entities': dict({
+            'button.z_wave_plus_power_strip_outlet_5_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.z_wave_plus_power_strip_outlet_5_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.z_wave_plus_power_strip_outlet_5_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.z_wave_plus_power_strip_outlet_5_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.z_wave_plus_power_strip_outlet_5_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.z_wave_plus_power_strip_outlet_5': '',
+          }),
+          'name': 'Outlet 5',
+        }),
+        '3245146787-38-6': dict({
+          'entities': dict({
+            'button.z_wave_plus_power_strip_usb_1_reset_accumulated_values': 'Reset accumulated values',
+            'switch.z_wave_plus_power_strip_usb_1': '',
+          }),
+          'name': 'USB 1',
+        }),
+        '3245146787-38-7': dict({
+          'entities': dict({
+            'button.z_wave_plus_power_strip_usb_2_reset_accumulated_values': 'Reset accumulated values',
+            'switch.z_wave_plus_power_strip_usb_2': '',
+          }),
+          'name': 'USB 2',
+        }),
       }),
       'entities': dict({
         'binary_sensor.z_wave_plus_power_strip_over_load_detected': 'Over-load detected',
         'button.z_wave_plus_power_strip_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
         'button.z_wave_plus_power_strip_ping': 'Ping',
         'button.z_wave_plus_power_strip_reset_accumulated_values': 'Reset accumulated values',
-        'button.z_wave_plus_power_strip_reset_accumulated_values_1': 'Reset accumulated values (1)',
-        'button.z_wave_plus_power_strip_reset_accumulated_values_2': 'Reset accumulated values (2)',
-        'button.z_wave_plus_power_strip_reset_accumulated_values_3': 'Reset accumulated values (3)',
-        'button.z_wave_plus_power_strip_reset_accumulated_values_4': 'Reset accumulated values (4)',
-        'button.z_wave_plus_power_strip_reset_accumulated_values_5': 'Reset accumulated values (5)',
-        'button.z_wave_plus_power_strip_reset_accumulated_values_6': 'Reset accumulated values (6)',
-        'button.z_wave_plus_power_strip_reset_accumulated_values_7': 'Reset accumulated values (7)',
         'number.z_wave_plus_power_strip_auto_turn_off_timer_duration_relay_1': 'Auto Turn-Off Timer Duration (Relay 1)',
         'number.z_wave_plus_power_strip_auto_turn_off_timer_duration_relay_2': 'Auto Turn-Off Timer Duration (Relay 2)',
         'number.z_wave_plus_power_strip_auto_turn_off_timer_duration_relay_3': 'Auto Turn-Off Timer Duration (Relay 3)',
@@ -2553,29 +2912,9 @@
         'sensor.z_wave_plus_power_strip_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.z_wave_plus_power_strip_commands_dropped_tx': 'Commands dropped (TX)',
         'sensor.z_wave_plus_power_strip_electric_consumption_a': 'Electric Consumption [A]',
-        'sensor.z_wave_plus_power_strip_electric_consumption_a_1': 'Electric Consumption [A] (1)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_a_2': 'Electric Consumption [A] (2)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_a_3': 'Electric Consumption [A] (3)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_a_4': 'Electric Consumption [A] (4)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_a_5': 'Electric Consumption [A] (5)',
         'sensor.z_wave_plus_power_strip_electric_consumption_kwh': 'Electric Consumption [kWh]',
-        'sensor.z_wave_plus_power_strip_electric_consumption_kwh_1': 'Electric Consumption [kWh] (1)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_kwh_2': 'Electric Consumption [kWh] (2)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_kwh_3': 'Electric Consumption [kWh] (3)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_kwh_4': 'Electric Consumption [kWh] (4)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_kwh_5': 'Electric Consumption [kWh] (5)',
         'sensor.z_wave_plus_power_strip_electric_consumption_v': 'Electric Consumption [V]',
-        'sensor.z_wave_plus_power_strip_electric_consumption_v_1': 'Electric Consumption [V] (1)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_v_2': 'Electric Consumption [V] (2)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_v_3': 'Electric Consumption [V] (3)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_v_4': 'Electric Consumption [V] (4)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_v_5': 'Electric Consumption [V] (5)',
         'sensor.z_wave_plus_power_strip_electric_consumption_w': 'Electric Consumption [W]',
-        'sensor.z_wave_plus_power_strip_electric_consumption_w_1': 'Electric Consumption [W] (1)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_w_2': 'Electric Consumption [W] (2)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_w_3': 'Electric Consumption [W] (3)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_w_4': 'Electric Consumption [W] (4)',
-        'sensor.z_wave_plus_power_strip_electric_consumption_w_5': 'Electric Consumption [W] (5)',
         'sensor.z_wave_plus_power_strip_last_seen': 'Last seen',
         'sensor.z_wave_plus_power_strip_node_status': 'Node status',
         'sensor.z_wave_plus_power_strip_round_trip_time': 'Round trip time',
@@ -2584,13 +2923,6 @@
         'sensor.z_wave_plus_power_strip_successful_commands_tx': 'Successful commands (TX)',
         'sensor.z_wave_plus_power_strip_timed_out_responses': 'Timed out responses',
         'switch.z_wave_plus_power_strip': '',
-        'switch.z_wave_plus_power_strip_1': '(1)',
-        'switch.z_wave_plus_power_strip_2': '(2)',
-        'switch.z_wave_plus_power_strip_3': '(3)',
-        'switch.z_wave_plus_power_strip_4': '(4)',
-        'switch.z_wave_plus_power_strip_5': '(5)',
-        'switch.z_wave_plus_power_strip_6': '(6)',
-        'switch.z_wave_plus_power_strip_7': '(7)',
         'update.z_wave_plus_power_strip_firmware': 'Firmware',
       }),
       'name': 'Z-Wave Plus Power Strip',
@@ -2601,15 +2933,42 @@
   dict({
     '3245146787-37': dict({
       'children': dict({
+        '3245146787-37-1': dict({
+          'entities': dict({
+            'button.double_plug_left_outlet_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.double_plug_left_outlet_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.double_plug_left_outlet_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.double_plug_left_outlet_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.double_plug_left_outlet_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.double_plug_left_outlet': '',
+          }),
+          'name': 'Left Outlet',
+        }),
+        '3245146787-37-2': dict({
+          'entities': dict({
+            'button.double_plug_right_outlet_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.double_plug_right_outlet_electric_consumption_a': 'Electric Consumption [A]',
+            'sensor.double_plug_right_outlet_electric_consumption_kwh': 'Electric Consumption [kWh]',
+            'sensor.double_plug_right_outlet_electric_consumption_v': 'Electric Consumption [V]',
+            'sensor.double_plug_right_outlet_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.double_plug_right_outlet': '',
+          }),
+          'name': 'Right Outlet',
+        }),
+        '3245146787-37-3': dict({
+          'entities': dict({
+            'button.double_plug_usb_reset_accumulated_values': 'Reset accumulated values',
+            'sensor.double_plug_usb_electric_consumption_w': 'Electric Consumption [W]',
+            'switch.double_plug_usb': '',
+          }),
+          'name': 'USB',
+        }),
       }),
       'entities': dict({
         'binary_sensor.double_plug_over_load_detected': 'Over-load detected',
         'button.double_plug_idle_power_management_over_load_status': 'Idle Power Management Over-load status',
         'button.double_plug_ping': 'Ping',
         'button.double_plug_reset_accumulated_values': 'Reset accumulated values',
-        'button.double_plug_reset_accumulated_values_1': 'Reset accumulated values (1)',
-        'button.double_plug_reset_accumulated_values_2': 'Reset accumulated values (2)',
-        'button.double_plug_reset_accumulated_values_3': 'Reset accumulated values (3)',
         'number.double_plug_current_frequency': 'Current Frequency',
         'number.double_plug_energy_frequency': 'Energy Frequency',
         'number.double_plug_overload_protection': 'Overload Protection',
@@ -2633,18 +2992,9 @@
         'sensor.double_plug_commands_dropped_rx': 'Commands dropped (RX)',
         'sensor.double_plug_commands_dropped_tx': 'Commands dropped (TX)',
         'sensor.double_plug_electric_consumption_a': 'Electric Consumption [A]',
-        'sensor.double_plug_electric_consumption_a_1': 'Electric Consumption [A] (1)',
-        'sensor.double_plug_electric_consumption_a_2': 'Electric Consumption [A] (2)',
         'sensor.double_plug_electric_consumption_kwh': 'Electric Consumption [kWh]',
-        'sensor.double_plug_electric_consumption_kwh_1': 'Electric Consumption [kWh] (1)',
-        'sensor.double_plug_electric_consumption_kwh_2': 'Electric Consumption [kWh] (2)',
         'sensor.double_plug_electric_consumption_v': 'Electric Consumption [V]',
-        'sensor.double_plug_electric_consumption_v_1': 'Electric Consumption [V] (1)',
-        'sensor.double_plug_electric_consumption_v_2': 'Electric Consumption [V] (2)',
         'sensor.double_plug_electric_consumption_w': 'Electric Consumption [W]',
-        'sensor.double_plug_electric_consumption_w_1': 'Electric Consumption [W] (1)',
-        'sensor.double_plug_electric_consumption_w_2': 'Electric Consumption [W] (2)',
-        'sensor.double_plug_electric_consumption_w_3': 'Electric Consumption [W] (3)',
         'sensor.double_plug_last_seen': 'Last seen',
         'sensor.double_plug_node_status': 'Node status',
         'sensor.double_plug_round_trip_time': 'Round trip time',
@@ -2653,9 +3003,6 @@
         'sensor.double_plug_successful_commands_tx': 'Successful commands (TX)',
         'sensor.double_plug_timed_out_responses': 'Timed out responses',
         'switch.double_plug': '',
-        'switch.double_plug_1': '(1)',
-        'switch.double_plug_2': '(2)',
-        'switch.double_plug_3': '(3)',
         'update.double_plug_firmware': 'Firmware',
       }),
       'name': 'Double Plug',
