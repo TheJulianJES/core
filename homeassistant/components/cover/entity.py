@@ -289,23 +289,50 @@ class CoverEntity(Entity, cached_properties=CACHED_PROPERTIES_WITH_ATTR_):
 
     def toggle_tilt(self, **kwargs: Any) -> None:
         """Toggle the entity."""
-        if self.current_cover_tilt_position == 0:
-            self.open_cover_tilt(**kwargs)
-        else:
-            self.close_cover_tilt(**kwargs)
+        fns = {
+            "open": self.open_cover_tilt,
+            "close": self.close_cover_tilt,
+            "stop": self.stop_cover_tilt,
+        }
+        function = self._get_tilt_toggle_function(fns)
+        function(**kwargs)
 
     async def async_toggle_tilt(self, **kwargs: Any) -> None:
         """Toggle the entity."""
-        if self.current_cover_tilt_position == 0:
-            await self.async_open_cover_tilt(**kwargs)
-        else:
-            await self.async_close_cover_tilt(**kwargs)
+        fns = {
+            "open": self.async_open_cover_tilt,
+            "close": self.async_close_cover_tilt,
+            "stop": self.async_stop_cover_tilt,
+        }
+        function = self._get_tilt_toggle_function(fns)
+        await function(**kwargs)
 
-    def _get_toggle_function[**_P, _R](
+    def _get_tilt_toggle_function[**_P, _R](
         self, fns: dict[str, Callable[_P, _R]]
     ) -> Callable[_P, _R]:
+        # The state of a tilt-only cover describes its tilt, so without a tilt
+        # position, toggle it like a cover that does not report its position
+        if self.current_cover_tilt_position is None and not (
+            self.supported_features
+            & (
+                CoverEntityFeature.OPEN
+                | CoverEntityFeature.CLOSE
+                | CoverEntityFeature.STOP
+            )
+        ):
+            return self._get_toggle_function(fns, CoverEntityFeature.STOP_TILT)
+
+        if self.current_cover_tilt_position == 0:
+            return fns["open"]
+        return fns["close"]
+
+    def _get_toggle_function[**_P, _R](
+        self,
+        fns: dict[str, Callable[_P, _R]],
+        stop_feature: CoverEntityFeature = CoverEntityFeature.STOP,
+    ) -> Callable[_P, _R]:
         # If we are opening or closing and we support stopping, then we should stop
-        if self.supported_features & CoverEntityFeature.STOP and (
+        if self.supported_features & stop_feature and (
             self.is_closing or self.is_opening
         ):
             return fns["stop"]

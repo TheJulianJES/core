@@ -1,10 +1,12 @@
 """The tests for Cover."""
 
+from unittest.mock import AsyncMock, patch
+
 import pytest
 from pytest_homeassistant.common import setup_test_component_platform
 
 from homeassistant.components import cover
-from homeassistant.components.cover import ATTR_SPEED, CoverState
+from homeassistant.components.cover import ATTR_SPEED, CoverEntityFeature, CoverState
 from homeassistant.components.cover.const import ATTR_POSITION
 from homeassistant.const import (
     ATTR_ENTITY_ID,
@@ -13,6 +15,7 @@ from homeassistant.const import (
     SERVICE_OPEN_COVER,
     SERVICE_SET_COVER_POSITION,
     SERVICE_TOGGLE,
+    SERVICE_TOGGLE_COVER_TILT,
 )
 from homeassistant.core import HomeAssistant, ServiceResponse
 from homeassistant.helpers.entity import Entity
@@ -117,6 +120,121 @@ async def test_services(
     set_cover_position(ent5, 100)
     await call_service(hass, SERVICE_TOGGLE, ent5)  # Should close, not open
     assert is_closing(hass, ent5, 100)
+
+
+TILT_ONLY = (
+    CoverEntityFeature.OPEN_TILT
+    | CoverEntityFeature.CLOSE_TILT
+    | CoverEntityFeature.STOP_TILT
+)
+TILT_TOGGLE_SERVICES = (
+    "async_open_cover_tilt",
+    "async_close_cover_tilt",
+    "async_stop_cover_tilt",
+)
+
+
+@pytest.mark.parametrize(
+    ("supported_features", "tilt_position", "states", "expected_service"),
+    [
+        pytest.param(
+            TILT_ONLY,
+            None,
+            [CoverState.CLOSING],
+            "async_stop_cover_tilt",
+            id="tilt-only-closing",
+        ),
+        pytest.param(
+            TILT_ONLY,
+            None,
+            [CoverState.OPENING],
+            "async_stop_cover_tilt",
+            id="tilt-only-opening",
+        ),
+        pytest.param(
+            TILT_ONLY,
+            None,
+            [CoverState.CLOSED],
+            "async_open_cover_tilt",
+            id="tilt-only-closed",
+        ),
+        pytest.param(
+            TILT_ONLY,
+            None,
+            [CoverState.CLOSING, CoverState.OPEN],
+            "async_open_cover_tilt",
+            id="tilt-only-stopped-after-closing",
+        ),
+        pytest.param(
+            TILT_ONLY,
+            None,
+            [CoverState.OPEN],
+            "async_close_cover_tilt",
+            id="tilt-only-open",
+        ),
+        pytest.param(
+            TILT_ONLY & ~CoverEntityFeature.STOP_TILT,
+            None,
+            [CoverState.CLOSING],
+            "async_open_cover_tilt",
+            id="tilt-only-closing-without-stop",
+        ),
+        # a known tilt position keeps deciding the direction
+        pytest.param(
+            TILT_ONLY,
+            0,
+            [CoverState.OPEN],
+            "async_open_cover_tilt",
+            id="tilt-only-tilt-closed",
+        ),
+        pytest.param(
+            TILT_ONLY,
+            50,
+            [CoverState.CLOSING],
+            "async_close_cover_tilt",
+            id="tilt-only-tilt-partial",
+        ),
+        # the state of a cover with lift describes the lift, not the tilt
+        pytest.param(
+            TILT_ONLY | CoverEntityFeature.OPEN | CoverEntityFeature.CLOSE,
+            None,
+            [CoverState.CLOSED],
+            "async_close_cover_tilt",
+            id="lift-and-tilt-closed",
+        ),
+    ],
+)
+async def test_toggle_tilt(
+    hass: HomeAssistant,
+    supported_features: CoverEntityFeature,
+    tilt_position: int | None,
+    states: list[CoverState],
+    expected_service: str,
+) -> None:
+    """Test the tilt toggle direction."""
+    ent = MockCover(
+        name="Tilt cover",
+        unique_id="unique_tilt_toggle_cover",
+        current_cover_tilt_position=tilt_position,
+        supported_features=supported_features,
+    )
+    setup_test_component_platform(hass, cover.DOMAIN, [ent])
+    assert await async_setup_component(
+        hass, cover.DOMAIN, {cover.DOMAIN: {CONF_PLATFORM: "test"}}
+    )
+    await hass.async_block_till_done()
+
+    for state in states:
+        set_state(ent, state)
+        ent.async_write_ha_state()
+
+    mocks = {service: AsyncMock() for service in TILT_TOGGLE_SERVICES}
+    with patch.multiple(ent, **mocks):
+        await call_service(hass, SERVICE_TOGGLE_COVER_TILT, ent)
+
+    assert [service for service, mock in mocks.items() if mock.called] == [
+        expected_service
+    ]
 
 
 def call_service(hass: HomeAssistant, service: str, ent: Entity) -> ServiceResponse:
