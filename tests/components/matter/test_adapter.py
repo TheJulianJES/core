@@ -894,3 +894,55 @@ async def test_split_merged_device_keeps_bridge_of_removed_endpoint(
         (DOMAIN, "deviceid_00000000000004D2-000000000000003E-3")
     }
     assert kept_entry.via_device_id == bridge_entry.id
+
+
+async def test_split_merged_device_via_device_of_split_bridge(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    device_registry: dr.DeviceRegistry,
+) -> None:
+    """Test the via device is resolved after a merged bridge entry is split.
+
+    The entry of the bridge of a kept bridged device can be split later on, as it
+    held the device ID of a re-commissioned bridge as well.
+    """
+    matter_client.get_nodes.return_value = [
+        create_node_from_fixture("atios_knx_bridge"),
+        create_node_with_id("atios_knx_bridge", 63),
+    ]
+    config_entry = MockConfigEntry(
+        domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
+    )
+    config_entry.add_to_hass(hass)
+
+    bridged_entry = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-3"),
+            (DOMAIN, f"deviceid_{OLD_DEVICE_ID}"),
+            (DOMAIN, "serial_12345678"),
+        },
+    )
+    device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice"),
+            (DOMAIN, "deviceid_00000000000004D2-000000000000003F-MatterNodeDevice"),
+            (DOMAIN, "serial_glg5mxh"),
+        },
+    )
+
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    bridge_entry = device_registry.async_get_device_by_identifier(
+        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice"),
+        config_entry.entry_id,
+    )
+    assert bridge_entry is not None
+    bridged_entry = device_registry.async_get(bridged_entry.id)
+    assert bridged_entry is not None
+    assert bridged_entry.identifiers == {
+        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-3")
+    }
+    assert bridged_entry.via_device_id == bridge_entry.id

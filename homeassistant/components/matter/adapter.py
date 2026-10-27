@@ -211,6 +211,8 @@ class MatterAdapter:
                 ]
             return matches[0] if len(matches) == 1 else None
 
+        # device entry ID of every entry touched by a split -> its device ID
+        split_device_ids: dict[str, str] = {}
         for device in dr.async_entries_for_config_entry(device_registry, entry_id):
             serial_identifiers = {
                 identifier
@@ -226,24 +228,11 @@ class MatterAdapter:
             if not device_ids or (not serial_identifiers and len(device_ids) == 1):
                 continue
             keep, *split_off = sorted(device_ids, key=owner_rank, reverse=True)
-            via_device_id: str | UndefinedType | None = UNDEFINED
-            if split_off:
-                # the via device can be the bridge of a split off device; a node
-                # resolves to the entry itself, as it has no via device
-                bridge = device_registry.async_get_device_by_identifier(
-                    (
-                        DOMAIN,
-                        f"{device_id_prefix}{keep.rpartition('-')[0]}-MatterNodeDevice",
-                    ),
-                    entry_id,
-                )
-                via_device_id = bridge.id if bridge and bridge.id != device.id else None
             device_registry.async_update_device(
                 device.id,
                 new_identifiers=device.identifiers
                 - serial_identifiers
                 - {(DOMAIN, f"{device_id_prefix}{d}") for d in split_off},
-                via_device_id=via_device_id,
             )
             if not split_off:
                 continue
@@ -268,6 +257,11 @@ class MatterAdapter:
                 ).id
                 for device_id in split_off
             }
+            split_device_ids[device.id] = keep
+            split_device_ids.update(
+                (entry_device_id, device_id)
+                for device_id, entry_device_id in new_device_ids.items()
+            )
             for entity in er.async_entries_for_device(
                 entity_registry, device.id, include_disabled_entities=True
             ):
@@ -280,6 +274,24 @@ class MatterAdapter:
                     entity_registry.async_update_entity(
                         entity.entity_id, device_id=new_device_ids[owner]
                     )
+
+        # The via device of a merged entry can be the bridge of a split off device.
+        # Derive it from the device ID once every entry is split, as the bridge's
+        # entry can be split as well. A node resolves to its own entry.
+        for entry_device_id, device_id in split_device_ids.items():
+            bridge = device_registry.async_get_device_by_identifier(
+                (
+                    DOMAIN,
+                    f"{device_id_prefix}{device_id.rpartition('-')[0]}-MatterNodeDevice",
+                ),
+                entry_id,
+            )
+            device_registry.async_update_device(
+                entry_device_id,
+                via_device_id=bridge.id
+                if bridge and bridge.id != entry_device_id
+                else None,
+            )
 
     def _setup_node(self, node: MatterNode) -> None:
         """Set up an node."""
