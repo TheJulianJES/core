@@ -226,14 +226,24 @@ class MatterAdapter:
             if not device_ids or (not serial_identifiers and len(device_ids) == 1):
                 continue
             keep, *split_off = sorted(device_ids, key=owner_rank, reverse=True)
+            via_device_id: str | UndefinedType | None = UNDEFINED
+            if split_off:
+                # the via device can be the bridge of a split off device; a node
+                # resolves to the entry itself, as it has no via device
+                bridge = device_registry.async_get_device_by_identifier(
+                    (
+                        DOMAIN,
+                        f"{device_id_prefix}{keep.rpartition('-')[0]}-MatterNodeDevice",
+                    ),
+                    entry_id,
+                )
+                via_device_id = bridge.id if bridge and bridge.id != device.id else None
             device_registry.async_update_device(
                 device.id,
                 new_identifiers=device.identifiers
                 - serial_identifiers
                 - {(DOMAIN, f"{device_id_prefix}{d}") for d in split_off},
-                # the via device can be the bridge of a split off device, setup sets
-                # it again for a kept bridged device
-                via_device_id=None if split_off else UNDEFINED,
+                via_device_id=via_device_id,
             )
             if not split_off:
                 continue

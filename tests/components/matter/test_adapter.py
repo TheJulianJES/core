@@ -849,3 +849,48 @@ async def test_split_merged_device_prefers_existing_endpoint(
         (DOMAIN, "deviceid_00000000000004D2-000000000000003E-3"),
         config_entry.entry_id,
     )
+
+
+async def test_split_merged_device_keeps_bridge_of_removed_endpoint(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    device_registry: dr.DeviceRegistry,
+) -> None:
+    """Test a kept bridged device keeps its bridge as via device.
+
+    Setup doesn't set the via device of a bridged device whose endpoint the
+    bridge has removed.
+    """
+    matter_client.get_nodes.return_value = [
+        create_node_from_fixture("atios_knx_bridge")
+    ]
+    config_entry = MockConfigEntry(
+        domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
+    )
+    config_entry.add_to_hass(hass)
+
+    bridge_entry = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice")
+        },
+    )
+    merged_entry = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-3"),
+            (DOMAIN, f"deviceid_{OLD_DEVICE_ID}"),
+            (DOMAIN, "serial_12345678"),
+        },
+        via_device_id=bridge_entry.id,
+    )
+
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    kept_entry = device_registry.async_get(merged_entry.id)
+    assert kept_entry is not None
+    assert kept_entry.identifiers == {
+        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-3")
+    }
+    assert kept_entry.via_device_id == bridge_entry.id
