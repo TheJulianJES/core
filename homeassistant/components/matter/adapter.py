@@ -62,7 +62,9 @@ class MatterAdapter:
 
     async def setup_nodes(self) -> None:
         """Set up all existing nodes and subscribe to new nodes."""
-        for node in self.matter_client.get_nodes():
+        nodes = self.matter_client.get_nodes()
+        self._split_merged_devices(nodes)
+        for node in nodes:
             self._setup_node(node)
 
         def node_added_callback(event: EventType, node: MatterNode) -> None:
@@ -152,6 +154,110 @@ class MatterAdapter:
             )
         )
 
+    def _split_merged_devices(self, nodes: list[MatterNode]) -> None:
+        """Split device entries that were merged through a shared serial number.
+
+        The serial number used to be an additional identifier, which merged every
+        node reporting the same serial number into a single device entry, e.g. the
+        old and the new node of a re-commissioned device. Give each device ID its own
+        entry again, together with its entities, and drop the serial number
+        identifiers.
+        """
+        server_info = cast(ServerInfoMessage, self.matter_client.server_info)
+        device_registry = dr.async_get(self.hass)
+        entity_registry = er.async_get(self.hass)
+        entry_id = self.config_entry.entry_id
+        device_id_prefix = f"{ID_TYPE_DEVICE_ID}_"
+        serial_prefix = f"{ID_TYPE_SERIAL}_"
+        fabric_id_hex = f"{server_info.compressed_fabric_id:016X}"
+        nodes_by_id = {node.node_id: node for node in nodes}
+
+        def owner_rank(device_id: str) -> tuple[bool, bool, int, bool, str]:
+            """Rank which device ID of a merged entry keeps the entry."""
+            # device ID format: <fabric ID>-<node ID>-<MatterNodeDevice|endpoint ID>
+            parts = device_id.split("-", 2)
+            try:
+                node_id = int(parts[1], 16)
+            except IndexError, ValueError:
+                node_id = -1
+            node = nodes_by_id.get(node_id) if parts[0] == fabric_id_hex else None
+            # node IDs are allocated in increasing order, so the highest one is the
+            # most recently commissioned node
+            return (
+                node is not None and node.available,
+                node is not None,
+                node_id,
+                parts[-1] == "MatterNodeDevice",
+                device_id,
+            )
+
+        def entity_owner(unique_id: str, device_ids: set[str]) -> str | None:
+            """Return the device ID an entity unique ID belongs to."""
+            matches = [d for d in device_ids if unique_id.startswith(f"{d}-")]
+            if not matches:
+                # unique IDs from before matter-python-client 1.5.0 can use the
+                # device ID of another endpoint of the same node
+                matches = [
+                    d
+                    for d in device_ids
+                    if unique_id.startswith(f"{d.rsplit('-', 1)[0]}-")
+                ]
+            return matches[0] if len(matches) == 1 else None
+
+        for device in dr.async_entries_for_config_entry(device_registry, entry_id):
+            serial_identifiers = {
+                identifier
+                for identifier in device.identifiers
+                if identifier[0] == DOMAIN and identifier[1].startswith(serial_prefix)
+            }
+            device_ids = {
+                identifier[1].removeprefix(device_id_prefix)
+                for identifier in device.identifiers
+                if identifier[0] == DOMAIN
+                and identifier[1].startswith(device_id_prefix)
+            }
+            if not device_ids or (not serial_identifiers and len(device_ids) == 1):
+                continue
+            keep, *split_off = sorted(device_ids, key=owner_rank, reverse=True)
+            device_registry.async_update_device(
+                device.id,
+                new_identifiers=device.identifiers
+                - serial_identifiers
+                - {(DOMAIN, f"{device_id_prefix}{d}") for d in split_off},
+            )
+            if not split_off:
+                continue
+            LOGGER.debug(
+                "Splitting %s off device %s, which is kept for %s",
+                split_off,
+                device.id,
+                keep,
+            )
+            new_device_ids = {
+                device_id: device_registry.async_get_or_create(
+                    config_entry_id=entry_id,
+                    identifiers={(DOMAIN, f"{device_id_prefix}{device_id}")},
+                    name=device.name,
+                    manufacturer=device.manufacturer,
+                    model=device.model,
+                    model_id=device.model_id,
+                    disabled_by=device.disabled_by,
+                ).id
+                for device_id in split_off
+            }
+            for entity in er.async_entries_for_device(
+                entity_registry, device.id, include_disabled_entities=True
+            ):
+                if (
+                    entity.platform == DOMAIN
+                    and entity.config_entry_id == entry_id
+                    and (owner := entity_owner(entity.unique_id, device_ids))
+                    in new_device_ids
+                ):
+                    entity_registry.async_update_entity(
+                        entity.entity_id, device_id=new_device_ids[owner]
+                    )
+
     def _setup_node(self, node: MatterNode) -> None:
         """Set up an node."""
         LOGGER.debug("Setting up entities for node %s", node.node_id)
@@ -220,36 +326,21 @@ class MatterAdapter:
             server_info,
             endpoint,
         )
-        node_device_identifier = (DOMAIN, f"{ID_TYPE_DEVICE_ID}_{node_device_id}")
-        identifiers = {node_device_identifier}
         serial_number: str | None = None
-        # if available, we also add the serial number as identifier
+        # The serial number is not used as an identifier: it does not tell a
+        # re-commissioned device (new node ID) apart from the old node, and is not
+        # unique across vendors or for bridged devices.
         if (
             (basic_info_serial_number := basic_info.serialNumber)
             and "test" not in basic_info_serial_number.lower()
-            # some bridges report their own serial number for the devices they bridge,
-            # which would make the identifier resolve to the bridge's device
+            # some bridges report their own serial number for the devices they bridge
             and not (
                 isinstance(basic_info, clusters.BridgedDeviceBasicInformation)
                 and node_info is not None
                 and basic_info_serial_number == node_info.serialNumber
             )
         ):
-            # prefix identifier with 'serial_' to be able to filter it
-            identifiers.add((DOMAIN, f"{ID_TYPE_SERIAL}_{basic_info_serial_number}"))
             serial_number = basic_info_serial_number
-
-        # the bridge's device entry keeps every identifier that was ever merged onto
-        # it, so a bridged device can still resolve to it through one left behind
-        if (
-            via_device_id is not UNDEFINED
-            and (via_device := device_registry.async_get(via_device_id))
-            and (stale_identifiers := via_device.identifiers & identifiers)
-        ):
-            device_registry.async_update_device(
-                via_device.id,
-                new_identifiers=via_device.identifiers - stale_identifiers,
-            )
 
         # Model name is the human readable name of the model/product name
         model_name = (
@@ -271,7 +362,7 @@ class MatterAdapter:
         device_registry.async_get_or_create(
             config_entry_id=self.config_entry.entry_id,
             name=name,
-            identifiers=identifiers,
+            identifiers={(DOMAIN, f"{ID_TYPE_DEVICE_ID}_{node_device_id}")},
             hw_version=basic_info.hardwareVersionString,
             sw_version=basic_info.softwareVersionString,
             manufacturer=basic_info.vendorName

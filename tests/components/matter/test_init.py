@@ -944,6 +944,62 @@ async def test_remove_config_entry_device(
     assert not hass.states.get(entity_id)
 
 
+async def test_remove_config_entry_device_recommissioned(
+    hass: HomeAssistant,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    matter_client: MagicMock,
+    hass_ws_client: WebSocketGenerator,
+) -> None:
+    """Test removing the device of the old node of a re-commissioned device.
+
+    Both nodes report the same serial number, but only the old node is removed.
+    """
+    assert await async_setup_component(hass, "config", {})
+    nodes = []
+    for node_id, available in ((30, False), (31, True)):
+        node = create_node_from_fixture("mock_onoff_light")
+        node.node_data.node_id = node_id
+        node.node_data.available = available
+        nodes.append(node)
+    matter_client.get_nodes.return_value = nodes
+    config_entry = MockConfigEntry(
+        domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
+    )
+    config_entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    old_device = device_registry.async_get_device_by_identifier(
+        (DOMAIN, "deviceid_00000000000004D2-000000000000001E-MatterNodeDevice"),
+        config_entry.entry_id,
+    )
+    new_device = device_registry.async_get_device_by_identifier(
+        (DOMAIN, "deviceid_00000000000004D2-000000000000001F-MatterNodeDevice"),
+        config_entry.entry_id,
+    )
+    assert old_device is not None
+    assert new_device is not None
+    assert old_device.id != new_device.id
+    new_entity_ids = [
+        entry.entity_id
+        for entry in er.async_entries_for_device(entity_registry, new_device.id)
+    ]
+    assert new_entity_ids
+
+    client = await hass_ws_client(hass)
+    response = await client.remove_device(old_device.id)
+    assert response["success"]
+    await hass.async_block_till_done()
+
+    matter_client.remove_node.assert_called_once_with(30)
+    assert not device_registry.async_get(old_device.id)
+    assert device_registry.async_get(new_device.id)
+    for entity_id in new_entity_ids:
+        assert entity_registry.async_get(entity_id)
+        assert hass.states.get(entity_id)
+
+
 async def test_remove_config_entry_device_no_node(
     hass: HomeAssistant,
     device_registry: dr.DeviceRegistry,

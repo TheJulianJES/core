@@ -58,8 +58,10 @@ async def test_device_registry_single_node_device(
     )
     assert entry is not None
 
-    # test serial id present as additional identifier
-    assert (DOMAIN, "serial_12345678") in entry.identifiers
+    # the serial number is shown, but not used as an identifier
+    assert entry.identifiers == {
+        (DOMAIN, f"deviceid_00000000000004D2-{unique_id}-MatterNodeDevice")
+    }
 
     assert entry.name == name
     assert entry.manufacturer == "Nabu Casa"
@@ -86,8 +88,7 @@ async def test_device_registry_single_node_device_alt(
     # test name is derived from productName (because nodeLabel is absent)
     assert entry.name == "Mock OnOffPluginUnit"
 
-    # test serial id NOT present as additional identifier
-    assert (DOMAIN, "serial_TEST_SN") not in entry.identifiers
+    # test serial numbers are not shown
     assert entry.serial_number is None
 
 
@@ -378,18 +379,14 @@ async def test_device_registry_bridged_device_with_bridge_serial_number(
     hass: HomeAssistant,
     device_registry: dr.DeviceRegistry,
 ) -> None:
-    """Test a bridged device reporting the serial number of the bridge itself.
-
-    The serial number identifier must be skipped, as it would otherwise resolve
-    to the bridge's own device entry.
-    """
+    """Test a bridged device reporting the serial number of the bridge itself."""
     entry_id = hass.config_entries.async_entries(DOMAIN)[0].entry_id
     bridge_entry = device_registry.async_get_device_by_identifier(
         (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice"),
         entry_id,
     )
     assert bridge_entry is not None
-    assert (DOMAIN, "serial_glg5mxh") in bridge_entry.identifiers
+    assert bridge_entry.serial_number == "glg5mxh"
 
     bridged_entry = device_registry.async_get_device_by_identifier(
         (DOMAIN, "deviceid_00000000000004D2-000000000000003E-29"), entry_id
@@ -397,7 +394,6 @@ async def test_device_registry_bridged_device_with_bridge_serial_number(
     assert bridged_entry is not None
     assert bridged_entry.id != bridge_entry.id
     assert bridged_entry.via_device_id == bridge_entry.id
-    assert (DOMAIN, "serial_glg5mxh") not in bridged_entry.identifiers
     assert bridged_entry.serial_number is None
 
 
@@ -410,8 +406,7 @@ async def test_device_registry_bridged_device_merged_into_bridge(
     """Test a bridged device that was merged into the bridge's device is split off.
 
     A bridged device reporting the serial number of the bridge used to be merged
-    into the bridge's device entry, which keeps resolving to it through the
-    identifier that is left behind there.
+    into the bridge's device entry through the serial number identifier.
     """
     node = create_node_from_fixture("atios_knx_bridge", {"29/57/15": "glg5mxh"})
     matter_client.get_nodes.return_value = [node]
@@ -446,7 +441,9 @@ async def test_device_registry_bridged_device_merged_into_bridge(
     )
     assert bridge_entry is not None
     assert bridge_entry.id == merged_entry.id
-    assert (DOMAIN, "serial_glg5mxh") in bridge_entry.identifiers
+    assert bridge_entry.identifiers == {
+        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice")
+    }
 
     bridged_entry = device_registry.async_get_device_by_identifier(
         (DOMAIN, "deviceid_00000000000004D2-000000000000003E-29"), config_entry.entry_id
@@ -536,24 +533,204 @@ async def test_composed_bridged_device_with_bridge_serial_number(
     assert device_entry is not None
     assert device_entry.id != bridge_entry.id
     assert device_entry.via_device_id == bridge_entry.id
-    assert (DOMAIN, "serial_MB-1234") not in device_entry.identifiers
+    assert device_entry.identifiers == {identifier}
+    assert device_entry.serial_number is None
 
 
-async def test_device_registry_bridged_device_merged_with_changed_bridge_serial(
+def create_node_with_id(node_id: int, *, available: bool = True) -> MatterNode:
+    """Create a mock_onoff_light node, all of which share serial number 12345678."""
+    node = create_node_from_fixture("mock_onoff_light")
+    node.node_data.node_id = node_id
+    node.node_data.available = available
+    return node
+
+
+def light_unique_id(device_id: str) -> str:
+    """Return the unique ID of the light entity of a mock_onoff_light device."""
+    return f"{device_id}-1-MatterLight-6-0"
+
+
+OLD_DEVICE_ID = "00000000000004D2-000000000000001E-MatterNodeDevice"
+NEW_DEVICE_ID = "00000000000004D2-000000000000001F-MatterNodeDevice"
+OLD_FABRIC_DEVICE_ID = "0000000000000ABC-0000000000000040-MatterNodeDevice"
+
+
+async def test_device_registry_recommissioned_device(
     hass: HomeAssistant,
     matter_client: MagicMock,
     device_registry: dr.DeviceRegistry,
 ) -> None:
-    """Test splitting off a merged bridged device after the bridge's serial changed.
+    """Test a re-commissioned device gets its own device entry.
 
-    The bridge's device entry keeps the shared serial number identifier, so the
-    bridged device has to be split off from it by all of its identifiers, not just
-    its device ID, or it resolves to the bridge again through that serial number.
+    The old node of a device that was factory reset and commissioned again
+    reports the same serial number as the new one.
     """
-    node = create_node_from_fixture(
-        "atios_knx_bridge", {"0/40/15": "b7hcpwo", "29/57/15": "glg5mxh"}
+    matter_client.get_nodes.return_value = [
+        create_node_with_id(30, available=False),
+        create_node_with_id(31),
+    ]
+    config_entry = MockConfigEntry(
+        domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
     )
-    matter_client.get_nodes.return_value = [node]
+    config_entry.add_to_hass(hass)
+
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    old_entry = device_registry.async_get_device_by_identifier(
+        (DOMAIN, f"deviceid_{OLD_DEVICE_ID}"), config_entry.entry_id
+    )
+    new_entry = device_registry.async_get_device_by_identifier(
+        (DOMAIN, f"deviceid_{NEW_DEVICE_ID}"), config_entry.entry_id
+    )
+    assert old_entry is not None
+    assert new_entry is not None
+    assert old_entry.id != new_entry.id
+    assert old_entry.identifiers == {(DOMAIN, f"deviceid_{OLD_DEVICE_ID}")}
+    assert new_entry.identifiers == {(DOMAIN, f"deviceid_{NEW_DEVICE_ID}")}
+    assert old_entry.serial_number == new_entry.serial_number == "12345678"
+
+
+@pytest.mark.parametrize(
+    ("nodes", "merged_device_ids", "kept_device_id", "split_off_device_id"),
+    # (node ID, available) of the nodes on the Matter server
+    [
+        pytest.param(
+            [(31, True)],
+            [OLD_DEVICE_ID, NEW_DEVICE_ID],
+            NEW_DEVICE_ID,
+            OLD_DEVICE_ID,
+            id="old_node_removed",
+        ),
+        pytest.param(
+            [(30, False), (31, True)],
+            [OLD_DEVICE_ID, NEW_DEVICE_ID],
+            NEW_DEVICE_ID,
+            OLD_DEVICE_ID,
+            id="old_node_unavailable",
+        ),
+        pytest.param(
+            [(30, True), (31, False)],
+            [OLD_DEVICE_ID, NEW_DEVICE_ID],
+            OLD_DEVICE_ID,
+            NEW_DEVICE_ID,
+            id="new_node_unavailable",
+        ),
+        pytest.param(
+            [],
+            [OLD_DEVICE_ID, NEW_DEVICE_ID],
+            NEW_DEVICE_ID,
+            OLD_DEVICE_ID,
+            id="both_nodes_removed",
+        ),
+        pytest.param(
+            [(30, True)],
+            [OLD_FABRIC_DEVICE_ID, OLD_DEVICE_ID],
+            OLD_DEVICE_ID,
+            OLD_FABRIC_DEVICE_ID,
+            id="node_of_other_fabric",
+        ),
+    ],
+)
+async def test_split_device_merged_through_serial_number(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    nodes: list[tuple[int, bool]],
+    merged_device_ids: list[str],
+    kept_device_id: str,
+    split_off_device_id: str,
+) -> None:
+    """Test a device entry merged through a shared serial number is split.
+
+    The device ID of the node that is most likely still in use keeps the device
+    entry, the other one gets a new device entry, together with its entities.
+    """
+    matter_client.get_nodes.return_value = [
+        create_node_with_id(node_id, available=available)
+        for node_id, available in nodes
+    ]
+    config_entry = MockConfigEntry(
+        domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
+    )
+    config_entry.add_to_hass(hass)
+    other_config_entry = MockConfigEntry(domain="other")
+    other_config_entry.add_to_hass(hass)
+
+    merged_entry = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            *((DOMAIN, f"deviceid_{device_id}") for device_id in merged_device_ids),
+            (DOMAIN, "serial_12345678"),
+        },
+        name="Mock OnOff Light",
+        manufacturer="Nabu Casa",
+        model="Mock Light",
+    )
+    device_registry.async_update_device(merged_entry.id, name_by_user="Kitchen")
+    kept_entity = entity_registry.async_get_or_create(
+        "light",
+        DOMAIN,
+        light_unique_id(kept_device_id),
+        config_entry=config_entry,
+        device_id=merged_entry.id,
+    )
+    split_off_entity = entity_registry.async_get_or_create(
+        "light",
+        DOMAIN,
+        light_unique_id(split_off_device_id),
+        config_entry=config_entry,
+        device_id=merged_entry.id,
+        disabled_by=er.RegistryEntryDisabler.USER,
+    )
+    other_entity = entity_registry.async_get_or_create(
+        "sensor",
+        "other",
+        light_unique_id(split_off_device_id),
+        config_entry=other_config_entry,
+        device_id=merged_entry.id,
+    )
+
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    kept_entry = device_registry.async_get(merged_entry.id)
+    assert kept_entry is not None
+    assert kept_entry.identifiers == {(DOMAIN, f"deviceid_{kept_device_id}")}
+    assert kept_entry.name_by_user == "Kitchen"
+
+    split_off_entry = device_registry.async_get_device_by_identifier(
+        (DOMAIN, f"deviceid_{split_off_device_id}"), config_entry.entry_id
+    )
+    assert split_off_entry is not None
+    assert split_off_entry.id != merged_entry.id
+    assert split_off_entry.identifiers == {(DOMAIN, f"deviceid_{split_off_device_id}")}
+    assert split_off_entry.name == "Mock OnOff Light"
+    assert split_off_entry.manufacturer == "Nabu Casa"
+    assert split_off_entry.name_by_user is None
+
+    assert entity_registry.async_get(kept_entity.entity_id).device_id == kept_entry.id
+    assert (
+        entity_registry.async_get(split_off_entity.entity_id).device_id
+        == split_off_entry.id
+    )
+    # entities of other integrations are left alone
+    assert entity_registry.async_get(other_entity.entity_id).device_id == kept_entry.id
+
+
+async def test_split_merged_device_assigns_entities_by_node(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test entities not matching any device ID are assigned through their node.
+
+    Unique IDs from before matter-python-client 1.5.0 can use the device ID of
+    another endpoint of the same node.
+    """
+    matter_client.get_nodes.return_value = [create_node_with_id(31)]
     config_entry = MockConfigEntry(
         domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
     )
@@ -562,82 +739,66 @@ async def test_device_registry_bridged_device_merged_with_changed_bridge_serial(
     merged_entry = device_registry.async_get_or_create(
         config_entry_id=config_entry.entry_id,
         identifiers={
-            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice"),
-            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-29"),
-            (DOMAIN, "serial_glg5mxh"),
+            (DOMAIN, f"deviceid_{OLD_DEVICE_ID}"),
+            (DOMAIN, f"deviceid_{NEW_DEVICE_ID}"),
+            (DOMAIN, "serial_12345678"),
         },
+    )
+    legacy_entity = entity_registry.async_get_or_create(
+        "sensor",
+        DOMAIN,
+        "00000000000004D2-000000000000001E-2-2-TemperatureSensor-1026-0",
+        config_entry=config_entry,
+        device_id=merged_entry.id,
+    )
+    unknown_entity = entity_registry.async_get_or_create(
+        "sensor",
+        DOMAIN,
+        "00000000000004D2-0000000000000020-2-2-TemperatureSensor-1026-0",
+        config_entry=config_entry,
+        device_id=merged_entry.id,
     )
 
     assert await hass.config_entries.async_setup(config_entry.entry_id)
     await hass.async_block_till_done()
 
-    bridge_entry = device_registry.async_get_device_by_identifier(
-        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice"),
-        config_entry.entry_id,
+    old_entry = device_registry.async_get_device_by_identifier(
+        (DOMAIN, f"deviceid_{OLD_DEVICE_ID}"), config_entry.entry_id
     )
-    assert bridge_entry is not None
-    assert bridge_entry.id == merged_entry.id
-    # the bridge keeps its own serial number, the stale one goes to the bridged device
-    assert (DOMAIN, "serial_b7hcpwo") in bridge_entry.identifiers
-    assert (DOMAIN, "serial_glg5mxh") not in bridge_entry.identifiers
-
-    bridged_entry = device_registry.async_get_device_by_identifier(
-        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-29"), config_entry.entry_id
+    assert old_entry is not None
+    assert old_entry.id != merged_entry.id
+    assert entity_registry.async_get(legacy_entity.entity_id).device_id == old_entry.id
+    # an entity belonging to neither device ID stays on the device entry
+    assert (
+        entity_registry.async_get(unknown_entity.entity_id).device_id == merged_entry.id
     )
-    assert bridged_entry is not None
-    assert bridged_entry.id != bridge_entry.id
-    assert bridged_entry.via_device_id == bridge_entry.id
-    assert (DOMAIN, "serial_glg5mxh") in bridged_entry.identifiers
 
 
-async def test_device_registry_bridged_device_split_off_with_changed_bridge_serial(
+async def test_remove_serial_number_identifier(
     hass: HomeAssistant,
     matter_client: MagicMock,
     device_registry: dr.DeviceRegistry,
 ) -> None:
-    """Test a bridged device that already has its own entry when the serial changes.
-
-    The bridge's device entry still holds the serial number it shared with the
-    bridged device, so that identifier has to be taken from it once the bridged
-    device reports it as its own again.
-    """
-    node = create_node_from_fixture(
-        "atios_knx_bridge", {"0/40/15": "b7hcpwo", "29/57/15": "glg5mxh"}
-    )
-    matter_client.get_nodes.return_value = [node]
+    """Test the serial number identifier is removed from an unmerged device entry."""
+    matter_client.get_nodes.return_value = [create_node_with_id(30)]
     config_entry = MockConfigEntry(
         domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
     )
     config_entry.add_to_hass(hass)
 
-    bridge = device_registry.async_get_or_create(
+    device_entry = device_registry.async_get_or_create(
         config_entry_id=config_entry.entry_id,
         identifiers={
-            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice"),
-            (DOMAIN, "serial_glg5mxh"),
+            (DOMAIN, f"deviceid_{OLD_DEVICE_ID}"),
+            (DOMAIN, "serial_12345678"),
         },
-    )
-    device_registry.async_get_or_create(
-        config_entry_id=config_entry.entry_id,
-        identifiers={(DOMAIN, "deviceid_00000000000004D2-000000000000003E-29")},
-        via_device_id=bridge.id,
     )
 
     assert await hass.config_entries.async_setup(config_entry.entry_id)
     await hass.async_block_till_done()
 
-    bridge_entry = device_registry.async_get_device_by_identifier(
-        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice"),
-        config_entry.entry_id,
-    )
-    assert bridge_entry is not None
-    assert (DOMAIN, "serial_b7hcpwo") in bridge_entry.identifiers
-    assert (DOMAIN, "serial_glg5mxh") not in bridge_entry.identifiers
-
-    bridged_entry = device_registry.async_get_device_by_identifier(
-        (DOMAIN, "deviceid_00000000000004D2-000000000000003E-29"), config_entry.entry_id
-    )
-    assert bridged_entry is not None
-    assert bridged_entry.id != bridge_entry.id
-    assert bridged_entry.via_device_id == bridge_entry.id
-    assert (DOMAIN, "serial_glg5mxh") in bridged_entry.identifiers
+    assert len(device_registry.devices) == 1
+    device_entry = device_registry.async_get(device_entry.id)
+    assert device_entry is not None
+    assert device_entry.identifiers == {(DOMAIN, f"deviceid_{OLD_DEVICE_ID}")}
+    assert device_entry.serial_number == "12345678"

@@ -193,10 +193,7 @@ async def setup_integration_with_node_fixtures(
     client: MagicMock,
 ) -> None:
     """Set up Matter integration with all fixtures as nodes."""
-    nodes = [
-        create_node_from_fixture(node_fixture, override_serial=True)
-        for node_fixture in FIXTURES
-    ]
+    nodes = [create_node_from_fixture(node_fixture) for node_fixture in FIXTURES]
 
     await _setup_integration_with_nodes(hass, client, nodes)
 
@@ -204,14 +201,9 @@ async def setup_integration_with_node_fixtures(
 def create_node_from_fixture(
     node_fixture: str,
     override_attributes: dict[str, Any] | None = None,
-    *,
-    override_serial: bool = False,
 ) -> MatterNode:
     """Create a node from a fixture."""
     node_data = load_and_parse_node_fixture(node_fixture)
-    # Override serial number to ensure uniqueness across fixtures
-    if override_serial and "0/40/15" in node_data["attributes"]:
-        node_data["attributes"]["0/40/15"] = f"serial_{node_data['node_id']}"
     if override_attributes:
         node_data["attributes"].update(override_attributes)
     return MatterNode(
