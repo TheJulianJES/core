@@ -652,6 +652,13 @@ async def test_split_device_merged_through_serial_number(
     config_entry.add_to_hass(hass)
     other_config_entry = MockConfigEntry(domain="other")
     other_config_entry.add_to_hass(hass)
+    # a bridged device that shared the serial number linked the entry to its bridge
+    bridge_entry = device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={
+            (DOMAIN, "deviceid_00000000000004D2-000000000000003E-MatterNodeDevice")
+        },
+    )
 
     merged_entry = device_registry.async_get_or_create(
         config_entry_id=config_entry.entry_id,
@@ -662,6 +669,8 @@ async def test_split_device_merged_through_serial_number(
         name="Mock OnOff Light",
         manufacturer="Nabu Casa",
         model="Mock Light",
+        serial_number="12345678",
+        via_device_id=bridge_entry.id,
     )
     device_registry.async_update_device(merged_entry.id, name_by_user="Kitchen")
     kept_entity = entity_registry.async_get_or_create(
@@ -694,6 +703,7 @@ async def test_split_device_merged_through_serial_number(
     assert kept_entry is not None
     assert kept_entry.identifiers == {(DOMAIN, f"deviceid_{kept_device_id}")}
     assert kept_entry.name_by_user == "Kitchen"
+    assert kept_entry.via_device_id is None
 
     split_off_entry = device_registry.async_get_device_by_identifier(
         (DOMAIN, f"deviceid_{split_off_device_id}"), config_entry.entry_id
@@ -703,6 +713,7 @@ async def test_split_device_merged_through_serial_number(
     assert split_off_entry.identifiers == {(DOMAIN, f"deviceid_{split_off_device_id}")}
     assert split_off_entry.name == "Mock OnOff Light"
     assert split_off_entry.manufacturer == "Nabu Casa"
+    assert split_off_entry.serial_number == "12345678"
     assert split_off_entry.name_by_user is None
 
     assert entity_registry.async_get(kept_entity.entity_id).device_id == kept_entry.id

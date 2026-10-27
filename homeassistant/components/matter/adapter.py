@@ -231,10 +231,13 @@ class MatterAdapter:
                 new_identifiers=device.identifiers
                 - serial_identifiers
                 - {(DOMAIN, f"{device_id_prefix}{d}") for d in split_off},
+                # the via device can be the bridge of a split off device, setup sets
+                # it again for a kept bridged device
+                via_device_id=None if split_off else UNDEFINED,
             )
             if not split_off:
                 continue
-            LOGGER.debug(
+            LOGGER.info(
                 "Splitting %s off device %s, which is kept for %s",
                 split_off,
                 device.id,
@@ -248,6 +251,9 @@ class MatterAdapter:
                     manufacturer=device.manufacturer,
                     model=device.model,
                     model_id=device.model_id,
+                    serial_number=device.serial_number,
+                    hw_version=device.hw_version,
+                    sw_version=device.sw_version,
                     disabled_by=device.disabled_by,
                 ).id
                 for device_id in split_off

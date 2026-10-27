@@ -993,9 +993,8 @@ async def test_remove_config_entry_device_recommissioned(
     matter_client.remove_node.assert_called_once_with(30)
     assert not device_registry.async_get(old_device.id)
     assert device_registry.async_get(new_device.id)
-    for entity_id in new_entity_ids:
-        assert entity_registry.async_get(entity_id)
-        assert hass.states.get(entity_id)
+    assert all(entity_registry.async_get(entity_id) for entity_id in new_entity_ids)
+    assert all(hass.states.get(entity_id) for entity_id in new_entity_ids)
 
 
 async def test_remove_config_entry_device_no_node(
