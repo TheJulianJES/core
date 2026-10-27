@@ -22,6 +22,7 @@ from pytest_homeassistant.common import (
     mock_integration,
     mock_platform,
 )
+import universal_silabs_flasher.firmware  # noqa: F401  # used via async_import_module
 from universal_silabs_flasher.flasher import DeviceSpecificFlasher
 from yarl import URL
 
