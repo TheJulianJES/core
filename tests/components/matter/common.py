@@ -214,6 +214,16 @@ def create_node_from_fixture(
     )
 
 
+def create_node_with_id(
+    node_fixture: str, node_id: int, *, available: bool = True
+) -> MatterNode:
+    """Create a node from a fixture with a different node ID and availability."""
+    node = create_node_from_fixture(node_fixture)
+    node.node_data.node_id = node_id
+    node.node_data.available = available
+    return node
+
+
 def set_node_attribute(
     node: MatterNode,
     endpoint: int,

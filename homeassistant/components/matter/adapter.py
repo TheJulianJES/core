@@ -172,7 +172,7 @@ class MatterAdapter:
         fabric_id_hex = f"{server_info.compressed_fabric_id:016X}"
         nodes_by_id = {node.node_id: node for node in nodes}
 
-        def owner_rank(device_id: str) -> tuple[bool, bool, int, bool, str]:
+        def owner_rank(device_id: str) -> tuple[bool, bool, bool, int, bool, str]:
             """Rank which device ID of a merged entry keeps the entry."""
             # device ID format: <fabric ID>-<node ID>-<MatterNodeDevice|endpoint ID>
             parts = device_id.split("-", 2)
@@ -181,13 +181,20 @@ class MatterAdapter:
             except IndexError, ValueError:
                 node_id = -1
             node = nodes_by_id.get(node_id) if parts[0] == fabric_id_hex else None
-            # node IDs are allocated in increasing order, so the highest one is the
-            # most recently commissioned node
+            is_node_device = parts[-1] == "MatterNodeDevice"
+            # a bridge can replace the endpoint of a bridged device by a new one
+            endpoint_exists = node is not None and (
+                is_node_device
+                or (parts[-1].isdigit() and int(parts[-1]) in node.endpoints)
+            )
+            # node IDs are allocated in increasing order, so the highest one is
+            # normally the most recently commissioned node
             return (
                 node is not None and node.available,
                 node is not None,
+                endpoint_exists,
                 node_id,
-                parts[-1] == "MatterNodeDevice",
+                is_node_device,
                 device_id,
             )
 
@@ -327,9 +334,7 @@ class MatterAdapter:
             endpoint,
         )
         serial_number: str | None = None
-        # The serial number is not used as an identifier: it does not tell a
-        # re-commissioned device (new node ID) apart from the old node, and is not
-        # unique across vendors or for bridged devices.
+        # not an identifier: re-commissioned nodes and distinct devices can share it
         if (
             (basic_info_serial_number := basic_info.serialNumber)
             and "test" not in basic_info_serial_number.lower()

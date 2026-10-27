@@ -35,6 +35,7 @@ from homeassistant.setup import async_setup_component
 from .common import (
     FIXTURES,
     create_node_from_fixture,
+    create_node_with_id,
     load_and_parse_node_fixture,
     setup_integration_with_node_fixture,
 )
@@ -956,13 +957,10 @@ async def test_remove_config_entry_device_recommissioned(
     Both nodes report the same serial number, but only the old node is removed.
     """
     assert await async_setup_component(hass, "config", {})
-    nodes = []
-    for node_id, available in ((30, False), (31, True)):
-        node = create_node_from_fixture("mock_onoff_light")
-        node.node_data.node_id = node_id
-        node.node_data.available = available
-        nodes.append(node)
-    matter_client.get_nodes.return_value = nodes
+    matter_client.get_nodes.return_value = [
+        create_node_with_id("mock_onoff_light", 30, available=False),
+        create_node_with_id("mock_onoff_light", 31),
+    ]
     config_entry = MockConfigEntry(
         domain=DOMAIN, data={"url": "ws://localhost:5580/ws"}
     )
