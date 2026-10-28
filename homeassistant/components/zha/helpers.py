@@ -1145,6 +1145,11 @@ class ZHAGatewayProxy(EventBase):
         """
         group = zha_group_proxy.group
         entity_registry = er.async_get(self.hass)
+        if TYPE_CHECKING:
+            assert self.gateway.coordinator_zha_device
+        coordinator_device_id = self.device_proxies[
+            self.gateway.coordinator_zha_device.ieee
+        ].device_id
         entries = [
             entry
             for unique_id, group_entity in group.group_entities.items()
@@ -1155,6 +1160,8 @@ class ZHAGatewayProxy(EventBase):
             )
             is not None
             and (entry := entity_registry.async_get(entity_id)) is not None
+            # Only entries still on the coordinator predate group devices
+            and entry.device_id == coordinator_device_id
         ]
         if not entries:
             return
