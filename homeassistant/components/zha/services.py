@@ -56,7 +56,6 @@ from .const import (
     ATTR_QR_CODE,
     ATTR_SOURCE_IEEE,
     DOMAIN,
-    MFG_CLUSTER_ID_START,
     RESPONSE,
 )
 from .helpers import IEEE_SCHEMA, SERVICE_PERMIT_PARAMS, get_zha_data
@@ -311,9 +310,6 @@ async def _issue_zigbee_cluster_command(service: ServiceCall) -> None:
         ATTR_MANUFACTURER, ZIGPY_UNDEFINED
     )
     zha_device = _get_zigbee_device(zha_gateway, ieee)
-    if cluster_id >= MFG_CLUSTER_ID_START and manufacturer is None:
-        manufacturer = zha_device.manufacturer_code
-
     await zha_device.issue_cluster_command(
         endpoint_id,
         cluster_id,
@@ -359,8 +355,6 @@ async def _issue_zigbee_group_command(service: ServiceCall) -> None:
         ATTR_MANUFACTURER, ZIGPY_UNDEFINED
     )
     group = zha_gateway.get_group(group_id)
-    if cluster_id >= MFG_CLUSTER_ID_START and manufacturer is None:
-        _LOGGER.error("Missing manufacturer attribute for cluster: %d", cluster_id)
     response = None
     if group is not None:
         cluster = group.endpoint[cluster_id]
