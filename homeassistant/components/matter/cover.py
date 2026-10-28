@@ -295,6 +295,10 @@ class MatterCover(MatterEntity, CoverEntity):
                 current_cover_tilt_position,
                 self.current_cover_tilt_position,
             )
+        else:
+            # tilt is optional for lift and tilt covers, so a removed attribute
+            # must not leave a stale position
+            self._attr_current_cover_tilt_position = None
 
         # map matter type to HA deviceclass
         device_type: clusters.WindowCovering.Enums.Type = (

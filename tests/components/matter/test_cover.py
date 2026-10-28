@@ -1,18 +1,20 @@
 """Test Matter covers."""
 
+import copy
 from math import floor
 from unittest.mock import MagicMock, call
 
 from chip.clusters import Objects as clusters
 from freezegun.api import FrozenDateTimeFactory
 from matter_server.client.models.node import MatterNode
+from matter_server.common.models import EventType
 import pytest
 from pytest_homeassistant.common import async_fire_time_changed
 from syrupy.assertion import SnapshotAssertion
 
 from homeassistant.components.cover import CoverEntityFeature, CoverState
 from homeassistant.components.matter.cover import STATE_WRITE_DEBOUNCE_COOLDOWN
-from homeassistant.const import Platform
+from homeassistant.const import STATE_UNKNOWN, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 
@@ -1040,6 +1042,51 @@ async def test_cover_tilt_only_ignores_lift_position(
     assert state.state == CoverState.CLOSED
     assert "current_position" not in state.attributes
     assert not state.attributes["supported_features"] & CoverEntityFeature.SET_POSITION
+
+
+@pytest.mark.parametrize(
+    ("node_fixture", "entity_id"),
+    [
+        ("mock_window_covering_full", "cover.mock_full_window_covering"),
+    ],
+)
+async def test_cover_tilt_position_removed(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_id: str,
+    freezer: FrozenDateTimeFactory,
+) -> None:
+    """Test a removed tilt position attribute does not keep the last tilt position."""
+    # Tilt and PositionAwareTilt only, fully closed tilt
+    set_node_attribute(matter_node, 1, 258, 65532, 0b10010)
+    set_node_attribute(matter_node, 1, 258, 15, 10000)
+    await trigger_subscription_callback_debounced(hass, freezer, matter_client)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == CoverState.CLOSED
+
+    # a node update without the optional tilt position attribute
+    node_data = copy.deepcopy(matter_node.node_data)
+    node_data.attributes["1/258/65532"] = 0b10010
+    del node_data.attributes["1/258/15"]
+    matter_node.update(node_data)
+    await trigger_subscription_callback(
+        hass,
+        matter_client,
+        EventType.NODE_UPDATED,
+        matter_node,
+        node_id=matter_node.node_id,
+    )
+    freezer.tick(STATE_WRITE_DEBOUNCE_COOLDOWN)
+    async_fire_time_changed(hass)
+    await hass.async_block_till_done()
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == STATE_UNKNOWN
+    assert "current_tilt_position" not in state.attributes
 
 
 @pytest.mark.parametrize("node_fixture", ["mock_window_covering_full"])
