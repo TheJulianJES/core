@@ -73,6 +73,7 @@ from .helpers import (
     ZHAGatewayProxy,
     async_cluster_exists,
     cluster_command_schema_to_vol_schema,
+    convert_zha_error_to_ha_error,
     get_config_entry,
     get_zha_gateway,
     get_zha_gateway_proxy,
@@ -196,25 +197,27 @@ async def websocket_permit_devices(
 
     connection.subscriptions[msg["id"]] = async_cleanup
     zha_gateway_proxy.async_enable_debug_mode()
+    application_controller = zha_gateway_proxy.gateway.application_controller
     src_ieee: EUI64
     link_key: KeyData
     if ATTR_SOURCE_IEEE in msg:
         src_ieee = msg[ATTR_SOURCE_IEEE]
         link_key = msg[ATTR_INSTALL_CODE]
         _LOGGER.debug("Allowing join for %s device with link key", src_ieee)
-        await zha_gateway_proxy.gateway.application_controller.permit_with_link_key(
-            time_s=duration, node=src_ieee, link_key=link_key
-        )
+        async with convert_zha_error_to_ha_error():
+            await application_controller.permit_with_link_key(
+                time_s=duration, node=src_ieee, link_key=link_key
+            )
     elif ATTR_QR_CODE in msg:
         src_ieee, link_key = msg[ATTR_QR_CODE]
         _LOGGER.debug("Allowing join for %s device with link key", src_ieee)
-        await zha_gateway_proxy.gateway.application_controller.permit_with_link_key(
-            time_s=duration, node=src_ieee, link_key=link_key
-        )
+        async with convert_zha_error_to_ha_error():
+            await application_controller.permit_with_link_key(
+                time_s=duration, node=src_ieee, link_key=link_key
+            )
     else:
-        await zha_gateway_proxy.gateway.application_controller.permit(
-            time_s=duration, node=ieee
-        )
+        async with convert_zha_error_to_ha_error():
+            await application_controller.permit(time_s=duration, node=ieee)
     connection.send_result(msg[ID])
 
 
@@ -724,14 +727,15 @@ async def websocket_read_zigbee_cluster_attributes(
     cluster_type: str = msg[ATTR_CLUSTER_TYPE]
     attribute: int = msg[ATTR_ATTRIBUTE]
     manufacturer: int | ZigpyUndefinedType = msg.get(ATTR_MANUFACTURER, ZIGPY_UNDEFINED)
-    zha_device = zha_gateway.get_device(ieee)
-    success = {}
-    failure = {}
-    # Green Power devices have no clusters
-    if isinstance(zha_device, ZigbeeDevice):
-        cluster = zha_device.async_get_cluster(
-            endpoint_id, cluster_id, cluster_type=cluster_type
-        )
+    if (
+        zha_device := _async_get_zigbee_device(zha_gateway, connection, msg[ID], ieee)
+    ) is None:
+        return
+
+    cluster = zha_device.async_get_cluster(
+        endpoint_id, cluster_id, cluster_type=cluster_type
+    )
+    async with convert_zha_error_to_ha_error():
         success, failure = await cluster.read_attributes(
             [attribute], allow_cache=False, only_cache=False, manufacturer=manufacturer
         )
@@ -772,8 +776,11 @@ async def websocket_get_bindable_devices(
     """Directly bind devices."""
     zha_gateway_proxy = get_zha_gateway_proxy(hass)
     source_ieee: EUI64 = msg[ATTR_IEEE]
-    source_device = zha_gateway_proxy.device_proxies.get(source_ieee)
-    assert source_device is not None
+    if (source_device := zha_gateway_proxy.device_proxies.get(source_ieee)) is None:
+        connection.send_error(
+            msg[ID], websocket_api.ERR_NOT_FOUND, "ZHA Device not found"
+        )
+        return
 
     devices = [
         device.zha_device_info
