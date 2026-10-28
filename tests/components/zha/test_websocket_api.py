@@ -1343,12 +1343,14 @@ async def test_websocket_change_channel(
 )
 async def test_websocket_bind_unbind_devices(
     operation: tuple[str, zdo_types.ZDOCmd],
+    hass: HomeAssistant,
     app_controller: ControllerApplication,
-    zha_client,
+    zha_client: MockHAClientWebSocket,
 ) -> None:
     """Test websocket API for binding and unbinding devices to devices."""
 
     command_type, req = operation
+    gateway = get_zha_gateway(hass)
     with patch(
         "homeassistant.components.zha.websocket_api.async_binding_operation",
         autospec=True,
@@ -1368,12 +1370,111 @@ async def test_websocket_bind_unbind_devices(
     assert msg["success"]
     assert binding_operation_mock.mock_calls == [
         call(
-            ANY,
-            EUI64.convert(IEEE_SWITCH_DEVICE),
-            EUI64.convert(IEEE_GROUPABLE_DEVICE),
+            gateway.get_device(EUI64.convert(IEEE_SWITCH_DEVICE)),
+            gateway.get_device(EUI64.convert(IEEE_GROUPABLE_DEVICE)),
             req,
         )
     ]
+
+
+@pytest.mark.parametrize(
+    "operation",
+    [("bind", zdo_types.ZDOCmd.Bind_req), ("unbind", zdo_types.ZDOCmd.Unbind_req)],
+)
+async def test_websocket_binding_operation(
+    operation: tuple[str, zdo_types.ZDOCmd],
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+    zigpy_device_mock: Callable[..., ZigbeeDevice],
+) -> None:
+    """Test the ZDO requests sent for binding and unbinding devices."""
+    command_type, req = operation
+    gateway = get_zha_gateway(hass)
+    zigpy_remote = zigpy_device_mock(
+        {
+            1: {
+                SIG_EP_INPUT: [general.Basic.cluster_id],
+                SIG_EP_OUTPUT: [general.OnOff.cluster_id],
+                SIG_EP_TYPE: zigpy.profiles.zha.DeviceType.REMOTE_CONTROL,
+                SIG_EP_PROFILE: zigpy.profiles.zha.PROFILE_ID,
+            }
+        },
+    )
+    gateway.get_or_create_device(zigpy_remote)
+    await gateway.async_device_initialized(zigpy_remote)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    with patch.object(zigpy_remote.zdo, "request", AsyncMock()) as request_mock:
+        await zha_client.send_json(
+            {
+                ID: 27,
+                TYPE: f"zha/devices/{command_type}",
+                ATTR_SOURCE_IEEE: str(zigpy_remote.ieee),
+                ATTR_TARGET_IEEE: IEEE_SWITCH_DEVICE,
+            }
+        )
+        msg = await zha_client.receive_json()
+
+    assert msg["success"]
+    assert request_mock.await_args_list == [
+        call(req, zigpy_remote.ieee, 1, general.OnOff.cluster_id, ANY)
+    ]
+
+
+@pytest.mark.parametrize("command_type", ["bind", "unbind"])
+@pytest.mark.parametrize(
+    ("source_ieee", "target_ieee", "error_code"),
+    [
+        pytest.param(
+            "28:6d:97:00:01:04:11:8c",
+            IEEE_GROUPABLE_DEVICE,
+            ERR_NOT_FOUND,
+            id="missing_source",
+        ),
+        pytest.param(
+            IEEE_GREEN_POWER_DEVICE,
+            IEEE_GROUPABLE_DEVICE,
+            ERR_NOT_SUPPORTED,
+            id="green_power_source",
+        ),
+        pytest.param(
+            IEEE_SWITCH_DEVICE,
+            "28:6d:97:00:01:04:11:8c",
+            ERR_NOT_FOUND,
+            id="missing_target",
+        ),
+    ],
+)
+async def test_websocket_bind_unbind_devices_invalid(
+    command_type: str,
+    source_ieee: str,
+    target_ieee: str,
+    error_code: str,
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+) -> None:
+    """Test binding devices fails for a missing or Green Power device."""
+    await _async_add_green_power_device(hass)
+
+    with patch(
+        "homeassistant.components.zha.websocket_api.async_binding_operation",
+        autospec=True,
+    ) as binding_operation_mock:
+        await zha_client.send_json(
+            {
+                ID: 27,
+                TYPE: f"zha/devices/{command_type}",
+                ATTR_SOURCE_IEEE: source_ieee,
+                ATTR_TARGET_IEEE: target_ieee,
+            }
+        )
+        msg = await zha_client.receive_json()
+
+    assert msg["id"] == 27
+    assert msg["type"] == TYPE_RESULT
+    assert not msg["success"]
+    assert msg["error"]["code"] == error_code
+    assert binding_operation_mock.mock_calls == []
 
 
 @pytest.mark.parametrize(
