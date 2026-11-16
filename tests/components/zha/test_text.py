@@ -50,6 +50,14 @@ class FakeLocationText(TextConfigurationEntity):
     )
 
 
+class FakeUnlimitedText(FakeLocationText):
+    """Text entity for a string attribute without a length limit of its own."""
+
+    _attribute_name = "product_label"
+    _attr_native_max = 255
+    _attr_pattern = None
+
+
 class FakePasswordText(FakeLocationText):
     """Text entity in password mode."""
 
@@ -109,7 +117,10 @@ async def _setup_device(
         },
     )
     cluster = zigpy_device.endpoints[1].basic
-    cluster.PLUGGED_ATTR_READS = {"location_desc": "Kitchen"}
+    cluster.PLUGGED_ATTR_READS = {
+        "location_desc": "Kitchen",
+        "product_label": "Kitchen",
+    }
     update_attribute_cache(cluster)
 
     gateway.get_or_create_device(zigpy_device)
@@ -170,17 +181,22 @@ async def test_text_entity(
 
 
 @pytest.mark.parametrize(
-    ("text_class", "value_in_error"),
-    [(FakeLocationText, True), (FakePasswordText, False)],
+    ("text_class", "mode", "value_in_error"),
+    [
+        (FakeLocationText, TextMode.TEXT, True),
+        (FakePasswordText, TextMode.PASSWORD, False),
+    ],
 )
 async def test_text_set_value_failure(
     hass: HomeAssistant,
     setup_zha: Callable[..., Coroutine[None]],
     zigpy_device_mock: Callable[..., ZigbeeDevice],
+    mode: TextMode,
     value_in_error: bool,
 ) -> None:
     """Test a failed write raises, without the value for a password."""
     entity_id, cluster = await _setup_device(hass, setup_zha, zigpy_device_mock)
+    assert hass.states.get(entity_id).attributes[ATTR_MODE] == mode
     cluster._write_attributes.return_value = [
         zcl_f.WriteAttributesResponse(
             [
@@ -201,4 +217,27 @@ async def test_text_set_value_failure(
         )
 
     assert ("Office" in str(exc_info.value)) is value_in_error
+    assert hass.states.get(entity_id).state == "Kitchen"
+
+
+@pytest.mark.parametrize("text_class", [FakeUnlimitedText])
+async def test_text_set_value_too_long(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[None]],
+    zigpy_device_mock: Callable[..., ZigbeeDevice],
+) -> None:
+    """Test a value within HA's limit but too long for the attribute raises."""
+    entity_id, cluster = await _setup_device(hass, setup_zha, zigpy_device_mock)
+    assert hass.states.get(entity_id).attributes[ATTR_MAX] == 255
+
+    # 200 characters, but 400 bytes in UTF-8
+    with pytest.raises(HomeAssistantError, match="String is too long"):
+        await hass.services.async_call(
+            TEXT_DOMAIN,
+            SERVICE_SET_VALUE,
+            {ATTR_ENTITY_ID: entity_id, ATTR_VALUE: "ä" * 200},
+            blocking=True,
+        )
+
+    assert cluster.write_attributes.call_count == 1
     assert hass.states.get(entity_id).state == "Kitchen"
