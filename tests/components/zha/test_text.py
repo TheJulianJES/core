@@ -231,7 +231,9 @@ async def test_text_set_value_too_long(
     assert hass.states.get(entity_id).attributes[ATTR_MAX] == 255
 
     # 200 characters, but 400 bytes in UTF-8
-    with pytest.raises(HomeAssistantError, match="String is too long"):
+    with pytest.raises(
+        HomeAssistantError, match="Failed to write attribute product_label"
+    ):
         await hass.services.async_call(
             TEXT_DOMAIN,
             SERVICE_SET_VALUE,
@@ -239,5 +241,7 @@ async def test_text_set_value_too_long(
             blocking=True,
         )
 
+    # Refused before anything was sent
     assert cluster.write_attributes.call_count == 1
+    cluster._write_attributes.assert_not_called()
     assert hass.states.get(entity_id).state == "Kitchen"
