@@ -101,13 +101,13 @@ class ZhaCover(ZHASupportedFeaturesEntity, CoverEntity):
 
     @property
     @override
-    def is_opening(self) -> bool:
+    def is_opening(self) -> bool | None:
         """Return if the cover is opening or not."""
         return self._zha_state.is_opening
 
     @property
     @override
-    def is_closing(self) -> bool:
+    def is_closing(self) -> bool | None:
         """Return if the cover is closing or not."""
         return self._zha_state.is_closing
 

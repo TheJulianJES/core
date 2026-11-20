@@ -432,7 +432,8 @@ class ZHAGroupProxy(LogMixin):
 
         return entity_info
 
-    def log(self, level: int, msg: str, *args: Any, **kwargs) -> None:
+    @override
+    def log(self, level: int, msg: str, *args: Any, **kwargs: Any) -> None:
         """Log a message."""
         msg = f"[%s](%s): {msg}"
         args = (
@@ -1118,7 +1119,9 @@ class ZHAGatewayProxy(EventBase):
 
         return zha_device_proxy
 
-    def _async_get_or_create_group_proxy(self, group_info: GroupInfo) -> ZHAGroupProxy:
+    def _async_get_or_create_group_proxy(
+        self, group_info: Group | GroupInfo
+    ) -> ZHAGroupProxy:
         """Get or create a ZHA group."""
         zha_group_proxy = self.group_proxies.get(group_info.group_id)
         if zha_group_proxy is None:
@@ -1557,7 +1560,9 @@ def async_is_zha_group_device(hass: HomeAssistant, device_id: str) -> bool:
     )
 
 
-def cluster_command_schema_to_vol_schema(schema: CommandSchema) -> probatio.Schema:
+def cluster_command_schema_to_vol_schema(
+    schema: type[CommandSchema],
+) -> probatio.Schema:
     """Convert a cluster command schema to a probatio schema."""
     return probatio.Schema(
         {
@@ -1630,7 +1635,9 @@ def convert_to_zcl_values(
     return converted_fields
 
 
-def async_cluster_exists(hass: HomeAssistant, cluster_id, skip_coordinator=True):
+def async_cluster_exists(
+    hass: HomeAssistant, cluster_id: int, skip_coordinator: bool = True
+) -> bool:
     """Determine if a device containing the specified in cluster is paired."""
     zha_gateway = get_zha_gateway(hass)
     zha_devices = zha_gateway.devices.values()
@@ -1655,7 +1662,7 @@ def async_add_entities(
     _async_add_entities: AddEntitiesCallback,
     entity_class: Callable[[EntityData], ZHAEntity],
     entities: list[EntityData],
-    **kwargs,
+    **kwargs: Any,
 ) -> None:
     """Add entities helper."""
     if not entities:

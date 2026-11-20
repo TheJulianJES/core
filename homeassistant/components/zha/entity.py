@@ -39,7 +39,7 @@ class ZHAEntity(LogMixin, RestoreEntity, Entity):
     _attr_should_poll = False
     remove_future: asyncio.Future[Any]
 
-    def __init__(self, entity_data: EntityData, *args, **kwargs) -> None:
+    def __init__(self, entity_data: EntityData, *args: Any, **kwargs: Any) -> None:
         """Init ZHA entity."""
         super().__init__(*args, **kwargs)
         self.entity_data: EntityData = entity_data
@@ -236,7 +236,8 @@ class ZHAEntity(LogMixin, RestoreEntity, Entity):
         await self.entity_data.entity.async_update()
         self.async_write_ha_state()
 
-    def log(self, level: int, msg: str, *args, **kwargs):
+    @override
+    def log(self, level: int, msg: str, *args: Any, **kwargs: Any) -> None:
         """Log a message."""
         if not _LOGGER.isEnabledFor(level):
             # Avoid building the prefixed message and args tuple for disabled

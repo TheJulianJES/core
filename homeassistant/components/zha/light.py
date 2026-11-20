@@ -130,13 +130,13 @@ class Light(LightEntity, ZHASupportedFeaturesEntity):
 
     @property
     @override
-    def is_on(self) -> bool:
+    def is_on(self) -> bool | None:
         """Return true if entity is on."""
         return self._zha_state.on
 
     @property
     @override
-    def brightness(self) -> int:
+    def brightness(self) -> int | None:
         """Return the brightness of this light."""
         return self._zha_state.brightness
 

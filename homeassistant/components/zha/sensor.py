@@ -1,6 +1,7 @@
 """Sensors on Zigbee Home Automation networks."""
 
 from collections.abc import Mapping
+from datetime import date, datetime
 import functools
 import logging
 from typing import Any, override
@@ -146,7 +147,7 @@ class Sensor(ZHAEntity, SensorEntity):
 
     @property
     @override
-    def native_value(self) -> StateType:
+    def native_value(self) -> StateType | date | datetime:
         """Return the state of the entity."""
         return self._zha_state.native_value
 

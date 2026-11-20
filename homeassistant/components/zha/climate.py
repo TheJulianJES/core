@@ -163,7 +163,7 @@ class Thermostat(ZHASupportedFeaturesEntity, ClimateEntity):
 
     @property
     @override
-    def preset_mode(self) -> str:
+    def preset_mode(self) -> str | None:
         """Return current preset mode."""
         return self._zha_state.preset_mode
 

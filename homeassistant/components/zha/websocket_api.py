@@ -180,7 +180,7 @@ async def websocket_permit_devices(
     duration: int = msg[ATTR_DURATION]
     ieee: EUI64 | None = msg.get(ATTR_IEEE)
 
-    async def forward_messages(data):
+    async def forward_messages(data: dict[str, Any]) -> None:
         """Forward events to websocket."""
         connection.send_message(websocket_api.event_message(msg["id"], data))
 
@@ -233,17 +233,19 @@ async def websocket_get_devices(
 
 
 @callback
-def _get_entity_name(zha_gateway: Gateway, entity_ref: EntityReference) -> str | None:
-    entity_registry = er.async_get(zha_gateway.hass)
+def _get_entity_name(
+    zha_gateway_proxy: ZHAGatewayProxy, entity_ref: EntityReference
+) -> str | None:
+    entity_registry = er.async_get(zha_gateway_proxy.hass)
     entry = entity_registry.async_get(entity_ref.ha_entity_id)
     return entry.name if entry else None
 
 
 @callback
 def _get_entity_original_name(
-    zha_gateway: Gateway, entity_ref: EntityReference
+    zha_gateway_proxy: ZHAGatewayProxy, entity_ref: EntityReference
 ) -> str | None:
-    entity_registry = er.async_get(zha_gateway.hass)
+    entity_registry = er.async_get(zha_gateway_proxy.hass)
     entry = entity_registry.async_get(entity_ref.ha_entity_id)
     return entry.original_name if entry else None
 
@@ -506,7 +508,7 @@ async def websocket_reconfigure_node(
         )
         return
 
-    async def forward_messages(data):
+    async def forward_messages(data: dict[str, Any]) -> None:
         """Forward events to websocket."""
         connection.send_message(websocket_api.event_message(msg["id"], data))
 

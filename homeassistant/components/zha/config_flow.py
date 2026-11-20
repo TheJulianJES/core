@@ -1146,7 +1146,7 @@ class ZhaOptionsFlowHandler(BaseZhaFlow, OptionsFlow):
         return await super().async_step_maybe_reset_old_radio(user_input)
 
     @override
-    async def _async_create_radio_entry(self):
+    async def _async_create_radio_entry(self) -> ConfigFlowResult:
         """Re-implementation of the base flow's final step to update the config."""
 
         # Avoid creating both `.options` and `.data` by directly writing `data` here
@@ -1163,7 +1163,7 @@ class ZhaOptionsFlowHandler(BaseZhaFlow, OptionsFlow):
 
     @callback
     @override
-    def async_remove(self):
+    def async_remove(self) -> None:
         """Maybe reload ZHA if the flow is aborted."""
         if self.config_entry.state not in (
             ConfigEntryState.SETUP_ERROR,
