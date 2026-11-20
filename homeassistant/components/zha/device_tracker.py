@@ -3,6 +3,11 @@
 import functools
 from typing import override
 
+from zha.application.platforms.device_tracker import (
+    BaseDeviceTracker,
+    DeviceTrackerState,
+)
+
 from homeassistant.components.device_tracker import ScannerEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -41,7 +46,9 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZHADeviceScannerEntity(ScannerEntity, ZHAEntity):
+class ZHADeviceScannerEntity(
+    ScannerEntity, ZHAEntity[BaseDeviceTracker, DeviceTrackerState]
+):
     """Represent a tracked device."""
 
     _attr_should_poll = True  # BaseZhaEntity defaults to False

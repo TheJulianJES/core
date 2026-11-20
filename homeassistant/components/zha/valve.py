@@ -3,6 +3,7 @@
 import functools
 from typing import override
 
+from zha.application.platforms.valve import BaseValve, ValveEntityState
 from zha.application.platforms.valve.const import (
     ValveEntityFeature as ZHAValveEntityFeature,
 )
@@ -46,7 +47,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZHAValve(ZHASupportedFeaturesEntity, ValveEntity):
+class ZHAValve(ZHASupportedFeaturesEntity[BaseValve, ValveEntityState], ValveEntity):
     """Representation of a ZHA valve."""
 
     @staticmethod

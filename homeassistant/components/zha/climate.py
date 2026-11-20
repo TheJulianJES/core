@@ -8,7 +8,11 @@ from collections.abc import Mapping
 import functools
 from typing import Any, override
 
-from zha.application.platforms.climate import ThermostatState
+from zha.application.platforms.climate import (
+    BaseThermostat,
+    ClimateState,
+    ThermostatState,
+)
 from zha.application.platforms.climate.const import (
     ClimateEntityFeature as ZHAClimateEntityFeature,
     HVACAction as ZHAHVACAction,
@@ -80,7 +84,9 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class Thermostat(ZHASupportedFeaturesEntity, ClimateEntity):
+class Thermostat(
+    ZHASupportedFeaturesEntity[BaseThermostat, ClimateState], ClimateEntity
+):
     """Representation of a ZHA Thermostat device."""
 
     _attr_precision = PRECISION_TENTHS

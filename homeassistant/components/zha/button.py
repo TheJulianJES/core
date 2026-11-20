@@ -4,6 +4,8 @@ import functools
 import logging
 from typing import override
 
+from zha.application.platforms.button import BaseButton, ButtonState
+
 from homeassistant.components.button import ButtonDeviceClass, ButtonEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -42,10 +44,10 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZHAButton(ZHAEntity, ButtonEntity):
+class ZHAButton(ZHAEntity[BaseButton, ButtonState], ButtonEntity):
     """Defines a ZHA button."""
 
-    def __init__(self, entity_data: EntityData) -> None:
+    def __init__(self, entity_data: EntityData[BaseButton]) -> None:
         """Initialize the ZHA binary sensor."""
         super().__init__(entity_data)
         if self._zha_state.device_class is not None:

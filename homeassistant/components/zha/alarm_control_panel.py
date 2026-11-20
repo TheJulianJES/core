@@ -3,6 +3,10 @@
 import functools
 from typing import override
 
+from zha.application.platforms.alarm_control_panel import (
+    AlarmControlPanelState as ZHAAlarmControlPanelState,
+    BaseAlarmControlPanel,
+)
 from zha.application.platforms.alarm_control_panel.const import (
     AlarmControlPanelEntityFeature as ZHAAlarmControlPanelEntityFeature,
     AlarmState as ZHAAlarmState,
@@ -65,7 +69,10 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZHAAlarmControlPanel(ZHASupportedFeaturesEntity, AlarmControlPanelEntity):
+class ZHAAlarmControlPanel(
+    ZHASupportedFeaturesEntity[BaseAlarmControlPanel, ZHAAlarmControlPanelState],
+    AlarmControlPanelEntity,
+):
     """Entity for ZHA alarm control devices."""
 
     _attr_translation_key: str = "alarm_control_panel"

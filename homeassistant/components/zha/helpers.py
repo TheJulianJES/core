@@ -65,7 +65,7 @@ from zha.application.helpers import (
     convert_install_code,
     qr_to_install_code,
 )
-from zha.application.platforms import GroupEntity, PlatformEntity
+from zha.application.platforms import BaseEntity, GroupEntity, PlatformEntity
 from zha.event import EventBase
 from zha.exceptions import ZHAException
 from zha.mixins import LogMixin
@@ -235,7 +235,7 @@ type EntityRef = EUI64 | str
 _GROUP_ID_RE = re.compile(r"[0-9a-f]{4}")
 
 
-def _entity_reference_key(entity_data: EntityData) -> EntityRef:
+def _entity_reference_key(entity_data: EntityData[BaseEntity]) -> EntityRef:
     """Return the key used to store an entity reference."""
     if entity_data.is_group_entity:
         assert entity_data.group_proxy is not None
@@ -711,7 +711,7 @@ class EntityReference(NamedTuple):
     """Describes an entity reference."""
 
     ha_entity_id: str
-    entity_data: EntityData
+    entity_data: EntityData[BaseEntity]
     remove_future: asyncio.Future[Any]
 
 
@@ -764,7 +764,7 @@ class ZHAGatewayProxy(EventBase):
     def register_entity_reference(
         self,
         ha_entity_id: str,
-        entity_data: EntityData,
+        entity_data: EntityData[BaseEntity],
         remove_future: asyncio.Future[Any],
     ) -> None:
         """Record the creation of a hass entity associated with ieee."""
@@ -1063,7 +1063,9 @@ class ZHAGatewayProxy(EventBase):
                 return entity_reference
         return None
 
-    def update_entity_reference(self, entity: ZHAEntity, old_entity_id: str) -> None:
+    def update_entity_reference(
+        self, entity: ZHAEntity[Any, Any], old_entity_id: str
+    ) -> None:
         """Update the entity_id of the entity reference for a renamed entity."""
         key = _entity_reference_key(entity.entity_data)
         if (entity_refs := self._ha_entity_refs.get(key)) is None:
@@ -1075,7 +1077,7 @@ class ZHAGatewayProxy(EventBase):
             for e in entity_refs
         ]
 
-    def remove_entity_reference(self, entity: ZHAEntity) -> None:
+    def remove_entity_reference(self, entity: ZHAEntity[Any, Any]) -> None:
         """Remove entity reference for given entity_id if found."""
         key = _entity_reference_key(entity.entity_data)
         if (entity_refs := self._ha_entity_refs.get(key)) is None:
@@ -1478,11 +1480,12 @@ class HAZHAData:
     )
 
 
-@dataclasses.dataclass(kw_only=True, slots=True)
-class EntityData:
+# Frozen keeps `EntityT` covariant: a settable field would make it invariant
+@dataclasses.dataclass(frozen=True, kw_only=True, slots=True)
+class EntityData[EntityT: BaseEntity = PlatformEntity | GroupEntity]:
     """ZHA entity data."""
 
-    entity: PlatformEntity | GroupEntity
+    entity: EntityT
     device_proxy: ZHADeviceProxy
     group_proxy: ZHAGroupProxy | None = dataclasses.field(default=None)
 
@@ -1660,15 +1663,15 @@ def async_cluster_exists(
 @callback
 def async_add_entities(
     _async_add_entities: AddEntitiesCallback,
-    entity_class: Callable[[EntityData], ZHAEntity],
-    entities: list[EntityData],
+    entity_class: Callable[[EntityData[Any]], ZHAEntity[Any, Any]],
+    entities: list[EntityData[Any]],
     **kwargs: Any,
 ) -> None:
     """Add entities helper."""
     if not entities:
         return
 
-    entities_to_add: list[ZHAEntity] = []
+    entities_to_add: list[ZHAEntity[Any, Any]] = []
     for entity_data in entities:
         try:
             entities_to_add.append(entity_class(entity_data))

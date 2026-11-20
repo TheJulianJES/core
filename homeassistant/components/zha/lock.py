@@ -3,6 +3,8 @@
 import functools
 from typing import Any, override
 
+from zha.application.platforms.lock import BaseLock, LockState
+
 from homeassistant.components.lock import LockEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -38,7 +40,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZhaDoorLock(ZHAEntity, LockEntity):
+class ZhaDoorLock(ZHAEntity[BaseLock, LockState], LockEntity):
     """Representation of a ZHA lock."""
 
     _attr_translation_key: str = "door_lock"

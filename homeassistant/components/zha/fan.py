@@ -3,6 +3,7 @@
 import functools
 from typing import Any, override
 
+from zha.application.platforms.fan import BaseFan, FanState
 from zha.application.platforms.fan.const import FanEntityFeature as ZHAFanEntityFeature
 
 from homeassistant.components.fan import FanEntity, FanEntityFeature
@@ -40,7 +41,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZhaFan(FanEntity, ZHASupportedFeaturesEntity):
+class ZhaFan(FanEntity, ZHASupportedFeaturesEntity[BaseFan, FanState]):
     """Representation of a ZHA fan."""
 
     _attr_translation_key: str = "fan"

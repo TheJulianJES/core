@@ -1,8 +1,9 @@
 """Support for ZHA infrared emitters and receivers."""
 
 import functools
-from typing import override
+from typing import Any, override
 
+from zha.application.platforms import BaseEntityState
 from zha.application.platforms.infrared import (
     BaseInfraredEmitter,
     BaseInfraredReceiver,
@@ -54,7 +55,9 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-def _make_infrared_entity(entity_data: EntityData) -> ZHAEntity:
+def _make_infrared_entity(
+    entity_data: EntityData[Any],
+) -> ZHAInfraredEmitter | ZHAInfraredReceiver:
     """Create the HA entity matching the ZHA infrared entity type."""
     if isinstance(entity_data.entity, BaseInfraredEmitter):
         return ZHAInfraredEmitter(entity_data)
@@ -65,7 +68,9 @@ def _make_infrared_entity(entity_data: EntityData) -> ZHAEntity:
     raise TypeError(f"Unknown infrared entity: {entity_data.entity!r}")
 
 
-class ZHAInfraredEmitter(ZHAEntity, InfraredEmitterEntity):
+class ZHAInfraredEmitter(
+    ZHAEntity[BaseInfraredEmitter, BaseEntityState], InfraredEmitterEntity
+):
     """Representation of a ZHA infrared emitter."""
 
     @convert_zha_error_to_ha_error()
@@ -80,7 +85,9 @@ class ZHAInfraredEmitter(ZHAEntity, InfraredEmitterEntity):
         )
 
 
-class ZHAInfraredReceiver(ZHAEntity, InfraredReceiverEntity):
+class ZHAInfraredReceiver(
+    ZHAEntity[BaseInfraredReceiver, BaseEntityState], InfraredReceiverEntity
+):
     """Representation of a ZHA infrared receiver."""
 
     @override

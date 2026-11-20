@@ -5,7 +5,9 @@ import logging
 from typing import Any, override
 
 from zha.application.platforms.update import (
+    BaseFirmwareUpdateEntity,
     UpdateEntityFeature as ZHAUpdateEntityFeature,
+    UpdateState,
 )
 from zha.exceptions import ZHAException
 from zigpy.application import ControllerApplication
@@ -102,7 +104,7 @@ class ZHAFirmwareUpdateCoordinator(DataUpdateCoordinator[None]):  # pylint: disa
 
 
 class ZHAFirmwareUpdateEntity(
-    ZHASupportedFeaturesEntity,
+    ZHASupportedFeaturesEntity[BaseFirmwareUpdateEntity, UpdateState],
     CoordinatorEntity[ZHAFirmwareUpdateCoordinator],
     UpdateEntity,
 ):
@@ -133,7 +135,9 @@ class ZHAFirmwareUpdateEntity(
 
         return features
 
-    def __init__(self, entity_data: EntityData, **kwargs: Any) -> None:
+    def __init__(
+        self, entity_data: EntityData[BaseFirmwareUpdateEntity], **kwargs: Any
+    ) -> None:
         """Initialize the ZHA siren."""
         zha_data = get_zha_data(entity_data.device_proxy.gateway_proxy.hass)
         assert zha_data.update_coordinator is not None

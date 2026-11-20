@@ -6,6 +6,13 @@ import functools
 import logging
 from typing import Any, override
 
+from zha.application.platforms.sensor import (
+    BaseSensor,
+    DeviceCounterSensor,
+    DeviceCounterSensorState,
+    SensorState,
+)
+
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -96,10 +103,15 @@ async def async_setup_entry(
 
 
 # pylint: disable-next=home-assistant-invalid-inheritance # needs fixing
-class Sensor(ZHAEntity, SensorEntity):
+class Sensor(
+    ZHAEntity[BaseSensor | DeviceCounterSensor, SensorState | DeviceCounterSensorState],
+    SensorEntity,
+):
     """ZHA sensor."""
 
-    def __init__(self, entity_data: EntityData, **kwargs: Any) -> None:
+    def __init__(
+        self, entity_data: EntityData[BaseSensor | DeviceCounterSensor], **kwargs: Any
+    ) -> None:
         """Initialize the ZHA select entity."""
         super().__init__(entity_data, **kwargs)
         entity = self.entity_data.entity

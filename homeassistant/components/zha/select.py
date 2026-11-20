@@ -4,6 +4,8 @@ import functools
 import logging
 from typing import override
 
+from zha.application.platforms.select import BaseSelectEntity, SelectState
+
 from homeassistant.components.select import SelectEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import STATE_UNAVAILABLE, STATE_UNKNOWN, Platform
@@ -44,7 +46,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZHAEnumSelectEntity(ZHAEntity, SelectEntity):
+class ZHAEnumSelectEntity(ZHAEntity[BaseSelectEntity, SelectState], SelectEntity):
     """Representation of a ZHA select entity."""
 
     @override

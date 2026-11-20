@@ -4,7 +4,9 @@ import functools
 from typing import Any, override
 
 from zha.application.platforms.siren import (
+    BaseSiren,
     SirenEntityFeature as ZHASirenEntityFeature,
+    SirenState,
     WarningMode,
 )
 
@@ -49,7 +51,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZHASiren(ZHASupportedFeaturesEntity, SirenEntity):
+class ZHASiren(ZHASupportedFeaturesEntity[BaseSiren, SirenState], SirenEntity):
     """Representation of a ZHA siren."""
 
     _attr_available_tones: list[int | str] | dict[int, str] | None = {

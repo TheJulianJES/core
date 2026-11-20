@@ -5,6 +5,7 @@ import functools
 import logging
 from typing import Any, override
 
+from zha.application.platforms.light import BaseLight, LightState
 from zha.application.platforms.light.const import (
     ColorMode as ZhaColorMode,
     LightEntityFeature as ZhaLightEntityFeature,
@@ -72,7 +73,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class Light(LightEntity, ZHASupportedFeaturesEntity):
+class Light(LightEntity, ZHASupportedFeaturesEntity[BaseLight, LightState]):
     """Representation of a ZHA or ZLL light."""
 
     @staticmethod

@@ -4,6 +4,12 @@ import functools
 import logging
 from typing import Any, override
 
+from zha.application.platforms.switch import (
+    BaseSwitch,
+    ConfigurableAttributeSwitch,
+    SwitchState,
+)
+
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -41,7 +47,9 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class Switch(ZHAEntity, SwitchEntity):
+class Switch(
+    ZHAEntity[BaseSwitch | ConfigurableAttributeSwitch, SwitchState], SwitchEntity
+):
     """ZHA switch."""
 
     @property

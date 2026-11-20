@@ -4,7 +4,11 @@ import functools
 import logging
 from typing import Any, override
 
-from zha.application.platforms.cover import Shade as ZhaShade
+from zha.application.platforms.cover import (
+    BaseCover,
+    CoverEntityState,
+    Shade as ZhaShade,
+)
 from zha.application.platforms.cover.const import (
     CoverEntityFeature as ZHACoverEntityFeature,
 )
@@ -52,7 +56,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZhaCover(ZHASupportedFeaturesEntity, CoverEntity):
+class ZhaCover(ZHASupportedFeaturesEntity[BaseCover, CoverEntityState], CoverEntity):
     """Representation of a ZHA cover."""
 
     @staticmethod

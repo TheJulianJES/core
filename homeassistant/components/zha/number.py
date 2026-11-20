@@ -4,6 +4,8 @@ import functools
 import logging
 from typing import Any, override
 
+from zha.application.platforms.number import BaseNumber, NumberState
+
 from homeassistant.components.number import NumberDeviceClass, NumberMode, RestoreNumber
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -42,10 +44,10 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZhaNumber(ZHAEntity, RestoreNumber):
+class ZhaNumber(ZHAEntity[BaseNumber, NumberState], RestoreNumber):
     """Representation of a ZHA Number entity."""
 
-    def __init__(self, entity_data: EntityData, **kwargs: Any) -> None:
+    def __init__(self, entity_data: EntityData[BaseNumber], **kwargs: Any) -> None:
         """Initialize the ZHA number entity."""
         super().__init__(entity_data, **kwargs)
         entity = entity_data.entity

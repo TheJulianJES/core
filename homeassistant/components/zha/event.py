@@ -3,7 +3,11 @@
 import functools
 from typing import override
 
-from zha.application.platforms.event import EntityEventTriggeredEvent
+from zha.application.platforms.event import (
+    BaseEvent,
+    EntityEventTriggeredEvent,
+    EventState,
+)
 
 from homeassistant.components.event import EventDeviceClass, EventEntity
 from homeassistant.config_entries import ConfigEntry
@@ -39,7 +43,7 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class ZHAEvent(ZHAEntity, EventEntity):
+class ZHAEvent(ZHAEntity[BaseEvent, EventState], EventEntity):
     """ZHA event."""
 
     @override

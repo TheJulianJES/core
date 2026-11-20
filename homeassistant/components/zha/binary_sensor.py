@@ -3,6 +3,8 @@
 import functools
 from typing import override
 
+from zha.application.platforms.binary_sensor import BaseBinarySensor, BinarySensorState
+
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -41,10 +43,10 @@ async def async_setup_entry(
     config_entry.async_on_unload(unsub)
 
 
-class BinarySensor(ZHAEntity, BinarySensorEntity):
+class BinarySensor(ZHAEntity[BaseBinarySensor, BinarySensorState], BinarySensorEntity):
     """ZHA BinarySensor."""
 
-    def __init__(self, entity_data: EntityData) -> None:
+    def __init__(self, entity_data: EntityData[BaseBinarySensor]) -> None:
         """Initialize the ZHA binary sensor."""
         super().__init__(entity_data)
         if self._zha_state.device_class is not None:

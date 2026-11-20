@@ -6,10 +6,16 @@ import dataclasses
 from enum import IntFlag
 from functools import partial
 import logging
-from typing import Any, override
+from typing import Any, Protocol, cast, override
 
 from propcache.api import cached_property
-from zha.application.platforms import EntityStateChangedEvent
+from zha.application.platforms import (
+    BaseEntity,
+    BaseEntityState,
+    EntityStateChangedEvent,
+    GroupEntity,
+    PlatformEntity,
+)
 from zha.mixins import LogMixin
 
 from homeassistant.const import EntityCategory
@@ -32,19 +38,24 @@ from .helpers import (
 _LOGGER = logging.getLogger(__name__)
 
 
-class ZHAEntity(LogMixin, RestoreEntity, Entity):
+class ZHAEntity[
+    EntityT: BaseEntity = PlatformEntity | GroupEntity,
+    StateT: BaseEntityState = BaseEntityState,
+](LogMixin, RestoreEntity, Entity):
     """ZHA eitity."""
 
     _attr_has_entity_name = True
     _attr_should_poll = False
     remove_future: asyncio.Future[Any]
 
-    def __init__(self, entity_data: EntityData, *args: Any, **kwargs: Any) -> None:
+    def __init__(
+        self, entity_data: EntityData[EntityT], *args: Any, **kwargs: Any
+    ) -> None:
         """Init ZHA entity."""
         super().__init__(*args, **kwargs)
-        self.entity_data: EntityData = entity_data
+        self.entity_data: EntityData[EntityT] = entity_data
         self._unsubs: list[Callable[[], None]] = []
-        self._zha_state = self.entity_data.entity.state
+        self._zha_state = cast(StateT, self.entity_data.entity.state)
 
         if self.entity_data.entity.icon is not None:
             # Only custom quirks will realistically set an icon
@@ -249,14 +260,28 @@ class ZHAEntity(LogMixin, RestoreEntity, Entity):
         _LOGGER.log(level, msg, *args, **kwargs)
 
 
-class ZHASupportedFeaturesEntity(ZHAEntity):
+class _SupportedFeaturesState(Protocol):
+    """A ZHA entity state that carries a `supported_features` flag."""
+
+    @property
+    def supported_features(self) -> IntFlag: ...
+
+
+class ZHASupportedFeaturesEntity[
+    EntityT: BaseEntity = PlatformEntity | GroupEntity,
+    StateT: BaseEntityState = BaseEntityState,
+](ZHAEntity[EntityT, StateT]):
     """ZHA entity whose state carries a `supported_features` flag to translate."""
 
     @override
     def _update_capability_attrs(self) -> None:
         """Re-derive capability `_attr_*` attributes from the cached state."""
+        # No intersection types: `StateT` is a `BaseEntityState` that also carries
+        # `supported_features`, which zha declares per platform state class
+        # (as a plain `int` on `AlarmControlPanelState`, an `IntFlag` elsewhere)
+        state = cast(_SupportedFeaturesState, self._zha_state)
         self._attr_supported_features = self._convert_supported_features(
-            self._zha_state.supported_features
+            state.supported_features
         )
 
     @staticmethod
