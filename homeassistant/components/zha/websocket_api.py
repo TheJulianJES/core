@@ -22,9 +22,9 @@ from zha.application.const import (
     ZHA_GW_MSG,
 )
 from zha.application.gateway import Gateway
-from zha.application.helpers import async_is_bindable_target, get_matched_clusters
+from zha.application.helpers import async_is_bindable_target
 from zha.exceptions import ZHAException
-from zha.zigbee.device import BaseDevice, ZigbeeDevice
+from zha.zigbee.device import BaseDevice, BindingResult, ZigbeeDevice
 from zha.zigbee.group import GroupMemberReference
 import zigpy.backups
 from zigpy.config import CONF_DEVICE
@@ -35,7 +35,6 @@ from zigpy.typing import (
     UndefinedType as ZigpyUndefinedType,
 )
 from zigpy.zcl.clusters.security import IasAce
-import zigpy.zdo.types as zdo_types
 
 from homeassistant.components import websocket_api
 from homeassistant.config_entries import ConfigEntry
@@ -819,33 +818,7 @@ async def websocket_bind_devices(
     hass: HomeAssistant, connection: ActiveConnection, msg: dict[str, Any]
 ) -> None:
     """Directly bind devices."""
-    zha_gateway = get_zha_gateway(hass)
-    source_ieee: EUI64 = msg[ATTR_SOURCE_IEEE]
-    target_ieee: EUI64 = msg[ATTR_TARGET_IEEE]
-    if (
-        source_device := _async_get_zigbee_device(
-            zha_gateway, connection, msg[ID], source_ieee
-        )
-    ) is None:
-        return
-    if (
-        target_device := _async_get_device(
-            zha_gateway, connection, msg[ID], target_ieee
-        )
-    ) is None:
-        return
-
-    await async_binding_operation(
-        source_device, target_device, zdo_types.ZDOCmd.Bind_req
-    )
-    _LOGGER.info(
-        "Devices bound: %s: [%s] %s: [%s]",
-        ATTR_SOURCE_IEEE,
-        source_ieee,
-        ATTR_TARGET_IEEE,
-        target_ieee,
-    )
-    connection.send_result(msg[ID])
+    await _async_device_binding_operation(hass, connection, msg, "bind")
 
 
 @websocket_api.require_admin
@@ -861,33 +834,7 @@ async def websocket_unbind_devices(
     hass: HomeAssistant, connection: ActiveConnection, msg: dict[str, Any]
 ) -> None:
     """Remove a direct binding between devices."""
-    zha_gateway = get_zha_gateway(hass)
-    source_ieee: EUI64 = msg[ATTR_SOURCE_IEEE]
-    target_ieee: EUI64 = msg[ATTR_TARGET_IEEE]
-    if (
-        source_device := _async_get_zigbee_device(
-            zha_gateway, connection, msg[ID], source_ieee
-        )
-    ) is None:
-        return
-    if (
-        target_device := _async_get_device(
-            zha_gateway, connection, msg[ID], target_ieee
-        )
-    ) is None:
-        return
-
-    await async_binding_operation(
-        source_device, target_device, zdo_types.ZDOCmd.Unbind_req
-    )
-    _LOGGER.info(
-        "Devices un-bound: %s: [%s] %s: [%s]",
-        ATTR_SOURCE_IEEE,
-        source_ieee,
-        ATTR_TARGET_IEEE,
-        target_ieee,
-    )
-    connection.send_result(msg[ID])
+    await _async_device_binding_operation(hass, connection, msg, "unbind")
 
 
 @websocket_api.require_admin
@@ -917,8 +864,14 @@ async def websocket_bind_group(
     ) is None:
         return
 
-    await source_device.async_bind_to_group(group_id, bindings)
-    connection.send_result(msg[ID])
+    results = await source_device.async_bind_to_group(group_id, bindings)
+    _async_send_binding_results(
+        connection,
+        msg[ID],
+        "bind",
+        results,
+        f"None of the requested clusters is an output cluster of device {source_ieee}",
+    )
 
 
 @websocket_api.require_admin
@@ -948,8 +901,14 @@ async def websocket_unbind_group(
     ) is None:
         return
 
-    await source_device.async_unbind_from_group(group_id, bindings)
-    connection.send_result(msg[ID])
+    results = await source_device.async_unbind_from_group(group_id, bindings)
+    _async_send_binding_results(
+        connection,
+        msg[ID],
+        "unbind",
+        results,
+        f"None of the requested clusters is an output cluster of device {source_ieee}",
+    )
 
 
 @callback
@@ -985,46 +944,88 @@ def _async_get_zigbee_device(
     return zha_device
 
 
-async def async_binding_operation(
-    source_device: ZigbeeDevice,
-    target_device: BaseDevice,
-    operation: zdo_types.ZDOCmd,
+async def _async_device_binding_operation(
+    hass: HomeAssistant,
+    connection: ActiveConnection,
+    msg: dict[str, Any],
+    operation: Literal["bind", "unbind"],
 ) -> None:
-    """Create or remove a direct zigbee binding between 2 devices."""
-    target_ieee = target_device.ieee
-    clusters_to_bind = await get_matched_clusters(source_device, target_device)
-
-    zdo = source_device.device.zdo
-    bind_tasks = []
-    for binding_pair in clusters_to_bind:
-        op_msg = "cluster: %s %s --> [%s]"
-        op_params = (
-            binding_pair.source_cluster.cluster_id,
-            operation.name,
-            target_ieee,
+    """Create or remove the direct zigbee bindings between 2 devices."""
+    zha_gateway = get_zha_gateway(hass)
+    source_ieee: EUI64 = msg[ATTR_SOURCE_IEEE]
+    target_ieee: EUI64 = msg[ATTR_TARGET_IEEE]
+    if (
+        source_device := _async_get_zigbee_device(
+            zha_gateway, connection, msg[ID], source_ieee
         )
-        zdo.debug(f"processing {op_msg}", *op_params)
+    ) is None:
+        return
 
-        bind_tasks.append(
-            (
-                zdo.request(
-                    operation,
-                    source_device.ieee,
-                    binding_pair.source_cluster.endpoint.endpoint_id,
-                    binding_pair.source_cluster.cluster_id,
-                    binding_pair.destination_address,
-                ),
-                op_msg,
-                op_params,
+    if (
+        target_device := _async_get_device(
+            zha_gateway, connection, msg[ID], target_ieee
+        )
+    ) is None:
+        return
+
+    if operation == "bind":
+        results = await source_device.async_bind_to_device(target_device)
+    else:
+        results = await source_device.async_unbind_from_device(target_device)
+
+    _LOGGER.debug(
+        "Devices %s: %s: [%s] %s: [%s]: %s",
+        operation,
+        ATTR_SOURCE_IEEE,
+        source_ieee,
+        ATTR_TARGET_IEEE,
+        target_ieee,
+        results,
+    )
+    _async_send_binding_results(
+        connection,
+        msg[ID],
+        operation,
+        results,
+        f"Device {source_ieee} has no clusters to {operation} with device"
+        f" {target_ieee}",
+    )
+
+
+@callback
+def _async_send_binding_results(
+    connection: ActiveConnection,
+    msg_id: int,
+    operation: Literal["bind", "unbind"],
+    results: list[BindingResult],
+    no_clusters_error: str,
+) -> None:
+    """Send the binding results, or an error for no or failed bindings."""
+    if not results:
+        connection.send_error(
+            msg_id, websocket_api.ERR_NOT_SUPPORTED, no_clusters_error
+        )
+        return
+
+    if failed := [result for result in results if not result.success]:
+        details = ", ".join(
+            f"endpoint {result.endpoint_id} cluster 0x{result.cluster_id:04X}: "
+            + (
+                f"status {result.status}"
+                if result.status is not None
+                else f"error {result.error}"
             )
+            for result in failed
         )
-    res = await asyncio.gather(*(t[0] for t in bind_tasks), return_exceptions=True)
-    for outcome, log_msg in zip(res, bind_tasks, strict=False):
-        if isinstance(outcome, Exception):
-            fmt = f"{log_msg[1]} failed: %s"
-        else:
-            fmt = f"{log_msg[1]} completed: %s"
-        zdo.debug(fmt, *(log_msg[2] + (outcome,)))
+        connection.send_error(
+            msg_id,
+            websocket_api.ERR_HOME_ASSISTANT_ERROR,
+            f"Failed to {operation} {len(failed)} of {len(results)} clusters:"
+            f" {details}",
+        )
+        return
+
+    connection.send_result(msg_id, [result.as_dict() for result in results])
 
 
 @websocket_api.require_admin

@@ -27,6 +27,7 @@ from zha.application.const import (
     CLUSTER_TYPE_IN,
 )
 from zha.zigbee.device import (
+    BindingResult,
     ClusterBindEvent,
     ClusterConfigureReportingEvent,
     DeviceConfiguredEvent,
@@ -40,7 +41,7 @@ import zigpy.profiles.zha
 import zigpy.types
 from zigpy.types.named import EUI64
 import zigpy.util
-from zigpy.zcl.clusters import closures, general, security
+from zigpy.zcl.clusters import closures, general, lighting, security
 from zigpy.zcl.clusters.general import Groups
 import zigpy.zdo.types as zdo_types
 from zigpy.zgp.types import ApplicationID, SrcID
@@ -579,7 +580,8 @@ async def test_green_power_device_listings(hass: HomeAssistant, zha_client) -> N
         }
     )
     msg = await zha_client.receive_json()
-    assert msg["success"]
+    assert not msg["success"]
+    assert msg["error"]["code"] == ERR_NOT_SUPPORTED
 
 
 @pytest.mark.parametrize(
@@ -1433,23 +1435,67 @@ async def test_websocket_change_channel(
     change_channel_mock.assert_has_calls([call(ANY, new_channel)])
 
 
+def _binding_result(
+    cluster_id: int,
+    *,
+    status: str | None = "SUCCESS",
+    error: str | None = None,
+    success: bool = True,
+) -> BindingResult:
+    """Return a binding result of endpoint 1 of the switch device."""
+    return BindingResult(
+        endpoint_id=1,
+        cluster_id=cluster_id,
+        destination={"ieee": IEEE_GROUPABLE_DEVICE, "endpoint": 1},
+        status=status,
+        error=error,
+        success=success,
+    )
+
+
+SUCCESSFUL_BINDING_RESULTS = [
+    _binding_result(general.OnOff.cluster_id),
+    _binding_result(general.LevelControl.cluster_id),
+]
+FAILED_BINDING_RESULTS = [
+    _binding_result(general.OnOff.cluster_id),
+    _binding_result(
+        general.LevelControl.cluster_id, status="NOT_SUPPORTED", success=False
+    ),
+    _binding_result(
+        lighting.Color.cluster_id,
+        status=None,
+        error="DeliveryError",
+        success=False,
+    ),
+]
+FAILED_BINDING_MESSAGE = (
+    "Failed to {operation} 2 of 3 clusters: endpoint 1 cluster 0x0008: status"
+    " NOT_SUPPORTED, endpoint 1 cluster 0x0300: error DeliveryError"
+)
+
+
 @pytest.mark.parametrize(
-    "operation",
-    [("bind", zdo_types.ZDOCmd.Bind_req), ("unbind", zdo_types.ZDOCmd.Unbind_req)],
+    ("command_type", "method"),
+    [
+        ("bind", "async_bind_to_device"),
+        ("unbind", "async_unbind_from_device"),
+    ],
 )
 async def test_websocket_bind_unbind_devices(
-    operation: tuple[str, zdo_types.ZDOCmd],
+    command_type: str,
+    method: str,
     hass: HomeAssistant,
-    app_controller: ControllerApplication,
-    zha_client,
+    zha_client: MockHAClientWebSocket,
 ) -> None:
     """Test websocket API for binding and unbinding devices to devices."""
+    gateway = get_zha_gateway(hass)
+    source = gateway.get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+    target = gateway.get_device(EUI64.convert(IEEE_GROUPABLE_DEVICE))
 
-    command_type, req = operation
-    with patch(
-        "homeassistant.components.zha.websocket_api.async_binding_operation",
-        autospec=True,
-    ) as binding_operation_mock:
+    with patch.object(
+        source, method, AsyncMock(return_value=SUCCESSFUL_BINDING_RESULTS)
+    ) as method_mock:
         await zha_client.send_json(
             {
                 ID: 27,
@@ -1463,14 +1509,184 @@ async def test_websocket_bind_unbind_devices(
     assert msg["id"] == 27
     assert msg["type"] == TYPE_RESULT
     assert msg["success"]
-    gateway = get_zha_gateway(hass)
-    assert binding_operation_mock.mock_calls == [
-        call(
-            gateway.get_device(EUI64.convert(IEEE_SWITCH_DEVICE)),
-            gateway.get_device(EUI64.convert(IEEE_GROUPABLE_DEVICE)),
-            req,
-        )
+    assert msg["result"] == [
+        {
+            "endpoint_id": 1,
+            "cluster_id": cluster_id,
+            "destination": {"ieee": IEEE_GROUPABLE_DEVICE, "endpoint": 1},
+            "status": "SUCCESS",
+            "error": None,
+            "success": True,
+        }
+        for cluster_id in (general.OnOff.cluster_id, general.LevelControl.cluster_id)
     ]
+    assert method_mock.mock_calls == [call(target)]
+
+
+@pytest.mark.parametrize(
+    ("command_type", "method"),
+    [
+        ("bind", "async_bind_to_device"),
+        ("unbind", "async_unbind_from_device"),
+    ],
+)
+async def test_websocket_bind_unbind_devices_failure(
+    command_type: str,
+    method: str,
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+) -> None:
+    """Test binding devices reports the clusters the device did not bind."""
+    source = get_zha_gateway(hass).get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+
+    with patch.object(source, method, AsyncMock(return_value=FAILED_BINDING_RESULTS)):
+        await zha_client.send_json(
+            {
+                ID: 27,
+                TYPE: f"zha/devices/{command_type}",
+                ATTR_SOURCE_IEEE: IEEE_SWITCH_DEVICE,
+                ATTR_TARGET_IEEE: IEEE_GROUPABLE_DEVICE,
+            }
+        )
+        msg = await zha_client.receive_json()
+
+    assert msg["id"] == 27
+    assert msg["type"] == TYPE_RESULT
+    assert not msg["success"]
+    assert msg["error"]["code"] == ERR_HOME_ASSISTANT_ERROR
+    assert msg["error"]["message"] == FAILED_BINDING_MESSAGE.format(
+        operation=command_type
+    )
+
+
+async def test_websocket_bind_devices_device_response(
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+    zigpy_device_mock: Callable[..., ZigbeeDevice],
+) -> None:
+    """Test binding devices reports the status the device answered."""
+    gateway = get_zha_gateway(hass)
+    zigpy_remote = zigpy_device_mock(
+        {
+            1: {
+                SIG_EP_INPUT: [general.Basic.cluster_id],
+                SIG_EP_OUTPUT: [general.OnOff.cluster_id],
+                SIG_EP_TYPE: zigpy.profiles.zha.DeviceType.REMOTE_CONTROL,
+                SIG_EP_PROFILE: zigpy.profiles.zha.PROFILE_ID,
+            }
+        },
+        ieee="01:2d:6f:00:0a:90:69:e9",
+    )
+    gateway.get_or_create_device(zigpy_remote)
+    await gateway.async_device_initialized(zigpy_remote)
+    await hass.async_block_till_done(wait_background_tasks=True)
+
+    zigpy_remote.zdo.request = AsyncMock(return_value=[zdo_types.Status.NOT_SUPPORTED])
+    await zha_client.send_json(
+        {
+            ID: 27,
+            TYPE: "zha/devices/bind",
+            ATTR_SOURCE_IEEE: str(zigpy_remote.ieee),
+            ATTR_TARGET_IEEE: IEEE_SWITCH_DEVICE,
+        }
+    )
+    msg = await zha_client.receive_json()
+
+    assert not msg["success"]
+    assert msg["error"]["code"] == ERR_HOME_ASSISTANT_ERROR
+    assert msg["error"]["message"] == (
+        "Failed to bind 1 of 1 clusters: endpoint 1 cluster 0x0006: status"
+        " NOT_SUPPORTED"
+    )
+    assert zigpy_remote.zdo.request.await_count == 1
+
+    zigpy_remote.zdo.request = AsyncMock(return_value=[zdo_types.Status.SUCCESS])
+    await zha_client.send_json(
+        {
+            ID: 28,
+            TYPE: "zha/devices/bind",
+            ATTR_SOURCE_IEEE: str(zigpy_remote.ieee),
+            ATTR_TARGET_IEEE: IEEE_SWITCH_DEVICE,
+        }
+    )
+    msg = await zha_client.receive_json()
+
+    assert msg["success"]
+    assert msg["result"] == [
+        {
+            "endpoint_id": 1,
+            "cluster_id": general.OnOff.cluster_id,
+            "destination": {"ieee": IEEE_SWITCH_DEVICE, "endpoint": 1},
+            "status": "SUCCESS",
+            "error": None,
+            "success": True,
+        }
+    ]
+
+
+@pytest.mark.parametrize("command_type", ["bind", "unbind"])
+@pytest.mark.parametrize(
+    ("source_ieee", "target_ieee"),
+    [
+        pytest.param(
+            IEEE_SWITCH_DEVICE, IEEE_GROUPABLE_DEVICE, id="no_matching_clusters"
+        ),
+        pytest.param(
+            "01:2d:6f:00:0a:90:69:e9", IEEE_GREEN_POWER_DEVICE, id="green_power_target"
+        ),
+    ],
+)
+async def test_websocket_bind_unbind_devices_no_clusters(
+    command_type: str,
+    source_ieee: str,
+    target_ieee: str,
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+    zigpy_device_mock: Callable[..., ZigbeeDevice],
+) -> None:
+    """Test binding devices fails when there is no cluster to bind."""
+    gateway = get_zha_gateway(hass)
+    zigpy_remote = zigpy_device_mock(
+        {
+            1: {
+                SIG_EP_INPUT: [general.Basic.cluster_id],
+                SIG_EP_OUTPUT: [general.OnOff.cluster_id],
+                SIG_EP_TYPE: zigpy.profiles.zha.DeviceType.REMOTE_CONTROL,
+                SIG_EP_PROFILE: zigpy.profiles.zha.PROFILE_ID,
+            }
+        },
+        ieee="01:2d:6f:00:0a:90:69:e9",
+    )
+    gateway.get_or_create_device(zigpy_remote)
+    await gateway.async_device_initialized(zigpy_remote)
+    await hass.async_block_till_done(wait_background_tasks=True)
+    await _async_add_green_power_device(hass)
+
+    zdo_request = AsyncMock(return_value=[zdo_types.Status.SUCCESS])
+    with patch.object(
+        gateway.get_zigbee_device(EUI64.convert(source_ieee)).device.zdo,
+        "request",
+        zdo_request,
+    ):
+        await zha_client.send_json(
+            {
+                ID: 27,
+                TYPE: f"zha/devices/{command_type}",
+                ATTR_SOURCE_IEEE: source_ieee,
+                ATTR_TARGET_IEEE: target_ieee,
+            }
+        )
+        msg = await zha_client.receive_json()
+
+    assert msg["id"] == 27
+    assert msg["type"] == TYPE_RESULT
+    assert not msg["success"]
+    assert msg["error"]["code"] == ERR_NOT_SUPPORTED
+    assert msg["error"]["message"] == (
+        f"Device {source_ieee} has no clusters to {command_type} with device"
+        f" {target_ieee}"
+    )
+    assert zdo_request.await_count == 0
 
 
 @pytest.mark.parametrize("command_type", ["bind", "unbind"])
@@ -1505,10 +1721,12 @@ async def test_websocket_bind_unbind_devices_invalid_device(
     """Test binding devices fails for a missing device or a Green Power source."""
     await _async_add_green_power_device(hass)
 
-    with patch(
-        "homeassistant.components.zha.websocket_api.async_binding_operation",
-        autospec=True,
-    ) as binding_operation_mock:
+    with (
+        patch.object(ZigbeeDevice, "async_bind_to_device", autospec=True) as bind_mock,
+        patch.object(
+            ZigbeeDevice, "async_unbind_from_device", autospec=True
+        ) as unbind_mock,
+    ):
         await zha_client.send_json(
             {
                 ID: 27,
@@ -1523,7 +1741,8 @@ async def test_websocket_bind_unbind_devices_invalid_device(
     assert msg["type"] == TYPE_RESULT
     assert not msg["success"]
     assert msg["error"]["code"] == error_code
-    assert binding_operation_mock.call_count == 0
+    assert bind_mock.call_count == 0
+    assert unbind_mock.call_count == 0
 
 
 @pytest.mark.parametrize(
@@ -1537,15 +1756,24 @@ async def test_websocket_bind_unbind_group(
     command_type: str,
     method: str,
     hass: HomeAssistant,
-    app_controller: ControllerApplication,
-    zha_client,
+    zha_client: MockHAClientWebSocket,
 ) -> None:
     """Test websocket API for binding and unbinding devices to groups."""
 
     test_group_id = 0x0001
     device = get_zha_gateway(hass).get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+    group_result = BindingResult(
+        endpoint_id=1,
+        cluster_id=general.OnOff.cluster_id,
+        destination={"group": test_group_id},
+        status="SUCCESS",
+        error=None,
+        success=True,
+    )
 
-    with patch.object(device, method, AsyncMock()) as method_mock:
+    with patch.object(
+        device, method, AsyncMock(return_value=[group_result])
+    ) as method_mock:
         await zha_client.send_json(
             {
                 ID: 27,
@@ -1567,7 +1795,52 @@ async def test_websocket_bind_unbind_group(
     assert msg["id"] == 27
     assert msg["type"] == TYPE_RESULT
     assert msg["success"]
+    assert msg["result"] == [group_result.as_dict()]
     assert method_mock.mock_calls == [call(test_group_id, ANY)]
+
+
+@pytest.mark.parametrize(
+    ("command_type", "method"),
+    [
+        ("bind", "async_bind_to_group"),
+        ("unbind", "async_unbind_from_group"),
+    ],
+)
+async def test_websocket_bind_unbind_group_failure(
+    command_type: str,
+    method: str,
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+) -> None:
+    """Test binding a group reports the clusters the device did not bind."""
+    device = get_zha_gateway(hass).get_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+
+    with patch.object(device, method, AsyncMock(return_value=FAILED_BINDING_RESULTS)):
+        await zha_client.send_json(
+            {
+                ID: 27,
+                TYPE: f"zha/groups/{command_type}",
+                ATTR_SOURCE_IEEE: IEEE_SWITCH_DEVICE,
+                GROUP_ID: 0x0001,
+                BINDINGS: [
+                    {
+                        ATTR_ENDPOINT_ID: 1,
+                        ID: 6,
+                        ATTR_NAME: "OnOff",
+                        ATTR_TYPE: "out",
+                    },
+                ],
+            }
+        )
+        msg = await zha_client.receive_json()
+
+    assert msg["id"] == 27
+    assert msg["type"] == TYPE_RESULT
+    assert not msg["success"]
+    assert msg["error"]["code"] == ERR_HOME_ASSISTANT_ERROR
+    assert msg["error"]["message"] == FAILED_BINDING_MESSAGE.format(
+        operation=command_type
+    )
 
 
 @pytest.mark.parametrize("command_type", ["bind", "unbind"])
@@ -1610,6 +1883,48 @@ async def test_websocket_bind_unbind_group_invalid_source(
     assert msg["type"] == TYPE_RESULT
     assert not msg["success"]
     assert msg["error"]["code"] == error_code
+
+
+@pytest.mark.parametrize("command_type", ["bind", "unbind"])
+async def test_websocket_bind_unbind_group_no_clusters(
+    command_type: str,
+    hass: HomeAssistant,
+    zha_client: MockHAClientWebSocket,
+) -> None:
+    """Test binding a group fails when no requested cluster is an output cluster."""
+    device = get_zha_gateway(hass).get_zigbee_device(EUI64.convert(IEEE_SWITCH_DEVICE))
+
+    # OnOff is only an input cluster of the switch device
+    with patch.object(
+        device.device.zdo, "request", AsyncMock(return_value=[zdo_types.Status.SUCCESS])
+    ) as zdo_request:
+        await zha_client.send_json(
+            {
+                ID: 27,
+                TYPE: f"zha/groups/{command_type}",
+                ATTR_SOURCE_IEEE: IEEE_SWITCH_DEVICE,
+                GROUP_ID: 0x0001,
+                BINDINGS: [
+                    {
+                        ATTR_ENDPOINT_ID: 1,
+                        ID: general.OnOff.cluster_id,
+                        ATTR_NAME: "OnOff",
+                        ATTR_TYPE: "out",
+                    },
+                ],
+            }
+        )
+        msg = await zha_client.receive_json()
+
+    assert msg["id"] == 27
+    assert msg["type"] == TYPE_RESULT
+    assert not msg["success"]
+    assert msg["error"]["code"] == ERR_NOT_SUPPORTED
+    assert msg["error"]["message"] == (
+        "None of the requested clusters is an output cluster of device"
+        f" {IEEE_SWITCH_DEVICE}"
+    )
+    assert zdo_request.await_count == 0
 
 
 async def test_websocket_reconfigure(
