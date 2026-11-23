@@ -107,10 +107,7 @@ from .const import (
     ENTITY_DESC_KEY_VOLTAGE,
     LOGGER,
 )
-from .discovery_data_template import (
-    NumericSensorDataTemplate,
-    NumericSensorDataTemplateData,
-)
+from .discovery_data_template import NumericSensorDataTemplateData
 from .entity import NewZwaveDiscoveryInfo, ZWaveBaseEntity, ZWaveNodeBaseEntity
 from .migrate import async_migrate_statistics_sensors
 from .models import (
@@ -763,60 +760,10 @@ class ZwaveSensor(ZWaveBaseEntity, SensorEntity):
         return str(self.info.primary_value.metadata.unit)
 
 
-class ZWaveNumericSensor(ZwaveSensor):
-    """Representation of a Z-Wave Numeric sensor."""
+class ZWaveScaleRediscoveryEntity(ZWaveBaseEntity):
+    """Z-Wave entity that is rediscovered when the scale of its value changes."""
 
-    def __init__(
-        self,
-        config_entry: ZwaveJSConfigEntry,
-        driver: Driver,
-        info: ZwaveDiscoveryInfo,
-        entity_description: SensorEntityDescription,
-        unit_of_measurement: str | None = None,
-    ) -> None:
-        """Initialize a ZWaveBasicSensor entity."""
-        super().__init__(
-            config_entry, driver, info, entity_description, unit_of_measurement
-        )
-        if self.info.primary_value.command_class == CommandClass.BASIC:
-            self._attr_name = self.generate_name(
-                include_value_name=True, alternate_value_name="Basic"
-            )
-
-    @callback
-    @override
-    def on_value_update(self) -> None:
-        """Handle scale changes for this value on value updated event."""
-        data = NumericSensorDataTemplate().resolve_data(self.info.primary_value)
-        self.entity_description = get_entity_description(data)
-        self._attr_native_unit_of_measurement = data.unit_of_measurement
-
-    @property
-    @override
-    def native_value(self) -> float | None:
-        """Return state of the sensor."""
-        if self.info.primary_value.value is None:
-            return None
-        return float(self.info.primary_value.value)
-
-
-class NewZWaveNumericSensor(ZWaveBaseEntity, SensorEntity):
-    """Representation of a Z-Wave Numeric sensor."""
-
-    _attr_force_update = True
-
-    def __init__(
-        self,
-        config_entry: ZwaveJSConfigEntry,
-        driver: Driver,
-        info: NewZwaveDiscoveryInfo,
-    ) -> None:
-        """Initialize the entity."""
-        super().__init__(config_entry, driver, info)
-        entity_description = info.entity_description
-        if not entity_description.name or entity_description.name is Undefined:
-            self._attr_name = self.generate_name(include_value_name=True)
-        self._scale_type = self._get_scale_type()
+    _scale_type: IntEnum | None
 
     def _get_scale_type(self) -> IntEnum | None:
         """Return the scale type of the value."""
@@ -856,6 +803,55 @@ class NewZWaveNumericSensor(ZWaveBaseEntity, SensorEntity):
             self.config_entry.async_create_task(
                 self.hass, self._async_remove_and_rediscover(self.info.primary_value)
             )
+
+
+class ZWaveNumericSensor(ZWaveScaleRediscoveryEntity, ZwaveSensor):
+    """Representation of a Z-Wave Numeric sensor."""
+
+    def __init__(
+        self,
+        config_entry: ZwaveJSConfigEntry,
+        driver: Driver,
+        info: ZwaveDiscoveryInfo,
+        entity_description: SensorEntityDescription,
+        unit_of_measurement: str | None = None,
+    ) -> None:
+        """Initialize a ZWaveBasicSensor entity."""
+        super().__init__(
+            config_entry, driver, info, entity_description, unit_of_measurement
+        )
+        if self.info.primary_value.command_class == CommandClass.BASIC:
+            self._attr_name = self.generate_name(
+                include_value_name=True, alternate_value_name="Basic"
+            )
+        self._scale_type = self._get_scale_type()
+
+    @property
+    @override
+    def native_value(self) -> float | None:
+        """Return state of the sensor."""
+        if self.info.primary_value.value is None:
+            return None
+        return float(self.info.primary_value.value)
+
+
+class NewZWaveNumericSensor(ZWaveScaleRediscoveryEntity, SensorEntity):
+    """Representation of a Z-Wave Numeric sensor."""
+
+    _attr_force_update = True
+
+    def __init__(
+        self,
+        config_entry: ZwaveJSConfigEntry,
+        driver: Driver,
+        info: NewZwaveDiscoveryInfo,
+    ) -> None:
+        """Initialize the entity."""
+        super().__init__(config_entry, driver, info)
+        entity_description = info.entity_description
+        if not entity_description.name or entity_description.name is Undefined:
+            self._attr_name = self.generate_name(include_value_name=True)
+        self._scale_type = self._get_scale_type()
 
     @property
     @override

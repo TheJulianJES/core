@@ -829,10 +829,14 @@ async def test_unit_change(hass: HomeAssistant, zp3111, client, integration) -> 
     assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.TEMPERATURE
 
 
-def _air_temperature_metadata_updated_event(
-    node: Node, scale: int, unit: str | None
+def _multilevel_sensor_metadata_updated_event(
+    node: Node,
+    scale: int,
+    unit: str | None,
+    property_name: str = "Air temperature",
+    sensor_type: int = 1,
 ) -> Event:
-    """Return a metadata updated event for the air temperature value."""
+    """Return a metadata updated event for a Multilevel Sensor value."""
     return Event(
         "metadata updated",
         {
@@ -843,26 +847,29 @@ def _air_temperature_metadata_updated_event(
                 "commandClassName": "Multilevel Sensor",
                 "commandClass": 49,
                 "endpoint": 0,
-                "property": "Air temperature",
+                "property": property_name,
                 "metadata": {
                     "type": "number",
                     "readable": True,
                     "writeable": False,
-                    "label": "Air temperature",
-                    "ccSpecific": {"sensorType": 1, "scale": scale},
+                    "label": property_name,
+                    "ccSpecific": {"sensorType": sensor_type, "scale": scale},
                     "unit": unit,
                 },
-                "propertyName": "Air temperature",
+                "propertyName": property_name,
                 "nodeId": node.node_id,
             },
         },
     )
 
 
-def _air_temperature_value_updated_event(
-    node: Node, new_value: float, prev_value: float
+def _multilevel_sensor_value_updated_event(
+    node: Node,
+    new_value: float,
+    prev_value: float,
+    property_name: str = "Air temperature",
 ) -> Event:
-    """Return a value updated event for the air temperature value."""
+    """Return a value updated event for a Multilevel Sensor value."""
     return Event(
         "value updated",
         {
@@ -873,10 +880,10 @@ def _air_temperature_value_updated_event(
                 "commandClassName": "Multilevel Sensor",
                 "commandClass": 49,
                 "endpoint": 0,
-                "property": "Air temperature",
+                "property": property_name,
                 "newValue": new_value,
                 "prevValue": prev_value,
-                "propertyName": "Air temperature",
+                "propertyName": property_name,
             },
         },
     )
@@ -920,7 +927,7 @@ async def test_new_sensor_scale_change_rediscovers_entity(
         wraps=hass.config_entries.async_schedule_reload,
     ) as mock_schedule_reload:
         multisensor_6.receive_event(
-            _air_temperature_metadata_updated_event(multisensor_6, scale, unit)
+            _multilevel_sensor_metadata_updated_event(multisensor_6, scale, unit)
         )
         await hass.async_block_till_done()
         # Rediscovery waits for the value update that follows the metadata update.
@@ -928,7 +935,7 @@ async def test_new_sensor_scale_change_rediscovers_entity(
         assert state
         assert state.state == "9.0"
         multisensor_6.receive_event(
-            _air_temperature_value_updated_event(multisensor_6, 68, 9)
+            _multilevel_sensor_value_updated_event(multisensor_6, 68, 9)
         )
         await hass.async_block_till_done()
 
@@ -969,11 +976,11 @@ async def test_new_sensor_no_rediscovery_without_scale_change(
         hass.config_entries, "async_schedule_reload"
     ) as mock_schedule_reload:
         multisensor_6.receive_event(
-            _air_temperature_metadata_updated_event(multisensor_6, 0, "°C")
+            _multilevel_sensor_metadata_updated_event(multisensor_6, 0, "°C")
         )
         await hass.async_block_till_done()
         multisensor_6.receive_event(
-            _air_temperature_value_updated_event(multisensor_6, 20, 9)
+            _multilevel_sensor_value_updated_event(multisensor_6, 20, 9)
         )
         await hass.async_block_till_done()
 
@@ -988,6 +995,128 @@ async def test_new_sensor_no_rediscovery_without_scale_change(
     assert state
     assert state.state == "20.0"
     assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == UnitOfTemperature.CELSIUS
+
+
+async def test_legacy_numeric_sensor_scale_change_rediscovers_entity(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    client: MagicMock,
+    multisensor_6: Node,
+    integration: MockConfigEntry,
+) -> None:
+    """Test a scale change rediscovers the legacy numeric sensor without a reload."""
+    entity_id = HUMIDITY_SENSOR
+    entity_entry = entity_registry.async_get(entity_id)
+    assert entity_entry
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "65.0"
+    assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == PERCENTAGE
+    assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.HUMIDITY
+    state_changed_events = async_capture_events(hass, EVENT_STATE_CHANGED)
+
+    with patch.object(
+        hass.config_entries,
+        "async_schedule_reload",
+        wraps=hass.config_entries.async_schedule_reload,
+    ) as mock_schedule_reload:
+        # Relative humidity (%) to absolute humidity (g/m³).
+        multisensor_6.receive_event(
+            _multilevel_sensor_metadata_updated_event(
+                multisensor_6, 1, "g/m³", property_name="Humidity", sensor_type=5
+            )
+        )
+        await hass.async_block_till_done()
+        state = hass.states.get(entity_id)
+        assert state
+        assert state.state == "65.0"
+        assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == PERCENTAGE
+        multisensor_6.receive_event(
+            _multilevel_sensor_value_updated_event(
+                multisensor_6, 10, 65, property_name="Humidity"
+            )
+        )
+        await hass.async_block_till_done()
+
+    mock_schedule_reload.assert_not_called()
+    client.disconnect.assert_not_called()
+    new_entity_entry = entity_registry.async_get(entity_id)
+    assert new_entity_entry
+    assert new_entity_entry.id == entity_entry.id
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "10.0"
+    assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == "g/m³"
+    assert ATTR_DEVICE_CLASS not in state.attributes
+    # The unit is not changed in place: the old entity is removed first.
+    assert [
+        event.data["new_state"].state
+        for event in state_changed_events
+        if event.data["entity_id"] == entity_id
+    ] == [STATE_UNAVAILABLE, "10.0"]
+    assert not [
+        event.data["entity_id"]
+        for event in state_changed_events
+        if event.data["entity_id"] != entity_id
+        and event.data["new_state"].state == STATE_UNAVAILABLE
+    ]
+
+
+async def test_sensor_rediscovered_from_invalid_to_valid_scale(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    multisensor_6: Node,
+    integration: MockConfigEntry,
+) -> None:
+    """Test a sensor with an invalid scale is rediscovered when the scale is valid."""
+    entity_id = AIR_TEMPERATURE_SENSOR
+    entity_entry = entity_registry.async_get(entity_id)
+    assert entity_entry
+
+    # An invalid scale rediscovers the value as a numeric sensor without a unit.
+    multisensor_6.receive_event(
+        _multilevel_sensor_metadata_updated_event(multisensor_6, 255, None)
+    )
+    multisensor_6.receive_event(
+        _multilevel_sensor_value_updated_event(multisensor_6, 68, 9)
+    )
+    await hass.async_block_till_done()
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "68.0"
+    assert ATTR_UNIT_OF_MEASUREMENT not in state.attributes
+    assert ATTR_DEVICE_CLASS not in state.attributes
+    assert ATTR_STATE_CLASS not in state.attributes
+    state_changed_events = async_capture_events(hass, EVENT_STATE_CHANGED)
+
+    with patch.object(
+        hass.config_entries, "async_schedule_reload"
+    ) as mock_schedule_reload:
+        multisensor_6.receive_event(
+            _multilevel_sensor_metadata_updated_event(multisensor_6, 1, "°F")
+        )
+        await hass.async_block_till_done()
+        multisensor_6.receive_event(
+            _multilevel_sensor_value_updated_event(multisensor_6, 68, 68)
+        )
+        await hass.async_block_till_done()
+
+    mock_schedule_reload.assert_not_called()
+    new_entity_entry = entity_registry.async_get(entity_id)
+    assert new_entity_entry
+    assert new_entity_entry.id == entity_entry.id
+    # The temperature sensor is back: 68 °F is converted to 20 °C.
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "20.0"
+    assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == UnitOfTemperature.CELSIUS
+    assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.TEMPERATURE
+    assert state.attributes[ATTR_STATE_CLASS] == SensorStateClass.MEASUREMENT
+    assert [
+        event.data["new_state"].state
+        for event in state_changed_events
+        if event.data["entity_id"] == entity_id
+    ] == [STATE_UNAVAILABLE, "20.0"]
 
 
 CONTROLLER_STATISTICS_ENTITY_PREFIX = "sensor.z_stick_gen5_usb_controller_"
@@ -1480,3 +1609,94 @@ async def test_energy_production_sensors(
 
         for attr in state_data.get("missing_attributes", []):
             assert attr not in state.attributes
+
+
+def _energy_production_total_time_events(
+    node: Node, scale: int, unit: str, new_value: float, prev_value: float
+) -> tuple[Event, Event]:
+    """Return metadata and value updated events for the total time value."""
+    value_args = {
+        "commandClassName": "Energy Production",
+        "commandClass": 144,
+        "endpoint": 0,
+        "property": "value",
+        "propertyKey": 3,
+        "propertyName": "value",
+        "propertyKeyName": "Total Time",
+    }
+    return (
+        Event(
+            "metadata updated",
+            {
+                "source": "node",
+                "event": "metadata updated",
+                "nodeId": node.node_id,
+                "args": {
+                    **value_args,
+                    "metadata": {
+                        "type": "number",
+                        "readable": True,
+                        "writeable": False,
+                        "label": "Total Time",
+                        "ccSpecific": {"parameter": 3, "scale": scale},
+                        "unit": unit,
+                    },
+                    "nodeId": node.node_id,
+                },
+            },
+        ),
+        Event(
+            "value updated",
+            {
+                "source": "node",
+                "event": "value updated",
+                "nodeId": node.node_id,
+                "args": {
+                    **value_args,
+                    "newValue": new_value,
+                    "prevValue": prev_value,
+                },
+            },
+        ),
+    )
+
+
+async def test_energy_production_sensor_unknown_scale(
+    hass: HomeAssistant,
+    entity_registry: er.EntityRegistry,
+    energy_production: Node,
+    integration: MockConfigEntry,
+) -> None:
+    """Test an Energy Production sensor survives a scale zwave-js doesn't know."""
+    entity_id = "sensor.node_2_energy_production_time"
+    entity_entry = entity_registry.async_get(entity_id)
+    assert entity_entry
+
+    # zwave-js passes an unknown scale through with the unit "unknown".
+    for event in _energy_production_total_time_events(
+        energy_production, 2, "unknown", 123457, 123456
+    ):
+        energy_production.receive_event(event)
+    await hass.async_block_till_done()
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "123457.0"
+    # The unit falls back to the value's metadata unit.
+    assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == "unknown"
+    assert ATTR_DEVICE_CLASS not in state.attributes
+    assert ATTR_STATE_CLASS not in state.attributes
+    assert entity_registry.async_get(entity_id).id == entity_entry.id
+
+    for event in _energy_production_total_time_events(
+        energy_production, 0, "seconds", 123458, 123457
+    ):
+        energy_production.receive_event(event)
+    await hass.async_block_till_done()
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "123458.0"
+    assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == UnitOfTime.SECONDS
+    assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.DURATION
+    assert entity_registry.async_get(entity_id).id == entity_entry.id

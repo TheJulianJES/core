@@ -403,8 +403,11 @@ class NumericSensorDataTemplate(BaseDiscoverySchemaDataTemplate):
                 return NumericSensorDataTemplateData(key, unit)
 
         if value.command_class == CommandClass.ENERGY_PRODUCTION:
-            energy_production_parameter = get_energy_production_parameter(value)
-            energy_production_scale_type = get_energy_production_scale_type(value)
+            try:
+                energy_production_parameter = get_energy_production_parameter(value)
+                energy_production_scale_type = get_energy_production_scale_type(value)
+            except UnknownValueData:
+                return NumericSensorDataTemplateData()
             unit = self.find_key_from_matching_set(
                 energy_production_scale_type, ENERGY_PRODUCTION_UNIT_MAP
             )
