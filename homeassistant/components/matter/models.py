@@ -78,23 +78,31 @@ class SemanticTag:
 
     def on_endpoint(self, endpoint: MatterEndpoint) -> bool:
         """Return True if the endpoint's TagList contains this semantic tag."""
+        return self.get_label(endpoint) is not None
+
+    def get_label(self, endpoint: MatterEndpoint) -> str | None:
+        """Return the label of this semantic tag in the endpoint's TagList.
+
+        Returns an empty string for a matching tag without a label
+        and None if the endpoint's TagList doesn't contain this tag.
+        """
         tag_list = endpoint.get_attribute_value(
             None, clusters.Descriptor.Attributes.TagList
         )
         if not isinstance(tag_list, list):
-            return False
+            return None
         for semantic_tag in tag_list:
             if (
                 getattr(semantic_tag, "namespaceID", None) != self.namespace_id
                 or getattr(semantic_tag, "tag", None) != self.tag
             ):
                 continue
-            if self.label is None:
-                return True
             label = getattr(semantic_tag, "label", None)
-            if isinstance(label, str) and label.casefold() == self.label.casefold():
-                return True
-        return False
+            if not isinstance(label, str):
+                label = ""
+            if self.label is None or label.casefold() == self.label.casefold():
+                return label
+        return None
 
 
 @dataclass
@@ -150,6 +158,10 @@ class MatterDiscoverySchema:
     # these attributes are copied over to attributes_to_watch and
     # are not discovered by other entities
     optional_attributes: tuple[type[ClusterAttributeDescriptor], ...] | None = None
+
+    # [optional] semantic tags that ALL need to be present
+    # in the endpoint's Descriptor TagList for this scheme to pass
+    semantic_tags: tuple[SemanticTag, ...] | None = None
 
     # [optional] semantic tags that MAY NOT be present
     # in the endpoint's Descriptor TagList for this scheme to pass

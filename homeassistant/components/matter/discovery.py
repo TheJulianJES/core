@@ -165,6 +165,12 @@ def async_discover_entities(  # noqa: C901
         ):
             continue
 
+        # check for semantic tags that need to be present on the endpoint
+        if schema.semantic_tags is not None and not all(
+            semantic_tag.on_endpoint(endpoint) for semantic_tag in schema.semantic_tags
+        ):
+            continue
+
         # check for semantic tags that may not be present on the endpoint
         if schema.absent_semantic_tags is not None and any(
             semantic_tag.on_endpoint(endpoint)

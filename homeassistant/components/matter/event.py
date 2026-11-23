@@ -5,6 +5,7 @@ from typing import Any, override
 
 from chip.clusters import Objects as clusters
 from matter_server.client.models import device_types
+from matter_server.client.models.node import MatterEndpoint
 from matter_server.common.models import EventType, MatterNodeEvent
 
 from homeassistant.components.event import (
@@ -20,7 +21,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .const import LOGGER
 from .entity import MatterEntity, MatterEntityDescription
-from .helpers import MatterConfigEntry
+from .helpers import MatterConfigEntry, get_device_endpoint
 from .models import MatterDiscoverySchema, SemanticTag
 
 SwitchFeature = clusters.Switch.Bitmaps.Feature
@@ -39,15 +40,35 @@ EVENT_TYPES_MAP = {
 SemanticTagNamespace = clusters.Globals.Enums.namespace
 
 # IKEA uses a Switches.Custom semantic tag labeled "rotary" for the Generic
-# Switch endpoints that report the rotation of a scroll wheel (one endpoint
-# per direction) as multi-press counts. These are no buttons, so they don't get
-# the standard button event entity and keep the legacy event entity until
-# a dedicated rotary event entity replaces it.
+# Switch endpoints that report the rotation of a scroll wheel as multi-press
+# counts, one endpoint per direction (tagged Switches.Up and Switches.Down)
+# and one pair per layer (tagged with the same Common Position.Column label).
+# These are no buttons, so they get a rotary event entity per layer
+# instead of the standard button event entity.
 ROTARY_SWITCH_TAG = SemanticTag(
     namespace_id=SemanticTagNamespace.kSwitches,
     tag=0x08,  # Custom
     label="rotary",
 )
+SWITCH_UP_TAG = SemanticTag(
+    namespace_id=SemanticTagNamespace.kSwitches,
+    tag=0x03,  # Up
+)
+SWITCH_DOWN_TAG = SemanticTag(
+    namespace_id=SemanticTagNamespace.kSwitches,
+    tag=0x04,  # Down
+)
+COLUMN_TAG = SemanticTag(
+    namespace_id=SemanticTagNamespace.kCommonPosition,
+    tag=0x06,  # Column
+)
+
+# event type and event data of the rotary event entity
+EVENT_TYPE_ROTATION = "rotation"
+ATTR_DIRECTION = "direction"
+ATTR_STEPS = "steps"
+DIRECTION_CLOCKWISE = "clockwise"
+DIRECTION_COUNTER_CLOCKWISE = "counter_clockwise"
 
 # Matter-specific event types of the standard button event entity
 EVENT_TYPE_INITIAL_PRESS = "initial_press"
@@ -99,11 +120,16 @@ class MatterEventEntityBase(MatterEntity, EventEntity):
     ) -> None:
         """Call on NodeEvent."""
         if (
-            data.endpoint_id != self._endpoint.endpoint_id
+            data.endpoint_id not in self._switch_endpoint_ids
             or data.cluster_id != clusters.Switch.id
         ):
             return
         self._handle_switch_event(data)
+
+    @property
+    def _switch_endpoint_ids(self) -> set[int]:
+        """Return the endpoints whose Switch events this entity handles."""
+        return {self._endpoint.endpoint_id}
 
     @callback
     def _handle_switch_event(self, data: MatterNodeEvent) -> None:
@@ -194,20 +220,125 @@ class MatterButtonEventEntity(MatterEventEntityBase):
         self.async_write_ha_state()
 
 
-class MatterEventEntity(MatterEventEntityBase):
-    """Legacy Matter Event entity, replaced by MatterButtonEventEntity.
+def _get_bridged_device_id(endpoint: MatterEndpoint) -> int | None:
+    """Return the endpoint ID of the bridged device an endpoint belongs to.
 
-    Deprecated and disabled by default in HA 2026.12, remove in 2027.6.
-    Rotary endpoints don't get the replacement, so it stays enabled
-    there until a dedicated rotary event entity replaces it.
+    Returns None for the endpoints of a node that isn't bridged,
+    as they all belong to the node's device.
+    """
+    device_endpoint = get_device_endpoint(endpoint)
+    if device_endpoint.is_bridged_device:
+        return device_endpoint.endpoint_id
+    return None
+
+
+class MatterRotaryEventEntity(MatterEventEntityBase):
+    """Matter Event entity for a rotary control (such as a scroll wheel).
+
+    The rotation is reported as multi-press counts on two Generic Switch
+    endpoints, one per direction. This entity is created for the clockwise
+    (Switches.Up) endpoint and also handles the matching counter-clockwise
+    (Switches.Down) endpoint of the same layer.
+    """
+
+    _attr_event_types = [EVENT_TYPE_ROTATION]
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """Initialize the entity."""
+        super().__init__(*args, **kwargs)
+        self._directions: dict[int, str] = {
+            self._endpoint.endpoint_id: DIRECTION_CLOCKWISE
+        }
+        # pair with the counter-clockwise endpoint of the same layer on the
+        # same device, only if that endpoint can be told apart unambiguously
+        device = _get_bridged_device_id(self._endpoint)
+        layer = COLUMN_TAG.get_label(self._endpoint)
+        same_layer = [
+            endpoint
+            for endpoint in self._endpoint.node.endpoints.values()
+            if _get_bridged_device_id(endpoint) == device
+            and ROTARY_SWITCH_TAG.on_endpoint(endpoint)
+            and COLUMN_TAG.get_label(endpoint) == layer
+        ]
+        up = [ep for ep in same_layer if SWITCH_UP_TAG.on_endpoint(ep)]
+        down = [ep for ep in same_layer if SWITCH_DOWN_TAG.on_endpoint(ep)]
+        if up == [self._endpoint] and len(down) == 1:
+            self._directions[down[0].endpoint_id] = DIRECTION_COUNTER_CLOCKWISE
+        else:
+            LOGGER.debug(
+                "No unambiguous counter-clockwise endpoint for rotary endpoint %s",
+                self._endpoint.endpoint_id,
+            )
+        # the count of presses (detents) of the current multi-press sequence
+        # already reported, per endpoint
+        self._reported_counts: dict[int, int] = {}
+        self._last_event_number: int | None = None
+
+    @property
+    @override
+    def _switch_endpoint_ids(self) -> set[int]:
+        """Return the endpoints whose Switch events this entity handles."""
+        return set(self._directions)
+
+    @override
+    @callback
+    def _handle_switch_event(self, data: MatterNodeEvent) -> None:
+        """Handle a Switch cluster event."""
+        # events can be delivered again after a resubscription,
+        # and replaying them would report rotation that didn't happen;
+        # event numbers increase for the life of a node, also across restarts
+        if (
+            self._last_event_number is not None
+            and data.event_number <= self._last_event_number
+        ):
+            return
+        self._last_event_number = data.event_number
+
+        endpoint_id = data.endpoint_id
+        event_data = data.data or {}
+        match data.event_id:
+            case clusters.Switch.Events.MultiPressOngoing.event_id:
+                count = event_data.get("currentNumberOfPressesCounted")
+                sequence_complete = False
+            case clusters.Switch.Events.MultiPressComplete.event_id:
+                count = event_data.get("totalNumberOfPressesCounted")
+                sequence_complete = True
+            case _:
+                # InitialPress and ShortRelease carry no rotation amount
+                return
+        reported = self._reported_counts.get(endpoint_id, 0)
+        if isinstance(count, int) and (
+            count < reported or (not sequence_complete and count == reported)
+        ):
+            # the count of a sequence only increases with each MultiPressOngoing,
+            # so a lower (or, for MultiPressOngoing, equal) count means
+            # a new sequence started and the previous completion was missed
+            reported = 0
+        if sequence_complete:
+            self._reported_counts.pop(endpoint_id, None)
+        elif isinstance(count, int):
+            self._reported_counts[endpoint_id] = count
+        if not isinstance(count, int) or (steps := count - reported) <= 0:
+            return
+
+        self._trigger_event(
+            EVENT_TYPE_ROTATION,
+            {ATTR_DIRECTION: self._directions[endpoint_id], ATTR_STEPS: steps},
+        )
+        self.async_write_ha_state()
+
+
+class MatterEventEntity(MatterEventEntityBase):
+    """Legacy Matter Event entity.
+
+    Replaced by MatterButtonEventEntity, and by MatterRotaryEventEntity on
+    rotary endpoints. Deprecated and disabled by default in HA 2026.12,
+    remove in 2027.6.
     """
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Initialize the entity."""
         super().__init__(*args, **kwargs)
-        if ROTARY_SWITCH_TAG.on_endpoint(self._endpoint):
-            self._attr_translation_key = "button"
-            self._attr_entity_registry_enabled_default = True
         # fill the event types based on the features the switch supports
         event_types: list[str] = []
         feature_map = int(
@@ -296,11 +427,26 @@ DISCOVERY_SCHEMAS = [
     MatterDiscoverySchema(
         platform=Platform.EVENT,
         entity_description=MatterEventEntityDescription(
+            key="GenericSwitchRotary",
+            translation_key="rotary",
+        ),
+        entity_class=MatterRotaryEventEntity,
+        required_attributes=(
+            clusters.Switch.Attributes.CurrentPosition,
+            clusters.Switch.Attributes.FeatureMap,
+        ),
+        device_type=(device_types.GenericSwitch,),
+        semantic_tags=(ROTARY_SWITCH_TAG, SWITCH_UP_TAG),
+        featuremap_contains=SwitchFeature.kMomentarySwitchMultiPress,
+        allow_multi=True,  # also used for the legacy event and sensor entity
+    ),
+    MatterDiscoverySchema(
+        platform=Platform.EVENT,
+        entity_description=MatterEventEntityDescription(
             key="GenericSwitch",
             device_class=EventDeviceClass.BUTTON,
             translation_key="button_deprecated",
-            # Deprecated and disabled by default in HA 2026.12, remove in 2027.6,
-            # except on rotary endpoints (see MatterEventEntity)
+            # Deprecated and disabled by default in HA 2026.12, remove in 2027.6
             entity_registry_enabled_default=False,
         ),
         entity_class=MatterEventEntity,

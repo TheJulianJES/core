@@ -6,6 +6,7 @@ from unittest.mock import MagicMock
 from matter_server.client.models.node import MatterNode
 from matter_server.common.models import EventType, MatterNodeEvent
 import pytest
+from pytest_homeassistant.common import async_capture_events
 from syrupy.assertion import SnapshotAssertion
 
 from homeassistant.components.event import (
@@ -13,7 +14,7 @@ from homeassistant.components.event import (
     EventEntityCapabilityAttribute,
     EventEntityStateAttribute,
 )
-from homeassistant.const import Platform
+from homeassistant.const import EVENT_STATE_CHANGED, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 
@@ -32,6 +33,7 @@ async def trigger_switch_event(
     data: dict[str, Any] | None = None,
     endpoint_id: int = 1,
     cluster_id: int = 59,
+    event_number: int = 0,
 ) -> None:
     """Trigger a Switch cluster event on the given node."""
     await trigger_subscription_callback(
@@ -43,7 +45,7 @@ async def trigger_switch_event(
             endpoint_id=endpoint_id,
             cluster_id=cluster_id,
             event_id=event_id,
-            event_number=0,
+            event_number=event_number,
             priority=1,
             timestamp=0,
             timestamp_type=0,
@@ -354,13 +356,13 @@ async def test_action_switch_node(
 
 
 @pytest.mark.parametrize("node_fixture", ["ikea_scroll_wheel"])
-async def test_scroll_wheel_rotary_endpoints(
+async def test_scroll_wheel_entities(
     hass: HomeAssistant,
     entity_registry: er.EntityRegistry,
     matter_client: MagicMock,
     matter_node: MatterNode,
 ) -> None:
-    """Test the rotary endpoints of a scroll wheel keep only the legacy entity."""
+    """Test the event entities of a scroll wheel's rotary and button endpoints."""
     entries = {
         entry.unique_id.split("-MatterNodeDevice-", 1)[1]: entry
         for entry in er.async_entries_for_config_entry(
@@ -369,32 +371,27 @@ async def test_scroll_wheel_rotary_endpoints(
         )
         if entry.domain == "event"
     }
-    # the rotary endpoints (Switches.Custom "rotary" tag) have no standard button
-    # entity, and their legacy entity stays enabled and is not renamed
+    # each layer gets a rotary entity on its clockwise (Switches.Up) endpoint,
+    # which also covers the counter-clockwise (Switches.Down) endpoint
+    for up_endpoint_id, down_endpoint_id in ((1, 2), (4, 5), (7, 8)):
+        rotary = entries[f"{up_endpoint_id}-GenericSwitchRotary-59-1"]
+        assert rotary.disabled_by is None
+        assert rotary.original_device_class is None
+        assert f"{down_endpoint_id}-GenericSwitchRotary-59-1" not in entries
+    # the rotary endpoints get no standard button entity,
+    # and their legacy entity is deprecated
     for endpoint_id in (1, 2, 4, 5, 7, 8):
         assert f"{endpoint_id}-GenericSwitchButton-59-1" not in entries
         legacy = entries[f"{endpoint_id}-GenericSwitch-59-1"]
-        assert legacy.disabled_by is None
-        assert legacy.translation_key == "button"
+        assert legacy.disabled_by is er.RegistryEntryDisabler.INTEGRATION
+        assert legacy.translation_key == "button_deprecated"
     # the push button endpoints get the standard button entity
-    # and the deprecated legacy entity
+    # and the deprecated legacy entity, but no rotary entity
     for endpoint_id in (3, 6, 9):
         assert entries[f"{endpoint_id}-GenericSwitchButton-59-1"].disabled_by is None
         legacy = entries[f"{endpoint_id}-GenericSwitch-59-1"]
         assert legacy.disabled_by is er.RegistryEntryDisabler.INTEGRATION
-        assert legacy.translation_key == "button_deprecated"
-
-    # the legacy entity on a rotary endpoint works as before
-    entity_id = entries["1-GenericSwitch-59-1"].entity_id
-    state = hass.states.get(entity_id)
-    assert state.attributes[EventEntityCapabilityAttribute.EVENT_TYPES] == [
-        f"multi_press_{presses}" for presses in range(1, 9)
-    ]
-    await trigger_switch_event(
-        hass, matter_client, matter_node, 6, {"totalNumberOfPressesCounted": 5}
-    )
-    state = hass.states.get(entity_id)
-    assert state.attributes[EventEntityStateAttribute.EVENT_TYPE] == "multi_press_5"
+        assert f"{endpoint_id}-GenericSwitchRotary-59-1" not in entries
 
     # the push button endpoint maps multi-presses to the standard types
     entity_id = entries["3-GenericSwitchButton-59-1"].entity_id
@@ -409,3 +406,169 @@ async def test_scroll_wheel_rotary_endpoints(
     state = hass.states.get(entity_id)
     assert state.attributes[EventEntityStateAttribute.EVENT_TYPE] == "multi_press"
     assert state.attributes[ATTR_PRESS_COUNT] == 3
+
+
+@pytest.mark.parametrize("node_fixture", ["ikea_scroll_wheel"])
+async def test_scroll_wheel_rotation(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+) -> None:
+    """Test the rotary entity reports the steps turned since the last report."""
+    entity_id = "event.bilresa_scroll_wheel_rotary_1"
+    state = hass.states.get(entity_id)
+    assert state
+    assert state.state == "unknown"
+    assert state.name == "BILRESA scroll wheel Rotary (1)"
+    assert state.attributes[EventEntityCapabilityAttribute.EVENT_TYPES] == ["rotation"]
+    other_layer_entity_id = "event.bilresa_scroll_wheel_rotary_4"
+    state_changes = async_capture_events(hass, EVENT_STATE_CHANGED)
+    event_number = 100
+
+    async def send(
+        endpoint_id: int,
+        event_id: int,
+        data: dict[str, Any] | None = None,
+        *,
+        replay: bool = False,
+    ) -> None:
+        nonlocal event_number
+        if not replay:
+            event_number += 1
+        await trigger_switch_event(
+            hass,
+            matter_client,
+            matter_node,
+            event_id,
+            data,
+            endpoint_id=endpoint_id,
+            event_number=event_number,
+        )
+
+    def rotations(entity: str = entity_id) -> list[tuple[str, int]]:
+        """Return the rotations of an entity reported since the last call."""
+        result = []
+        for event in [e for e in state_changes if e.data["entity_id"] == entity]:
+            state_changes.remove(event)
+            new_state = event.data["new_state"]
+            assert (
+                new_state.attributes[EventEntityStateAttribute.EVENT_TYPE] == "rotation"
+            )
+            result.append(
+                (new_state.attributes["direction"], new_state.attributes["steps"])
+            )
+        return result
+
+    # a one-detent turn: InitialPress and ShortRelease carry no amount,
+    # the detent is reported by MultiPressComplete
+    await send(1, 1)
+    await send(1, 3)
+    assert rotations() == []
+    await send(1, 6, {"totalNumberOfPressesCounted": 1})
+    assert rotations() == [("clockwise", 1)]
+
+    # a longer turn: each report carries the running count of the sequence,
+    # the entity reports the steps since the previous report of that endpoint,
+    # and the completion after the wheel stopped adds no steps
+    await send(1, 1)
+    await send(1, 5, {"currentNumberOfPressesCounted": 3})
+    await send(2, 5, {"currentNumberOfPressesCounted": 2})
+    await send(1, 5, {"currentNumberOfPressesCounted": 7})
+    await send(2, 5, {"currentNumberOfPressesCounted": 5})
+    await send(1, 6, {"totalNumberOfPressesCounted": 7})
+    await send(2, 6, {"totalNumberOfPressesCounted": 6})
+    assert rotations() == [
+        ("clockwise", 3),
+        ("counter_clockwise", 2),
+        ("clockwise", 4),
+        ("counter_clockwise", 3),
+        ("counter_clockwise", 1),
+    ]
+
+    # the device starts a new sequence once MultiPressMax is reached
+    # while the wheel keeps turning
+    await send(2, 5, {"currentNumberOfPressesCounted": 16})
+    await send(2, 6, {"totalNumberOfPressesCounted": 18})
+    await send(2, 5, {"currentNumberOfPressesCounted": 3})
+    await send(2, 6, {"totalNumberOfPressesCounted": 4})
+    assert rotations() == [
+        ("counter_clockwise", 16),
+        ("counter_clockwise", 2),
+        ("counter_clockwise", 3),
+        ("counter_clockwise", 1),
+    ]
+
+    # a new sequence after a missed completion is reported in full
+    await send(1, 5, {"currentNumberOfPressesCounted": 9})
+    await send(1, 5, {"currentNumberOfPressesCounted": 2})
+    await send(1, 6, {"totalNumberOfPressesCounted": 4})
+    assert rotations() == [("clockwise", 9), ("clockwise", 2), ("clockwise", 2)]
+    await send(1, 5, {"currentNumberOfPressesCounted": 2})
+    await send(1, 5, {"currentNumberOfPressesCounted": 2})
+    await send(1, 6, {"totalNumberOfPressesCounted": 2})
+    assert rotations() == [("clockwise", 2), ("clockwise", 2)]
+
+    # an event replayed after a resubscription (same event number) is ignored,
+    # as is an aborted sequence or one without a count
+    await send(1, 5, {"currentNumberOfPressesCounted": 5})
+    await send(1, 6, {"totalNumberOfPressesCounted": 5})
+    await send(1, 6, {"totalNumberOfPressesCounted": 5}, replay=True)
+    await send(1, 6, {"totalNumberOfPressesCounted": 0})
+    await send(1, 6)
+    await send(1, 5, {"currentNumberOfPressesCounted": 2})
+    assert rotations() == [("clockwise", 5), ("clockwise", 2)]
+
+    # events of another layer's endpoints are handled by that layer's entity
+    await send(4, 6, {"totalNumberOfPressesCounted": 5})
+    await send(5, 6, {"totalNumberOfPressesCounted": 2})
+    assert rotations() == []
+    assert rotations(other_layer_entity_id) == [
+        ("clockwise", 5),
+        ("counter_clockwise", 2),
+    ]
+    assert not state_changes
+
+
+@pytest.mark.parametrize("node_fixture", ["ikea_scroll_wheel"])
+@pytest.mark.parametrize(
+    "attributes",
+    [
+        {
+            # endpoint 4 claims the layer of endpoints 1 and 2 as well
+            "4/29/4": [
+                {"0": None, "1": 8, "2": 6, "3": "1"},
+                {"0": None, "1": 67, "2": 3},
+                {"0": None, "1": 67, "2": 8, "3": "rotary"},
+            ]
+        }
+    ],
+)
+async def test_scroll_wheel_ambiguous_layer(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+) -> None:
+    """Test a counter-clockwise endpoint is not paired if the layer is ambiguous."""
+    state_changes = async_capture_events(hass, EVENT_STATE_CHANGED)
+    await trigger_switch_event(
+        hass,
+        matter_client,
+        matter_node,
+        6,
+        {"totalNumberOfPressesCounted": 2},
+        endpoint_id=2,
+        event_number=1,
+    )
+    assert not state_changes
+    await trigger_switch_event(
+        hass,
+        matter_client,
+        matter_node,
+        6,
+        {"totalNumberOfPressesCounted": 2},
+        endpoint_id=1,
+        event_number=2,
+    )
+    assert [event.data["entity_id"] for event in state_changes] == [
+        "event.bilresa_scroll_wheel_rotary_1"
+    ]
