@@ -177,10 +177,11 @@ class MatterButtonEventEntity(MatterEventEntityBase):
                     "currentNumberOfPressesCounted", 2
                 )
             case clusters.Switch.Events.MultiPressComplete.event_id:
-                presses = event_data.get("totalNumberOfPressesCounted", 1)
+                presses = event_data.get("totalNumberOfPressesCounted")
                 if not isinstance(presses, int) or presses < 1:
                     # a count of 0 means the multi-press sequence was aborted,
-                    # e.g. because the number of presses exceeded MultiPressMax
+                    # e.g. because the number of presses exceeded MultiPressMax;
+                    # an event without a count can't be classified
                     return
                 if presses == 1:
                     event_type = ButtonEventType.SINGLE_PRESS
@@ -202,7 +203,7 @@ class MatterButtonEventEntity(MatterEventEntityBase):
 class MatterEventEntity(MatterEventEntityBase):
     """Legacy Matter Event entity, replaced by MatterButtonEventEntity.
 
-    Deprecated and disabled by default in HA 2026.8, remove in 2027.2.
+    Deprecated and disabled by default in HA 2027.1, remove in 2027.7.
     Rotary endpoints don't get the replacement, so it stays enabled
     there until a dedicated rotary event entity replaces it.
     """
@@ -304,7 +305,7 @@ DISCOVERY_SCHEMAS = [
             key="GenericSwitch",
             device_class=EventDeviceClass.BUTTON,
             translation_key="button_deprecated",
-            # Deprecated and disabled by default in HA 2026.8, remove in 2027.2,
+            # Deprecated and disabled by default in HA 2027.1, remove in 2027.7,
             # except on rotary endpoints (see MatterEventEntity)
             entity_registry_enabled_default=False,
         ),
