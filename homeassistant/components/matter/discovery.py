@@ -86,13 +86,15 @@ def _matches_cluster_revision(
     return True
 
 
-def _has_absent_semantic_tag(
+def _matches_semantic_tags(
     endpoint: MatterEndpoint, schema: MatterDiscoverySchema
 ) -> bool:
-    """Return True if the endpoint has a semantic tag the schema rules out."""
-    if schema.absent_semantic_tags is None:
+    """Return whether the endpoint's semantic tags match the schema."""
+    if schema.semantic_tags is not None and not all(
+        semantic_tag.on_endpoint(endpoint) for semantic_tag in schema.semantic_tags
+    ):
         return False
-    return any(
+    return schema.absent_semantic_tags is None or not any(
         semantic_tag.on_endpoint(endpoint)
         for semantic_tag in schema.absent_semantic_tags
     )
@@ -191,10 +193,10 @@ def async_discover_entities(
             continue
 
         # check for required cluster revision range
-        # and for semantic tags that may not be present on the endpoint
+        # and for the semantic tags of the endpoint
         if not _matches_cluster_revision(
             endpoint, primary_attribute, schema
-        ) or _has_absent_semantic_tag(endpoint, schema):
+        ) or not _matches_semantic_tags(endpoint, schema):
             continue
 
         # BEGIN checks on actual attribute values
