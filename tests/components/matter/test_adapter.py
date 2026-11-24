@@ -1,12 +1,15 @@
 """Test the adapter."""
 
+import asyncio
 from unittest.mock import MagicMock, patch
 
 from matter_server.client.models.node import MatterNode
+from matter_server.common.errors import NodeNotExists
 from matter_server.common.models import EventType
 import pytest
 from pytest_homeassistant.common import MockConfigEntry
 
+from homeassistant.components.matter.adapter import MatterAdapter
 from homeassistant.components.matter.const import DOMAIN, ID_TYPE_DEVICE_ID
 from homeassistant.components.matter.helpers import get_child_device_id, get_device_id
 from homeassistant.components.matter.semantic_tags import (
@@ -21,6 +24,7 @@ from homeassistant.helpers import device_registry as dr, entity_registry as er
 from .common import (
     EVE_ENERGY_LIGHT_PART_ATTRIBUTES,
     TAPO_STRIP_NUMBER_TAG_ATTRIBUTES,
+    _setup_integration_with_nodes,
     create_node_from_fixture,
     load_and_parse_node_fixture,
     set_node_attribute,
@@ -315,8 +319,8 @@ async def test_endpoint_child_devices_pruned_when_unnamed(
 ) -> None:
     """Test a group that can no longer be named stops splitting on node update.
 
-    The config entry is reloaded, so the moved entities get the suffixed names
-    of endpoints that don't split.
+    The node's entities are created again, so the moved entities get the
+    suffixed names of endpoints that don't split.
     """
     entry_id = hass.config_entries.async_entries(DOMAIN)[0].entry_id
     parent = device_registry.async_get_device_by_identifier(
@@ -353,10 +357,10 @@ async def test_endpoint_child_devices_pruned_with_new_entity(
     entity_registry: er.EntityRegistry,
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    """Test a node update that stops a split and adds an entity reloads cleanly.
+    """Test a node update that stops a split and adds an entity re-creates cleanly.
 
-    The new entity is only created by the reload, not also by the node setup
-    that schedules it, so its unique ID isn't added twice.
+    The new entity is only created with the node's other entities, not also by
+    the node setup that schedules that, so its unique ID isn't added twice.
     """
     assert entity_registry.async_get("sensor.eve_energy_20ecn4101_voltage_top") is None
 
@@ -381,7 +385,7 @@ async def test_endpoint_child_devices_pruned_on_reload(
     device_registry: dr.DeviceRegistry,
     entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test stale child devices are pruned on setup without another reload."""
+    """Test stale child devices are pruned on setup without re-creating entities."""
     entry = hass.config_entries.async_entries(DOMAIN)[0]
     entry_id = entry.entry_id
     parent = device_registry.async_get_device_by_identifier(
@@ -402,11 +406,11 @@ async def test_endpoint_child_devices_pruned_on_reload(
 
     # Drop the orientation label of the bottom socket, so it can't be named.
     set_node_attribute(matter_node, 2, 64, 0, [{"0": "id", "1": "2"}])
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    with patch.object(MatterAdapter, "_schedule_recreate") as mock_recreate:
         assert await hass.config_entries.async_reload(entry_id)
         await hass.async_block_till_done()
 
-    mock_reload.assert_not_called()
+    mock_recreate.assert_not_called()
     assert not dr.async_entries_for_parent_device(device_registry, parent.id)
     orphan_entry = entity_registry.async_get(orphan.entity_id)
     assert orphan_entry is not None
@@ -472,7 +476,7 @@ async def test_endpoint_child_devices_collapsed_on_reload(
     device_registry: dr.DeviceRegistry,
     entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test a child device that collapsed while unloaded is pruned without a reload.
+    """Test a child that collapsed while unloaded is pruned without re-creating.
 
     The entities are created after the prune, so they already get the names of
     the node device.
@@ -485,11 +489,11 @@ async def test_endpoint_child_devices_collapsed_on_reload(
     assert await hass.config_entries.async_unload(entry_id)
     matter_node.endpoints.pop(2)
 
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    with patch.object(MatterAdapter, "_schedule_recreate") as mock_recreate:
         assert await hass.config_entries.async_setup(entry_id)
         await hass.async_block_till_done()
 
-    mock_reload.assert_not_called()
+    mock_recreate.assert_not_called()
     assert not dr.async_entries_for_parent_device(device_registry, parent.id)
     state = hass.states.get("select.eve_energy_20ecn4101_top_power_on_behavior")
     assert state is not None
@@ -498,16 +502,16 @@ async def test_endpoint_child_devices_collapsed_on_reload(
 
 @pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
 @pytest.mark.parametrize("attributes", [{"1/319486977/319422472": None}])
-async def test_collapsed_with_new_entity_reloads_cleanly(
+async def test_collapsed_with_new_entity_recreated_cleanly(
     hass: HomeAssistant,
     matter_client: MagicMock,
     matter_node: MatterNode,
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    """Test a node update that collapses a child and adds an entity reloads cleanly.
+    """Test a node update collapsing a child and adding an entity re-creates cleanly.
 
-    The new entity is only created by the reload, not also by the node setup
-    that schedules it, so its unique ID isn't added twice.
+    The new entity is only created with the node's other entities, not also by
+    the node setup that schedules that, so its unique ID isn't added twice.
     """
     remove_endpoint(matter_client, matter_node, 2)
     set_node_attribute(matter_node, 1, 319486977, 319422472, 123.0)
@@ -521,14 +525,14 @@ async def test_collapsed_with_new_entity_reloads_cleanly(
 
 
 @pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
-async def test_collapsed_disabled_entities_dont_reload(
+async def test_collapsed_disabled_entities_dont_recreate(
     hass: HomeAssistant,
     matter_client: MagicMock,
     matter_node: MatterNode,
     device_registry: dr.DeviceRegistry,
     entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test moving only disabled entities to the node device doesn't reload."""
+    """Test moving only disabled entities to the node device re-creates nothing."""
     entry_id = hass.config_entries.async_entries(DOMAIN)[0].entry_id
     parent = device_registry.async_get_device_by_identifier(
         identifier_for(matter_client, matter_node, 0), entry_id
@@ -540,12 +544,12 @@ async def test_collapsed_disabled_entities_dont_reload(
                 entity_entry.entity_id, disabled_by=er.RegistryEntryDisabler.USER
             )
 
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    with patch.object(MatterAdapter, "_schedule_recreate") as mock_recreate:
         matter_node.endpoints.pop(2)
         fire_node_updated_event(matter_client, matter_node)
         await hass.async_block_till_done()
 
-    mock_reload.assert_not_called()
+    mock_recreate.assert_not_called()
     assert not dr.async_entries_for_parent_device(device_registry, parent.id)
 
 
@@ -582,14 +586,14 @@ async def test_pruned_collapsed_child_preserves_disabled_entities(
 
 
 @pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
-async def test_pruned_disabled_entities_dont_reload(
+async def test_pruned_disabled_entities_dont_recreate(
     hass: HomeAssistant,
     matter_client: MagicMock,
     matter_node: MatterNode,
     device_registry: dr.DeviceRegistry,
     entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test moving only disabled entities to the node device doesn't reload."""
+    """Test moving only disabled entities to the node device re-creates nothing."""
     entry_id = hass.config_entries.async_entries(DOMAIN)[0].entry_id
     parent = device_registry.async_get_device_by_identifier(
         identifier_for(matter_client, matter_node, 0), entry_id
@@ -603,11 +607,11 @@ async def test_pruned_disabled_entities_dont_reload(
 
     # Drop the orientation label of the bottom socket, so it can't be named.
     set_node_attribute(matter_node, 2, 64, 0, [{"0": "id", "1": "2"}])
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    with patch.object(MatterAdapter, "_schedule_recreate") as mock_recreate:
         fire_node_updated_event(matter_client, matter_node)
         await hass.async_block_till_done()
 
-    mock_reload.assert_not_called()
+    mock_recreate.assert_not_called()
     assert not dr.async_entries_for_parent_device(device_registry, parent.id)
 
 
@@ -837,41 +841,75 @@ async def test_endpoint_child_device_readded_after_node_update(
         ),
     ],
 )
-async def test_endpoint_added_without_placement_change_does_not_reload(
+async def test_endpoint_added_without_placement_change_does_not_recreate(
     hass: HomeAssistant,
     matter_client: MagicMock,
     matter_node: MatterNode,
     endpoint_id: int,
 ) -> None:
-    """Test adding an endpoint doesn't reload when all entities are in place."""
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    """Test adding an endpoint re-creates nothing when all entities are in place."""
+    with patch.object(MatterAdapter, "_schedule_recreate") as mock_recreate:
         fire_endpoint_event(
             matter_client, EventType.ENDPOINT_ADDED, matter_node, endpoint_id
         )
         await hass.async_block_till_done()
 
-    mock_reload.assert_not_called()
+    mock_recreate.assert_not_called()
 
 
 @pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
-async def test_endpoint_added_with_placement_change_reloads_once(
+async def test_endpoint_added_with_placement_change_recreates_node_entities(
     hass: HomeAssistant,
     matter_client: MagicMock,
     matter_node: MatterNode,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test re-adding a socket after its sibling collapsed reloads the entry once."""
+    """Test re-adding a socket after its sibling collapsed re-creates the entities.
+
+    Only the node's entities are created again, without reloading the entry.
+    """
     fire_endpoint_event(matter_client, EventType.ENDPOINT_REMOVED, matter_node, 1)
     endpoint = matter_node.endpoints.pop(1)
     fire_node_updated_event(matter_client, matter_node)
     await hass.async_block_till_done()
     matter_node.endpoints[1] = endpoint
 
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    with (
+        patch.object(hass.config_entries, "async_schedule_reload") as mock_reload,
+        patch.object(
+            MatterAdapter,
+            "_async_recreate_node_entities",
+            autospec=True,
+            side_effect=MatterAdapter._async_recreate_node_entities,
+        ) as mock_recreate,
+    ):
         fire_node_updated_event(matter_client, matter_node)
         fire_endpoint_event(matter_client, EventType.ENDPOINT_ADDED, matter_node, 1)
         await hass.async_block_till_done()
 
-    mock_reload.assert_called_once()
+    mock_reload.assert_not_called()
+    mock_recreate.assert_called_once()
+    entry_id = hass.config_entries.async_entries(DOMAIN)[0].entry_id
+    parent = device_registry.async_get_device_by_identifier(
+        identifier_for(matter_client, matter_node, 0), entry_id
+    )
+    assert parent is not None
+    children = {
+        child.name: child.id
+        for child in dr.async_entries_for_parent_device(device_registry, parent.id)
+    }
+    assert set(children) == {"Top", "Bottom"}
+    for entity_id, child_name in (
+        ("switch.eve_energy_20ecn4101_bottom", "Bottom"),
+        ("switch.eve_energy_20ecn4101_top", "Top"),
+    ):
+        entry = entity_registry.async_get(entity_id)
+        assert entry is not None
+        assert entry.device_id == children[child_name]
+        state = hass.states.get(entity_id)
+        assert state is not None
+        assert state.name == child_name
 
 
 @pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
@@ -1219,8 +1257,8 @@ async def test_power_topology_entities_renamed_when_outlet_removed(
 ) -> None:
     """Test measurement entities moved off a removed outlet's child are renamed.
 
-    They were created on the child device without a name suffix, so the entry is
-    reloaded to recreate them with the suffixes of the node device.
+    They were created on the child device without a name suffix, so the node's
+    entities are created again with the suffixes of the node device.
     """
     for endpoint_id in (1, 2):
         remove_endpoint(matter_client, matter_node, endpoint_id)
@@ -1283,13 +1321,13 @@ async def test_power_topology_outlet_readded_before_node_update(
 
 @pytest.mark.parametrize("node_fixture", ["tapo_smart_wi_fi_power_strip"])
 @pytest.mark.parametrize("attributes", [TAPO_STRIP_NUMBER_TAG_ATTRIBUTES])
-async def test_power_topology_disabled_entities_moved_dont_reload(
+async def test_power_topology_disabled_entities_moved_dont_recreate(
     hass: HomeAssistant,
     matter_client: MagicMock,
     matter_node: MatterNode,
     entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test moving only disabled measurement entities off an outlet doesn't reload."""
+    """Test moving only disabled measurement entities off an outlet re-creates nothing."""
     unique_id_prefix = (
         f"{get_device_id(matter_client.server_info, matter_node.endpoints[7])}-7-"
     )
@@ -1300,12 +1338,12 @@ async def test_power_topology_disabled_entities_moved_dont_reload(
                 entity_entry.entity_id, disabled_by=er.RegistryEntryDisabler.USER
             )
 
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    with patch.object(MatterAdapter, "_schedule_recreate") as mock_recreate:
         remove_endpoint(matter_client, matter_node, 1)
         fire_node_updated_event(matter_client, matter_node)
         await hass.async_block_till_done()
 
-    mock_reload.assert_not_called()
+    mock_recreate.assert_not_called()
     power_entry = entity_registry.async_get(TAPO_STRIP_POWER_1)
     assert power_entry is not None
     assert power_entry.disabled_by is er.RegistryEntryDisabler.USER
@@ -1319,14 +1357,14 @@ async def test_power_topology_outlet_removed_with_measurement_endpoint(
     matter_node: MatterNode,
     entity_registry: er.EntityRegistry,
 ) -> None:
-    """Test removing an outlet with its measurement endpoint doesn't reload."""
-    with patch.object(hass.config_entries, "async_schedule_reload") as mock_reload:
+    """Test removing an outlet with its measurement endpoint re-creates nothing."""
+    with patch.object(MatterAdapter, "_schedule_recreate") as mock_recreate:
         for endpoint_id in (1, 7):
             remove_endpoint(matter_client, matter_node, endpoint_id)
         fire_node_updated_event(matter_client, matter_node)
         await hass.async_block_till_done()
 
-    mock_reload.assert_not_called()
+    mock_recreate.assert_not_called()
     assert entity_registry.async_get(TAPO_STRIP_SWITCH_1) is None
     assert entity_registry.async_get(TAPO_STRIP_POWER_1) is None
 
@@ -1986,3 +2024,169 @@ async def test_device_registry_bridged_device_split_off_with_changed_bridge_seri
     assert bridged_entry.id != bridge_entry.id
     assert bridged_entry.via_device_id == bridge_entry.id
     assert (DOMAIN, "serial_glg5mxh") in bridged_entry.identifiers
+
+
+async def test_recreating_node_entities_keeps_other_nodes_and_customizations(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    entity_registry: er.EntityRegistry,
+) -> None:
+    """Test re-creating a node's entities leaves other nodes and user names alone."""
+    eve_node = create_node_from_fixture("eve_energy_20ecn4101")
+    light_node = create_node_from_fixture("mock_onoff_light")
+    await _setup_integration_with_nodes(hass, matter_client, [eve_node, light_node])
+    entity_registry.async_update_entity(
+        "switch.eve_energy_20ecn4101_top", name="Kettle"
+    )
+    await hass.async_block_till_done()
+    light_state = hass.states.get("light.mock_onoff_light")
+    assert light_state is not None
+
+    # Drop the orientation label of the bottom socket, so the sockets collapse.
+    set_node_attribute(eve_node, 2, 64, 0, [{"0": "id", "1": "2"}])
+    with (
+        patch.object(hass.config_entries, "async_schedule_reload") as mock_reload,
+        patch.object(
+            MatterAdapter,
+            "_async_recreate_node_entities",
+            autospec=True,
+            side_effect=MatterAdapter._async_recreate_node_entities,
+        ) as mock_recreate,
+    ):
+        fire_node_updated_event(matter_client, eve_node)
+        await hass.async_block_till_done()
+
+    mock_reload.assert_not_called()
+    mock_recreate.assert_called_once()
+    # The light's state wasn't written again, so its entity wasn't touched.
+    assert hass.states.get("light.mock_onoff_light") is light_state
+    # The user's name is kept, now behind the node device name.
+    entry = entity_registry.async_get("switch.eve_energy_20ecn4101_top")
+    assert entry is not None
+    assert entry.name == "Kettle"
+    state = hass.states.get("switch.eve_energy_20ecn4101_top")
+    assert state is not None
+    assert state.name == "Eve Energy 20ECN4101 Kettle"
+    state = hass.states.get("switch.eve_energy_20ecn4101_bottom")
+    assert state is not None
+    assert state.name == "Eve Energy 20ECN4101 Switch (2)"
+
+
+@pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
+async def test_recreating_node_entities_after_node_removed(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    entity_registry: er.EntityRegistry,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test a node removed while its entities wait to be created again."""
+    # Drop the orientation label of the bottom socket, so the sockets collapse.
+    set_node_attribute(matter_node, 2, 64, 0, [{"0": "id", "1": "2"}])
+    fire_node_updated_event(matter_client, matter_node)
+    fire_node_removed_event(matter_client, matter_node)
+    matter_client.get_node.side_effect = NodeNotExists(matter_node.node_id)
+    await hass.async_block_till_done()
+
+    assert entity_registry.async_get("switch.eve_energy_20ecn4101_top") is None
+    assert hass.states.get("switch.eve_energy_20ecn4101_top") is None
+    assert "Error" not in caplog.text
+
+
+@pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
+async def test_recreating_node_entities_while_unloading(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test the entities aren't created again when the entry is unloaded."""
+    entry_id = hass.config_entries.async_entries(DOMAIN)[0].entry_id
+    # Drop the orientation label of the bottom socket, so the sockets collapse.
+    set_node_attribute(matter_node, 2, 64, 0, [{"0": "id", "1": "2"}])
+    fire_node_updated_event(matter_client, matter_node)
+    assert await hass.config_entries.async_unload(entry_id)
+    await hass.async_block_till_done()
+
+    state = hass.states.get("switch.eve_energy_20ecn4101_top")
+    assert state is not None
+    assert state.state == "unavailable"
+    assert "Error" not in caplog.text
+
+
+@pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
+@pytest.mark.parametrize("attributes", [{"1/319486977/319422472": None}])
+async def test_node_update_while_recreating_node_entities(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test a node update that adds an entity before the entities are re-created.
+
+    The new entity is only created with the other entities of the node, so its
+    unique ID isn't added twice.
+    """
+    # Drop the orientation label of the bottom socket, so the sockets collapse.
+    set_node_attribute(matter_node, 2, 64, 0, [{"0": "id", "1": "2"}])
+    fire_node_updated_event(matter_client, matter_node)
+    # Report the voltage, which adds an entity.
+    set_node_attribute(matter_node, 1, 319486977, 319422472, 123.0)
+    fire_node_updated_event(matter_client, matter_node)
+    # Nothing is created for the node until its live entities are removed.
+    assert not [
+        state
+        for state in hass.states.async_all("sensor")
+        if state.entity_id.startswith("sensor.eve_energy_20ecn4101_voltage")
+    ]
+    await hass.async_block_till_done()
+
+    states = [
+        state
+        for state in hass.states.async_all("sensor")
+        if state.entity_id.startswith("sensor.eve_energy_20ecn4101_voltage")
+    ]
+    assert len(states) == 1
+    assert states[0].state == "123.0"
+    assert "does not generate unique IDs" not in caplog.text
+
+
+@pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
+@pytest.mark.parametrize(
+    ("error", "logged"),
+    [
+        pytest.param(RuntimeError("Boom"), True, id="error"),
+        pytest.param(asyncio.CancelledError(), False, id="cancelled"),
+    ],
+)
+async def test_recreating_node_entities_with_failing_removal(
+    hass: HomeAssistant,
+    matter_client: MagicMock,
+    matter_node: MatterNode,
+    caplog: pytest.LogCaptureFixture,
+    error: BaseException,
+    logged: bool,
+) -> None:
+    """Test an entity failing to be removed is still created again, with the others."""
+    # Drop the orientation label of the bottom socket, so the sockets collapse.
+    set_node_attribute(matter_node, 2, 64, 0, [{"0": "id", "1": "2"}])
+    with patch(
+        "homeassistant.components.matter.switch.MatterSwitch.async_will_remove_from_hass",
+        side_effect=error,
+    ):
+        fire_node_updated_event(matter_client, matter_node)
+        await hass.async_block_till_done()
+
+    assert ("Error removing switch.eve_energy_20ecn4101_top" in caplog.text) is logged
+    assert "does not generate unique IDs" not in caplog.text
+    for entity_id, name in (
+        ("switch.eve_energy_20ecn4101_top", "Eve Energy 20ECN4101 Switch (top)"),
+        (
+            "select.eve_energy_20ecn4101_top_power_on_behavior",
+            "Eve Energy 20ECN4101 Power-on behavior (top)",
+        ),
+    ):
+        state = hass.states.get(entity_id)
+        assert state is not None
+        assert state.state != "unavailable"
+        assert state.name == name

@@ -1,16 +1,22 @@
 """Matter to Home Assistant adapter."""
 
+import asyncio
 from collections.abc import Iterable
 from typing import TYPE_CHECKING, cast
 
 from chip.clusters import Objects as clusters
 from matter_server.client.models.device_types import BridgedNode
+from matter_server.common.errors import NodeNotExists
 from matter_server.common.models import EventType, ServerInfoMessage
 
+from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr, entity_registry as er
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.entity_platform import (
+    AddEntitiesCallback,
+    async_get_platforms,
+)
 from homeassistant.helpers.typing import Undefined
 
 from .const import DOMAIN, ID_TYPE_DEVICE_ID, ID_TYPE_SERIAL, LOGGER
@@ -27,6 +33,7 @@ from .helpers import (
     get_entity_unique_id,
     get_legacy_device_id,
     get_node_device_identifier,
+    get_operational_instance_id,
     get_power_topology_endpoint_id,
 )
 from .util import get_clean_name
@@ -71,7 +78,8 @@ def _get_child_device_endpoint_ids(node: MatterNode, endpoint_id: int) -> set[in
 
 
 # Recorded as the owner of moved entities that still have their child device
-# names. It never equals a current placement, so the next owner check reloads.
+# names. It never equals a current placement, so the next owner check re-creates
+# them.
 _RENAME_PENDING: ChildDevicePlacement = (-1, None)
 
 
@@ -151,7 +159,8 @@ class MatterAdapter:
         # the child's name, as decided when they were created, grouped like
         # discovered_entities.
         self._child_device_owners: dict[tuple[int, int], ChildDevicePlacement] = {}
-        self._reload_scheduled = False
+        # Nodes whose live entities are being removed to be created again.
+        self._recreating_nodes: set[int] = set()
 
     def register_platform_handler(
         self, platform: Platform, add_entities: AddEntitiesCallback
@@ -189,7 +198,7 @@ class MatterAdapter:
             ):
                 self._setup_endpoint(node.endpoints[0])
             self._setup_endpoint(endpoint)
-            self._reload_if_child_device_owners_changed(node)
+            self._recreate_if_child_device_owners_changed(node)
 
         def endpoint_removed_callback(event: EventType, data: dict[str, int]) -> None:
             """Handle endpoint removed event."""
@@ -291,7 +300,7 @@ class MatterAdapter:
             for endpoint_id in sorted(node.endpoints):
                 # Node endpoints are translated into HA devices
                 self._setup_endpoint(node.endpoints[endpoint_id])
-            self._reload_if_child_device_owners_changed(node)
+            self._recreate_if_child_device_owners_changed(node)
         except Exception as err:  # noqa: BLE001
             # We don't want to crash the whole setup when a single node fails to setup
             # for whatever reason, so we catch all exceptions here.
@@ -314,10 +323,10 @@ class MatterAdapter:
         now-orphaned entities.
 
         Entities created on a child device have no name suffix. When live entities
-        are moved back to the node device, the config entry is reloaded so they are
-        recreated with the suffixed names of endpoints that don't split. During the
-        first setup of a node its entities are created after the split changed, so
-        no reload is needed.
+        are moved back to the node device, the node's entities are created again
+        with the suffixed names of endpoints that don't split. During the first
+        setup of a node its entities are created after the split changed, so they
+        don't need to be created again.
         """
         server_info = cast(ServerInfoMessage, self.matter_client.server_info)
         device_registry = dr.async_get(self.hass)
@@ -372,7 +381,7 @@ class MatterAdapter:
                             entity_registry.async_remove(entity_entry.entity_id)
             device_registry.async_remove_device(child_device.id)
         if moved_entities and node_was_set_up:
-            self._schedule_reload()
+            self._schedule_recreate(node)
 
     def _set_moved_to_node_device(
         self, node_id: int, endpoint_ids: Iterable[int]
@@ -399,9 +408,9 @@ class MatterAdapter:
         Entities of other endpoints on it, e.g. of a Power Topology measurement
         endpoint, stay and are moved to the node device. As they were created
         without a name suffix, they are recorded as pending a rename, so the
-        owner check after the node update that follows the removal reloads the
-        config entry to recreate them with the names of the node device, unless
-        their endpoint is removed by then too.
+        owner check after the node update that follows the removal creates the
+        node's entities again with the names of the node device, unless their
+        endpoint is removed by then too.
         """
         server_info = cast(ServerInfoMessage, self.matter_client.server_info)
         device_registry = dr.async_get(self.hass)
@@ -472,8 +481,8 @@ class MatterAdapter:
                 entity_registry.async_remove(entity_entry.entity_id)
         self._forget_endpoint_entities(node.node_id, endpoint_ids)
 
-    def _reload_if_child_device_owners_changed(self, node: MatterNode) -> None:
-        """Reload when created entities belong on another device by now.
+    def _recreate_if_child_device_owners_changed(self, node: MatterNode) -> None:
+        """Create a node's entities again when some belong on another device by now.
 
         E.g. a new endpoint can make an existing sibling split into a child device,
         which its already created entities only pick up when they are recreated.
@@ -487,15 +496,89 @@ class MatterAdapter:
             if key not in self._child_device_owners:
                 continue
             if self._child_device_owners[key] != _get_child_device_placement(endpoint):
-                self._schedule_reload()
+                self._schedule_recreate(node)
                 return
 
-    def _schedule_reload(self) -> None:
-        """Schedule a reload of the config entry, once per adapter."""
-        if self._reload_scheduled:
+    def _schedule_recreate(self, node: MatterNode) -> None:
+        """Schedule creating the entities of a node again, once at a time.
+
+        An entity takes its device and name when it's created, so the live
+        entities of the node are removed and created again by discovery. Their
+        entity registry entries stay, so entity IDs and customizations are kept.
+        """
+        if node.node_id in self._recreating_nodes:
             return
-        self._reload_scheduled = True
-        self.hass.config_entries.async_schedule_reload(self.config_entry.entry_id)
+        self._recreating_nodes.add(node.node_id)
+        # Not started eagerly, so it never runs inside the node setup that
+        # scheduled it.
+        self.config_entry.async_create_task(
+            self.hass,
+            self._async_recreate_node_entities(node.node_id),
+            f"matter recreate entities of node {node.node_id}",
+            eager_start=False,
+        )
+
+    async def _async_recreate_node_entities(self, node_id: int) -> None:
+        """Remove the live entities of a node and set the node up again."""
+        try:
+            await self._async_remove_live_node_entities(node_id)
+        finally:
+            self._recreating_nodes.discard(node_id)
+        # Let discovery create all entities of the node again.
+        self._forget_endpoint_entities(
+            node_id,
+            [
+                endpoint_id
+                for key_node_id, endpoint_id in list(self.discovered_entities)
+                if key_node_id == node_id
+            ],
+        )
+        if self.config_entry.state is not ConfigEntryState.LOADED:
+            return  # The entry is being unloaded.
+        try:
+            node = self.matter_client.get_node(node_id)
+        except NodeNotExists:
+            return  # The node was removed, together with its entities.
+        self._setup_node(node)
+
+    async def _async_remove_live_node_entities(self, node_id: int) -> None:
+        """Remove the live entities of a node, keeping their registry entries."""
+        try:
+            node = self.matter_client.get_node(node_id)
+        except NodeNotExists:
+            return  # The node was removed, together with its entities.
+        server_info = cast(ServerInfoMessage, self.matter_client.server_info)
+        unique_id_prefix = f"{get_operational_instance_id(server_info, node)}-"
+        entity_ids = {
+            entry.entity_id
+            for entry in er.async_entries_for_config_entry(
+                er.async_get(self.hass), self.config_entry.entry_id
+            )
+            if entry.unique_id.startswith(unique_id_prefix)
+        }
+        entities = [
+            entity
+            for platform in async_get_platforms(self.hass, DOMAIN)
+            if platform.config_entry is self.config_entry
+            for entity_id, entity in list(platform.entities.items())
+            if entity_id in entity_ids
+        ]
+        results = await asyncio.gather(
+            *(entity.async_remove() for entity in entities), return_exceptions=True
+        )
+        # One failing entity mustn't keep the others from being created again.
+        for entity, result in zip(entities, results, strict=True):
+            if not isinstance(result, BaseException):
+                continue
+            if isinstance(result, Exception):
+                LOGGER.error(
+                    "Error removing %s to create it again",
+                    entity.entity_id,
+                    exc_info=result,
+                )
+            # The entity already left its platform, but its state would block
+            # creating it again.
+            self.hass.states.async_remove(entity.entity_id)
 
     def _create_device_registry(
         self,
@@ -610,8 +693,9 @@ class MatterAdapter:
 
     def _setup_endpoint(self, endpoint: MatterEndpoint) -> None:
         """Set up a MatterEndpoint as HA Device."""
-        if self._reload_scheduled:
-            # The reload sets up the entities again.
+        if endpoint.node.node_id in self._recreating_nodes:
+            # The entities of the node are created again once the live ones are
+            # removed.
             return
         # pre-create device registry entry
         self._create_device_registry(endpoint)
