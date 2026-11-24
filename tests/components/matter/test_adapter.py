@@ -358,7 +358,7 @@ async def test_endpoint_child_devices_pruned_with_new_entity(
     The new entity is only created by the reload, not also by the node setup
     that schedules it, so its unique ID isn't added twice.
     """
-    assert entity_registry.async_get("sensor.eve_energy_20ecn4101_voltage_top") is None
+    assert entity_registry.async_get("sensor.eve_energy_20ecn4101_voltage") is None
 
     # Drop the orientation label of the bottom socket, so it can't be named, and
     # report the voltage, which adds an entity.
@@ -367,7 +367,7 @@ async def test_endpoint_child_devices_pruned_with_new_entity(
     fire_node_updated_event(matter_client, matter_node)
     await hass.async_block_till_done()
 
-    state = hass.states.get("sensor.eve_energy_20ecn4101_voltage_top")
+    state = hass.states.get("sensor.eve_energy_20ecn4101_voltage")
     assert state is not None
     assert state.state == "123.0"
     assert "does not generate unique IDs" not in caplog.text
@@ -514,7 +514,7 @@ async def test_collapsed_with_new_entity_reloads_cleanly(
     fire_node_updated_event(matter_client, matter_node)
     await hass.async_block_till_done()
 
-    state = hass.states.get("sensor.eve_energy_20ecn4101_voltage_top")
+    state = hass.states.get("sensor.eve_energy_20ecn4101_voltage")
     assert state is not None
     assert state.state == "123.0"
     assert "does not generate unique IDs" not in caplog.text
@@ -695,7 +695,7 @@ async def test_node_device_cluster_entities_removed_with_endpoint(
         identifier_for(matter_client, matter_node, 0), entry_id
     )
     assert parent is not None
-    power_entity_id = "sensor.eve_energy_20ecn4101_power_top"
+    power_entity_id = "sensor.eve_energy_20ecn4101_power"
     power_entry = entity_registry.async_get(power_entity_id)
     assert power_entry is not None
     assert power_entry.device_id == parent.id
@@ -725,7 +725,7 @@ async def test_node_device_cluster_entities_pruned_with_endpoint(
 ) -> None:
     """Test Eve cluster entities go with an endpoint that vanished while unloaded."""
     entry_id = hass.config_entries.async_entries(DOMAIN)[0].entry_id
-    assert entity_registry.async_get("sensor.eve_energy_20ecn4101_power_top")
+    assert entity_registry.async_get("sensor.eve_energy_20ecn4101_power")
     assert await hass.config_entries.async_unload(entry_id)
     matter_node.endpoints.pop(1)
 
@@ -733,51 +733,70 @@ async def test_node_device_cluster_entities_pruned_with_endpoint(
     await hass.async_block_till_done()
 
     for entity_id in (
-        "sensor.eve_energy_20ecn4101_power_top",
-        "switch.eve_energy_20ecn4101_child_lock_top",
+        "sensor.eve_energy_20ecn4101_power",
+        "switch.eve_energy_20ecn4101_child_lock",
         "switch.eve_energy_20ecn4101_top",
     ):
         assert entity_registry.async_get(entity_id) is None
 
 
+# The Eve cluster also on the second outlet, which both split into child devices.
+EVE_CLUSTER_ON_BOTH_OUTLETS_ATTRIBUTES = {
+    **{
+        f"2/319486977/{attribute_id}": value
+        for path, value in load_and_parse_node_fixture("eve_energy_20ecn4101")[
+            "attributes"
+        ].items()
+        if path.startswith("1/319486977/") and (attribute_id := path.rsplit("/", 1)[1])
+    },
+    "2/29/1": [3, 4, 6, 29, 64, 319486977],
+    # Name the outlets, so they split.
+    "1/29/65532": 1,
+    "2/29/65532": 1,
+    "1/29/4": [{"0": None, "1": 7, "2": 1}],
+    "2/29/4": [{"0": None, "1": 7, "2": 2}],
+}
+
+
 @pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])
 @pytest.mark.parametrize(
-    "attributes",
+    ("attributes", "expected"),
     [
-        {
-            **{
-                f"2/319486977/{attribute_id}": value
-                for path, value in load_and_parse_node_fixture("eve_energy_20ecn4101")[
-                    "attributes"
-                ].items()
-                if path.startswith("1/319486977/")
-                and (attribute_id := path.rsplit("/", 1)[1])
+        pytest.param(
+            {
+                **EVE_CLUSTER_ON_BOTH_OUTLETS_ATTRIBUTES,
+                "1/64/0": [{"0": "id", "1": "1"}],
+                "2/64/0": [{"0": "id", "1": "2"}],
             },
-            "2/29/1": [3, 4, 6, 29, 64, 319486977],
-            "1/64/0": [{"0": "id", "1": "1"}],
-            "2/64/0": [{"0": "id", "1": "2"}],
-            # Name the outlets, so they split.
-            "1/29/65532": 1,
-            "2/29/65532": 1,
-            "1/29/4": [{"0": None, "1": 7, "2": 1}],
-            "2/29/4": [{"0": None, "1": 7, "2": 2}],
-        }
+            {"Eve Energy 20ECN4101 Power (1)", "Eve Energy 20ECN4101 Power (2)"},
+            id="endpoint_ids",
+        ),
+        pytest.param(
+            EVE_CLUSTER_ON_BOTH_OUTLETS_ATTRIBUTES,
+            {
+                "Eve Energy 20ECN4101 Power (top)",
+                "Eve Energy 20ECN4101 Power (bottom)",
+            },
+            id="labels",
+        ),
     ],
 )
 async def test_node_device_cluster_entities_on_several_endpoints(
     hass: HomeAssistant,
     matter_node: MatterNode,
+    expected: set[str],
 ) -> None:
-    """Test Eve cluster entities of several split endpoints keep endpoint suffixes."""
+    """Test Eve cluster entities of several endpoints keep telling them apart.
+
+    With the cluster on one endpoint only, its entities take no suffix. On
+    several endpoints, they take the endpoint label, or else the endpoint id.
+    """
     names = {
         state.name
         for state in hass.states.async_all("sensor")
         if state.name.startswith("Eve Energy 20ECN4101 Power")
     }
-    assert names == {
-        "Eve Energy 20ECN4101 Power (1)",
-        "Eve Energy 20ECN4101 Power (2)",
-    }
+    assert names == expected
 
 
 @pytest.mark.parametrize("node_fixture", ["eve_energy_20ecn4101"])

@@ -26,6 +26,7 @@ from homeassistant.helpers.typing import Undefined
 
 from .const import DOMAIN, FEATUREMAP_ATTRIBUTE_ID, ID_TYPE_DEVICE_ID
 from .helpers import (
+    NODE_DEVICE_CLUSTER_IDS,
     MatterConfigEntry,
     get_child_device_identifier,
     get_child_device_names,
@@ -141,9 +142,17 @@ class MatterEntity(Entity):
                 self._attr_name = None
 
         # Matter labels can be used to modify the entity name by appending the
-        # text. Entities on a child device are named by the child.
-        if self._child_device_endpoint is None and (
-            name_modifier := self._get_name_modifier()
+        # text. Entities on a child device are named by the child. The readings
+        # of a vendor cluster covering the whole node aren't about the endpoint
+        # it sits on, so its entities only take the label to tell endpoints
+        # apart.
+        covers_node = (
+            entity_info.primary_attribute.cluster_id in NODE_DEVICE_CLUSTER_IDS
+        )
+        if (
+            self._child_device_endpoint is None
+            and (self._name_postfix or not covers_node)
+            and (name_modifier := self._get_name_modifier())
         ):
             self._name_postfix = name_modifier
 

@@ -43,8 +43,7 @@ CHILD_DEVICE_TYPES: set[type[DeviceType]] = {
 # Vendor clusters whose entities stay on the node device, also on an endpoint that
 # splits into a child device. The Eve Energy dual outlet carries the Eve cluster
 # only on its first outlet's endpoint, while its readings appear to cover the
-# whole device. They keep that outlet's name suffix, so their entity IDs don't
-# change.
+# whole device. So they don't take that outlet's label as a name suffix either.
 NODE_DEVICE_CLUSTER_IDS: set[int] = {EveCluster.id}
 
 

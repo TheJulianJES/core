@@ -604,7 +604,7 @@
     'state': 'on',
   })
 # ---
-# name: test_switches[eve_energy_20ecn4101][switch.eve_energy_20ecn4101_child_lock_top-entry]
+# name: test_switches[eve_energy_20ecn4101][switch.eve_energy_20ecn4101_child_lock-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -618,7 +618,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'switch.eve_energy_20ecn4101_child_lock_top',
+    'entity_id': 'switch.eve_energy_20ecn4101_child_lock',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -626,12 +626,12 @@
     'labels': set({
     }),
     'name': None,
-    'object_id_base': 'Child lock (top)',
+    'object_id_base': 'Child lock',
     'options': dict({
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Child lock (top)',
+    'original_name': 'Child lock',
     'platform': 'matter',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -641,13 +641,13 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_switches[eve_energy_20ecn4101][switch.eve_energy_20ecn4101_child_lock_top-state]
+# name: test_switches[eve_energy_20ecn4101][switch.eve_energy_20ecn4101_child_lock-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Eve Energy 20ECN4101 Child lock (top)',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Eve Energy 20ECN4101 Child lock',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.eve_energy_20ecn4101_child_lock_top',
+    'entity_id': 'switch.eve_energy_20ecn4101_child_lock',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
