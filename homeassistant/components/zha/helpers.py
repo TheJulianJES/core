@@ -507,8 +507,8 @@ class ZHADeviceProxy(EventBase):
         return {
             ATTR_IEEE: ieee,
             ATTR_NWK: info.nwk,
-            ATTR_MANUFACTURER: info.manufacturer,
-            ATTR_MODEL: info.model,
+            ATTR_MANUFACTURER: info.friendly_manufacturer,
+            ATTR_MODEL: info.friendly_model,
             ATTR_NAME: info.name or ieee,
             ATTR_QUIRK_APPLIED: info.quirk_applied,
             ATTR_QUIRK_CLASS: info.quirk_class,
@@ -1114,8 +1114,8 @@ class ZHAGatewayProxy(EventBase):
                 connections={(dr.CONNECTION_ZIGBEE, str(zha_device.ieee))},
                 identifiers={(DOMAIN, str(zha_device.ieee))},
                 name=zha_device.name,
-                manufacturer=zha_device.manufacturer,
-                model=zha_device.model,
+                manufacturer=zha_device.friendly_manufacturer,
+                model=zha_device.friendly_model,
                 sw_version=zha_device.firmware_version,
                 via_device_id=via_device_id,
             )

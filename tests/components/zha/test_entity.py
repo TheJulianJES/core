@@ -3,7 +3,10 @@
 from collections.abc import Callable, Coroutine
 from typing import Any
 
+import pytest
 from pytest_homeassistant.common import MockConfigEntry
+from zha.quirks import DEVICE_REGISTRY
+from zhaquirks.builder import QuirkBuilder
 from zigpy.application import ControllerApplication
 from zigpy.device import ZigbeeDevice
 from zigpy.profiles import zha
@@ -105,6 +108,71 @@ async def test_device_registry_via_device_without_entities(
     )
     assert reg_device is not None
     assert reg_device.via_device_id == coordinator_device.id
+
+
+@pytest.mark.parametrize(
+    "in_clusters",
+    [
+        # The entities' device info updates the registry entry
+        [general.Basic.cluster_id, general.OnOff.cluster_id],
+        # Without entities, only the registry entry ZHA creates names the device
+        [],
+    ],
+)
+async def test_device_registry_uses_quirk_friendly_name(
+    hass: HomeAssistant,
+    setup_zha: Callable[..., Coroutine[None]],
+    zigpy_device_mock: Callable[..., ZigbeeDevice],
+    device_registry: dr.DeviceRegistry,
+    in_clusters: list[int],
+) -> None:
+    """Test a device shows a quirk's friendly name instead of the reported names."""
+    await setup_zha()
+    gateway = get_zha_gateway(hass)
+    gateway_proxy = get_zha_gateway_proxy(hass)
+
+    with DEVICE_REGISTRY.preserve_state():
+        (
+            QuirkBuilder("Fake Manufacturer", "Fake Model")
+            .friendly_name(manufacturer="Friendly Manufacturer", model="Friendly Model")
+            .add_to_registry()
+        )
+        zigpy_device = DEVICE_REGISTRY.resolve(
+            zigpy_device_mock(
+                {
+                    1: {
+                        SIG_EP_INPUT: in_clusters,
+                        SIG_EP_OUTPUT: [],
+                        SIG_EP_TYPE: zha.DeviceType.ON_OFF_SWITCH,
+                        SIG_EP_PROFILE: zha.PROFILE_ID,
+                    }
+                },
+                ieee="01:2d:6f:00:0a:90:69:e8",
+                manufacturer="Fake Manufacturer",
+                model="Fake Model",
+            )
+        )
+        gateway.get_or_create_device(zigpy_device)
+        await gateway.async_device_initialized(zigpy_device)
+        await hass.async_block_till_done(wait_background_tasks=True)
+
+    proxy = gateway_proxy.get_device_proxy(zigpy_device.ieee)
+    assert proxy is not None
+    assert proxy.device.quirk_applied
+    assert bool(proxy.device.platform_entities) is bool(in_clusters)
+
+    # The library reports the device's own names separately
+    assert proxy.device.manufacturer == "Fake Manufacturer"
+    assert proxy.device.model == "Fake Model"
+
+    assert proxy.device_info["manufacturer"] == "Friendly Manufacturer"
+    assert proxy.device_info["model"] == "Friendly Model"
+
+    device = device_registry.async_get(proxy.device_id)
+    assert device is not None
+    assert device.manufacturer == "Friendly Manufacturer"
+    assert device.model == "Friendly Model"
+    assert device.name == "Friendly Manufacturer Friendly Model"
 
 
 async def test_group_entity_name_and_device_info(
