@@ -517,9 +517,6 @@
       "close_button": {
         "name": "Close button"
       },
-      "command_mode_button": {
-        "name": "Command mode button"
-      },
       "config_button": {
         "name": "Config button"
       },
